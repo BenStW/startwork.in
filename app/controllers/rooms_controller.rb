@@ -13,7 +13,9 @@ class RoomsController < ApplicationController
   # GET /rooms/1
   # GET /rooms/1.json
   def show
-    @room = Room.find(params[:id])
+    @room = Room.find(params[:id]) 
+    config_opentok 
+    @tok_token = @opentok.generate_token :session_id => @room.session_id
 
     respond_to do |format|
       format.html # show.html.erb
@@ -36,11 +38,16 @@ class RoomsController < ApplicationController
   def edit
     @room = Room.find(params[:id])
   end
+  
+
 
   # POST /rooms
   # POST /rooms.json
   def create
+    config_opentok
+    session = @opentok.create_session(request.remote_addr )    
     @room = Room.new(params[:room])
+    @room.session_id = session.session_id
 
     respond_to do |format|
       if @room.save
@@ -80,4 +87,13 @@ class RoomsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  private
+    def config_opentok
+      if @opentok.nil?
+        @api_key = 11796762                # should be a number
+        @api_secret = 'f6989f3520873c70f414edfd3f5d02e88ab4a97b'            # should be a string
+        @opentok = OpenTok::OpenTokSDK.new @api_key, @api_secret
+      end
+    end
 end
