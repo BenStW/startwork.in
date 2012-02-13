@@ -25,7 +25,6 @@ $(document).ready ->
     subscribeToStreams = (streams) ->
       for stream in streams
         if stream.connection.connectionId == session.connection.connectionId 
-          alert "same stream"
         else
           div = document.createElement('div')
           div.setAttribute('id', 'stream' + stream.streamId)
@@ -35,6 +34,9 @@ $(document).ready ->
     session.addEventListener 'sessionConnected', sessionConnectedHandler
     session.addEventListener 'streamCreated', streamCreatedHandler
     session.connect api_key, tok_token
+
+	
+
 
 	
 

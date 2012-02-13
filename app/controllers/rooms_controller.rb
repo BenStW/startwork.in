@@ -13,8 +13,8 @@ class RoomsController < ApplicationController
   # GET /rooms/1
   # GET /rooms/1.json
   def show
+    config_opentok
     @room = Room.find(params[:id]) 
-    config_opentok 
     @tok_token = @opentok.generate_token :session_id => @room.session_id
 
     respond_to do |format|
