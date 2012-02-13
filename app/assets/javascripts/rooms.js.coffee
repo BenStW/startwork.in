@@ -13,7 +13,7 @@ $(document).ready ->
     session_id  = videobox.dataset.session_id
     tok_token = videobox.dataset.tok_token 
     api_key = videobox.dataset.api_key
-    session = TB.initSession session_id      
+    session = TB.initSession session_id     
     
     sessionConnectedHandler = (event) ->
        publisher = session.publish 'videobox'
@@ -28,7 +28,7 @@ $(document).ready ->
         else
           div = document.createElement('div')
           div.setAttribute('id', 'stream' + stream.streamId)
-          document.body.appendChild div
+          document.videobox.appendChild div
           session.subscribe stream, div.id
     
     session.addEventListener 'sessionConnected', sessionConnectedHandler
