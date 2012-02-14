@@ -2,6 +2,8 @@ StartWork::Application.routes.draw do
 
 
 
+  resources :groups
+
   root :to => 'static_pages#home'  
   
   devise_for :users
