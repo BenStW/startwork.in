@@ -1,10 +1,16 @@
 StartWork::Application.routes.draw do
 
+
+
   root :to => 'static_pages#home'  
+  
+  devise_for :users
   
   match 'how_it_works' => 'static_pages#how_it_works', :as => :how_it_works
   match 'contact' => 'static_pages#contact', :as => :contact
   match 'about_us' => 'static_pages#about_us', :as => :about_us
+
+  devise_for :users, :controllers => { :sessions => "users/sessions" }
 
   resources :rooms
 

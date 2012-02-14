@@ -1,32 +1,46 @@
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-<head>
-  <title>Start Work</title>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+  <title>StartWork</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= csrf_meta_tags %>
   <%= javascript_include_tag "application" %>
 <script src="http://staging.tokbox.com/v0.91/js/TB.min.js"></script>
-  <style>
-     body {
-       padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-     }
-   </style>
+
+    <meta charset="utf-8">
 
 </head>
  
 <body>
 	
-	<div class="navbar navbar-fixed-top1">
+	<div class="navbar navbar-fixed-top">
 	      <div class="navbar-inner">
 	        <div class="container">
 
 	          <a class="brand" href="/">StartWork</a>
 	          <div class="nav-collapse">
 	            <ul class="nav">
-	              <li <%= if_active 'how_it_works' %>><a href="how_it_works">How it works</a></li>
-	              <li <%= if_active 'about_us' %>><a href="about_us">About us</a></li>
-	              <li <%= if_active 'contact' %>><a href="contact">Contact</a></li>
-	            </ul>
+	              <li <%= if_active 'how_it_works' %>><a href="/how_it_works">How it works</a></li>
+	              <li <%= if_active 'about_us' %>><a href="/about_us">About us</a></li>
+	              <li <%= if_active 'contact' %>><a href="/contact">Contact</a></li>
+				</ul> <!-- /.nav -->
+				<ul class="nav pull-right">
+					<% if user_signed_in? %>
+				 <li id="fat-menu" class="dropdown">
+				        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= raw login_or_signup %><b class="caret"></b></a>
+				        <ul class="dropdown-menu">
+				          <li><a href="#">no action</a></li>
+				          <li class="divider"></li>
+				          <li><%= link_to "logout", destroy_user_session_path, :method => :delete %></li>
+				        </ul>
+				      </li>					
+				</ul>
+				<% else %>
+				<p class="navbar-text pull-right"><%= link_to "sign in", new_user_session_path%></p>
+				<% end %>
 	          </div><!--/.nav-collapse -->
 	        </div>
 	      </div>
@@ -34,16 +48,23 @@
 	
     <br>
 
+
+<br><br>
     <div class="container">
+	  <p class="notice"><%= notice %></p>
+	  <p class="alert"><%= alert %></p>
+	
 	
 	<%= yield %>
       <hr>
       <footer>
         <p>&copy; StartWork 2012</p>
       </footer>
+
     </div> <!-- /container -->   
 
 </body>
 </html>
+
 
 

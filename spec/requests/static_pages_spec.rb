@@ -8,7 +8,7 @@ describe "StaticPages" do
     end
     it "should have the right title" do
       visit '/'
-      page.should have_selector('title', :text => "StartWork | Home")
+      page.should have_selector('title', :text => "StartWork")
     end
   end
 end
