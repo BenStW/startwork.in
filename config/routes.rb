@@ -1,13 +1,13 @@
 StartWork::Application.routes.draw do
-  
-  get "static_pages/home"
 
-  get "static_pages/how_it_works"
+  root :to => 'static_pages#home'  
+  
+  match 'how_it_works' => 'static_pages#how_it_works', :as => :how_it_works
+  match 'contact' => 'static_pages#contact', :as => :contact
+  match 'about_us' => 'static_pages#about_us', :as => :about_us
 
   resources :rooms
-  
 
-  root :to => 'static_pages/home'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

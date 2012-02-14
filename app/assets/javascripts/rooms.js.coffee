@@ -2,7 +2,6 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
-
 # document needs to be loaded, as parameters are passed from DOM to JS
 $(document).ready ->
   
@@ -34,6 +33,7 @@ $(document).ready ->
     session.addEventListener 'sessionConnected', sessionConnectedHandler
     session.addEventListener 'streamCreated', streamCreatedHandler
     session.connect api_key, tok_token
+
 
 	
 

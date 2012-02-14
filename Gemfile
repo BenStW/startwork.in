@@ -11,9 +11,20 @@ gem 'pg'
 gem 'opentok'
 gem 'less-rails-bootstrap'
 
-group :development, :test do
-  gem 'rspec-rails'
+
+group :development do
   gem 'annotate', '~> 2.4.1.beta' 
+  gem 'guard-rspec'
+end
+
+group :test do
+  gem 'rspec-rails'
+  gem 'cucumber-rails'
+  gem 'database_cleaner'
+
+  gem 'capybara', '1.1.2'
+  gem 'rb-fsevent', '0.4.3.1', :require => false
+  gem 'growl', '1.0.3'
 end
 
 
