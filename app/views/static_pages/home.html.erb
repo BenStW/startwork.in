@@ -1,4 +1,5 @@
 
+<% if !user_signed_in? %>
 
   <!-- Main hero unit for a primary marketing message or call to action -->
   <div class="hero-unit">
@@ -10,3 +11,9 @@
  <p><a class="btn btn-primary btn-large" href="<%= how_it_works_path%>">Learn more &raquo;</a></p>
 
   </div><!-- end of main hero unit -->
+                       
+<% else %>
+
+	<%= button_to "learning groups", groups_path, :method => :get%>
+
+<% end %>
