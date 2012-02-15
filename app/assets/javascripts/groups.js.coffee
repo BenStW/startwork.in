@@ -32,8 +32,8 @@ $(document).ready ->
     
     subscribeToStreams = (streams) ->      
       for stream in streams
-         #if stream.connection.connectionId == session.connection.connectionId 
-         #else
+        if stream.connection.connectionId == session.connection.connectionId 
+        else
           div_id = 'stream' + stream.streamId
           nick_name = stream.connection.data
           $("#subscriberbox").append("<div id="+div_id+"></div><br>"+nick_name)
