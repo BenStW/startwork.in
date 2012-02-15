@@ -15,7 +15,9 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.json
   def show
+    config_opentok
     @group = Group.find(params[:id])
+    @tok_token = @apiObj.generate_token session_id: @group.session_id, connection_data: current_user.name 
 
     respond_to do |format|
       format.html # show.html.erb
@@ -42,12 +44,15 @@ class GroupsController < ApplicationController
   # POST /groups
   # POST /groups.json
   def create
+    config_opentok
+    session = @apiObj.create_session(request.remote_addr )    
     @group = Group.new(params[:group])
+    @group.session_id = session.session_id        
 
     respond_to do |format|
       if @group.save
-        format.html { redirect_to @group, notice: 'Group was successfully created.' }
-        format.json { render json: @group, status: :created, location: @group }
+        format.html { redirect_to groups_url, notice: 'Group was successfully created.' }
+        format.json { render json: group_url, status: :created }
       else
         format.html { render action: "new" }
         format.json { render json: @group.errors, status: :unprocessable_entity }
@@ -62,7 +67,7 @@ class GroupsController < ApplicationController
 
     respond_to do |format|
       if @group.update_attributes(params[:group])
-        format.html { redirect_to @group, notice: 'Group was successfully updated.' }
+        format.html { redirect_to groups_url, notice: 'Group was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -82,4 +87,13 @@ class GroupsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  private
+    def config_opentok
+      if @opentok.nil?
+        @api_key = 11796762                # should be a number
+        @api_secret = 'f6989f3520873c70f414edfd3f5d02e88ab4a97b'            # should be a string
+        @apiObj = OpenTok::OpenTokSDK.new @api_key, @api_secret
+      end
+    end
 end

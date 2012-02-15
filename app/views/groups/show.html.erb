@@ -1,4 +1,3 @@
-<p id="notice"><%= notice %></p>
 
 <p>
   <b>Name:</b>
@@ -10,6 +9,13 @@
   <%= @group.description %>
 </p>
 
+<div id="videobox" data-session_id="<%=@group.session_id %>" data-tok_token="<%=@tok_token%>" data-api_key="<%=@api_key%>">
+	<div id="publisherbox">
+	   <span id="publisherbox_tmp" class="label label-warning">please wait until video is ready...</span>
+	</div>
+	Publisher:<%= current_user.name %>
+    <div id="subscriberbox" style={background-color="grey"}></div>
+	</div>
 
-<%= link_to 'Edit', edit_group_path(@group) %> |
+<br>
 <%= link_to 'Back', groups_path %>

@@ -30,9 +30,9 @@
 				<ul class="nav pull-right">
 					<% if user_signed_in? %>
 				 <li id="fat-menu" class="dropdown">
-				        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= raw login_or_signup %><b class="caret"></b></a>
+				        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.name %><b class="caret"></b></a>
 				        <ul class="dropdown-menu">
-				          <li><a href="#">no action</a></li>
+				          <li><%= link_to "edit profile", edit_user_registration_path %></li>
 				          <li class="divider"></li>
 				          <li><%= link_to "logout", destroy_user_session_path, :method => :delete %></li>
 				        </ul>
