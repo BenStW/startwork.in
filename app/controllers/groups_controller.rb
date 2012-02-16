@@ -17,7 +17,10 @@ class GroupsController < ApplicationController
   def show
     config_opentok
     @group = Group.find(params[:id])
-    @tok_token = @apiObj.generate_token session_id: @group.session_id, connection_data: current_user.name 
+    @tok_token = @apiObj.generate_token session_id: @group.session_id, 
+#        connection_data: { user_id: "#{current_user.id}", user_name: "#{current_user.name}" } 
+#        connection_data: { "\"user_id\": \"#{current_user.id}\", \"user_name\": \"#{current_user.name}\"" } 
+       connection_data: { :user_id => "#{current_user.id}", :user_name => "#{current_user.name}" } 
 
     respond_to do |format|
       format.html # show.html.erb

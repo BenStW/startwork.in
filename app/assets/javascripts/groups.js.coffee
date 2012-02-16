@@ -17,7 +17,7 @@ $(document).ready ->
     windowProps = 
       width: 200
       height: 200
-   
+    
     # The Session object dispatches SessionConnectEvent object when a session has successfully connected
     # in response to a call to the connect() method of the Session object. 
     sessionConnectedHandler = (event) ->
@@ -32,14 +32,44 @@ $(document).ready ->
     
     subscribeToStreams = (streams) ->      
       for stream in streams
-        if stream.connection.connectionId == session.connection.connectionId 
-        else
-          div_id = 'stream' + stream.streamId
-          nick_name = stream.connection.data
-          $("#subscriberbox").append("<div id="+div_id+"></div><br>"+nick_name)
-          session.subscribe stream, div_id
-
+        if stream.connection.connectionId == session.connection.connectionId 
+        else
+          div_id = 'stream' + stream.streamId
+          alert stream.connection.data
+          connectionData = JSON.parse(stream.connection.data);
+          nick_name = connectionData.user_name
+          $("#subscriberbox").append("<div id="+div_id+"></div><br>"+nick_name)
+          session.subscribe stream, div_id
     
+    signalReceivedHandler = (event) ->  
+      getChatEntry(event.fromConnection.connectionId)
+    
+    # Gets the latest chat entry from the database given somebodys connectionId
+    getChatEntry = (connection_id) -> 
+       $.ajax
+          url: '/chat_entries/latest/' + connection_id,
+          success: (data) ->
+            $("#chat").append data.body + "<br>" 
+
+    postChatEntry = (body) ->
+       data = 
+         connection_id: session.connection.connectionId,
+         body: body
+       $.ajax
+         url: '/chat_entries/add',
+         data: data,
+         type: 'POST',
+         success: (data) ->
+            # Signal to other clients that we have inserted new data
+            session.signal()
+ 
+    $("#chat_input").submit ->
+         # postChatEntry  $('#chat_input_text')
+        postChatEntry  $("input:first").val() 	
+        false
+
+  
     session.addEventListener 'sessionConnected', sessionConnectedHandler
     session.addEventListener 'streamCreated', streamCreatedHandler
+    session.addEventListener 'signalReceived', signalReceivedHandler
     session.connect api_key, tok_token

@@ -14,9 +14,11 @@ StartWork::Application.routes.draw do
 
   devise_for :users
   #devise_for :users, :controllers => { :sessions => "users/sessions" }
-  
 
   resources :rooms
+  
+  get '/chat_entries/latest/:connection_id' , :to => 'chat_entries#latest'
+  post '/chat_entries/add' , :to => 'chat_entries#add'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
