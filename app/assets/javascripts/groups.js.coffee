@@ -37,7 +37,6 @@ $(document).ready ->
           div_id = 'stream' + stream.streamId
           connectionData = JSON.parse(stream.connection.data)          
           nick_name = connectionData.user_name
-          alert "nick_name = "+nick_name
           $("#subscriberbox").append("<div id="+div_id+"></div><br>"+nick_name)
           session.subscribe stream, div_id
     
