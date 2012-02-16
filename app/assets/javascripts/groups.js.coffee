@@ -21,7 +21,7 @@ $(document).ready ->
     # The Session object dispatches SessionConnectEvent object when a session has successfully connected
     # in response to a call to the connect() method of the Session object. 
     sessionConnectedHandler = (event) ->
-       publisher = session.publish 'publisherbox_tmp',windowProps
+       publisher = session.publish 'publisherbox_tmp', windowProps
        # Subscribe to streams that were in the session when we connected
        subscribeToStreams event.streams 
     
@@ -35,9 +35,9 @@ $(document).ready ->
         if stream.connection.connectionId == session.connection.connectionId 
         else
           div_id = 'stream' + stream.streamId
-          alert stream.connection.data
-          connectionData = JSON.parse(stream.connection.data);
+          connectionData = JSON.parse(stream.connection.data)          
           nick_name = connectionData.user_name
+          alert "nick_name = "+nick_name
           $("#subscriberbox").append("<div id="+div_id+"></div><br>"+nick_name)
           session.subscribe stream, div_id
     
