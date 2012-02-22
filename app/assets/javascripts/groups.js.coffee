@@ -6,14 +6,14 @@
 $(document).ready ->
   width=100
   heigth=100
-  padding=10  
+  padding=5  
 
   $('.connect').click (event)-> 
     url = event.target
     doc_width=$(document).width()
     padding = 20
-    window_width=width+2*padding
-    window_heigth=5 * heigth+2*padding
+    window_width=2*width+padding
+    window_heigth=5 * heigth+10*padding
     popup_start=doc_width-width
     window.open(url,
       'StartWork',
