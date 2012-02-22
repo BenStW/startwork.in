@@ -13,7 +13,7 @@
   <tr>
     <td><%= group.name %></td>
     <td><%= group.description %></td>
-    <td><%= link_to 'Connect', group %></td>
+    <td><%= link_to 'Connect', group, :class => "connect"%></td>
     <td><%= link_to 'Edit', edit_group_path(group) %></td>
     <td><%= link_to 'Destroy', group, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
@@ -22,4 +22,6 @@
 
 <br />
 
-<%= link_to 'New Group', new_group_path %>
+<%= link_to 'New Group', new_group_path %><br><br>
+
+<p><button id="ben">connect</button></p> 

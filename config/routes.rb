@@ -1,6 +1,7 @@
 StartWork::Application.routes.draw do
 
-
+  match 'penalties/add' => 'penalties#add'
+  match 'penalties/latest' => 'penalties#latest'
 
   resources :groups
 

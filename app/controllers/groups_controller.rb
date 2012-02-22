@@ -15,16 +15,15 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.json
   def show
+    
+    #layout "video_layout"
     config_opentok
     @group = Group.find(params[:id])
     data_hash = { :user_id => "#{current_user.id}", :user_name => "#{current_user.name}" } 
     @tok_token = @apiObj.generate_token session_id: @group.session_id, 
        connection_data: data_hash.to_json
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @group }
-    end
+    render :layout => 'video_layout'
   end
 
   # GET /groups/new

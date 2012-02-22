@@ -1,30 +1,16 @@
+	
+<div class="video_window" id="video_window" data-session_id="<%=@group.session_id %>" data-tok_token="<%=@tok_token%>" data-api_key="<%=@api_key%>" data-user_id="<%=current_user.id%>">
+	<div class="user_box" id="user_box_<%=current_user.id%>" data-user_id="<%=current_user.id%>">
+		<div class="text_box">
+			<b><%= current_user.name %></b><br>
+		
+		</div><!-- text_box -->
+		<div class="stream_box" >
+			<span id="publisher_box_tmp" class="label label-warning">
+				 please wait...
+			</span>
+			</div><!-- stream_box -->
+		</div><!-- stream_box -->		
+	</div> <!-- user_box -->
+</div> <!-- video_window-->
 
-<p>
-  <b>Name:</b>
-  <%= @group.name %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @group.description %>
-</p>
-
-<div id="videobox" data-session_id="<%=@group.session_id %>" data-tok_token="<%=@tok_token%>" data-api_key="<%=@api_key%>">
-	<div id="publisherbox">
-	   <span id="publisherbox_tmp" class="label label-warning">please wait until video is ready...</span>
-	</div>
-	Publisher:<%= current_user.name %>
-    <div id="subscriberbox" style="background-color=grey"></div>
-	</div>
-
-
-<br><b>Chat:</b><br>
-<div id="chat" style="background-color:grey; height:240px; width:300px; border:10px"></div><br>
-
-<form action="/" id="chat_input">
- <input type="text" id="chat_input_text" placeholder="my chat message..." />
- <input type="submit" value="Go" />
-</form>
-
-
-<%= link_to 'Back', groups_path %>
