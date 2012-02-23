@@ -57,7 +57,6 @@ $(document).ready ->
             "<div class=user_box id=user_box_"+user_id+" data-user_id="+user_id+">
                <div class=text_box>
                  <b>"+user_name+"</b><br>
-                 P by Christina
                </div><!-- text_box -->
                <div class=stream_box>
                  <div id="+replaceElementId+" class=stream_box_tmp>
@@ -127,11 +126,12 @@ $(document).ready ->
             session.signal()
 
     bind_penalty_forms = ->
-       $("form[name=penalty]").submit ->
-          from_user_id = $(this).find("[name=from_user_id]").attr("value")
-          to_user_id = $(this).find("[name=to_user_id]").attr("value")
-          postPenalty(from_user_id,to_user_id)
-          false
+      $(".stream_box").click (event)-> 
+        my_user_id = $(".video_window").data("user_id")	
+        penalty_user_id = $(this).parent(".user_box").data("user_id")
+        if my_user_id != penalty_user_id
+          postPenalty my_user_id, penalty_user_id
+          alert("my_user_id="+my_user_id+" penalty_user_id="+penalty_user_id)
 		
 		
     # Retry session connect
@@ -145,7 +145,7 @@ $(document).ready ->
       penalty_user_id = $(this).parent(".user_box").data("user_id")
       if my_user_id != penalty_user_id
         postPenalty my_user_id, penalty_user_id
-      # alert("my_user_id="+my_user_id+" penalty_user_id="+penalty_user_id)
+        alert("my_user_id="+my_user_id+" penalty_user_id="+penalty_user_id)
   
     session.addEventListener 'sessionConnected', sessionConnectedHandler
     session.addEventListener 'streamCreated', streamCreatedHandler
