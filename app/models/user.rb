@@ -28,4 +28,23 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me
   
   validates :name, presence: true, length: { maximum: 50 }, uniqueness: true
+  has_many :penalties, :foreign_key => "to_user_id"
+  has_many :connections
+  
+  def start_connection
+    connection = connections.build(start: DateTime.current)
+    connection.save
+  end
+  
+  def end_connection
+    open_connections = connections.find_all_by_end(nil)
+    if open_connections.length>1
+      logger.error "Closing #{open_connections.length} open connections of user #{id}"
+    end 
+    for connection in open_connections
+      connection.end = DateTime.current
+      connection.save
+      logger.info "Closed connection #{connection.id} of user #{id}"
+    end
+  end
 end

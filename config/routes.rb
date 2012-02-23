@@ -1,13 +1,7 @@
 StartWork::Application.routes.draw do
 
-  get "video/chat"
 
-  get "video/camera_settings"
 
-  match 'penalties/add' => 'penalties#add'
-  match 'penalties/latest' => 'penalties#latest'
-
-  resources :groups
 
   root :to => 'static_pages#home'  
   
@@ -19,12 +13,19 @@ StartWork::Application.routes.draw do
   match 'camera' => 'static_pages#camera', :as => :camera
 
   devise_for :users
-  #devise_for :users, :controllers => { :sessions => "users/sessions" }
 
-  resources :rooms
+  resources :groups
   
   get '/chat_entries/latest/:connection_id' , :to => 'chat_entries#latest'
   post '/chat_entries/add' , :to => 'chat_entries#add'
+  
+  post '/connection/end', :to => 'connection#end'
+
+  match 'statistics' => 'statistics#show', :as => :statistics
+
+
+  match 'penalties/add' => 'penalties#add'
+  match 'penalties/latest' => 'penalties#latest'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

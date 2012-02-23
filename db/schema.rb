@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120216105833) do
+ActiveRecord::Schema.define(:version => 20120223170133) do
 
   create_table "chat_entries", :force => true do |t|
     t.integer  "group_id"
@@ -20,6 +20,16 @@ ActiveRecord::Schema.define(:version => 20120216105833) do
     t.datetime "updated_at",    :null => false
     t.string   "connection_id"
   end
+
+  create_table "connections", :force => true do |t|
+    t.integer  "user_id"
+    t.datetime "start"
+    t.datetime "end"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "connections", ["user_id"], :name => "index_connections_on_user_id"
 
   create_table "groups", :force => true do |t|
     t.string   "name"

@@ -138,6 +138,20 @@ $(document).ready ->
         alert('There was an error connecting. Trying again.')
         session.connect api_key, tok_token
 
+
+    connectionDestroyedHandler = (event) ->
+      connectionsDestroyed = event.connections                
+      data = 
+        user_ids = (JSON.parse(connection.data) in connectionsDestroyed)  
+      $.ajax
+         url: '/connection/end',
+         data: data,
+         type: 'POST',
+         success: (data) ->
+             console.log data
+             alert "succussfully ended connection"
+
+
     $(".stream_box").click (event)-> 
       my_user_id = $(".video_window").data("user_id")	
       penalty_user_id = $(this).parent(".user_box").data("user_id")
@@ -148,6 +162,7 @@ $(document).ready ->
     session.addEventListener 'sessionConnected', sessionConnectedHandler
     session.addEventListener 'streamCreated', streamCreatedHandler
     session.addEventListener 'signalReceived', signalReceivedHandler
+    session.addEventListener 'connectionDestroyed', connectionDestroyedHandler
     TB.addEventListener 'exception', exceptionHandler
     session.connect api_key, tok_token
     bind_penalty_forms()
