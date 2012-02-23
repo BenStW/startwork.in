@@ -65,7 +65,7 @@ $(document).ready ->
                  </div><!-- stream_box -->
                </div><!-- stream_box -->		
              </div> <!-- user_box -->"
-          $("#video_window").append("html")
+          $("#video_window").append(html)
           bind_penalty_forms()
           session.subscribe stream, replaceElementId, windowProps
     
