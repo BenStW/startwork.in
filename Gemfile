@@ -16,11 +16,13 @@ gem 'devise'
 group :development do
   gem 'annotate', '~> 2.4.1.beta' 
   gem 'guard-rspec'
+  gem 'rspec-rails'
 end
+
 
 group :test do
   gem 'rspec-rails'
-  gem 'cucumber-rails'
+  # gem 'cucumber-rails'
   gem 'database_cleaner'
 
   gem 'capybara', '1.1.2'
