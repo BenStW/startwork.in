@@ -1,5 +1,9 @@
 StartWork::Application.routes.draw do
 
+  get "video/chat"
+
+  get "video/camera_settings"
+
   match 'penalties/add' => 'penalties#add'
   match 'penalties/latest' => 'penalties#latest'
 
@@ -12,6 +16,7 @@ StartWork::Application.routes.draw do
   match 'how_it_works' => 'static_pages#how_it_works', :as => :how_it_works
   match 'contact' => 'static_pages#contact', :as => :contact
   match 'about_us' => 'static_pages#about_us', :as => :about_us
+  match 'camera' => 'static_pages#camera', :as => :camera
 
   devise_for :users
   #devise_for :users, :controllers => { :sessions => "users/sessions" }

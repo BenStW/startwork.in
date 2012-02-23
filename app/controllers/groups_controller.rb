@@ -91,7 +91,7 @@ class GroupsController < ApplicationController
   
   private
     def config_opentok
-      if @opentok.nil?
+      if @apiObj.nil?
         @api_key = 11796762                # should be a number
         @api_secret = 'f6989f3520873c70f414edfd3f5d02e88ab4a97b'            # should be a string
         @apiObj = OpenTok::OpenTokSDK.new @api_key, @api_secret

@@ -130,9 +130,7 @@ $(document).ready ->
         my_user_id = $(".video_window").data("user_id")	
         penalty_user_id = $(this).parent(".user_box").data("user_id")
         if my_user_id != penalty_user_id
-          postPenalty my_user_id, penalty_user_id
-          alert("my_user_id="+my_user_id+" penalty_user_id="+penalty_user_id)
-		
+          postPenalty my_user_id, penalty_user_id		
 		
     # Retry session connect
     exceptionHandler = (event) -> 

@@ -13,7 +13,11 @@
   </div><!-- end of main hero unit -->
                        
 <% else %>
-
+<br>
+	<%= button_to "camera", camera_path, :method => :get%><br>
+	
 	<%= button_to "learning groups", groups_path, :method => :get%>
+	
+	
 
 <% end %>
