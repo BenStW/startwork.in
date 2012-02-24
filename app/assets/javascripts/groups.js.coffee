@@ -143,7 +143,7 @@ $(document).ready ->
     connectionDestroyedHandler = (event) ->
       connectionsDestroyed = event.connections  
 
-      connectionsCount = parseInt($("#connectionCountField").val()) - connectionsDestroyed.length()
+      connectionsCount = parseInt($("#connectionCountField").val()) - connectionsDestroyed.length
       $("#connectionCountField").val(connectionsCount)
 
       user_ids = (JSON.parse(connection.data).user_id for connection in connectionsDestroyed)  
@@ -161,7 +161,7 @@ $(document).ready ->
     connectionCreatedHandler = (event) ->
       connectionsCreated = event.connections 
 
-      connectionsCount = parseInt($("#connectionCountField").val()) + connectionsCreated.length()
+      connectionsCount = parseInt($("#connectionCountField").val()) + connectionsCreated.length
       $("#connectionCountField").val(connectionsCount)	
 	 
       user_ids = JSON.parse(connection.data).user_id for connection in connectionsCreated 
