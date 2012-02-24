@@ -14,11 +14,11 @@
                        
 <% else %>
 <br>
-	<%= button_to "camera", camera_path, :method => :get%><br>
+	<%= link_to "Camera test", camera_path, :class => "btn", :method => :get%>	<br><br>
 	
-	<%= button_to "statistics", statistics_path, :method => :get%><br>
+	<%= link_to 'Learning group', group_path(:id=>1), :class => "connect btn"%><br><br>
 	
-	<%= button_to "learning groups", groups_path, :method => :get%>
+	<%=link_to "Statistics", statistics_path, :class => "btn", :method => :get%><br><br>
 	
 
 <% end %>
