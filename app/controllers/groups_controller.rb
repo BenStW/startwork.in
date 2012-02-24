@@ -15,7 +15,7 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.json
   def show
-    current_user.start_connection
+    #current_user.start_connection
     config_opentok
     @group = Group.find(params[:id])
     data_hash = { :user_id => "#{current_user.id}", :user_name => "#{current_user.name}" } 

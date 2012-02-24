@@ -153,6 +153,19 @@ $(document).ready ->
          success: (data) ->
              console.log data
 
+      connectionCreatedHandler = (event) ->
+        connectionsCreated = event.connections  
+        user_ids = (JSON.parse(connection.data).user_id for connection in connectionsCreated)          
+        data = 
+          user_ids: user_ids
+        console.log "data = "+data
+        $.ajax
+           url: '/connection/start',
+           data: data,
+           type: 'POST',
+           success: (data) ->
+               console.log data
+
     $(".stream_box").click (event)-> 
       my_user_id = $(".video_window").data("user_id")	
       penalty_user_id = $(this).parent(".user_box").data("user_id")
@@ -163,6 +176,7 @@ $(document).ready ->
     session.addEventListener 'sessionConnected', sessionConnectedHandler
     session.addEventListener 'streamCreated', streamCreatedHandler
     session.addEventListener 'signalReceived', signalReceivedHandler
+    session.addEventListener 'connectionCreated', connectionCreatedHandler
     session.addEventListener 'connectionDestroyed', connectionDestroyedHandler
     TB.addEventListener 'exception', exceptionHandler
     session.connect api_key, tok_token

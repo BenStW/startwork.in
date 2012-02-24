@@ -32,8 +32,15 @@ class User < ActiveRecord::Base
   has_many :connections
   
   def start_connection
-    connection = connections.build(start: DateTime.current)
-    connection.save
+    if !open_connections?      
+      connection = connections.build(start: DateTime.current)
+      connection.save
+      logger.info "start connection with id #{connection.id} for user_id #{id}"
+    end
+  end
+  
+  def open_connections?
+    connections.find_all_by_end(nil).count>0
   end
   
   def end_connection
@@ -44,7 +51,7 @@ class User < ActiveRecord::Base
     for connection in open_connections
       connection.end = DateTime.current
       connection.save
-      logger.info "Closed connection #{connection.id} of user #{id}"
+      logger.info "Closed connection #{connection.id} of user_id #{id}"
     end
   end
 end
