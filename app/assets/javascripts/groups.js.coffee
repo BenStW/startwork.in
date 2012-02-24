@@ -4,8 +4,8 @@
 
 # document needs to be loaded, as parameters are passed from DOM to JS
 $(document).ready ->
-  width=100
-  heigth=100
+  width=150
+  heigth=150
   padding=5  
 
   $('.connect').click (event)-> 

@@ -2,20 +2,26 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+$size: 150px;
+$padding: 5px;
+
+#timer_box {height:$size/2; line-height:$size/2;font-size: 30px;text-align:center;width:2*$size}
+
 div.video_window
 {
-	width:220px;  /* the width of the content: add margin, border, padding*/
-	height:600px;
+	width: 2*$size + 4*$padding;  /* the width of the content: add margin, border, padding*/
+	height:1000px;
 	padding:0px;
 	border:0px;
 	margin:0px;
     outline:1px solid gray;
 }
 
-div.user_box { background-color:red; }
 
-div.text_box { width:100px; height:100px; padding:5px; border:0px; margin:0px; outline:0px solid gray; float:left; }
+div.user_box {  }
 
-div.stream_box { width:100px; height:100px; padding:5px; border:0px; margin:0px; outline:0px solid gray; float:left; }
+div.text_box { width:$size; height:$size; padding:$padding; border:0px; margin:0px; outline:0px solid gray; float:left; }
 
-div.stream_box_tmp { width:100px; height:100px; padding:0px; border:0px; margin:0px; outline:0px solid gray; }
+div.stream_box { width:$size; height:$size; padding:$padding; border:0px; margin:0px; outline:0px solid gray; float:left; }
+
+div.stream_box_tmp { width:$size; height:$size; padding:0px; border:0px; margin:0px; outline:0px solid gray; }
