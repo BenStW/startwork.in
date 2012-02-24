@@ -37,6 +37,7 @@ $(document).ready ->
     sessionConnectedHandler = (event) ->
        replaceElementId = 'publisher_box_tmp'
        publisher = session.publish replaceElementId, windowProps
+       $("#connectionCountField").val(event.connections.length)
        # Subscribe to streams that were in the session when we connected
        subscribeToStreams event.streams 
     
@@ -141,6 +142,10 @@ $(document).ready ->
 
     connectionDestroyedHandler = (event) ->
       connectionsDestroyed = event.connections  
+
+      connectionsCount = parseInt($("#connectionCountField").val()) - connectionsDestroyed.length()
+      $("#connectionCountField").val(connectionsCount)
+
       user_ids = (JSON.parse(connection.data).user_id for connection in connectionsDestroyed)  
       $("#user_box_"+user_id).remove() for user_id in user_ids             
       data = 
@@ -154,10 +159,16 @@ $(document).ready ->
              console.log data
 
     connectionCreatedHandler = (event) ->
-      connectionsCreated = event.connections  
-      user_ids = (JSON.parse(connection.data).user_id for connection in connectionsCreated)          
+      connectionsCreated = event.connections 
+
+      connectionsCount = parseInt($("#connectionCountField").val()) + connectionsCreated.length()
+      $("#connectionCountField").val(connectionsCount)	
+	 
+      user_ids = JSON.parse(connection.data).user_id for connection in connectionsCreated 
+      #  when connection.connectionID isnt session.connection.connectionId        
       data = 
         user_ids: user_ids
+      alert "connection created"
       console.log "data = "+data
       $.ajax
          url: '/connection/start',
@@ -172,7 +183,13 @@ $(document).ready ->
       if my_user_id != penalty_user_id
         postPenalty my_user_id, penalty_user_id
         alert("my_user_id="+my_user_id+" penalty_user_id="+penalty_user_id)
-  
+
+    $("#number_of_connections").click (event)-> 	
+       number_of_connections = $(".user_box").length
+       number = parseInt($("#connectionCountField").val())
+       $("#connectionCountField").val(number+1)
+       alert "number of connections = "+number_of_connections
+
     session.addEventListener 'sessionConnected', sessionConnectedHandler
     session.addEventListener 'streamCreated', streamCreatedHandler
     session.addEventListener 'signalReceived', signalReceivedHandler
