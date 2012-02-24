@@ -153,18 +153,18 @@ $(document).ready ->
          success: (data) ->
              console.log data
 
-      connectionCreatedHandler = (event) ->
-        connectionsCreated = event.connections  
-        user_ids = (JSON.parse(connection.data).user_id for connection in connectionsCreated)          
-        data = 
-          user_ids: user_ids
-        console.log "data = "+data
-        $.ajax
-           url: '/connection/start',
-           data: data,
-           type: 'POST',
-           success: (data) ->
-               console.log data
+    connectionCreatedHandler = (event) ->
+      connectionsCreated = event.connections  
+      user_ids = (JSON.parse(connection.data).user_id for connection in connectionsCreated)          
+      data = 
+        user_ids: user_ids
+      console.log "data = "+data
+      $.ajax
+         url: '/connection/start',
+         data: data,
+         type: 'POST',
+         success: (data) ->
+             console.log data
 
     $(".stream_box").click (event)-> 
       my_user_id = $(".video_window").data("user_id")	
