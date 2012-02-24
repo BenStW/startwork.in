@@ -152,8 +152,6 @@ $(document).ready ->
          type: 'POST',
          success: (data) ->
              console.log data
-             alert "succussfully ended connection"
-
 
     $(".stream_box").click (event)-> 
       my_user_id = $(".video_window").data("user_id")	

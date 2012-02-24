@@ -5,6 +5,6 @@ class ConnectionController < ApplicationController
        @user = User.find(user_id)
        @user.end_connection
     end
-    render :json => "hello"
+    render :json => "succussfully ended connection"
   end
 end
