@@ -8,9 +8,9 @@ $(document).ready ->
   # only run code when videobox is present
   if $('#camera_settings').length > 0 
     TB.setLogLevel(TB.DEBUG) 
-    session_id  = $("#camera").data("session_id")
-    tok_token = $("#camera").data("tok_token")
-    api_key = $("#camera").data("api_key")
+    session_id  = $("#camera_settings").data("session_id")
+    tok_token = $("#camera_settings").data("tok_token")
+    api_key = $("#camera_settings").data("api_key")
     session = TB.initSession session_id   
 
     windowProps = 
