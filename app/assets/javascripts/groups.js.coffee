@@ -142,8 +142,8 @@ $(document).ready ->
     connectionDestroyedHandler = (event) ->
       connectionsDestroyed = event.connections                
       data = 
-        user_ids = (JSON.parse(connection.data).user_id for connection in connectionsDestroyed)  
-      console.log "user_ids = "+user_ids
+        user_ids: (JSON.parse(connection.data).user_id for connection in connectionsDestroyed)  
+      console.log "data = "+data
       $.ajax
          url: '/connection/end',
          data: data,
