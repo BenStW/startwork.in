@@ -59,5 +59,14 @@ describe User do
      it { should_not be_valid }
    end
    
+   describe "when connection is established" do
+     it { 
+       should_not be_open_connections
+       @user.start_connection
+       should be_open_connections
+       @user.end_connection
+       should_not be_open_connections}          
+   end
+   
 
 end

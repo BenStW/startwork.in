@@ -1,4 +1,4 @@
-class ConnectionController < ApplicationController
+class ConnectionsController < ApplicationController
   def end
     
     for user_id in params[:user_ids]

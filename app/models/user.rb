@@ -33,23 +33,23 @@ class User < ActiveRecord::Base
   
   def start_connection
     if !open_connections?      
-      connection = connections.build(start: DateTime.current)
+      connection = connections.build(start_time: DateTime.current)
       connection.save
       logger.info "start connection with id #{connection.id} for user_id #{id}"
     end
   end
   
   def open_connections?
-    connections.find_all_by_end(nil).count>0
+    connections.find_all_by_end_time(nil).count>0
   end
   
   def end_connection
-    open_connections = connections.find_all_by_end(nil)
+    open_connections = connections.find_all_by_end_time(nil)
     if open_connections.length>1
       logger.error "Closing #{open_connections.length} open connections of user #{id}"
     end 
     for connection in open_connections
-      connection.end = DateTime.current
+      connection.end_time = DateTime.current
       connection.save
       logger.info "Closed connection #{connection.id} of user_id #{id}"
     end

@@ -19,8 +19,8 @@ StartWork::Application.routes.draw do
   get '/chat_entries/latest/:connection_id' , :to => 'chat_entries#latest'
   post '/chat_entries/add' , :to => 'chat_entries#add'
 
-  post '/connection/start', :to => 'connection#start'  
-  post '/connection/end', :to => 'connection#end'
+  post '/connections/start', :to => 'connections#start'  
+  post '/connections/end', :to => 'connections#end'
 
   match 'statistics' => 'statistics#show', :as => :statistics
 

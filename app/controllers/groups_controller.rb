@@ -15,7 +15,6 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.json
   def show
-    #current_user.start_connection
     config_opentok
     @group = Group.find(params[:id])
     data_hash = { :user_id => "#{current_user.id}", :user_name => "#{current_user.name}" } 
@@ -45,7 +44,7 @@ class GroupsController < ApplicationController
   # POST /groups.json
   def create
     config_opentok
-    qsession = @apiObj.create_session(request.remote_addr )    
+    session = @apiObj.create_session(request.remote_addr )    
     @group = Group.new(params[:group])
     @group.session_id = session.session_id        
 

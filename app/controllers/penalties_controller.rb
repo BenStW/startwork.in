@@ -18,6 +18,7 @@ class PenaltiesController < ApplicationController
     @penalty = Penalty.new
     @penalty.from_user_id = params[:from_user_id]
     @penalty.to_user_id = params[:to_user_id]
+    @penalty.start_time=DateTime.current
     @penalty.save
     render :json => @penalty
   end
