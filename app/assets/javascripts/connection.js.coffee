@@ -38,9 +38,6 @@ $(document).ready ->
     clearTimeout(timeout)
     timer_is_on=0
 
-  $("#ben").click ->
-    play_sound("test")
-
   play_sound = (sound) ->
     if (window.HTMLAudioElement) 
       snd = new Audio('')

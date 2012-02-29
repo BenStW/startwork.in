@@ -18,10 +18,14 @@
 <%= raw place_size_in_html %>
 
 	<%= link_to "Camera test", camera_path, :class => "btn", :method => :get%>	<br><br>
+	<hr><br>
+    <h2>Work groups:</h2><br>
+	<%= link_to 'Procrastinators in Berlin ', group_path(:id=>1), :class => "connect btn"%><br><br>
 
-	<%= link_to 'Learning group', group_path(:id=>1), :class => "connect btn"%><br><br>
+	<%= link_to 'Gods of work', group_path(:id=>2), :class => "connect btn"%><br><br>
+
 	
-	<%=link_to "Statistics", statistics_path, :class => "btn", :method => :get%><br><br>
+	<%link_to "Statistics", statistics_path, :class => "btn", :method => :get%><br><br>
 	
 
 <% end %>

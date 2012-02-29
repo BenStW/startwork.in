@@ -142,10 +142,13 @@ $(document).ready ->
              console.log data
      
     bind_penalty_forms = ->
-      $(".stream_box_XXX").click (event)-> 
-        penalty_user_id = $(this).parent(".user_box").data("user_id")
-        if my_user_id != penalty_user_id
-          postPenalty my_user_id, penalty_user_id				
+      $(".stream_boxXXX").click (event)-> 
+        date = new Date()
+        minutes = date.getMinutes()
+        if minutes<50
+          penalty_user_id = $(this).parent(".user_box").data("user_id")
+          if my_user_id != penalty_user_id
+            postPenalty my_user_id, penalty_user_id				
 
     # The Session object dispatches SessionConnectEvent object when a session has successfully connected
     # in response to a call to the connect() method of the Session object. 
@@ -155,6 +158,7 @@ $(document).ready ->
         
         # count the number of connections in hidden field
         $("#connectionCountField").val(event.connections.length)
+        console.log("number of connections: "+event.connections.length)
         # Subscribe to streams that were in the session when we connected
         subscribeToStreams event.streams 
            
@@ -196,13 +200,14 @@ $(document).ready ->
 
       origConnectionsCount = parseInt($("#connectionCountField").val())
       connectionsCount = origConnectionsCount + connectionsCreated.length
+      console.log("the number of connections changed from "+origConnectionsCount+ " to "+connectionsCount)
       $("#connectionCountField").val(connectionsCount)	
 	 
       user_ids = JSON.parse(connection.data).user_id for connection in connectionsCreated 
 
       # Add the own user_id , because the server tracks only video learning with 2 or more people
       # When the 2nd person connects, all browsers will send the new connections including the own user_id  
-      my_user_id = $(".video_window").data("user_id")
+      my_user_id = $("#video_window").data("user_id")
       user_ids.push(my_user_id)
       postConnectionStart(user_ids)
 
@@ -229,7 +234,13 @@ $(document).ready ->
           penalty_count_up_timer_is_on=1
           # empty the form 
           $("#excuse").val("")
-          do_penalty_count_up(10,15)
+          date = new Date()
+          minutes = date.getMinutes()
+          seconds = date.getSeconds()
+          time_to_full_hour =  60*60 - minutes*60 - seconds
+          pause = 10*60
+          countdown = time_to_full_hour - pause
+          do_penalty_count_up(10,countdown)
         else
           alert "ERROR: penalty_count_up_timer is still on!"
   
@@ -268,7 +279,7 @@ $(document).ready ->
       if !warning_count_down_timer_is_on
         $( "#warning_count_down_window" ).dialog( "open" )
         warning_count_down_timer_is_on=1
-        do_warning_count_down(2)
+        do_warning_count_down(10)
       else
         alert "ERROR: warning count down timer is still on"
   
