@@ -47,6 +47,11 @@ $(document).ready ->
           connectionData = JSON.parse(stream.connection.data)          
           user_name = connectionData.user_name
           user_id = connectionData.user_id
+          # new_element_id = "user_box_" + user_id
+          # alert "new element id = " + new_element_id 
+          #if $("#new_element_id")
+          #   console.log("ERROR: "+ new_element_id+ " exists already")
+          #else 
           replaceElementId = "stream_box_tmp_"+user_id
           html = 
             "<div class=user_box id=user_box_"+user_id+" data-user_id="+user_id+">
@@ -190,9 +195,9 @@ $(document).ready ->
       $("#user_box_"+user_id).remove() for user_id in user_ids 
 
       # if user is left alone, also end his connection
-      if connectionsCount == 1
-         user_ids.push(my_user_id)
-      postConnectionEnd(user_ids)    
+      #if connectionsCount == 1
+      #   user_ids.push(my_user_id)
+      #postConnectionEnd(user_ids)    
 
  
     connectionCreatedHandler = (event) ->
@@ -207,9 +212,9 @@ $(document).ready ->
 
       # Add the own user_id , because the server tracks only video learning with 2 or more people
       # When the 2nd person connects, all browsers will send the new connections including the own user_id  
-      my_user_id = $("#video_window").data("user_id")
-      user_ids.push(my_user_id)
-      postConnectionStart(user_ids)
+     # my_user_id = $("#video_window").data("user_id")
+      #user_ids.push(my_user_id)
+      #postConnectionStart(user_ids)
 
   
     leadingzero = (number) ->
