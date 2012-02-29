@@ -19,7 +19,8 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     data_hash = { :user_id => "#{current_user.id}", :user_name => "#{current_user.name}" } 
     @tok_token = @apiObj.generate_token session_id: @group.session_id, 
-       connection_data: data_hash.to_json
+       connection_data: data_hash.to_json  
+    
 
     render :layout => 'video_layout'
   end

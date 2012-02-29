@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me
   
-  validates :name, presence: true, length: { maximum: 50 }, uniqueness: true
+  validates :name, presence: true, length: { maximum: 20 }, uniqueness: true
   has_many :penalties, :foreign_key => "to_user_id"
   has_many :connections
   
@@ -54,4 +54,23 @@ class User < ActiveRecord::Base
       logger.info "Closed connection #{connection.id} of user_id #{id}"
     end
   end
+  
+  def open_penalties?
+    open_penalties = penalties.find_all_by_end_time(nil)
+    open_penalties = close_old_open_penalties(open_penalties)
+    open_penalties.length>0 
+  end
+  
+  private
+   
+  def close_old_open_penalties(open_penalties)
+    for penalty in open_penalties
+      if !penalty.current_work_hour?
+        penalty.close
+        penalty.save
+        open_penalties.delete(penalty)
+      end
+    end
+    open_penalties
+  end  
 end

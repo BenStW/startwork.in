@@ -27,6 +27,8 @@ StartWork::Application.routes.draw do
 
   match 'penalties/add' => 'penalties#add'
   match 'penalties/latest' => 'penalties#latest'
+  match 'penalties/cancel/:penalty_id' => 'penalties#cancel'  
+  match 'penalties/end/:penalty_id' => 'penalties#end'  
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

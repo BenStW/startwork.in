@@ -1,5 +1,32 @@
+<%= raw place_size_in_html %>
+
+
+<div id="warning_count_down_window" title="Hey, are you still there?">
+	<form>
+		Hit Esc to cancel penalty!
+		<div id="warning_count_down_timer" class="penalty_timer_box">
+		Timer
+		</div>	
+	</form>
+</div>
+<div id="penalty_count_up_window" title="You have got a penalty!">
+	<div id="penalty_count_up_timer" class="penalty_timer_box">
+	Timer
+	</div>
 	
-<div class="video_window" id="video_window" data-session_id="<%=@group.session_id %>" data-tok_token="<%=@tok_token%>" data-api_key="<%=@api_key%>" data-user_id="<%=current_user.id%>">
+	<form>
+	<fieldset>
+		<label for="name">Give your excuse:</label>
+		<input type="text" name="name" id="excuse"  />
+	</fieldset>
+	</form>
+</div>
+	
+<div class="video_window" id="video_window" 
+   data-session_id="<%=@group.session_id %>" 
+   data-tok_token="<%=@tok_token%>" 
+   data-api_key="<%=@api_key%>" 
+   data-user_id="<%=current_user.id%>">
 
 	
 <div id="timer_box">timer</div>

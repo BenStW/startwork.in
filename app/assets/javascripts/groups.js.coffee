@@ -2,27 +2,43 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
+
+
 # document needs to be loaded, as parameters are passed from DOM to JS
-$(document).ready ->
-  width=150
-  heigth=150
-  padding=5  
+$(document).ready -> 
+  width = parseInt($("#size").data("stream_width"))    
+  height = parseInt($("#size").data("stream_height"))	   
+  padding = parseInt($("#size").data("stream_padding")) 
 
   $('.connect').click (event)-> 
     url = event.target
     doc_width=$(document).width()
-    padding = 20
-    window_width=2*width+padding
-    window_heigth=5 * heigth+10*padding
-    popup_start=doc_width-width
+    window_width = 2 * width + padding
+    window_height = 5 * height + 10 * padding
+    popup_start = doc_width - width
     window.open(url,
-      'StartWork',
-      'width='+window_width+',height1='+window_heigth+',location=no,menubar=no,toolbar=no,scrollbars=yes,resizable=yes,left='+popup_start)
+       'StartWork',
+       'width='+window_width+',height='+window_height+',location=no,menubar=no,toolbar=no,scrollbars=yes,resizable=yes,left='+popup_start) 
     false
   
   # only run code when videobox is present
-  if $('#video_window').length > 0    
-    
+  if $('#video_window').length > 0	   
+    my_user_id = $('#video_window').data("user_id")
+    penalty_id=-1
+    warning_count_down_timer = null 
+    warning_count_down_timer_is_on = 0
+    penalty_count_up_timer = null 
+    penalty_count_up_timer_is_on = 0
+    TB.setLogLevel(TB.DEBUG) 
+    session_id  = $("#video_window").data("session_id")
+    tok_token = $("#video_window").data("tok_token")
+    api_key = $("#video_window").data("api_key")
+    session = TB.initSession session_id   
+
+    windowProps = 
+      width: width
+      height: height
+
     # creates for each new connection a user_box with a text_box and a stream_box
     subscribeToStreams = (streams) ->       
       for stream in streams
@@ -54,12 +70,42 @@ $(document).ready ->
        $.ajax
           url: '/penalties/latest',
           success: (data) ->
+             penalty_id = data.penalty_id
              to_user_name = data.to_user_name
              from_user_name = data.from_user_name
              to_user_id = data.to_user_id
              from_user_id = data.from_user_id
              msg = "P by "+ from_user_name+"<br>"
              $("#user_box_"+to_user_id+" .text_box").append(msg)
+             if to_user_id == my_user_id
+               receivedPenalty()
+
+    receivedPenalty = ->
+      console.log "my user_id "+my_user_id+" received a penalty "+penalty_id+". Start penalty process"
+      start_penalty_process()
+
+    postCancelPenalty =  ->
+       console.log "post cancel penalty of penalty "+penalty_id
+       data = {}
+       $.ajax
+         url: '/penalties/cancel/'+penalty_id,
+         data: data,
+         type: 'POST',
+         success: (data) ->
+            # Signal to other clients that we have inserted new data
+            # session.signal()
+   
+    postEndPenalty = (excuse) ->
+       console.log "post end penalty of penalty "+penalty_id
+       data = 
+         excuse: excuse
+       $.ajax
+         url: '/penalties/end/'+penalty_id,
+         data: data,
+         type: 'POST',
+         success: (data) ->
+            # Signal to other clients that we have inserted new data
+            # session.signal()
   
     postPenalty = (from_user_id, to_user_id) ->
        data = 
@@ -96,8 +142,7 @@ $(document).ready ->
              console.log data
      
     bind_penalty_forms = ->
-      $(".stream_box").click (event)-> 
-        my_user_id = $(".video_window").data("user_id")	
+      $(".stream_box_XXX").click (event)-> 
         penalty_user_id = $(this).parent(".user_box").data("user_id")
         if my_user_id != penalty_user_id
           postPenalty my_user_id, penalty_user_id				
@@ -142,7 +187,6 @@ $(document).ready ->
 
       # if user is left alone, also end his connection
       if connectionsCount == 1
-         my_user_id =  $(".video_window").data("user_id")
          user_ids.push(my_user_id)
       postConnectionEnd(user_ids)    
 
@@ -162,24 +206,102 @@ $(document).ready ->
       user_ids.push(my_user_id)
       postConnectionStart(user_ids)
 
-
-    # When a stream_box was clicked, trigger a penalty
-    $(".stream_box").click (event)-> 
-      my_user_id = $(".video_window").data("user_id")	
-      penalty_user_id = $(this).parent(".user_box").data("user_id")
-      #if my_user_id != penalty_user_id
-      postPenalty my_user_id, penalty_user_id
-
-
-    TB.setLogLevel(TB.DEBUG) 
-    session_id  = $("#video_window").data("session_id")
-    tok_token = $("#video_window").data("tok_token")
-    api_key = $("#video_window").data("api_key")
-    session = TB.initSession session_id   
-
-    windowProps = 
-      width: width
-      height: heigth
+  
+    leadingzero = (number) ->
+      if number < 10
+        '0' + number
+      else
+        number
+  
+    do_warning_count_down = (count_down) ->
+      if count_down>0
+        count_down--
+        html = leadingzero(count_down)
+        $("#warning_count_down_timer").html(html)
+        f = -> 
+          do_warning_count_down(count_down)
+        warning_count_down_timer = setTimeout(f,1000)
+      else
+        stop_warning_count_down()
+        $( "#warning_count_down_window" ).dialog( "close" )
+        if !penalty_count_up_timer_is_on
+          $("#penalty_count_up_window").dialog("open")
+          penalty_count_up_timer_is_on=1
+          # empty the form 
+          $("#excuse").val("")
+          do_penalty_count_up(10,15)
+        else
+          alert "ERROR: penalty_count_up_timer is still on!"
+  
+    do_penalty_count_up = (count_up,limit) ->
+      if count_up<limit
+        count_up++
+        h = Math.floor(count_up/3600)
+        m = Math.floor((count_up - (h * 3600))/60)
+        s = (count_up-(h*3600))%60
+        html =
+          leadingzero(h) + ':' +
+          leadingzero(m) + ':' +
+          leadingzero(s)
+        $("#penalty_count_up_timer").html(html)
+        f = -> 
+          do_penalty_count_up(count_up,limit)
+        warning_count_down_timer = setTimeout(f,1000)
+      else
+        stop_penalty_count_up()
+  
+    stop_warning_count_down = ->
+      clearTimeout(warning_count_down_timer)
+      warning_count_down_timer_is_on=0
+  
+    $( "#warning_count_down_window" ).dialog(
+      autoOpen: false
+      height: 200
+      width: 240
+      modal: true
+      beforeClose: ->
+        if warning_count_down_timer_is_on
+          stop_warning_count_down()
+          postCancelPenalty() )
+  
+    start_penalty_process = ->
+      if !warning_count_down_timer_is_on
+        $( "#warning_count_down_window" ).dialog( "open" )
+        warning_count_down_timer_is_on=1
+        do_warning_count_down(2)
+      else
+        alert "ERROR: warning count down timer is still on"
+  
+    $( "#warning_count_down_button" ).click(-> 
+      start_penalty_process() )
+  
+    stop_penalty_count_up = ->
+      clearTimeout(penalty_count_up_timer)
+      penalty_count_up_timer_is_on=0
+  
+    $( "#penalty_count_up_window" ).dialog(
+      autoOpen: false
+      height: 300
+      width: 240
+      modal: true
+      beforeClose: ->
+        excuse = $("#excuse").val()
+        if excuse
+          true
+        else
+          alert "Please fill out an excuse" 
+          false
+      close: ->
+        stop_penalty_count_up()
+        excuse = $("#excuse").val()
+        if excuse
+          postEndPenalty(excuse)
+        else
+          alert "ERROR: no message given"
+      buttons: "Send Excuse": ->
+        $(this).dialog("close"))
+  
+  
 
     session.addEventListener 'sessionConnected', sessionConnectedHandler
     session.addEventListener 'streamCreated', streamCreatedHandler
@@ -189,36 +311,6 @@ $(document).ready ->
     TB.addEventListener 'exception', exceptionHandler
     session.connect api_key, tok_token
     bind_penalty_forms()
-
-    # ----------- The End --------------
-
-
-    # Gets the latest chat entry from the database given somebodys connectionId
-    getChatEntry = (connection_id) -> 
-       $.ajax
-          url: '/chat_entries/latest/' + connection_id,
-          success: (data) ->
-            $("#chat").append data.body + "<br>" 
-
-    postChatEntry = (body) ->
-       data = 
-         connection_id: session.connection.connectionId,
-         body: body
-       $.ajax
-         url: '/chat_entries/add',
-         data: data,
-         type: 'POST',
-         success: (data) ->
-            # Signal to other clients that we have inserted new data
-            session.signal()
- 
-    $("#chat_input").submit ->
-         # postChatEntry  $('#chat_input_text')
-        postChatEntry  $("input:first").val() 	
-        false
-
-
- 
 
 
 

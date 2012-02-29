@@ -14,8 +14,11 @@
                        
 <% else %>
 <br>
+
+<%= raw place_size_in_html %>
+
 	<%= link_to "Camera test", camera_path, :class => "btn", :method => :get%>	<br><br>
-	
+
 	<%= link_to 'Learning group', group_path(:id=>1), :class => "connect btn"%><br><br>
 	
 	<%=link_to "Statistics", statistics_path, :class => "btn", :method => :get%><br><br>
