@@ -17,7 +17,8 @@ class Connection < ActiveRecord::Base
     if end_time.nil?
       0
     else
-      end_time - start_time
+      duration_in_seconds = end_time - start_time
+      (duration_in_seconds/60).to_i
     end
     
   end

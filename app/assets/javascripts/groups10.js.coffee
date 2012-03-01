@@ -4,11 +4,14 @@
 
 
 
+
 # document needs to be loaded, as parameters are passed from DOM to JS
 $(document).ready -> 
+
   width = parseInt($("#size").data("stream_width"))    
   height = parseInt($("#size").data("stream_height"))	   
   padding = parseInt($("#size").data("stream_padding")) 
+
 
   $('.connect').click (event)-> 
     url = event.target
@@ -20,6 +23,7 @@ $(document).ready ->
        'StartWork',
        'width='+window_width+',height='+window_height+',location=no,menubar=no,toolbar=no,scrollbars=yes,resizable=yes,left='+popup_start) 
     false
+
   
   # only run code when videobox is present
   if $('#video_window').length > 0	   
@@ -39,35 +43,47 @@ $(document).ready ->
       width: width
       height: height
 
+    $("#user_exists").click ->
+      user_id=$("#user_exists").val()
+      element_id = "user_box_" + user_id
+      e = $("#"+element_id).length>0
+      msg = element_id+ " exists? "+e
+      console.log(msg)
+
+
     # creates for each new connection a user_box with a text_box and a stream_box
-    subscribeToStreams = (streams) ->       
+    subscribeToStreams = (streams) -> 
+      console.log("subscribe to "+streams.length+" streams")      
       for stream in streams
         if stream.connection.connectionId == session.connection.connectionId 
+          console.log("   same connection. Don't subscribe")
         else
           connectionData = JSON.parse(stream.connection.data)          
           user_name = connectionData.user_name
           user_id = connectionData.user_id
-          # new_element_id = "user_box_" + user_id
-          # alert "new element id = " + new_element_id 
-          #if $("#new_element_id")
-          #   console.log("ERROR: "+ new_element_id+ " exists already")
-          #else 
-          replaceElementId = "stream_box_tmp_"+user_id
-          html = 
-            "<div class=user_box id=user_box_"+user_id+" data-user_id="+user_id+">
-               <div class=text_box>
-                 <b>"+user_name+"</b><br>
-               </div><!-- text_box -->
-               <div class=stream_box>
-                 <div id="+replaceElementId+" class=stream_box_tmp>
-                    stream"+user_id+"
-                 </div><!-- stream_box -->
-               </div><!-- stream_box -->		
-             </div> <!-- user_box -->"
-          $("#video_window").append(html)
-          bind_penalty_forms()
-          session.subscribe stream, replaceElementId, windowProps
+          console.log("   subscribe to connection of user_id "+user_id+" ("+user_name+")")
+          new_element_id = "user_box_" + user_id
+          if $("#"+new_element_id).length>0
+             console.log("ERROR: "+ new_element_id+ " exists already")
+             console.log($("#"+new_element_id).html())
+          else
+            replaceElementId = "stream_box_tmp_"+user_id
+            html = 
+              "<div id="+new_element_id+" class=user_box data-user_id="+user_id+">
+                 <div class=text_box>
+                   <b>"+user_name+"</b><br>
+                 </div><!-- text_box -->
+                 <div class=stream_box>
+                   <div id="+replaceElementId+" class=stream_box_tmp>
+                      stream"+user_id+"
+                   </div><!-- stream_box -->
+                 </div><!-- stream_box -->		
+               </div> <!-- user_box -->"
+            $("#video_window").append(html)
+            bind_penalty_forms()
+            session.subscribe stream, replaceElementId, windowProps
         
+
 
 
     # Gets the latest chat entry from the database given somebodys connectionId
@@ -85,9 +101,13 @@ $(document).ready ->
              if to_user_id == my_user_id
                receivedPenalty()
 
+
+
     receivedPenalty = ->
       console.log "my user_id "+my_user_id+" received a penalty "+penalty_id+". Start penalty process"
       start_penalty_process()
+
+
 
     postCancelPenalty =  ->
        console.log "post cancel penalty of penalty "+penalty_id
@@ -100,6 +120,8 @@ $(document).ready ->
             # Signal to other clients that we have inserted new data
             # session.signal()
    
+  
+
     postEndPenalty = (excuse) ->
        console.log "post end penalty of penalty "+penalty_id
        data = 
@@ -112,6 +134,8 @@ $(document).ready ->
             # Signal to other clients that we have inserted new data
             # session.signal()
   
+  
+
     postPenalty = (from_user_id, to_user_id) ->
        data = 
          from_user_id: from_user_id,
@@ -124,10 +148,12 @@ $(document).ready ->
             # Signal to other clients that we have inserted new data
             session.signal()
     
+   
+
     postConnectionStart = (user_ids) ->   
       data = 
         user_ids: user_ids
-      console.log "connection created. Post to /connection/start: data = "+data
+      console.log "connection created. Post to /connection/start: user_ids = "+user_ids
       $.ajax
          url: '/connections/start',
          data: data,
@@ -135,10 +161,12 @@ $(document).ready ->
          success: (data) ->
              console.log data  
     
+  
+
     postConnectionEnd = (user_ids) ->           
       data = 
         user_ids: user_ids
-      console.log "connection ended. Post to /connection/end: data = "+data
+      console.log "connection ended. Post to /connection/end: user_ids = "+user_ids
       $.ajax
          url: '/connections/end',
          data: data,
@@ -146,6 +174,8 @@ $(document).ready ->
          success: (data) ->
              console.log data
      
+  
+
     bind_penalty_forms = ->
       $(".stream_boxXXX").click (event)-> 
         date = new Date()
@@ -155,23 +185,32 @@ $(document).ready ->
           if my_user_id != penalty_user_id
             postPenalty my_user_id, penalty_user_id				
 
+
+
     # The Session object dispatches SessionConnectEvent object when a session has successfully connected
     # in response to a call to the connect() method of the Session object. 
     sessionConnectedHandler = (event) ->
-        replaceElementId = 'publisher_box_tmp'
-        publisher = session.publish replaceElementId, windowProps
-        
-        # count the number of connections in hidden field
-        $("#connectionCountField").val(event.connections.length)
-        console.log("number of connections: "+event.connections.length)
-        # Subscribe to streams that were in the session when we connected
-        subscribeToStreams event.streams 
+      replaceElementId = "publisher_box_tmp"
+      publisher = session.publish replaceElementId, windowProps
+      
+      # count the number of connections in hidden field
+      $("#connectionCountField").val(event.connections.length)
+      user_ids = (JSON.parse(connection.data).user_id for connection in event.connections)
+      postConnectionStart(user_ids)
+
+      console.log("SessionConnectedHandler: number of connections: "+event.connections.length)
+      # Subscribe to streams that were in the session when we connected
+      subscribeToStreams event.streams 
            
+ 
+
     #The Session object dispatches StreamEvent events when a session has a stream created or destroyed.
     streamCreatedHandler = (event) -> 
        # Subscribe to any new streams that are created
        subscribeToStreams event.streams
 
+
+  
 
     # Retry session connect
     exceptionHandler = (event) -> 
@@ -179,50 +218,60 @@ $(document).ready ->
         alert('There was an error connecting. Trying again.')
         session.connect api_key, tok_token
 
+ 
+
     signalReceivedHandler = (event) ->  
       #getChatEntry(event.fromConnection.connectionId)
       getPenalty(event.fromConnection)
 
+ 
+
     connectionDestroyedHandler = (event) ->
       connectionsDestroyed = event.connections  
-
-      connectionsCount = parseInt($("#connectionCountField").val()) - connectionsDestroyed.length
+      origConnectionsCount = parseInt($("#connectionCountField").val())
+      connectionsCount = origConnectionsCount - connectionsDestroyed.length
       $("#connectionCountField").val(connectionsCount)
 
       user_ids = (JSON.parse(connection.data).user_id for connection in connectionsDestroyed)  
+      console.log("The number of connections changed from "+origConnectionsCount+ " to "+connectionsCount+". Lost user ids: "+user_ids)
 
       # remove the user boxes of the lost connections 
       $("#user_box_"+user_id).remove() for user_id in user_ids 
 
       # if user is left alone, also end his connection
-      #if connectionsCount == 1
-      #   user_ids.push(my_user_id)
-      #postConnectionEnd(user_ids)    
+      if connectionsCount == 1
+         user_ids.push(my_user_id)
+      postConnectionEnd(user_ids)    
 
  
+ 
+
     connectionCreatedHandler = (event) ->
       connectionsCreated = event.connections 
 
       origConnectionsCount = parseInt($("#connectionCountField").val())
       connectionsCount = origConnectionsCount + connectionsCreated.length
-      console.log("the number of connections changed from "+origConnectionsCount+ " to "+connectionsCount)
       $("#connectionCountField").val(connectionsCount)	
 	 
-      user_ids = JSON.parse(connection.data).user_id for connection in connectionsCreated 
+      user_ids = (JSON.parse(connection.data).user_id for connection in connectionsCreated)
+      console.log("The number of connections changed from "+origConnectionsCount+ " to "+connectionsCount+". New user ids: "+user_ids)
 
       # Add the own user_id , because the server tracks only video learning with 2 or more people
       # When the 2nd person connects, all browsers will send the new connections including the own user_id  
-     # my_user_id = $("#video_window").data("user_id")
-      #user_ids.push(my_user_id)
-      #postConnectionStart(user_ids)
+      user_ids.push(my_user_id)
+      postConnectionStart(user_ids)
 
   
+
+
     leadingzero = (number) ->
       if number < 10
         '0' + number
       else
         number
   
+
+
     do_warning_count_down = (count_down) ->
       if count_down>0
         count_down--
@@ -249,6 +298,8 @@ $(document).ready ->
         else
           alert "ERROR: penalty_count_up_timer is still on!"
   
+
+
     do_penalty_count_up = (count_up,limit) ->
       if count_up<limit
         count_up++
@@ -266,10 +317,14 @@ $(document).ready ->
       else
         stop_penalty_count_up()
   
+
+
     stop_warning_count_down = ->
       clearTimeout(warning_count_down_timer)
       warning_count_down_timer_is_on=0
   
+
+
     $( "#warning_count_down_window" ).dialog(
       autoOpen: false
       height: 200
@@ -279,7 +334,9 @@ $(document).ready ->
         if warning_count_down_timer_is_on
           stop_warning_count_down()
           postCancelPenalty() )
-  
+ 
+
+ 
     start_penalty_process = ->
       if !warning_count_down_timer_is_on
         $( "#warning_count_down_window" ).dialog( "open" )
@@ -288,13 +345,14 @@ $(document).ready ->
       else
         alert "ERROR: warning count down timer is still on"
   
-    $( "#warning_count_down_button" ).click(-> 
-      start_penalty_process() )
+
   
     stop_penalty_count_up = ->
       clearTimeout(penalty_count_up_timer)
       penalty_count_up_timer_is_on=0
   
+ 
+
     $( "#penalty_count_up_window" ).dialog(
       autoOpen: false
       height: 300

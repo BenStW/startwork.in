@@ -2,11 +2,15 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
+
+
+
 # document needs to be loaded, as parameters are passed from DOM to JS
 $(document).ready ->
   
   # only run code when videobox is present
   if $('#camera_settings').length > 0 
+    publisher = null
     TB.setLogLevel(TB.DEBUG) 
     session_id  = $("#camera_settings").data("session_id")
     tok_token = $("#camera_settings").data("tok_token")
@@ -18,13 +22,15 @@ $(document).ready ->
       height: 300
     
     # The Session object dispatches SessionConnectEvent object when a session has successfully connected
-    # in response to a call to the connect() method of the Session object. 
+    # in response to a call to the connect() method of the Session object.
+    console.log "THIS IS THE CAMERA SETTINGS PAGE" 
     sessionConnectedHandler = (event) ->
        replaceElementId = 'publisher_box_tmp'
        publisher = session.publish replaceElementId, windowProps
     
     session.addEventListener 'sessionConnected', sessionConnectedHandler
     session.connect api_key, tok_token
+
 
 
  
