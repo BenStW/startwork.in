@@ -1,7 +1,7 @@
 de:
   statistics:
     show:
-      statistics: Statistik1
+      statistics: Statistik
       overview: Übersicht
       number_of_work_sessions: Anzahl von Arbeitssitzung
       duration_of_all_work_sessions: Dauer (in Minuten) von allen Arbeitssitzungen
