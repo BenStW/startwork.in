@@ -13,20 +13,21 @@ $(document).ready ->
      else
         number
   
-  doCount = (div_id,countdown) ->
+  doCount = (div_id,countdown, work_session_boolean) ->
     if (countdown > 0)
        countdown--
        h = Math.floor(countdown/3600)
        m = Math.floor((countdown - (h * 3600))/60)
        s = (countdown-(h*3600))%60
+       prefix_html = if work_session_boolean then "Arbeitsphase: " else "Pause: "
        html =
-         leadingzero(h) + ':' +
-         leadingzero(m)
+         ""+prefix_html + "Noch "+m+" Min"
+		 # "+leadingzero(h) + ':' +
          # + ':' + leadingzero(s)
        
        $(div_id).html(html)
        f = -> 
-          doCount(div_id,countdown)
+          doCount(div_id,countdown, work_session_boolean)
        timeout = setTimeout(f,1000)
      else
        stopTimer()
@@ -47,7 +48,8 @@ $(document).ready ->
       else
         alert('GONG!!! - HTML5 Audio is not supported by your browser!')
 
-  startTimer = ->
+
+  startTimer = (div_id)->
     date = new Date()
     minutes = date.getMinutes()
     seconds = date.getSeconds()
@@ -57,7 +59,7 @@ $(document).ready ->
     time_to_full_hour =  60*60 - minutes*60 - seconds
     countdown = if minutes<work_session_duration then time_to_full_hour - (60-work_session_duration)*60 else time_to_full_hour
     timer_is_on=1
-    doCount("#timer_box",countdown)  
+    doCount(div_id,countdown,minutes<work_session_duration )  
 
   if $("#timer_box").length>0   
-    startTimer()
+    startTimer("#timer_box")
