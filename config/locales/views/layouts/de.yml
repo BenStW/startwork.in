@@ -1,0 +1,10 @@
+de: 
+  layouts:
+    application:
+      how_it_works: Wie es geht
+      about_us: Über uns
+      contact: Kontakt
+      sign_in: Anmelden
+      edit: Profil
+      logout: Abmelden
+    

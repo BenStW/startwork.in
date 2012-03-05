@@ -45,16 +45,15 @@ class User < ActiveRecord::Base
   
   def end_connection
     open_connections = connections.find_all_by_end_time(nil)
-    if open_connections.length>1
-      logger.error "Closing #{open_connections.length} open connections of user #{id}"
-    end 
     for connection in open_connections
       connection.end_time = DateTime.current
       connection.save
       logger.info "Closed connection #{connection.id} of user_id #{id}"
+      puts "Closed connection #{connection.id} of user_id #{id}"
     end
   end
-  
+
+=begin 
   def open_penalties?
     open_penalties = penalties.find_all_by_end_time(nil)
     open_penalties = close_old_open_penalties(open_penalties)
@@ -73,4 +72,5 @@ class User < ActiveRecord::Base
     end
     open_penalties
   end  
+=end 
 end

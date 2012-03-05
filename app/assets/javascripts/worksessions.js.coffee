@@ -196,7 +196,10 @@ $(document).ready ->
       # count the number of connections in hidden field
       $("#connectionCountField").val(event.connections.length)
       user_ids = (JSON.parse(connection.data).user_id for connection in event.connections)
-      postConnectionStart(user_ids)
+
+      # if more then 1 person is in the work_session, then document the connections 
+      if $("#connectionCountField").val()>1        
+        postConnectionStart(user_ids)
 
       console.log("SessionConnectedHandler: number of connections: "+event.connections.length)
       # Subscribe to streams that were in the session when we connected

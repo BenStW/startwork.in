@@ -1,0 +1,10 @@
+de:
+  activerecord:
+    models:
+      user: Benutzer
+    attributes:
+      user:
+        name: Name
+        email: Email
+        current_password: aktuelles Passwort
+      # will translate User attribute "login" as "Handle"

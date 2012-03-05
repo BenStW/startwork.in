@@ -21,7 +21,9 @@
 require 'spec_helper'
 
 describe User do
-  before { @user = User.new(name: "Example User", email: "user@example.com", password: "secret") }
+  fixtures :users   
+  before { @user = users(:ben) }
+    #User.new(name: "Example User", email: "user@example.com", password: "secret") 
 
   subject { @user }
 
@@ -54,22 +56,16 @@ describe User do
        it { should be_valid }
      end
    end
-   describe "when email address is already taken" do
-       before do
-         user_with_same_email = User.new(name: "Example User2", email: @user.email, password: "secret2")
-         user_with_same_email.save
-       end
-
-       it { should_not be_valid }
+   it "creates a new user with an existing email" do
+     user_with_same_email = User.new(name: "Example User2", email: @user.email, password: "secret2")
+     user_with_same_email.save
+     user_with_same_email.should_not be_valid
    end
-   describe "when name is already taken" do
-       before do
-         user_with_same_name = User.new(name: @user.name, email: "user2@example.com", password: "secret2")
-         user_with_same_name.save
-       end
-
-       it { should_not be_valid }
+   it "creates a new user with an existing name" do
+     user_with_same_name = User.new(name: @user.name, email: "user2@example.com", password: "secret2")
+     user_with_same_name.should_not be_valid     
    end  
+   
    describe "when password is not present" do
      before { @user.password = @user.password_confirmation = " " }
      it { should_not be_valid }
@@ -79,14 +75,12 @@ describe User do
      it { should_not be_valid }
    end
    
-   describe "when connection is established" do
-     it { 
+  it "creates and closes a connection" do
        should_not be_open_connections
        @user.start_connection
        should be_open_connections
        @user.end_connection
-       should_not be_open_connections}          
-   end
-   
+       should_not be_open_connections        
+  end
 
 end

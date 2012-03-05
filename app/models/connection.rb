@@ -12,6 +12,7 @@
 
 class Connection < ActiveRecord::Base
   belongs_to :user
+  validates :user, :start_time, :presence => true   
   
   def duration 
     if end_time.nil?
@@ -19,7 +20,6 @@ class Connection < ActiveRecord::Base
     else
       duration_in_seconds = end_time - start_time
       (duration_in_seconds/60).to_i
-    end
-    
+    end    
   end
 end

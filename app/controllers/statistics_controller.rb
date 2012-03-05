@@ -9,6 +9,6 @@ class StatisticsController < ApplicationController
     end
       
     @connections = current_user.connections
-    @penalties = current_user.penalties    
+    @penalties = current_user.penalties  
   end
 end

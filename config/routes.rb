@@ -1,35 +1,37 @@
 StartWork::Application.routes.draw do
 
 
+  get "work_sessions/show"
 
+ # scope "(:locale)", :locale => /en|de/  do
+     root :to => 'static_pages#home'  
 
-  root :to => 'static_pages#home'  
+     match 'how_it_works' => 'static_pages#how_it_works', :as => :how_it_works
+     match 'contact' => 'static_pages#contact', :as => :contact
+     match 'about_us' => 'static_pages#about_us', :as => :about_us
+     match 'camera' => 'static_pages#camera', :as => :camera
+    
+     devise_for :users
+     #devise_for :users, :controllers => {:sessions => "devise_sessions"}
+     
+    
+     resources :groups
+     match 'work_session/:id' => 'work_sessions#show', :as => :show_work_session    
+     
+    
+     post '/connections/start', :to => 'connections#start'  
+     post '/connections/end', :to => 'connections#end'
+    
+     match 'statistics' => 'statistics#show', :as => :statistics
+    
+    
+     match 'penalties/add' => 'penalties#add'
+     match 'penalties/latest' => 'penalties#latest'
+     match 'penalties/cancel/:penalty_id' => 'penalties#cancel'  
+     match 'penalties/end/:penalty_id' => 'penalties#end'  
+    
+ # end
   
-
-  
-  match 'how_it_works' => 'static_pages#how_it_works', :as => :how_it_works
-  match 'contact' => 'static_pages#contact', :as => :contact
-  match 'about_us' => 'static_pages#about_us', :as => :about_us
-  match 'camera' => 'static_pages#camera', :as => :camera
-
-  devise_for :users
-
-  resources :groups
-  
-  get '/chat_entries/latest/:connection_id' , :to => 'chat_entries#latest'
-  post '/chat_entries/add' , :to => 'chat_entries#add'
-
-  post '/connections/start', :to => 'connections#start'  
-  post '/connections/end', :to => 'connections#end'
-
-  match 'statistics' => 'statistics#show', :as => :statistics
-
-
-  match 'penalties/add' => 'penalties#add'
-  match 'penalties/latest' => 'penalties#latest'
-  match 'penalties/cancel/:penalty_id' => 'penalties#cancel'  
-  match 'penalties/end/:penalty_id' => 'penalties#end'  
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -87,3 +89,5 @@ StartWork::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
 end
+
+ActionDispatch::Routing::Translator.translate_from_file('config/locales/routes.yml', { :prefix_on_default_locale => false })

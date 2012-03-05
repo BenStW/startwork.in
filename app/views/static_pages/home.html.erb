@@ -3,12 +3,10 @@
 
   <!-- Main hero unit for a primary marketing message or call to action -->
   <div class="hero-unit">
-    <h1>Welcome</h1><br>
-<p>curiosity is the driver of learning.</p>
-<p>But sometimes you need just plain discipline to get through a long and exhausting task.</p>
-<p>For these tasks we help you: join our website to work in learning groups together.</p>
+    <h1><%= t :welcome %></h1><br>
+<%= t :welcome_text_html %>
 	
- <p><a class="btn btn-primary btn-large" href="<%= how_it_works_path%>">Learn more &raquo;</a></p>
+ <p><a class="btn btn-primary btn-large" href="<%= how_it_works_path%>"><%= t ".learn_more"%> &raquo;</a></p>
 
   </div><!-- end of main hero unit -->
                        
@@ -16,17 +14,21 @@
 <br>
 
 <%= raw place_size_in_html %>
+<%=t 'greet_username', :username => current_user.name %><br><br><hr>
 
-	<%= link_to "Camera test", camera_path, :class => "btn", :method => :get%>	<br><br>
+	<%= link_to t(".camera_test"), camera_path, :class => "btn", :method => :get%>	<br><br>
 	<hr><br>
-    <h2>Work groups:</h2><br>
+    <h2><%= t(".work_groups") %>: </h2><br>
 	<%= link_to 'Procrastinators in Berlin ', group_path(:id=>1), :class => "connect btn"%><br><br>
 
 	<%= link_to 'Gods of work', group_path(:id=>2), :class => "connect btn"%><br><br>
+	
+	<%= link_to 'Procrastinators in Berlin - NEW ', show_work_session_path(:id=>1), :class => "connect btn"%><br><br>
+	<%= link_to 'Gods of work - NEW', show_work_session_path(:id=>2), :class => "connect btn"%><br><br>
 
 <hr>
 	
-	<%= link_to "Statistics", statistics_path, :class => "btn", :method => :get%><br><br>
+	<%= link_to t(".statistics") , statistics_path, :class => "btn", :method => :get%><br><br>
 	
 
 <% end %>

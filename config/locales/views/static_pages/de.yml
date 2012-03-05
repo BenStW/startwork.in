@@ -1,0 +1,40 @@
+de:
+  welcome: "Willkommen"
+  greet_username: "Willkommen, %{username}!"
+  
+  welcome_text_html: 
+      "<p>Neugierde ist der natürliche Lerntrieb.</p>
+       <p>Aber manchmal braucht man ganz einfach Diszplin, um eine längere Lern-und Arbeitsphase erfolgreich zu absolvieren.</p>
+       <p>Für diese Aufgaben helfen wir dir: auf unserer Seite kannst du mit Freunden gemeinsam lernen und arbeiten. 
+       Ohne Aufschieberitis!</p>"
+  
+    
+  static_pages:
+    home:
+      learn_more: "Erfahre mehr"
+      camera_test: Kamera Test
+      work_groups: Arbeitsgruppen
+      statistics: Statistik
+    how_it_works:
+      title: "Wie es geht"
+      text: "Hier erklären wir, wie StartWork funktioniert"
+    about_us:
+      title: "Über uns" 
+      text: "Wir erzählen ein wenig über uns"
+    contact:
+      title: "Kontakt" 
+      text: "Schreibe eine Mail an"
+    camera:
+      title: "Kamera Einstellungen"
+      allow_always_access_html: "<h2>Erlaube immer den Zugriff auf die Kamera</h2>
+        <ol><li><b>Öffene das Kontext-Menü:</b> Rechter Maus-click (Windows) oder Control-click (Macintosh) 
+        auf die Video Box. </li>
+      	<li><b>Gehe auf Einstellungen</b></li>
+      	<li><b>Gehe auf den Reiter Zugriffsschutz</b></li>
+      	<li><b>Setze Zulassen und Speichern</b> </li>
+      	</ol>
+      	<br><br>Kannst du dich im Video sehen?<br>
+      	<a class='btn btn-primary' href='/'>Wenn ja, dann gehe weiter</a><br><br>				
+      	Falls du irgendwelche Probleme erfährst, dann besuche die Webseite des
+      	<a href='http://helpx.adobe.com/flash-player.html' target='_blank'>Adobe flash players</a>."      
+    

@@ -1,0 +1,50 @@
+<%= raw place_size_in_html %>
+
+<input id="connectionCountField" type="hidden" value="0" /><br>
+
+
+<div id="warning_count_down_window" title="Hey, are you still there?">
+	<form>
+		Hit Esc to cancel penalty!
+		<div id="warning_count_down_timer" class="penalty_timer_box">
+		Timer
+		</div>	
+	</form>
+</div>
+<div id="penalty_count_up_window" title="You have got a penalty!">
+	<div id="penalty_count_up_timer" class="penalty_timer_box">
+	Timer
+	</div>
+	
+	<form>
+	<fieldset>
+		<label for="name">Give your excuse:</label>
+		<input type="text" name="name" id="excuse"  />
+	</fieldset>
+	</form>
+</div>
+	
+<div class="video_window" id="video_window" 
+   data-session_id="<%=@work_session.tokbox_session_id %>" 
+   data-tok_token="<%=@tokbox_token%>" 
+   data-api_key="<%=@work_session.tokbox_api_key %>" 
+   data-user_id="<%=current_user.id%>">
+
+<div id="timer_box">timer</div>
+	
+	<div class="user_box" id="user_box_<%=current_user.id%>" data-user_id="<%=current_user.id%>">
+		<div class="text_box">
+			<b><%= current_user.name %></b><br>
+		
+		</div><!-- text_box -->
+		<div class="stream_box" >
+			<span id="publisher_box_tmp" class="label label-warning">
+				 please wait...
+			</span>
+			</div><!-- stream_box -->
+		</div><!-- stream_box -->		
+	</div> <!-- user_box -->
+</div> <!-- video_window-->
+
+
+

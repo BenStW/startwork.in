@@ -15,10 +15,11 @@
 class Penalty < ActiveRecord::Base
   belongs_to :to_user, :class_name => "User"
   belongs_to :from_user, :class_name => "User"
+  validates :to_user, :from_user, :start_time, :presence => true  
   
- def old_open?
-    !current_work_hour? and end_time.nil?
- end
+ #def old_open?
+#    !current_work_hour? and end_time.nil?
+# end
  
  def current_work_hour?
    c = DateTime.current

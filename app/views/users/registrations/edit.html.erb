@@ -1,28 +1,27 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<h2><%= t(".edit") %>  <%= User.model_name.human %></h2>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
   <%= devise_error_messages! %>
 
-  <div><%= f.label :name %>
+  <div><%= f.label t(".name") %>
   <%= f.text_field :name %></div><br />
 
-  <div><%= f.label :email %>
+  <div><%= f.label t(".email") %>
   <%= f.email_field :email %></div><br />
 
-  <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+  <div><%= f.label t(".password") %> <i>(<%= t(".leave_blank")%>)</i><br />
   <%= f.password_field :password %></div><br />
 
-  <div><%= f.label :password_confirmation %>
+  <div><%= f.label t(".password_confirmation") %>
   <%= f.password_field :password_confirmation %></div><br />
 
-  <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+  <div><%= f.label t(".current_password") %> <i>(<%= t(".why_current_password") %>) </i><br />
   <%= f.password_field :current_password %></div>
 
-  <div><%= f.submit "Update" %></div>
+  <div><%= f.submit t(".update")  %></div>
 <% end %>
 
-<h3>Cancel my account</h3>
+<h3><%= t(".cancel_my_account") %> </h3>
 
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.</p>
+<p><%= t(".unhappy") %> <%= link_to t(".cancel_my_account"), registration_path(resource_name), :confirm => t(".are_you_sure"), :method => :delete %>.</p>
 
-<%= link_to "Back", :back %>

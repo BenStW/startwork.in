@@ -1,0 +1,13 @@
+# == Schema Information
+#
+# Table name: work_sessions
+#
+#  id                :integer         not null, primary key
+#  tokbox_session_id :string(255)
+#  created_at        :datetime        not null
+#  updated_at        :datetime        not null
+#
+
+procrastinators:
+  tokbox_session_id: 1_MX4xMTc5Njc2Mn4wLjAuMC4wfjIwMTItMDMtMDUgMTA6NDI6MzUuMjExNzExKzAwOjAwfjAuNjYzNDI3Njc2NzA0fg 
+

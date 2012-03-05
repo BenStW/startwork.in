@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 describe StatisticsController do
+    render_views  
+    fixtures :users
 
-  describe "GET 'show'" do
-    it "returns http success" do
-     pending("this is also pending")
+    it "should get statistics" do
+      sign_in users(:ben)
+      get :show
     end
-  end
-
-end
+end 

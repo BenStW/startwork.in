@@ -1,38 +1,38 @@
-<h1>Statistics</h1>
+<h1><%= t(".statistics") %> </h1>
 
 <br>
-<h2>Overview:</h2>
+<h2><%= t(".overview") %> </h2>
 <table class="table table-striped table-bordered table-condensed">
     	<thead>
 		<tr>
-		<th>Number of penalties</th>
-		<th>Number of work sessions</th>
-		<th>Duration (in min) of all work sessions</th>		
+	<!--	<th>Number of penalties</th> -->
+		<th><%= t(".number_of_work_sessions") %></th>
+		<th><%= t(".duration_of_all_work_sessions") %> </th>		
 		</tr>
 		</thead>
 		<tbody>
 		<tr>
-		<td><%=@number_of_penalties %></td>
+	<!--	<td><%=@number_of_penalties %></td>-->
 		<td><%=@number_of_connections %></td>
 		<td><%=@duration_of_connections %></td>
 		</tr>
 		</tbody>
     </table>
 
-<h2>Work sessions:</h2>
+<h2><%= t(".work_sessions") %>:</h2>
 <table class="table table-striped table-bordered table-condensed">
 		<thead>
 		<tr>
-		<th>start time</th>
-		<th>end time</th>
-		<th>duration in min</th>		
+		<th><%= t(".start_time") %></th>
+		<th><%= t(".end_time") %> </th>
+		<th><%= t(".duration") %></th>		
 		</tr>
 		</thead>
 		<tbody>
 		<%= render @connections %>		
 	 </tbody>
   </table>
-
+	<!--
 <h2>Penalties:</h2>
 <table class="table table-striped table-bordered table-condensed">
 		<thead>
@@ -45,6 +45,6 @@
 		<tbody>
 		<%= render @penalties %>		
 	 </tbody>
-  </table>
+  </table> -->
 
 

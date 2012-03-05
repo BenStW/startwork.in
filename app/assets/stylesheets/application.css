@@ -12,3 +12,6 @@
  *= require_tree .
  *= require twitter/bootstrap
 */
+
+
+span.translation_missing {background-color: red;}

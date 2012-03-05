@@ -1,0 +1,16 @@
+en:
+  # you can leave empty locales, for example the default one
+  # contact: contacto
+de:
+  how_it_works: wie_geht_es
+  contact: kontakt
+  about_us: ueber_uns
+  camera: kamera
+  
+  statistics: statistik
+  sign_in: anmelden
+  users: benutzer
+  
+  work_session: arbeitssitzung
+  
+ 

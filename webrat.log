@@ -1,0 +1,8 @@
+# Logfile created on 2012-03-01 18:02:10 +0100 by logger.rb/31641
+REQUESTING PAGE: GET / with {} and HTTP headers {}
+REQUESTING PAGE: GET / with {} and HTTP headers {}
+REQUESTING PAGE: GET / with {} and HTTP headers {"HTTP_REFERER"=>"/"}
+REQUESTING PAGE: GET / with {} and HTTP headers {}
+REQUESTING PAGE: GET / with {} and HTTP headers {"HTTP_REFERER"=>"/"}
+REQUESTING PAGE: GET /how_it_works with {} and HTTP headers {}
+REQUESTING PAGE: GET /users/sign_up with {} and HTTP headers {}

@@ -33,23 +33,24 @@
 	          <a class="brand" href="/">StartWork</a>
 	          <div class="nav-collapse">
 	            <ul class="nav">
-	              <li <%= if_active 'how_it_works' %>><a href="/how_it_works">How it works</a></li>
-	              <li <%= if_active 'about_us' %>><a href="/about_us">About us</a></li>
-	              <li <%= if_active 'contact' %>><a href="/contact">Contact</a></li>
+	              <li <%= if_active 'how_it_works' %>><%= link_to t(".how_it_works"), how_it_works_path %></li>
+	              <li <%= if_active 'about_us' %>><%=link_to t(".about_us"), about_us_path %></li>
+	              <li <%= if_active 'contact' %>> <%=link_to t(".contact"), contact_path%> </li>
 				</ul> <!-- /.nav -->
 				<ul class="nav pull-right">
 					<% if user_signed_in? %>
 				 <li id="fat-menu" class="dropdown">
-				        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.name %><b class="caret"></b></a>
+				        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.name %>
+					<b class="caret"></b></a>
 				        <ul class="dropdown-menu">
-				          <li><%= link_to "edit profile", edit_user_registration_path %></li>
+				          <li><%= link_to t(".edit"), edit_user_registration_path %></li>
 				          <li class="divider"></li>
-				          <li><%= link_to "logout", destroy_user_session_path, :method => :delete %></li>
+				          <li><%= link_to t(".logout"), destroy_user_session_path, :method => :delete %></li>
 				        </ul>
 				      </li>					
 				</ul>
 				<% else %>
-				<p class="navbar-text pull-right"><%= link_to "sign in", new_user_session_path%></p>
+				<p class="navbar-text pull-right"><%= link_to t(".sign_in"), new_user_session_path%></p>
 				<% end %>
 	          </div><!--/.nav-collapse -->
 	        </div>

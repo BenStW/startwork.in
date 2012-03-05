@@ -1,0 +1,38 @@
+en:
+  welcome: "Welcome"
+  greet_username: "Welcome, %{username}!"
+  welcome_text_html: 
+      "<p>curiosity is the driver of learning.</p>
+       <p>But sometimes you need just plain discipline to get through a long and exhausting task.</p>
+       <p>For these tasks we help you: join our website to work in learning groups together.</p>"    
+  
+  static_pages:
+    home:
+      learn_more: "Learn more" 
+      camera_test: Camera test
+      work_groups: Work groups 
+      statistics: statistics            
+    how_it_works:
+      title: "How it works"
+      text: "--"
+    about_us:
+      title: "About us" 
+      text: "--"
+    contact:
+      title: "Contact" 
+      text: "Write us an email at "
+    camera:
+      title: "Camera settings"
+      allow_always_access_html: "<h2>Allow always access of the camera</h2>
+        <ol><li><b>Open context menue:</b> Please right-click (Windows) or Control-click (Macintosh) 
+        on the video box. </li>
+      	<li><b>Select Settings</b></li>
+      	<li><b>Choose the privacy tab</b></li>
+      	<li><b>Set the 'allow' and 'remember' checkboxes</b> </li>
+      	</ol>
+      	<br><br>Do you see your video?<br>
+      	<a class='btn btn-primary' href='/'>If successful, continue</a><br><br>				
+      	If you experience any troubles, please visit the website of the 
+      	<a href='http://helpx.adobe.com/flash-player.html' target='_blank'>Adobe flash player</a>."
+          
+    

@@ -1,0 +1,9 @@
+en: 
+  layouts:
+    application:
+      how_it_works: How it works
+      about_us: About us
+      contact: Contact
+      sign_in: Sign in
+      edit: Edit
+      logout: Log out      
