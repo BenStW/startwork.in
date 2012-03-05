@@ -13,14 +13,6 @@
 
 ActiveRecord::Schema.define(:version => 20120305074431) do
 
-  create_table "chat_entries", :force => true do |t|
-    t.integer  "group_id"
-    t.text     "body"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-    t.string   "connection_id"
-  end
-
   create_table "connections", :force => true do |t|
     t.integer  "user_id"
     t.datetime "created_at", :null => false
