@@ -8,4 +8,3 @@ de:
         email: Email
         current_password: aktuelles Passwort
       # will translate User attribute "login" as "Handle"
-tmp:
