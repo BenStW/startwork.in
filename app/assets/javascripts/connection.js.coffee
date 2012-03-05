@@ -21,8 +21,8 @@ $(document).ready ->
        s = (countdown-(h*3600))%60
        html =
          leadingzero(h) + ':' +
-         leadingzero(m) + ':' +
-         leadingzero(s)
+         leadingzero(m)
+         # + ':' + leadingzero(s)
        
        $(div_id).html(html)
        f = -> 
