@@ -388,7 +388,7 @@ $(document).ready ->
 
     
     $("#ben").click ->
-      play_sound('/audios/boxing-bell.wav')
+      play_gong()
 
 
     leadingzero = (number) ->
@@ -416,8 +416,7 @@ $(document).ready ->
          timeout = setTimeout(f,1000)
        else
          stopTimer()
-         play_sound('/audios/boxing-bell.wav')
-         # downloaded from http://www.freesound.org/people/Benboncan/sounds/66951/
+         play_gong()
          startTimer()
 
 
@@ -425,7 +424,28 @@ $(document).ready ->
     stopTimer = ->
       clearTimeout(timeout)
       timer_is_on=0
-    
+
+    mute_audio_for_x_sec = (sec) ->
+      if(publisher)
+        console.log("publisher already defined")  	
+        publisher.publishVideo(false)	
+        f = ->
+          publisher.publishVideo(true)
+          clearTimeout(t)
+        t = setTimeout(f,sec*1000)
+      else
+        console.log("publisher not yet defined")      
+
+    play_gong = ->
+      mute_audio_for_x_sec(8)
+      # downloaded from http://www.freesound.org/people/Benboncan/sounds/66951/	
+      $.fn.soundPlay(
+        url: '/audios/boxing-bell.wav',
+        playerId: 'embed_player',
+        command: 'play')
+
+
+    # can be deleted
     play_sound = (sound) ->
       console.log("play_sound was called")
       if (window.HTMLAudioElement) 
@@ -435,7 +455,6 @@ $(document).ready ->
           publisher.publishAudio(false)
           snd = new Audio(sound)
           snd.play()
-          t = null
           f = ->
             publisher.publishAudio(true)
             clearTimeout(t)
