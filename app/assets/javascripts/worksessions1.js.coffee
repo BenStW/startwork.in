@@ -428,9 +428,9 @@ $(document).ready ->
     mute_audio_for_x_sec = (sec) ->
       if(publisher)
         console.log("publisher already defined")  	
-        publisher.publishVideo(false)	
+        publisher.publishAudio(false)	
         f = ->
-          publisher.publishVideo(true)
+          publisher.publishAudio(true)
           clearTimeout(t)
         t = setTimeout(f,sec*1000)
       else
