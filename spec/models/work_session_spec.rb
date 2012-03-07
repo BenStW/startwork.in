@@ -20,12 +20,12 @@ describe WorkSession do
   end
   
   it "is valid with a tokbox_session" do
-    @work_session.create_tokbox_session
+    @work_session.generate_tokbox_session
     @work_session.should be_valid
   end
   
   it "creates a tokbox_token" do
-    @work_session.create_tokbox_session
+    @work_session.generate_tokbox_session
     connection_data = {:user_id =>1, :user_name => "Ben"}
     tokbox_token = @work_session.generate_tokbox_token(connection_data)
     tokbox_token.should_not be_nil

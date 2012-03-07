@@ -82,5 +82,17 @@ describe User do
        @user.end_connection
        should_not be_open_connections        
   end
+  
+  it "calculates the duration of all connections" do
+     conn1 = @user.start_connection
+     conn1.stub(:end_time).and_return(conn1.start_time + 5.minutes)
+     @user.stub(:open_connections?).and_return(false)
+
+     conn2 = @user.start_connection
+     conn2.stub(:end_time).and_return(conn2.start_time + 5.minutes)
+     @user.stub(:open_connections?).and_return(false)
+     
+     @user.duration_of_connections.should == 10
+  end
 
 end

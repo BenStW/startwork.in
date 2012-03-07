@@ -3,8 +3,20 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 $(document).ready( ->   
-  $("#ben1").click ->
-    $.fn.soundPlay(
-      url: '/audios/boxing-bell.wav',
-      playerId: 'embed_player', 
-      command: 'play')	)
+  $("#play_jplayer").click ->
+    console.log("play jplayer")    
+    $("#jplayer").jPlayer("play")
+    console.log("jplayer played")
+
+  $("#jplayer").jPlayer(
+    ready: -> 
+      $(this).jPlayer(
+        "setMedia",  
+          mp3: "/audios/boxing_bell.mp3",			
+          oga: "/audios/boxing_bell.ogg")
+    solution: "html,flash", # HTML5 with Flash fallback
+    supplied: "mp3, oga",
+    swfPath: "/audios/Jplayer.swf"
+  )
+)
+

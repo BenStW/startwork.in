@@ -10,6 +10,7 @@
 #  session_id  :string(255)
 #
 
+
 class Group < ActiveRecord::Base
   validates :name, :description, :presence => true
   validates :name, :uniqueness => true

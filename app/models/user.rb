@@ -36,6 +36,7 @@ class User < ActiveRecord::Base
       connection = connections.build(start_time: DateTime.current)
       connection.save
       logger.info "start connection with id #{connection.id} for user_id #{id}"
+      connection
     end
   end
   
@@ -49,10 +50,16 @@ class User < ActiveRecord::Base
       connection.end_time = DateTime.current
       connection.save
       logger.info "Closed connection #{connection.id} of user_id #{id}"
-      puts "Closed connection #{connection.id} of user_id #{id}"
-    end
+   end
   end
-
+  
+  def duration_of_connections
+    duration=0
+    for connection in connections
+      duration+=connection.duration
+    end
+    duration
+  end
 =begin 
   def open_penalties?
     open_penalties = penalties.find_all_by_end_time(nil)

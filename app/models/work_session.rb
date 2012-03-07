@@ -23,10 +23,11 @@ class WorkSession < ActiveRecord::Base
     'f6989f3520873c70f414edfd3f5d02e88ab4a97b'
   end
 
-  def create_tokbox_session(remote_addr = "0.0.0.0")
+  def generate_tokbox_session(remote_addr = "0.0.0.0")
     tokbox_session = tokbox_api_obj.create_session(remote_addr)      
     self.tokbox_session_id  = tokbox_session.session_id      
-    logger.info "Created tokbox_session for session #{id}"       
+    logger.info "Created tokbox_session for session #{id}"  
+    self.tokbox_session_id     
   end
   
   def generate_tokbox_token(connection_data)

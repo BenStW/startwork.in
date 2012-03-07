@@ -10,10 +10,10 @@ end
 
 When /^he signs in$/ do
   visit root_path(:locale => "en")
-  click_link "Anmelden"
+  click_link "Sign in"
   fill_in "user_email", :with => "test@test.com"
   fill_in "user_password", :with => "secret" 
-  click_on "Anmelden"
+  click_on "Sign in"
 end
 
 Then /^he can see his personalized homepage$/ do
