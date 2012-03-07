@@ -9,7 +9,7 @@ en:
   static_pages:
     home:
       learn_more: "Learn more" 
-      camera_test: Camera test
+      camera_test: Camera and audio test
       work_groups: Work groups 
       statistics: statistics            
     how_it_works:
@@ -23,6 +23,8 @@ en:
       text: "Write us an email at "
     camera:
       title: "Camera settings"
+      audio_title: "Audio Test"
+      play_jplayer: "Test the sound"      
       allow_always_access_html: "<h2>Allow always access of the camera</h2>
         <ol><li><b>Open context menue:</b> Please right-click (Windows) or Control-click (Macintosh) 
         on the video box. </li>

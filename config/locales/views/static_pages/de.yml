@@ -12,7 +12,7 @@ de:
   static_pages:
     home:
       learn_more: "Erfahre mehr"
-      camera_test: Kamera Test
+      camera_test: Kamera und Audio Test
       work_groups: Arbeitsgruppen
       statistics: Statistik
     how_it_works:
@@ -26,6 +26,8 @@ de:
       text: "Schreibe eine Mail an"
     camera:
       title: "Kamera Einstellungen"
+      audio_title: "Audio Test"
+      play_jplayer: "Teste den Sound"
       allow_always_access_html: "<h2>Erlaube immer den Zugriff auf die Kamera</h2>
         <ol><li><b>Öffene das Kontext-Menü:</b> Rechter Maus-click (Windows) oder Control-click (Macintosh) 
         auf die Video Box. </li>
