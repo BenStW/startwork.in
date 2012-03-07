@@ -2,21 +2,21 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
-$(document).ready( ->   
-  $("#play_jplayer").click ->
-    console.log("play jplayer")    
-    $("#jplayer").jPlayer("play")
-    console.log("jplayer played")
+$(document).ready -> 
+  if $('#jplayer').length > 0  
+    $("#play_jplayer").click ->
+      console.log("play jplayer")    
+      $("#jplayer").jPlayer("play")
+      console.log("jplayer played")
+    
+    $("#jplayer").jPlayer(
+      ready: -> 
+        $(this).jPlayer(
+          "setMedia",  
+            mp3: "http://fierce-ice-1470.herokuapp.com/audios/boxing-bell.mp3",			
+            oga: "http://fierce-ice-1470.herokuapp.com/audios/boxing-bell.ogg")
+      solution: "html,flash", # HTML5 with Flash fallback
+      supplied: "mp3, oga",
+      swfPath: "http://fierce-ice-1470.herokuapp.com/audios/Jplayer.swf")
 
-  $("#jplayer").jPlayer(
-    ready: -> 
-      $(this).jPlayer(
-        "setMedia",  
-          mp3: "/audios/boxing_bell.mp3",			
-          oga: "/audios/boxing_bell.ogg")
-    solution: "html,flash", # HTML5 with Flash fallback
-    supplied: "mp3, oga",
-    swfPath: "/audios/Jplayer.swf"
-  )
-)
 
