@@ -387,6 +387,17 @@ $(document).ready ->
     #  ************* Timer functions *********************
 
     
+    $("#jplayer").jPlayer(
+    # downloaded from http://www.freesound.org/people/Benboncan/sounds/66951/	
+      ready: -> 
+        $(this).jPlayer(
+          "setMedia",  
+            mp3: "/audios/boxing-bell.mp3",			
+            oga: "/audios/boxing-bell.ogg")
+      solution: "html,flash", # HTML5 with Flash fallback
+      supplied: "mp3, oga",
+      swfPath: "/audios/Jplayer.swf")
+    
     $("#ben").click ->
       play_gong()
 
@@ -438,11 +449,11 @@ $(document).ready ->
 
     play_gong = ->
       mute_audio_for_x_sec(8)
-      # downloaded from http://www.freesound.org/people/Benboncan/sounds/66951/	
-      $.fn.soundPlay(
-        url: '/audios/boxing-bell.wav',
-        playerId: 'embed_player',
-        command: 'play')
+      $("#jplayer").jPlayer("play")
+      # $.fn.soundPlay(
+      #   url: '/audios/boxing-bell.wav',
+      #   playerId: 'embed_player',
+      #   command: 'play')
 
 
     # can be deleted

@@ -13,10 +13,10 @@ $(document).ready ->
       ready: -> 
         $(this).jPlayer(
           "setMedia",  
-            mp3: "http://fierce-ice-1470.herokuapp.com/audios/boxing-bell.mp3",			
-            oga: "http://fierce-ice-1470.herokuapp.com/audios/boxing-bell.ogg")
+            mp3: "/audios/boxing-bell.mp3",			
+            oga: "/audios/boxing-bell.ogg")
       solution: "html,flash", # HTML5 with Flash fallback
       supplied: "mp3, oga",
-      swfPath: "http://fierce-ice-1470.herokuapp.com/audios/Jplayer.swf")
+      swfPath: "/audios/Jplayer.swf")
 
 
