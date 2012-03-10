@@ -16,6 +16,7 @@
 #  created_at             :datetime        not null
 #  updated_at             :datetime        not null
 #  name                   :string(255)
+#  activated              :boolean
 #
 
 class User < ActiveRecord::Base
@@ -59,6 +60,10 @@ class User < ActiveRecord::Base
       duration+=connection.duration
     end
     duration
+  end
+  
+  def activated?
+    activated
   end
 =begin 
   def open_penalties?

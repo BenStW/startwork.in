@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120305074431) do
+ActiveRecord::Schema.define(:version => 20120310170521) do
 
   create_table "connections", :force => true do |t|
     t.integer  "user_id"
@@ -23,14 +23,6 @@ ActiveRecord::Schema.define(:version => 20120305074431) do
 
   add_index "connections", ["user_id"], :name => "index_connections_on_user_id"
 
-  create_table "groups", :force => true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-    t.string   "session_id"
-  end
-
   create_table "penalties", :force => true do |t|
     t.integer  "from_user_id"
     t.integer  "to_user_id"
@@ -39,13 +31,6 @@ ActiveRecord::Schema.define(:version => 20120305074431) do
     t.datetime "updated_at",   :null => false
     t.datetime "start_time"
     t.datetime "end_time"
-  end
-
-  create_table "rooms", :force => true do |t|
-    t.string   "name"
-    t.string   "session_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|
@@ -62,10 +47,20 @@ ActiveRecord::Schema.define(:version => 20120305074431) do
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.string   "name"
+    t.boolean  "activated"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "work_session_times", :force => true do |t|
+    t.integer  "work_session_id"
+    t.datetime "start_time"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "work_session_times", ["work_session_id"], :name => "index_work_session_times_on_work_session_id"
 
   create_table "work_sessions", :force => true do |t|
     t.string   "tokbox_session_id"

@@ -10,6 +10,7 @@
 
 class WorkSession < ActiveRecord::Base
   validates :tokbox_session_id, :presence => true
+  has_many :work_session_times
   
   def after_initialize
    # logger.info "after initialize"
@@ -35,6 +36,10 @@ class WorkSession < ActiveRecord::Base
       raise "To generate a tokbox token the connection data must contain the user_id and user_name"
     end
     tokbox_api_obj.generate_token session_id: tokbox_session_id, connection_data: connection_data.to_json
+  end
+  
+  def add_work_session_time(time)
+    work_session_time = self.work_session_times.create(start_time: time)   
   end
   
   private

@@ -6,6 +6,12 @@ Feature: User signs in
   #@javascript
   Scenario: User signs in
     Given the user "Ben"
+    And the user is activated
     When he signs in
-    Then he can see his personalized homepage
+    Then the user sees the work groups
+
+  Scenario: Not activated User signs in
+    Given the user "Kai"
+    When he signs in
+    Then he sees the not activated message 
 

@@ -9,7 +9,7 @@ gem 'rails', '3.2.1'
 
 gem 'pg'
 gem 'opentok'
-gem 'less-rails-bootstrap'
+# gem 'less-rails-bootstrap'
 gem 'devise'
 
 
@@ -22,16 +22,17 @@ end
 group :development,:test do
   gem 'rspec-rails'
   # gem 'webrat' #use only capybara
-  gem 'cucumber-rails'
-  gem "selenium-webdriver", "~> 2.20.0"
+  gem 'cucumber-rails' # The cucumber-rails gem comes with Capybara support built-in.
+  # The cucumber-rails gem uses Selenium 2.0 (Webdriver), not Selenium RC
+ # gem "selenium-webdriver", "~> 2.20.0"
 end
 
 group :test do
   gem 'database_cleaner'
 
-  gem 'capybara', '1.1.2'
-  gem 'rb-fsevent', '0.4.3.1', :require => false
-  gem 'growl', '1.0.3'
+#  gem 'capybara', '1.1.2'
+#  gem 'rb-fsevent', '0.4.3.1', :require => false
+#  gem 'growl', '1.0.3'
 end
 
 

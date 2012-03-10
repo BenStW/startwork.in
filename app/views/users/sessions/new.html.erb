@@ -12,7 +12,10 @@
     <div><%= f.check_box :remember_me %> <%= f.label t(".remember_me") %></div>
   <% end -%>
 <br />
-  <div><%= f.submit t(".sign_in") %></div>
+  <div>
+<%= f.submit t(".sign_in")%> 
+	</div>
 <% end %>
 
 <%= render("users/links") %>
+

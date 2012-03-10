@@ -1,7 +1,13 @@
 StartWork::Application.routes.draw do
 
 
-  get "work_sessions/show"
+
+
+  #get "calendar/show"
+  match 'work_session/:work_session_id/calendar' => 'calendars#show', :as => :work_session_calendar
+  match 'work_session/:work_session_id/calendar/event_new' => 'calendars#event_new', :as => :work_session_calendar_event_new
+
+ # get "work_sessions/show"
 
  # scope "(:locale)", :locale => /en|de/  do
      root :to => 'static_pages#home'  

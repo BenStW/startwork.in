@@ -16,6 +16,7 @@
 #  created_at             :datetime        not null
 #  updated_at             :datetime        not null
 #  name                   :string(255)
+#  activated              :boolean
 #
 
 require 'spec_helper'
@@ -93,6 +94,14 @@ describe User do
      @user.stub(:open_connections?).and_return(false)
      
      @user.duration_of_connections.should == 10
+  end
+  
+  it "is activated for Ben" do
+    @user.activated.should be_true
+  end
+  it "is activated for Steffi" do
+    @user_steffi = users(:steffi)
+    @user_steffi.activated.should be_false
   end
 
 end

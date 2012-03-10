@@ -11,6 +11,10 @@
  *= require_self
  *= require_tree .
  *= require twitter/bootstrap
+ *= require jquery_plugins/jquery.weekcalendar
+ * require twitter/bootstrap-responsive - not needed
+ * require twitter/bootstrap-responsive.min - not needed
+ * require twitter/bootstrap.min - not needed
 */
 
 

@@ -6,6 +6,6 @@ describe "User pages" do
   describe "signup pages" do
     before { visit "/users/sign_up"}
     
-    it { should have_selector('h2', text: "Sign up") }
+    it { should have_selector('h1', text: "Sign up") }
   end
 end

@@ -2,7 +2,7 @@ en:
   welcome: "Welcome"
   greet_username: "Welcome, %{username}!"
   welcome_text_html: 
-      "<p>curiosity is the driver of learning.</p>
+      "<p>Curiosity is the driver of learning.</p>
        <p>But sometimes you need just plain discipline to get through a long and exhausting task.</p>
        <p>For these tasks we help you: join our website to work in learning groups together.</p>"    
   
@@ -11,13 +11,25 @@ en:
       learn_more: "Learn more" 
       camera_test: Camera and audio test
       work_groups: Work groups 
-      statistics: statistics            
+      statistics: statistics  
+      not_activated_html: "<h2>Your account is not activated yet.</h2><br>
+        <p>Please still have some patience.</p>
+        <p>We will contact you this week (12th to 16th of March),
+        in order to arrange a meeting on Monday (19th) or Tuesday (20th) next week.</p>
+        <p>In this meeting we will explain you the procedure of the platform, 
+        and a week later (26/27th March) your account will be activated.</p>
+        <p>If you have any questions, please send <a href='mailto:mail@benedikt-voigt.net'>Benedikt</a> an email.</p>"   
     how_it_works:
       title: "How it works"
-      text: "--"
+      text_html: "<p>You work with up to 5 friends for 50 minutes with a running webcam. 
+      After the work session you have a break of 10 minutes.</p> 
+        <p>The social control disciplines you and gives you a comfortable and intensive experience with your friends.</p>
+        <p>First you choose your work sessions of the next 7 days in the calendar 
+        and then we create the work groups based on the work times of your friends or we join you to a new learn group.</p>"
+      sign_up: "Continue to sign up"
     about_us:
       title: "About us" 
-      text: "Who are we?"
+      text_html: "We are three founders in Berlin Mitte."
     contact:
       title: "Contact" 
       text: "Write us an email at "
