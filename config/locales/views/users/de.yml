@@ -1,7 +1,7 @@
 de:
   users:
     links:
-      sign_in: Anmelden1
+      sign_in: Anmelden
       sign_up: Registrieren
       forgot_your_password: Passwort vergessen?
       didnt_receive_conf_instructions: Hast du die Informationen zur Bestätigung nicht erhalten?
@@ -67,6 +67,3 @@ de:
     unlocks:
       new:
         resend_unlock_instructions: Sende mir noch einmal die Informationen zum Entsperren
-        
-        
-     
