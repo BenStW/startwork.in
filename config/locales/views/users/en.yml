@@ -1,7 +1,7 @@
 en:
   users:
     links:
-      sign_in: Sign in
+      sign_in: Sign in1
       sign_up: Sign up
       forgot_your_password: Forgot your password?
       didnt_receive_conf_instructions: Didn't receive confirmation instructions?
