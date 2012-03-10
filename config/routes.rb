@@ -1,7 +1,5 @@
+# encoding: utf-8
 StartWork::Application.routes.draw do
-
-
-
 
   #get "calendar/show"
   match 'work_session/:work_session_id/calendar' => 'calendars#show', :as => :work_session_calendar
