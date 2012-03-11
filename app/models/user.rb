@@ -32,6 +32,13 @@ class User < ActiveRecord::Base
   has_many :penalties, :foreign_key => "to_user_id"
   has_many :connections
   
+  before_create :activate
+  
+  def activate
+    self.activated = true
+    puts "ACTIVATED"
+  end  
+  
   def start_connection
     if !open_connections?      
       connection = connections.build(start_time: DateTime.current)
