@@ -10,6 +10,13 @@ end
 
 When /^he visits the page of the work group$/ do 
   visit work_session_calendar_en_path :work_session_id => @work_session.id
+  
+
+#Capybara::Node::Element.click_at(500,500)    
+  
+
+  
+  
  # print page.html
 #  t = page.execute_script("return document.title;")
 #  puts "title = "+t 

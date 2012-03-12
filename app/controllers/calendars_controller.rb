@@ -2,7 +2,7 @@ class CalendarsController < ApplicationController
   def show
   end
   
-  def event_new
+  def new_time
     logger.info "create new event for #{params.to_yaml}"
     work_session = WorkSession.find(params[:work_session_id])
     logger.info "start_time = #{params[:start_time]}"

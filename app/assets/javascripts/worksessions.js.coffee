@@ -55,6 +55,15 @@ $(document).ready ->
       msg = element_id+ " exists? "+e
       console.log(msg)
 
+    hide_video = false
+    $("#hide_video").click ->
+       hide_video = if hide_video then false else true
+       my_user_box_id = "#user_box_"+my_user_id
+       if hide_video
+         $(my_user_box_id).css('display','none')
+       else
+         $(my_user_box_id).css('display','inline')  
+
 
     # creates for each new connection a user_box with a text_box and a stream_box
     subscribeToStreams = (streams) -> 

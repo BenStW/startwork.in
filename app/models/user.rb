@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
   has_many :penalties, :foreign_key => "to_user_id"
   has_many :connections
   
-  before_create :activate
+#  before_create :activate
   
   def activate
     self.activated = true
