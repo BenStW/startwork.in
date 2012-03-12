@@ -17,8 +17,8 @@ pre {
 
 a {
   color: #000;
-  &:visited {
-    color: #666; }
+/*  &:visited {  removed by Ben on request of Miro, 2012-03-12
+    color: #666; }*/
   &:hover {
     color: #fff;
     background-color: #000; } }
