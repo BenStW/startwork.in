@@ -59,6 +59,15 @@ Capybara::Node::Element.class_eval do
     wait_until do
       right = x - (native.size.width / 2)
       top = y - (native.size.height / 2)
+      puts "x = #{x}"
+      puts "y = #{y}"
+      puts "native.size.width = #{native.size.width }"
+      puts "native.size.height = #{native.size.height }"
+      puts "right = #{right}"
+      puts "top = #{top}"
+      right= 10
+      top =10
+      puts native.size.to_yaml
       driver.browser.action.move_to(native).move_by(right.to_i, top.to_i).click.perform
     end
   end 

@@ -4,6 +4,8 @@ StartWork::Application.routes.draw do
   #get "calendar/show"
   match 'work_session/:work_session_id/calendar' => 'calendars#show', :as => :work_session_calendar
   match 'work_session/:work_session_id/calendar/new_time' => 'calendars#new_time', :as => :work_session_calendar_new_time
+  match 'work_session/:work_session_id/calendar/all_times' => 'calendars#all_times', :as => :work_session_calendar_all_times
+
 
  # get "work_sessions/show"
 

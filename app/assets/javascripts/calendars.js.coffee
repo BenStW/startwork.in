@@ -16,15 +16,18 @@ $(document).ready( ->
       longDays: $.datepicker.regional['de'].dayNames, 
       shortMonths: $.datepicker.regional['de'].monthNamesShort, 
       longMonths: $.datepicker.regional['de'].monthNames,
-   #   data: '/work_session/'+work_session_id+'/calendar/all_times'
+      data: '/work_session/'+work_session_id+'/calendar/all_times',
 	
       newEventText: "",      
       eventNew : (calEvent, event) -> 
         work_session_id = $("#work_session").data("work_session_id")	
         console.log("Created event for work_session "+work_session_id+" with start " + calEvent.start + " and end " + calEvent.end + ".")
         start_time = calEvent.start.toString("yyyy-MM-DD")
+        end_time = calEvent.end.toString("yyyy-MM-DD")
+        console.log("write start_time = "+start_time)
         data = 
           start_time:start_time
+          end_time:end_time
         console.log data
     
         $.ajax

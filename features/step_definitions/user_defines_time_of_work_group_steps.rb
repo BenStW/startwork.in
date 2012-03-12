@@ -11,8 +11,11 @@ end
 When /^he visits the page of the work group$/ do 
   visit work_session_calendar_en_path :work_session_id => @work_session.id
   
+ # locator = "$('.wc-full-height-column.wc-day-column-inner.day-2')"
 
-#Capybara::Node::Element.click_at(500,500)    
+
+ # find("#calendar").click_at(10,10) 
+# find("body").click_at(10,10)
   
 
   
