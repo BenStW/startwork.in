@@ -10,7 +10,7 @@
 
 class WorkSession < ActiveRecord::Base
   validates :tokbox_session_id, :presence => true
-  has_many :work_session_times
+  has_many :work_session_times, :dependent => :destroy
   
   def after_initialize
    # logger.info "after initialize"
@@ -36,23 +36,9 @@ class WorkSession < ActiveRecord::Base
       raise "To generate a tokbox token the connection data must contain the user_id and user_name"
     end
     tokbox_api_obj.generate_token session_id: tokbox_session_id, connection_data: connection_data.to_json
-  end
+  end 
   
-  
-
-  def create_work_session_times(start_time, end_time=nil)
-    if end_time.nil?
-      self.work_session_times.create(start_time: start_time)
-    else
-      hours = (end_time.hour-1) - start_time.hour
-      (0..hours).each do |hour|
-        hour_start_time = start_time + hour.hours
-        self.work_session_times.create(start_time: hour_start_time)
-      end
-    end
-  end   
-  
-  def all_times_of_this_week
+  def all_events_of_this_week
     c = DateTime.current
     today = DateTime.new(c.year,c.month,c.day)
     self.work_session_times.where("start_time >=?", today)

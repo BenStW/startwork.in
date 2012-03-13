@@ -11,53 +11,42 @@ $(document).ready( ->
       firstDayOfWeek: day_of_week,
       defaultEventLength: 1,
       height:  (calendar) ->
-        $(window).height() - $("h1").outerHeight(true)
+        h = $(window).height() #- $("h1").outerHeight(true)
+        #console.log "height="+h
+        h
       shortDays: $.datepicker.regional['de'].dayNamesShort, 
       longDays: $.datepicker.regional['de'].dayNames, 
       shortMonths: $.datepicker.regional['de'].monthNamesShort, 
       longMonths: $.datepicker.regional['de'].monthNames,
-      data: '/work_session/'+work_session_id+'/calendar/all_times',	
-      newEventText: "",      
+      data: '/work_session/'+work_session_id+'/calendar/all_events',	
+      newEventText: "",  
+      draggable: ->
+        false
+      resizable: ->
+        false
       eventNew : (calEvent, event) -> 
-        console.log("Created event for work_session "+work_session_id+" with start " + calEvent.start + " and end " + calEvent.end + ".")
         start_time = calEvent.start.toString() 
         end_time = calEvent.end.toString() 
         data = 
           start_time:start_time
           end_time:end_time
-        console.log data
-    
         $.ajax
-          url: '/work_session/'+work_session_id+'/calendar/new_time',
+          url: '/work_session/'+work_session_id+'/calendar/new_event',
           data: data,
           type: 'POST',
-          success: (data) ->
-            console.log data
-      eventDrop : (calEvent, event) -> 
-        console.log("Moved event for work_session "+work_session_id+" with start " + calEvent.start + " and end " + calEvent.end + ".")
-        start_time = calEvent.start.toString()
-        end_time = calEvent.end.toString()
-        data = 
-          start_time:start_time
-          end_time:end_time
-        $.ajax
-          url: '/work_session/'+work_session_id+'/calendar/new_time',
-          data: data,
-          type: 'POST',
-          success: (data) ->
-            console.log data
+          statusCode:
+            200: ->
+               $("#calendar").weekCalendar("refresh")            
+
       eventClick : (calEvent, event) -> 
-        console.log("Remove event with id #{calEvent.id} for work_session "+work_session_id+" with start " + calEvent.start + " and end " + calEvent.end + ".")      
-        console.log(calEvent)
-        console.log(event)
         data = 
-          start_time:start_time
-          end_time:end_time
+          event: calEvent.id
         $.ajax
-          url: '/work_session/'+work_session_id+'/calendar/remove_time'
+          url: '/work_session/'+work_session_id+'/calendar/remove_event'
           data: data,
           type: 'POST',
-          success: (data) ->
-            $('#calendar').weekCalendar('removeEvent', calEvent.id))
-)
+          statusCode:
+            200: ->
+              $("#calendar").weekCalendar("refresh"))
+)      
         

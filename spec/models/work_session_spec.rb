@@ -37,31 +37,19 @@ describe WorkSession do
     tokbox_token.should_not be_nil
   end
   
-  it "creates one work session time" do
-    t = DateTime.current
-    time = DateTime.new(t.year, t.month,t.day,t.hour)
-    @work_session.create_work_session_times(time)   
-    @work_session.work_session_times.length.should eq(1)
-  end
- 
-  it "creates several work session times" do
-    t = DateTime.current
-    start_time = DateTime.new(t.year, t.month,t.day,t.hour)
-    end_time = DateTime.new(t.year, t.month,t.day,t.hour+3)
-    @work_session.create_work_session_times(start_time, end_time)
-    @work_session.work_session_times.length.should eq(3)
-  end
-
-  it "shows all times of this week" do
+  it "shows all events of this week" do
     t = DateTime.current
     start_time_yesterday = DateTime.new(t.year, t.month,t.day-1,t.hour)
-    @work_session.create_work_session_times(start_time_yesterday)
-    start_time_tomorrow = DateTime.new(t.year, t.month,t.day+1,t.hour)
-    @work_session.create_work_session_times(start_time_tomorrow)
-
-    times = @work_session.all_times_of_this_week
-    times.count.should eq(1)    
+    end_time_yesterday = DateTime.new(t.year, t.month,t.day-1,t.hour+1)
+    e1 = @work_session.work_session_times.create(start_time:start_time_yesterday, end_time:end_time_yesterday)
     
+    start_time_tomorrow = DateTime.new(t.year, t.month,t.day+1,t.hour)
+    end_time_tomorrow = DateTime.new(t.year, t.month,t.day+1,t.hour+1)    
+    e2 = @work_session.work_session_times.create(start_time:start_time_tomorrow, end_time: end_time_tomorrow)
+
+    times = @work_session.all_events_of_this_week
+    times.count.should eq(1)       
   end
+  
 
 end

@@ -3,3 +3,4 @@ de:
         show:
             title: Kalender
             description: "Tragt bitte die Arbeitsstunden ein:"
+            back: zurück

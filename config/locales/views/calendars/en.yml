@@ -3,3 +3,4 @@ en:
         show:
             title: Calendar    
             description: "Please fill out the working hours:"
+            back: back

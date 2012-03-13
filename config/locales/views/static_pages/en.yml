@@ -11,7 +11,9 @@ en:
       learn_more: "Learn more" 
       camera_test: Camera and audio test
       work_groups: Work groups 
-      statistics: statistics  
+      start: Start
+      calendar: Calendar
+      statistics: Statistics  
       not_activated_html: "<h2>Your account is not activated yet.</h2><br>
         <p>Please still have some patience.</p>
         <p>We will contact you this week (12th to 16th of March),

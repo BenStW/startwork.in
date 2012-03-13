@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120310170521) do
+ActiveRecord::Schema.define(:version => 20120313101527) do
 
   create_table "connections", :force => true do |t|
     t.integer  "user_id"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(:version => 20120310170521) do
     t.datetime "start_time"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.datetime "end_time"
   end
 
   add_index "work_session_times", ["work_session_id"], :name => "index_work_session_times_on_work_session_id"

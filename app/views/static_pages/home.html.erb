@@ -18,9 +18,35 @@
         <%= link_to t(".camera_test"), camera_path, :class => "btn", :method => :get%>	<br><br>
         <hr><br>
         <h2><%= t(".work_groups") %>: </h2><br>
-  
-        <%= link_to 'Procrastinators in Berlin', show_work_session_path(:id=>1), :class => "connect btn"%><br><br>
-        <%= link_to 'Gods of work', show_work_session_path(:id=>2), :class => "connect btn"%><br><br>
+
+<div class="row">
+	      <div class="span4">  
+<table class="table">
+	<thead>
+	<tr>
+	<th></th>		
+	<th></th>		
+	<th></th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>Procrastinators in Berlin</td>
+	<td><%= link_to t(".start"), show_work_session_path(:id=>1), :class => "connect btn"%></td>
+<!--	<td><%= link_to t(".calendar"), work_session_calendar_path(:work_session_id=>1), :class => "btn"%></td>-->
+	</tr>
+	<tr>
+	<td>Gods of work</td>
+	<td><%= link_to t(".start"), show_work_session_path(:id=>2), :class => "connect btn"%></td>
+<!--	<td><%= link_to t(".calendar"), work_session_calendar_path(:work_session_id=>2), :class => "btn"%></td>-->
+	</tr>	
+	</tbody>
+	</table>
+	</div>
+</div>	
+
+
+       
   
         <hr>
   	
