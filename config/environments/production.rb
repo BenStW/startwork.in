@@ -58,7 +58,7 @@ StartWork::Application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # added by Ben  
-  config.action_mailer.default_url_options = { :host => 'startwork.in' }
+  config.action_mailer.default_url_options = { :host => 'fierce-ice-1470.herokuapp.com' }
   
 
   # Enable threaded mode
