@@ -67,7 +67,7 @@ gem 'rails-translate-routes'
 # gem 'capistrano'
 
 # To use debugger
-gem 'ruby-debug-base19', "0.11.26"
-gem 'ruby-debug19', "0.11.6"
+#gem 'ruby-debug-base19', "0.11.26"
+#gem 'ruby-debug19', "0.11.6"
 
 #gem 'ruby-debug19', :require => 'ruby-debug'
