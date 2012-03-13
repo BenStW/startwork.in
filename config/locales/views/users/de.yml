@@ -1,9 +1,69 @@
 de:
   users:
+    links:
+      sign_in: Anmelden
+      sign_up: Registrieren
+      forgot_your_password: Passwort vergessen?
+      didnt_receive_conf_instructions: Hast du die Informationen zur Bestätigung nicht erhalten?
+      didnt_receive_unlock_instructions: Hast du die Informationen zum Ensperren nicht erhalten?
+      sign_in_with: "Anmelden mit %{provider}"
+    confirmations:
+      new:
+        email: Email
+        resend_confirmation_instructions: "Sende mir noch einmal die Informationen zur Bestätigung"   
+    mailer:
+      confirmation_instructions:
+        confirm_my_account: Bestätige mein Benutzerkonto
+        welcome_html: "<p>Hallo %{name}</p>
+          <p>Du kannst deine Email durch den unten stehenden Link bestätigen:</p>"        
+      reset_password_instructions:
+        hello_html: "<p>Hallo %{name}!</p>
+          <p>Jemand hat einen Link zum Ändern deines Passworts angefordert, 
+          und du kannst dies durch den unten stehenden Link vornehmen.</p>"        
+        change_my_password: Ändere mein Passwort
+        if_you_didnt_request_this_html:  "<p>Falls du dies nicht beauftragt hast, ignoriere diese Email.</p>
+          <p>Dein Passwort wird nicht geändert solange du nicht den oben stehenden Link verfolgst 
+          und ein neues Passwort erstellst.</p>"                      
+      unlock_instructions:
+        hello_html: "<p>Hallo %{name}!</p>
+          <p>Dein Konto ist gesperrt wegen zu vielen nicht erfolgreichen Anmeldeversuchen.</p>
+          <p>Gehe auf den unten stehenden Link, um dein Konto zu entsperren:</p>"          
+        unlock_my_account: Entsperre mein Benutzerkonto
+    passwords:
+      edit:
+        change_your_password: Änder dein Passwort
+        new_passowrd: Neues Passwort
+        confirm_new_password: Bestätige das neue Passwort
+        change_my_password: Ändere mein Passwort
+      new:
+        forgot_your_password: Passwort vergessen?
+        send_me_reset_password_instructions: "Sende mir die Informationen zum Zurücksetzen des Passworts:"
     registrations:
+      edit:
+        edit: Ändere
+        name: Name
+        email: Email
+        password: Passwort
+        leave_blank: "Einfach leer lassen, wenn du es nicht ändern möchtest"
+        password_confirmation: Passwort Bestätigung
+        current_password: Aktuelles Passwort
+        why_current_password: wir benötigen dein aktuelles Passwort um die Änderungen zu bestägigen
+        update: Speichern
+        cancel_my_account: Lösche mein Benutzerkonto
+        are_you_sure: Bist du sicher?
+        unhappy: Unzufrieden?
       new:
         name: Name
         email: Email
         password: Passwort
         password_confirmation: "Bitte bestätige das Passwort"
         sign_up: Registrieren
+    sessions:
+      new:
+        sign_in: Anmelden
+        email: Email
+        password: Passwort
+        remember_me: Angemeldet bleiben
+    unlocks:
+      new:
+        resend_unlock_instructions: Sende mir noch einmal die Informationen zum Entsperren
