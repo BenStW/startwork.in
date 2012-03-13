@@ -44,8 +44,8 @@ class WorkSession < ActiveRecord::Base
     if end_time.nil?
       self.work_session_times.create(start_time: start_time)
     else
-      hours = end_time.hour - start_time.hour
-      (1..hours).each do |hour|
+      hours = (end_time.hour-1) - start_time.hour
+      (0..hours).each do |hour|
         hour_start_time = start_time + hour.hours
         self.work_session_times.create(start_time: hour_start_time)
       end

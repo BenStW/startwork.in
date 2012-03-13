@@ -1,4 +1,6 @@
-tomorrow_morning:
+tomorrow_morning_10am:
   work_session: procrastinators
-  start_time: <%= DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day+1,DateTime.current.hour) %>
-
+  start_time: <%= DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day+1,10) %>
+tomorrow_morning_11am:
+  work_session: procrastinators
+  start_time: <%= DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day+1,11) %>

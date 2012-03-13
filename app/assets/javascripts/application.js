@@ -15,9 +15,9 @@
 //= require jquery-ui
 //= require jquery_plugins/jquery-ui-i18n
 //= require jquery_plugins/jquery.jplayer.min
-//= require_tree .
-//= require twitter/bootstrap-dropdown
 //= require jquery_plugins/jquery.weekcalendar
+//= require twitter/bootstrap-dropdown
+//= require_tree .
 // require jquery_plugins/jquery.popupWindow - not needed yet
 // require twitter/bootstrap - not needed
 // require twitter/bootstrap.min - not needed
