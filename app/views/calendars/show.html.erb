@@ -3,6 +3,7 @@
 
 <span id="work_session"
   data-work_session_id=<%=params[:work_session_id] %>
+  data-base_url=<%= work_session_calendar_url(:work_session_id => params[:work_session_id]) %>
 </span>
 
 <div id='calendar'></div>

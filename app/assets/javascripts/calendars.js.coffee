@@ -6,6 +6,7 @@ $(document).ready( ->
   if $('#calendar').length>0
     day_of_week = new Date().getDay()
     work_session_id = $("#work_session").data("work_session_id")
+    base_url = $("#work_session").data("base_url")
     $('#calendar').weekCalendar(
       timeslotsPerHour: 1,
       firstDayOfWeek: day_of_week,
@@ -18,7 +19,7 @@ $(document).ready( ->
       longDays: $.datepicker.regional['de'].dayNames, 
       shortMonths: $.datepicker.regional['de'].monthNamesShort, 
       longMonths: $.datepicker.regional['de'].monthNames,
-      data: '/work_session/'+work_session_id+'/calendar/all_events',	
+      data: base_url+'/all_events',	
       newEventText: "",  
       draggable: ->
         false
@@ -31,7 +32,7 @@ $(document).ready( ->
           start_time:start_time
           end_time:end_time
         $.ajax
-          url: '/work_session/'+work_session_id+'/calendar/new_event',
+          url: base_url+'/new_event',
           data: data,
           type: 'POST',
           statusCode:
@@ -42,7 +43,7 @@ $(document).ready( ->
         data = 
           event: calEvent.id
         $.ajax
-          url: '/work_session/'+work_session_id+'/calendar/remove_event'
+          url: base_url+'/remove_event'
           data: data,
           type: 'POST',
           statusCode:
