@@ -12,6 +12,9 @@ gem 'opentok'
 # gem 'less-rails-bootstrap'
 gem 'devise'
 
+gem 'activeadmin'
+gem "meta_search",    '>= 1.1.0.pre' # used for ActiveAdmin
+
 
 group :development do
   gem 'annotate', '~> 2.4.1.beta' 

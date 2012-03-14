@@ -1,6 +1,10 @@
 # encoding: utf-8
 StartWork::Application.routes.draw do
 
+  ActiveAdmin.routes(self)
+
+  devise_for :admin_users, ActiveAdmin::Devise.config
+
   #get "calendar/show"
   match 'work_session/:work_session_id/calendar' => 'calendars#show', :as => :work_session_calendar
   match 'work_session/:work_session_id/calendar/new_event' => 'calendars#new_event'

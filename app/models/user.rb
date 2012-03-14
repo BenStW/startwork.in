@@ -26,11 +26,13 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :email, :password, :password_confirmation, :remember_me
+  attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :activated
   
   validates :name, presence: true, length: { maximum: 20 }, uniqueness: true
   has_many :penalties, :foreign_key => "to_user_id"
   has_many :connections
+  
+  scope :not_activated, where(:activated => false)
   
 #  before_create :activate
   
