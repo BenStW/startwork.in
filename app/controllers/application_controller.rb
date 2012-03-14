@@ -17,5 +17,7 @@ class ApplicationController < ActionController::Base
     logger.debug "set I18n.locale to #{I18n.locale}"
   #  logger.debug "**********************"    
   end
+  
+
 
 end

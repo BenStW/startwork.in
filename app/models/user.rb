@@ -34,11 +34,15 @@ class User < ActiveRecord::Base
   
   scope :not_activated, where(:activated => false)
   
-#  before_create :activate
+  before_create :not_activate
+  
+  def not_activate
+   self.activated = false
+   true
+  end
   
   def activate
     self.activated = true
-    puts "ACTIVATED"
   end  
   
   def start_connection

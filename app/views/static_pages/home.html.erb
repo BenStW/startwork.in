@@ -3,16 +3,20 @@
 
   <!-- Main hero unit for a primary marketing message or call to action -->
   <div class="hero-unit">
-    <h1><%= t :welcome %></h1><br>
-    <%= t :welcome_text_html %>	
+    <h1><%= t ".welcome" %></h1><br>
+    <%= t ".welcome_text_html" %>	
+
+<p><a class="btn btn-primary btn-large" href="<%= new_user_registration_path %>"><%= t ".sign_up"%> &raquo;</a></p>
+<!--
     <p><a class="btn btn-primary btn-large" href="<%= how_it_works_path%>"><%= t ".learn_more"%> &raquo;</a></p>
+-->
   </div><!-- end of main hero unit -->
                        
 <% else %>
   <%= raw place_size_in_html %>
   <br>
   
-  <%=t 'greet_username', :username => current_user.name %><br><br><hr>
+  <%=t '.greet_username', :username => current_user.name %><br><br><hr>
   
      <%if current_user.activated? %>
         <%= link_to t(".camera_test"), camera_path, :class => "btn", :method => :get%>	<br><br>
@@ -54,6 +58,7 @@
      <% else %>
          <div class="hero-unit">
            <%= t(".not_activated_html") %>
+ 
         </div>	
      <% end %>
   	

@@ -1,17 +1,15 @@
 de:
-  welcome: "Willkommen"
-  greet_username: "Willkommen, %{username}!"
-  
-  welcome_text_html: 
-      "<p>Neugierde ist der natürliche Lerntrieb.</p>
-       <p>Aber manchmal braucht man ganz einfach Diszplin, um eine längere Lern-und Arbeitsphase erfolgreich zu absolvieren.</p>
-       <p>Für diese Aufgaben helfen wir dir: auf unserer Seite kannst du mit Freunden gemeinsam lernen und arbeiten. 
-       Ohne Aufschieberitis!</p>"
-  
-    
   static_pages:
     home:
+      welcome: "Willkommen"
+      greet_username: "Willkommen, %{username}!"    
+      welcome_text_html: 
+        "<p>Neugierde ist der natürliche Lerntrieb.</p>
+         <p>Aber manchmal braucht man ganz einfach Diszplin, um eine längere Lern-und Arbeitsphase erfolgreich zu absolvieren.</p>
+         <p>Für diese Aufgaben helfen wir dir: auf unserer Seite kannst du mit Freunden gemeinsam lernen und arbeiten. 
+         Ohne Aufschieberitis!</p>"        
       learn_more: "Erfahre mehr"
+      sign_up: "Für Registrierung zur Studienteilnahme hier klicken"      
       camera_test: Kamera und Audio Test
       work_groups: Arbeitsgruppen
       start: Start

@@ -1,14 +1,14 @@
 en:
-  welcome: "Welcome"
-  greet_username: "Welcome, %{username}!"
-  welcome_text_html: 
-      "<p>Curiosity is the driver of learning.</p>
-       <p>But sometimes you need just plain discipline to get through a long and exhausting task.</p>
-       <p>For these tasks we help you: join our website to work in learning groups together.</p>"    
-  
   static_pages:
     home:
+      welcome: "Welcome"
+      greet_username: "Welcome, %{username}!"
+      welcome_text_html: 
+        "<p>Curiosity is the driver of learning.</p>
+        <p>But sometimes you need just plain discipline to get through a long and exhausting task.</p>
+        <p>For these tasks we help you: join our website to work in learning groups together.</p>"        
       learn_more: "Learn more" 
+      sign_up: "To sign up for the research study please click here"
       camera_test: Camera and audio test
       work_groups: Work groups 
       start: Start
