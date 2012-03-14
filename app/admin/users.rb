@@ -8,6 +8,11 @@ ActiveAdmin.register User do
       column :id
       column :name
       column :email
+      column :connections do |user|
+        user.connections.count
+#        link_to user.connections.count, admin_connections_path
+       # link_to "Ruby on Rails search", :controller => "admin_connections", :query => "ruby on rails"
+      end
       column "created at", :created_at
       column "last sign in at", :last_sign_in_at
       column "sign in count", :sign_in_count
