@@ -1,71 +1,70 @@
 en:
   users:
     links:
-      sign_in: sign in
-      sign_up: Sign up
-      forgot_your_password: Forgot your password?
-      didnt_receive_conf_instructions: Didn't receive confirmation instructions?
-      didnt_receive_unlock_instructions: Didn't receive unlock instructions?
+      sign_in: "sign in"
+      sign_up: "Sign up"
+      forgot_your_password: "Forgot your password?"
+      didnt_receive_conf_instructions: "Didn't receive confirmation instructions?"
+      didnt_receive_unlock_instructions: "Didn't receive unlock instructions?"
       sign_in_with: "Sign in with %{provider}"
     confirmations:
       new:
-        email: Email
+        email: "Email"
         resend_confirmation_instructions: "Resend confirmation instructions"   
     mailer:
       confirmation_instructions:
-        confirm_my_account: Confirm my account
-        welcome_html: "<p>Welcome %{name}</p>
+        confirm_my_account: "Confirm my account"
+        welcome_html: <p>Welcome %{name}</p>
             <p>You can confirm your account email through the link below:</p>"        
       reset_password_instructions:
           hello_html: "<p>Hello %{name}!</p>
             <p>Someone has requested a link to change your password, and you can do this through the link below.</p>"        
       reset_password_instructions:
-        change_my_password: Change my password
+        change_my_password: "Change my password"
         if_you_didnt_request_this_html:  "<p>If you didn't request this, please ignore this email.</p>
           <p>Your password won't change until you access the link above and create a new one.</p>"        
       unlock_instructions:
         hello_html: "<p>Hello %{name}!</p>
             <p>Your account has been locked due to an excessive amount of unsuccessful sign in attempts.</p>
             <p>Click the link below to unlock your account:</p>"          
-        unlock_my_account: Unlock my account
+        unlock_my_account: "Unlock my account"
     passwords:
       edit:
-        change_your_passowrd: Change your password
-        new_passowrd: New password
-        confirm_new_password: Confirm new password
-        change_my_password: Change my password
+        change_your_passowrd: "Change your password"
+        new_passowrd: "New password"
+        confirm_new_password: "Confirm new password"
+        change_my_password: "Change my password"
       new:
-        forgot_your_password: Forgot your password?          
+        forgot_your_password: "Forgot your password? "         
         send_me_reset_password_instructions: "Send me reset password instructions:"
     registrations:
       edit:
-        edit: Edit
-        name: Name
-        email: Email
-        password: Password
+        edit: "Edit"
+        name: "Name"
+        email: "Email"
+        password: "Password"
         leave_blank: "leave blank if you don't want to change it"
-        password_confirmation: Password confirmation
-        current_password: Current password
-        why_current_password: we need your current password to confirm your changes
-        update: Update
-        cancel_my_account: Cancel my account
-        are_you_sure: Are you sure?
-        unhappy: Unhappy?        
+        password_confirmation: "Password confirmation"
+        current_password: "Current password"
+        why_current_password: "we need your current password to confirm your changes"
+        update: "Update"
+        cancel_my_account: "Cancel my account"
+        are_you_sure: "Are you sure?"
+        unhappy: "Unhappy? "       
       new:
-        name: Name
-        email: Email
-        password: Password
-        password_confirmation: Password confirmation
-        sign_up: Sign up
+        name: "Name"
+        email: "Email"
+        password: "Password"
+        password_confirmation: "Password confirmation"
+        sign_up: "Sign up"
     sessions:
       new:
-        sign_in: Sign in
-        email: Email
-        password: Password
-        remember_me: Remember me
+        sign_in: "Sign in"
+        email: "Email"
+        password: "Password"
+        remember_me: "Remember me"
     unlocks:
       new:
-        resend_unlock_instructions: Resend unlock instructions 
-
+        resend_unlock_instructions: "Resend unlock instructions"
 
 

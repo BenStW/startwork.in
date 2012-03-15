@@ -48,8 +48,8 @@ de:
       failure: 'Du konntest nicht Deinem %{kind}-Account angemeldet werden, weil "%{reason}".'
     mailer:
       confirmation_instructions:
-        subject: 'Anleitung zur Bestätigung Deines Accounts'
+        subject: 'StartWork: Anleitung zur Bestätigung Deines Accounts'
       reset_password_instructions:
-        subject: 'Anleitung um Dein Passwort zurückzusetzen'
+        subject: 'StartWork: Anleitung um Dein Passwort zurückzusetzen'
       unlock_instructions:
-        subject: 'Anleitung um Deinen Account freizuschalten'
+        subject: 'StartWork: Anleitung um Deinen Account freizuschalten'

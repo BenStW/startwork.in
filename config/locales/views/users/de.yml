@@ -17,7 +17,7 @@ de:
         welcome_html: "<p>Hallo %{name}</p>
            <p>Du kannst deine Email durch den unten stehenden Link bestätigen:</p>"        
       reset_password_instructions:
-        hello_html: "<p>Hallo %{name}!</p>
+        hello_html: "<p>Hallo %{name}!</p> 
           <p>Jemand hat einen Link zum Ändern deines Passworts angefordert, 
           und du kannst dies durch den unten stehenden Link vornehmen.</p>"        
         change_my_password: "Ändere mein Passwort"
