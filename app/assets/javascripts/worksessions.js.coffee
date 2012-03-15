@@ -67,15 +67,26 @@ $(document).ready ->
 
     # creates for each new connection a user_box with a text_box and a stream_box
     subscribeToStreams = (streams) -> 
-      console.log("subscribe to "+streams.length+" streams")      
+      console.log("subscribe to "+streams.length+" streams")
+      if streams.length == 0
+        console.log("Show message how to enable the camera")
+        html = "<h2>Erlaube immer den Zugriff auf die Kamera</h2>
+	        <ol><li><b>Öffene das Kontext-Menü:</b> Rechter Maus-click (Windows) oder Control-click (Macintosh) 
+	        in das schwarze Fenster. </li>
+	      	<li><b>Gehe auf Einstellungen</b></li>
+	      	<li><b>Gehe auf den Reiter Zugriffsschutz (zweites von links)</b></li>
+	      	<li><b>Setze Zulassen und Speichern</b> </li>
+	      	</ol>"
+        $("#publisher_msg").html(html)
       for stream in streams
         if stream.connection.connectionId == session.connection.connectionId 
-        #  console.log("   same connection. But hide own picture")
-          
-        #  $("#user_box_"+my_user_id).css("width", "1px");
-         # $("#user_box_"+my_user_id).css("height", "1px");
-        #  $("#user_box_"+my_user_id).css("top", "-10px");
-        #  $("#user_box_"+my_user_id).css("left", "-10px");
+          console.log("   same connection. But hide own picture")         
+          $("#publisher_box").css("width", "1px");
+          $("#publisher_box").css("height", "1px");
+          $("#publisher_box").css("top", "-10px");
+          $("#publisher_box").css("left", "-10px");
+          $("#publisher_box").css("position", "absolute");
+          $("#publisher_box").css("overflow","hidden");
         else
           connectionData = JSON.parse(stream.connection.data)          
           user_name = connectionData.user_name
@@ -84,7 +95,7 @@ $(document).ready ->
           new_element_id = "user_box_" + user_id
           if $("#"+new_element_id).length>0
              console.log("ERROR: "+ new_element_id+ " exists already")
-             console.log($("#"+new_element_id).html())
+            # console.log($("#"+new_element_id).html())
           else
             replaceElementId = "stream_box_tmp_"+user_id
             html = 
@@ -210,7 +221,10 @@ $(document).ready ->
     # in response to a call to the connect() method of the Session object. 
     sessionConnectedHandler = (event) ->
       replaceElementId = "publisher_box_tmp"
-      publisher = session.publish replaceElementId, windowProps
+      pulisherWindowProbs = 
+        width: 2*width+4*padding
+        height: 2*height+4*padding
+      publisher = session.publish replaceElementId, pulisherWindowProbs
       
       # count the number of connections in hidden field
       $("#connectionCountField").val(event.connections.length)

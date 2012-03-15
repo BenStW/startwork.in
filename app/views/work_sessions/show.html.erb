@@ -36,6 +36,7 @@
 <div id="jplayer">jplayer</div>
 
 
+
 	
 <div class="video_window" id="video_window" 
   data-session_id="<%=@work_session.tokbox_session_id %>" 
@@ -46,24 +47,17 @@
   <div id="timer_box">
      timer
   </div>
-<!--
+
+<div id ="publisher_box" style="outline:0px solid gray">
   <span id="publisher_box_tmp" class="label label-warning">
-	 please wait...
+	   please wait...
   </span>
--->		
-	<div class="user_box" id="user_box_<%=current_user.id%>" data-user_id="<%=current_user.id%>">
-		<div class="text_box">
-			<b><%= current_user.name %></b><br>
-		
-		</div><!-- text_box -->
-		<div class="stream_box" >
-			<span id="publisher_box_tmp" class="label label-warning">
-				 please wait...
-			</span>
-			</div><!-- stream_box -->
-		</div><!-- stream_box -->		
-	</div> <!-- user_box -->
+<div id="publisher_msg">publisher_msg</div>
+</div>
+
+
 </div> <!-- video_window-->
+
 
 
 
