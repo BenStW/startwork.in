@@ -59,7 +59,7 @@ StartWork::Application.configure do
 
   # added by Ben  
 #  config.action_mailer.default_url_options = { :host => 'benedikt-voigt.net' }
- config.action_mailer.default_url_options = { :host => 'http://fierce-ice-1470.herokuapp.com' }
+ config.action_mailer.default_url_options = { :host => 'fierce-ice-1470.herokuapp.com' }
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
