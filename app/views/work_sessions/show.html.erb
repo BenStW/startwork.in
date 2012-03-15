@@ -38,15 +38,19 @@
 
 	
 <div class="video_window" id="video_window" 
-   data-session_id="<%=@work_session.tokbox_session_id %>" 
-   data-tok_token="<%=@tokbox_token%>" 
-   data-api_key="<%=@work_session.tokbox_api_key %>" 
-   data-user_id="<%=current_user.id%>">
-
-<div id="timer_box">
-timer
-</div>
-		
+  data-session_id="<%=@work_session.tokbox_session_id %>" 
+  data-tok_token="<%=@tokbox_token%>" 
+  data-api_key="<%=@work_session.tokbox_api_key %>" 
+  data-user_id="<%=current_user.id%>">
+  
+  <div id="timer_box">
+     timer
+  </div>
+<!--
+  <span id="publisher_box_tmp" class="label label-warning">
+	 please wait...
+  </span>
+-->		
 	<div class="user_box" id="user_box_<%=current_user.id%>" data-user_id="<%=current_user.id%>">
 		<div class="text_box">
 			<b><%= current_user.name %></b><br>

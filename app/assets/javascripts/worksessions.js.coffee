@@ -70,7 +70,12 @@ $(document).ready ->
       console.log("subscribe to "+streams.length+" streams")      
       for stream in streams
         if stream.connection.connectionId == session.connection.connectionId 
-          console.log("   same connection. Don't subscribe")
+        #  console.log("   same connection. But hide own picture")
+          
+        #  $("#user_box_"+my_user_id).css("width", "1px");
+         # $("#user_box_"+my_user_id).css("height", "1px");
+        #  $("#user_box_"+my_user_id).css("top", "-10px");
+        #  $("#user_box_"+my_user_id).css("left", "-10px");
         else
           connectionData = JSON.parse(stream.connection.data)          
           user_name = connectionData.user_name
