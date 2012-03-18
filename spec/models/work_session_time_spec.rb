@@ -7,6 +7,7 @@
 #  start_time      :datetime
 #  created_at      :datetime        not null
 #  updated_at      :datetime        not null
+#  end_time        :datetime
 #
 
 require 'spec_helper'

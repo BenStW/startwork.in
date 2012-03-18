@@ -2,8 +2,10 @@ en:
   layouts:
     application:
       how_it_works: How it works
+      study: Study
       about_us: About us
       contact: Contact
       sign_in: Sign in
       edit: Edit
-      logout: Log out      
+      logout: Log out
+            

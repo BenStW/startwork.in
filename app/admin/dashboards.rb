@@ -1,13 +1,22 @@
 ActiveAdmin::Dashboards.build do
   
-  section "Recent Users" do
-    table_for User.order("created_at desc").limit(5) do
+  section "Recent users for the study" do
+    table_for User.order("created_at desc").limit(3) do
       column :id      
       column :name
       column :email      
       column :created_at
     end
-    strong { link_to "View All Users", admin_users_path }
+    strong { link_to "View All Users for study", admin_users_path }
+  end
+  
+  section "Recent interested users for beta testing" do
+    table_for InterestedUser.order("created_at desc").limit(3) do
+      column :id      
+      column :email      
+      column :created_at
+    end
+    strong { link_to "View All Users for beta testing", admin_interested_users_path }
   end
 
   # Define your dashboard sections here. Each block will be

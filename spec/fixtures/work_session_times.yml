@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: work_session_times
+#
+#  id              :integer         not null, primary key
+#  work_session_id :integer
+#  start_time      :datetime
+#  created_at      :datetime        not null
+#  updated_at      :datetime        not null
+#  end_time        :datetime
+#
+
 tomorrow_morning_10am:
   work_session: procrastinators
   start_time: <%= DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day+1,10) %>

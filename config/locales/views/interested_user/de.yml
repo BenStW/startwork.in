@@ -1,0 +1,13 @@
+de:
+  interested_user:
+    show:
+      title: "Ich will mitmachen"
+      submit: "Absenden"
+      text_html: "<p>Startwork ist im Moment noch in einem frühen Entwicklungs-Stadium.</p>
+        <p>Wir schreiben dich an, sobald Startwork in die offizielle Testphase übergeht. </p>
+        <p>Wir würden uns freuen, dich dann als Beta-Tester begrüßen zu dürfen.</p>
+        <br><p>Deine Emailadresse:</p>"
+    create:
+        success: "Vielen Dank. %{email} wurde gespeichert. Wir kontaktieren dich sobald es losgeht."
+        email_not_valid: "Die Emailddresse %{email} ist nicht korrekt."
+        exists_already: "Die Emailadresse %{email} wurde bereits gespeichert."

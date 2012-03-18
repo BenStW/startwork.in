@@ -21,6 +21,11 @@ StartWork::Application.routes.draw do
      match 'contact' => 'static_pages#contact', :as => :contact
      match 'about_us' => 'static_pages#about_us', :as => :about_us
      match 'camera' => 'static_pages#camera', :as => :camera
+     match 'study' => 'static_pages#study', :as => :study   
+
+     match 'interested_user'  => 'interested_user#show',:via => :get, :as => :show_interested_user   
+     match 'interested_user' => 'interested_user#create',:via => :post, :as => :create_interested_user   
+       
     
      devise_for :users
      #devise_for :users, :controllers => {:sessions => "devise_sessions"}

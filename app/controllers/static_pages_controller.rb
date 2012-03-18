@@ -12,6 +12,14 @@ class StaticPagesController < ApplicationController
   end
   def about_us
   end
+  def study
+  end  
+  
+  def interested_user
+    flash[:notice] = "The user was successfully created"
+  end
+
+  
   def camera
     @api_key = TokboxApi.instance.api_key
     @api_secret = TokboxApi.instance.api_secret

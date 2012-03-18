@@ -1,0 +1,13 @@
+  <div class="hero-unit">
+	<h1><%= t '.title' %></h1>
+	 <br>
+	
+	<%= t(".text_html") %> 
+
+
+<%= form_tag create_interested_user_path, :method=>:post do  %>
+<%= text_field_tag 'email' %>
+<%= submit_tag t(".submit"), :class => " btn-primary" %>
+<%  end %>
+
+ </div>
