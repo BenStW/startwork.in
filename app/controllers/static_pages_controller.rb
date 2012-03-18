@@ -1,7 +1,9 @@
 class StaticPagesController < ApplicationController
   skip_before_filter :authenticate_user!
   
-  def home
+  def home  
+    @group1_id = WorkSession.first.id
+    @group2_id =  @group1_id+1
   end
 
   def how_it_works
@@ -11,10 +13,9 @@ class StaticPagesController < ApplicationController
   def about_us
   end
   def camera
-    @api_key = 11796762                # should be a number
-    @api_secret = 'f6989f3520873c70f414edfd3f5d02e88ab4a97b'            # should be a string
-    @apiObj = OpenTok::OpenTokSDK.new @api_key, @api_secret
-    @session_id = @apiObj.create_session(request.remote_addr ) 
-    @tok_token = @apiObj.generate_token session_id: @session_id
+    @api_key = TokboxApi.instance.api_key
+    @api_secret = TokboxApi.instance.api_secret
+    @session_id = TokboxApi.instance.get_session_for_camera_test
+    @tok_token = TokboxApi.instance.generate_token_for_camera_test
   end  
 end

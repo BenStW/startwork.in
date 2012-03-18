@@ -55,14 +55,36 @@ $(document).ready ->
       msg = element_id+ " exists? "+e
       console.log(msg)
 
-    hide_video = false
-    $("#hide_video").click ->
-       hide_video = if hide_video then false else true
-       my_user_box_id = "#user_box_"+my_user_id
-       if hide_video
-         $(my_user_box_id).css('display','none')
-       else
-         $(my_user_box_id).css('display','inline')  
+  # $("#show_publisher_button").hide()
+  # $("#hide_publisher_button").hide()
+  # $("#hide_publisher_button").click ->
+  #   $("#publisher_box").addClass("publisher_hidden")
+  #   $(this).hide()
+  #   $("#show_publisher_button").show()
+  # $("#show_publisher_button").click ->
+  #   $("#publisher_box").removeClass("publisher_hidden")
+  #   $(this).hide()
+  #   $("#hide_publisher_button").show()
+  #
+  # hide_publisher = false
+  # $("#hide_publisher").click ->
+  #    hide_publisher = if hide_publisher then false else true
+  #    my_user_box_id = "#user_box_"+my_user_id
+  #    if hide_publisher
+  #    #   $("#publisher_box").css("width", "50px");
+  #    #   $("#publisher_box").css("height", "50px");
+  #     #  $("#publisher_box").css("top", "-10px");
+  #       $("#publisher_box").css("left", "300px");
+  #       $("#publisher_box").css("position", "absolute");
+  #       $("#publisher_box").css("overflow","hidden");
+  #    else
+  #       $("#publisher_box").css("width", "");
+  #       $("#publisher_box").css("height", "");
+  #       $("#publisher_box").css("top", "");
+  #       $("#publisher_box").css("left", "");
+  #       $("#publisher_box").css("position", "");
+  #       $("#publisher_box").css("overflow","");
+
 
 
     # creates for each new connection a user_box with a text_box and a stream_box
@@ -80,13 +102,9 @@ $(document).ready ->
         $("#publisher_msg").html(html)
       for stream in streams
         if stream.connection.connectionId == session.connection.connectionId 
-          console.log("   same connection. But hide own picture")         
-          $("#publisher_box").css("width", "1px");
-          $("#publisher_box").css("height", "1px");
-          $("#publisher_box").css("top", "-10px");
-          $("#publisher_box").css("left", "-10px");
-          $("#publisher_box").css("position", "absolute");
-          $("#publisher_box").css("overflow","hidden");
+          console.log("   same connection. Show 'hide publisher' button.")  
+         # $("#hide_publisher_button").show()       
+          $("#publisher_box").addClass("publisher_hidden")
         else
           connectionData = JSON.parse(stream.connection.data)          
           user_name = connectionData.user_name
@@ -95,7 +113,6 @@ $(document).ready ->
           new_element_id = "user_box_" + user_id
           if $("#"+new_element_id).length>0
              console.log("ERROR: "+ new_element_id+ " exists already")
-            # console.log($("#"+new_element_id).html())
           else
             replaceElementId = "stream_box_tmp_"+user_id
             html = 
@@ -449,7 +466,7 @@ $(document).ready ->
          html = prefix_html + "Noch " + m + " Min"
       	 # "+leadingzero(h) + ':' +
            # + ':' + leadingzero(s)
-         $("#timer_box").html(html)
+         $("#timer").html(html)
          f = -> 
             doCount(countdown, work_session_boolean)
          timeout = setTimeout(f,1000)
@@ -515,7 +532,7 @@ $(document).ready ->
       timer_is_on=1
       doCount(countdown,minutes<work_session_duration )  
     
-    if $("#timer_box").length>0   
+    if $("#timer").length>0   
       startTimer()
     
     

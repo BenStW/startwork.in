@@ -11,43 +11,25 @@
 class WorkSession < ActiveRecord::Base
   validates :tokbox_session_id, :presence => true
   has_many :work_session_times, :dependent => :destroy
+  before_validation :create_tokbox_session
   
-  def after_initialize
-   # logger.info "after initialize"
-  end 
-  
-  def tokbox_api_key
-    11796762
-  end
-  
-  def tokbox_api_secret
-    'f6989f3520873c70f414edfd3f5d02e88ab4a97b'
-  end
-
-  def generate_tokbox_session(remote_addr = "0.0.0.0")
-    tokbox_session = tokbox_api_obj.create_session(remote_addr)      
-    self.tokbox_session_id  = tokbox_session.session_id      
-    logger.info "Created tokbox_session for session #{id}"  
-    self.tokbox_session_id     
-  end
-  
-  def generate_tokbox_token(connection_data)
-    if(connection_data[:user_id].nil? || connection_data[:user_name].nil?)
-      raise "To generate a tokbox token the connection data must contain the user_id and user_name"
-    end
-    tokbox_api_obj.generate_token session_id: tokbox_session_id, connection_data: connection_data.to_json
-  end 
-  
+    
   def all_events_of_this_week
     c = DateTime.current
     today = DateTime.new(c.year,c.month,c.day)
     self.work_session_times.where("start_time >=?", today)
   end  
+
   
   private
   
-  def tokbox_api_obj
-    @tokbox_api_obj ||= OpenTok::OpenTokSDK.new tokbox_api_key, tokbox_api_secret  
+  def create_tokbox_session
+    if self.tokbox_session_id.nil?
+      tokbox_session = TokboxApi.instance.generate_session
+      self.tokbox_session_id=tokbox_session.to_s
+      logger.info "Created WorkSession #{self.id} with tokbox_session_id = #{self.tokbox_session_id}"
+    end
   end
+  
   
 end

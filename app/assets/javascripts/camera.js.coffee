@@ -23,7 +23,6 @@ $(document).ready ->
     
     # The Session object dispatches SessionConnectEvent object when a session has successfully connected
     # in response to a call to the connect() method of the Session object.
-    console.log "THIS IS THE CAMERA SETTINGS PAGE" 
     sessionConnectedHandler = (event) ->
        replaceElementId = 'publisher_box_tmp'
        publisher = session.publish replaceElementId, windowProps

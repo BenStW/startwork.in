@@ -41,18 +41,25 @@
 <div class="video_window" id="video_window" 
   data-session_id="<%=@work_session.tokbox_session_id %>" 
   data-tok_token="<%=@tokbox_token%>" 
-  data-api_key="<%=@work_session.tokbox_api_key %>" 
+  data-api_key="<%=@tokbox_api_key %>" 
   data-user_id="<%=current_user.id%>">
   
-  <div id="timer_box">
+  <div class="upper_box" id="timer">
      timer
   </div>
-
-<div id ="publisher_box" style="outline:0px solid gray">
+<!--
+  <div class="upper_box">
+	<div id="hide_publisher_button" class="btn">Eigenes Video ausblenden</div>
+	<div id="show_publisher_button" class="btn">Eigenes Video zeigen</div>	
+  </div>
+-->
+<div id ="publisher_box" style="outline:0px solid gray;position: absolute; overflow: hidden;">
   <span id="publisher_box_tmp" class="label label-warning">
 	   please wait...
   </span>
+<!--
 <div id="publisher_msg">publisher_msg</div>
+-->
 </div>
 
 
