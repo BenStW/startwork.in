@@ -20,7 +20,8 @@ class CalendarsController < ApplicationController
       logger.info "send back start_time #{event.start_time}"
       t_hash[:start] = event.start_time
       t_hash[:end] = event.end_time
-      t_hash[:title] = ""    
+      t_hash[:title] = ""
+    #  t_hash[:readonly] = true
       events_array.push(t_hash)
     end
     render :json =>  events_array.to_json  
