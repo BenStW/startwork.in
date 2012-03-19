@@ -4,7 +4,7 @@ de:
       welcome: "Willkommen"
       greet_username: "Willkommen, %{username}!"    
       welcome_text_html: "<p>Neugierde ist der natürliche Lerntrieb.</p>
-         <p>Aber manchmal braucht man ganz einfach Diszplin, um eine längere Lern-und Arbeitsphase erfolgreich zu absolvieren.</p>
+         <p>Aber manchmal braucht man ganz einfach Disziplin, um eine längere Lern-und Arbeitsphase erfolgreich zu absolvieren.</p>
          <p>Für diese Aufgaben helfen wir dir: auf unserer Seite kannst du mit Freunden gemeinsam lernen und arbeiten. 
          Ohne Aufschieberitis!</p>" 
       interested_user_sign_up: "Ich will mitmachen"       
