@@ -90,6 +90,19 @@ class User < ActiveRecord::Base
     today = DateTime.new(c.year,c.month,c.day)
     self.work_session_times.where("start_time >=?", today)
   end
+
+=begin  
+  def add_friend(friend_id)
+    friendship = self.friendships.build(:friend_id => friend_id)
+    inverse_friendship = self.inverse_friendships.build(:user_id => friend_id)
+
+    (friendship.save and inverse_friendship.save)
+  end
+  
+  def remove_friendship(friendship_id)
+    
+  end
+=end
   
 =begin 
   def open_penalties?

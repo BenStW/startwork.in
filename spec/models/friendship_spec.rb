@@ -14,5 +14,26 @@
 require 'spec_helper'
 
 describe Friendship do
-  pending "add some examples to (or delete) #{__FILE__}"
+  fixtures :users
+  before(:each) do
+    @user_ben = users(:ben)
+    @user_steffi = users(:steffi)
+    @friendship = @user_ben.friendships.build(:friend_id => @user_steffi.id)
+  end  
+    
+
+  it "is valid with valid attributes" do
+    @friendship.should be_valid
+  end
+  
+  it "should not be valid without user" do
+    @friendship.user_id = nil
+    @friendship.should_not be_valid
+  end
+  
+  it "should not be valid without friend" do
+    @friendship.friend_id = nil
+    @friendship.should_not be_valid
+  end  
+  
 end

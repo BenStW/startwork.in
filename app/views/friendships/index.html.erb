@@ -1,14 +1,18 @@
-<h1>Listing friendships</h1>
-
-
-
-<h2>Friends:</h2>
-<table class="table table-striped">
+<h1>Friends</h1>
+<br>
+<table class="table table-striped table-bordered table-condensed">
+	<thead>
+	<tr>
+	<th>id</th>
+	<th>Name</th>
+	<th>Action</th>	
+	</tr>
+	</thead>
 <% @friendships.each do |friendship| %>
   <tr>
     <td><%= friendship.friend.id %></td>
     <td><%= friendship.friend.name%></td>
-	<td><%= link_to "Remove Friend", friendship, :method => :delete %></td>
+	<td><%= link_to "Remove as friend", friendship, :method => :delete %></td>
   </tr>
 <% end %>
 </table>
@@ -18,12 +22,19 @@
 <br />
 
 <h2>Other users:</h2>
-<table class="table table-striped"> 
+<table class="table table-striped table-bordered table-condensed">
+	<thead>
+	<tr>
+	<th>id</th>
+	<th>Name</th>
+	<th>Action</th>	
+	</tr>
+	</thead>
 <% @users.each do |user| %>
   <tr>
     <td><%= user.id %></td>
     <td><%= user.name%></td>
-	<td><%= link_to "Add Friend", friendships_path(:friend_id => user), :method => :post %></td>
+	<td><%= link_to "Add as friend", friendships_path(:friend_id => user), :method => :post %></td>
   </tr>
 <% end %>
 </table>

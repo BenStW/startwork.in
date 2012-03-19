@@ -11,7 +11,7 @@ class FriendshipsController < ApplicationController
     @inverse_friendship = current_user.inverse_friendships.build(:user_id => params[:friend_id])
 
     if (@friendship.save and @inverse_friendship.save)
-      flash[:notice] = "Added friend."
+      flash[:notice] = "Added friend #{@friendship.friend.name}."
       redirect_to friendships_url
     else
       flash[:error] = "Unable to add friend."
@@ -24,7 +24,7 @@ class FriendshipsController < ApplicationController
     @inverse_friendship = current_user.inverse_friendships.find_by_user_id(@friendship.friend)
     @friendship.destroy
     @inverse_friendship.destroy
-    flash[:notice] = "Removed friendship."
+    flash[:notice] = "Removed friend #{@friendship.friend.name}."
     redirect_to friendships_url
   end
 

@@ -19,144 +19,69 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe FriendshipsController do
+  fixtures :users
 
   # This should return the minimal set of attributes required to create a valid
   # Friendship. As you add validations to Friendship, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {
+      :friend_id => @user_steffi.id,
+      :user_id => @user_ben.id
+    }
   end
   
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # FriendshipsController. Be sure to keep this updated too.
-  def valid_session
-    {}
+  
+  before(:each) do
+    @user_ben = users(:ben)
+    @user_steffi = users(:steffi)
+    sign_in @user_ben
   end
 
   describe "GET index" do
     it "assigns all friendships as @friendships" do
       friendship = Friendship.create! valid_attributes
-      get :index, {}, valid_session
+      get :index
       assigns(:friendships).should eq([friendship])
     end
   end
 
-  describe "GET show" do
-    it "assigns the requested friendship as @friendship" do
-      friendship = Friendship.create! valid_attributes
-      get :show, {:id => friendship.to_param}, valid_session
-      assigns(:friendship).should eq(friendship)
-    end
-  end
-
-  describe "GET new" do
-    it "assigns a new friendship as @friendship" do
-      get :new, {}, valid_session
-      assigns(:friendship).should be_a_new(Friendship)
-    end
-  end
-
-  describe "GET edit" do
-    it "assigns the requested friendship as @friendship" do
-      friendship = Friendship.create! valid_attributes
-      get :edit, {:id => friendship.to_param}, valid_session
-      assigns(:friendship).should eq(friendship)
-    end
-  end
 
   describe "POST create" do
     describe "with valid params" do
       it "creates a new Friendship" do
         expect {
-          post :create, {:friendship => valid_attributes}, valid_session
-        }.to change(Friendship, :count).by(1)
+          post :create, valid_attributes
+        }.to change(Friendship, :count).by(2) # for forth and inverse friendship
       end
 
       it "assigns a newly created friendship as @friendship" do
-        post :create, {:friendship => valid_attributes}, valid_session
+        post :create,  valid_attributes
         assigns(:friendship).should be_a(Friendship)
         assigns(:friendship).should be_persisted
       end
 
-      it "redirects to the created friendship" do
-        post :create, {:friendship => valid_attributes}, valid_session
-        response.should redirect_to(Friendship.last)
-      end
+
     end
 
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved friendship as @friendship" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Friendship.any_instance.stub(:save).and_return(false)
-        post :create, {:friendship => {}}, valid_session
-        assigns(:friendship).should be_a_new(Friendship)
-      end
 
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Friendship.any_instance.stub(:save).and_return(false)
-        post :create, {:friendship => {}}, valid_session
-        response.should render_template("new")
-      end
-    end
   end
 
-  describe "PUT update" do
-    describe "with valid params" do
-      it "updates the requested friendship" do
-        friendship = Friendship.create! valid_attributes
-        # Assuming there are no other friendships in the database, this
-        # specifies that the Friendship created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
-        Friendship.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, {:id => friendship.to_param, :friendship => {'these' => 'params'}}, valid_session
-      end
 
-      it "assigns the requested friendship as @friendship" do
-        friendship = Friendship.create! valid_attributes
-        put :update, {:id => friendship.to_param, :friendship => valid_attributes}, valid_session
-        assigns(:friendship).should eq(friendship)
-      end
-
-      it "redirects to the friendship" do
-        friendship = Friendship.create! valid_attributes
-        put :update, {:id => friendship.to_param, :friendship => valid_attributes}, valid_session
-        response.should redirect_to(friendship)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns the friendship as @friendship" do
-        friendship = Friendship.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Friendship.any_instance.stub(:save).and_return(false)
-        put :update, {:id => friendship.to_param, :friendship => {}}, valid_session
-        assigns(:friendship).should eq(friendship)
-      end
-
-      it "re-renders the 'edit' template" do
-        friendship = Friendship.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Friendship.any_instance.stub(:save).and_return(false)
-        put :update, {:id => friendship.to_param, :friendship => {}}, valid_session
-        response.should render_template("edit")
-      end
-    end
-  end
 
   describe "DELETE destroy" do
     it "destroys the requested friendship" do
       friendship = Friendship.create! valid_attributes
+      inverse_friend = Friendship.create! :user_id => @user_steffi.id, :friend_id => @user_ben.id
       expect {
-        delete :destroy, {:id => friendship.to_param}, valid_session
-      }.to change(Friendship, :count).by(-1)
+        delete :destroy, {:id => friendship.to_param}
+      }.to change(Friendship, :count).by(-2)
     end
 
     it "redirects to the friendships list" do
       friendship = Friendship.create! valid_attributes
-      delete :destroy, {:id => friendship.to_param}, valid_session
+      inverse_friend = Friendship.create! :user_id => @user_steffi.id, :friend_id => @user_ben.id
+      delete :destroy, {:id => friendship.to_param}
       response.should redirect_to(friendships_url)
     end
   end

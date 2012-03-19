@@ -119,5 +119,21 @@ describe User do
     diff_number_of_times = new_number_of_times - number_of_times
     diff_number_of_times.should eq(1)       
   end
+  
+  it "has friendships with friends" do
+    @user_steffi = users(:steffi)
+    friendship = @user.friendships.build(:friend_id => @user_steffi.id)
+    @user.friendships.first.friend.should eql(@user_steffi)
+    @user.save
+    @user.friends.first.should eql(@user_steffi)
+  end
+  
+  it "has inverse friendships with friends" do
+    @user_steffi = users(:steffi)
+    friendship = @user.friendships.build(:friend_id => @user_steffi.id)
+    @user.save    
+    @user_steffi.inverse_friendships.first.user.should eql(@user)
+    @user_steffi.inverse_friends.first.should eql(@user)
+  end  
 
 end
