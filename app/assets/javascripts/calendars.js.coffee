@@ -5,8 +5,7 @@
 $(document).ready( ->
   if $('#calendar').length>0
     day_of_week = new Date().getDay()
-    work_session_id = $("#work_session").data("work_session_id")
-    base_url = $("#work_session").data("base_url")
+    base_url = $("#data").data("base_url")
     $('#calendar').weekCalendar(
       timeslotsPerHour: 1,
       firstDayOfWeek: day_of_week,

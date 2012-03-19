@@ -8,10 +8,40 @@
 #  created_at      :datetime        not null
 #  updated_at      :datetime        not null
 #  end_time        :datetime
+#  user_id         :integer
 #
 
 require 'spec_helper'
 
 describe WorkSessionTime do
-  pending "add some examples to (or delete) #{__FILE__}"
+  fixtures :users   
+
+  before(:each) do
+    @user_ben = users(:ben)
+    @work_session_time = WorkSessionTime.new
+    c = DateTime.current
+    @work_session_time.start_time = c
+    @work_session_time.end_time = c + 1.hour
+    @work_session_time.user_id = @user_ben
+  end
+  
+  it "should be valid with valid attributes " do
+    @work_session_time.should be_valid    
+  end
+  
+  it "should not be valid without start_time" do
+    @work_session_time.start_time = nil
+    @work_session_time.should_not be_valid
+  end
+  it "should not be valid without end_time" do
+    @work_session_time.end_time = nil
+    @work_session_time.should_not be_valid
+  end
+  it "should not be valid without user" do
+    @work_session_time.user_id = nil
+    @work_session_time.should_not be_valid
+  end
+  
+  
+ 
 end

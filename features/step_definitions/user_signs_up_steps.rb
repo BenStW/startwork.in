@@ -3,9 +3,10 @@ Given /^a new user "([^"]*)"$/ do |username|
 end
 
 When /^the user populates his data on the sign up site$/ do
-  visit "/"
-  click_link "Sign in"
-  click_link "Sign up"
+#  visit "/"
+#  click_link "Sign in"
+#  click_link "Sign up"
+  visit "/users/sign_up"
   page.should have_content('Sign up')  
   current_path.should == new_user_registration_path  
   fill_in "user_name", :with => @username

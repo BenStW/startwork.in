@@ -3,18 +3,16 @@ class CalendarsController < ApplicationController
   end
   
   def new_event
-    work_session = WorkSession.find(params[:work_session_id])
     logger.info "create new start_time #{params[:start_time]} - #{params[:start_time].class}"
     start_time = DateTime.parse(params[:start_time])
     end_time = DateTime.parse(params[:end_time])  
 
-    work_session.work_session_times.create(start_time:start_time,end_time:end_time)
+    current_user.work_session_times.create(start_time:start_time,end_time:end_time)
     render :json => "succussfully created event"
   end
 
   def all_events
-    work_session = WorkSession.find(params[:work_session_id])  
-    events = work_session.all_events_of_this_week
+    events = current_user.all_events_of_this_week
     events_array = Array.new
     for event in events
       t_hash = Hash.new
@@ -29,7 +27,6 @@ class CalendarsController < ApplicationController
   end
   
   def remove_event
-    work_session = WorkSession.find(params[:work_session_id])
     event = WorkSessionTime.find(params[:event])
     event.delete
     render :json => "succussfully removed time"

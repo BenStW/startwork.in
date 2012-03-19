@@ -29,6 +29,8 @@
         <hr><br>
         <h2><%= t(".work_groups") %>: </h2><br>
 
+<%= link_to t(".calendar"), calendar_path, :class => "btn"%>
+<hr>
 <div class="row">
 	      <div class="span4">  
 <table class="table">
@@ -36,19 +38,16 @@
 	<tr>
 	<th></th>		
 	<th></th>		
-	<th></th>
 	</tr>
 	</thead>
 	<tbody>
 	<tr>
 	<td>Procrastinators in Berlin</td>
 	<td><%= link_to t(".start"), show_work_session_path(@group1_id), :class => "connect btn"%></td>
-	<td><%= link_to t(".calendar"), work_session_calendar_path(:work_session_id=>@group1_id), :class => "btn"%></td>
 	</tr>
 	<tr>
 	<td>Gods of work</td>
 	<td><%= link_to t(".start"), show_work_session_path(@group2_id), :class => "connect btn"%></td>
-	<td><%= link_to t(".calendar"), work_session_calendar_path(:work_session_id=>@group2_id), :class => "btn"%></td>
 	</tr>	
 	</tbody>
 	</table>

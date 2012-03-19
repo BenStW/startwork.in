@@ -1,10 +1,9 @@
 <h1><%= t(".title")%></h1>
 <%= t(".description") %>
 
-<span id="work_session"
-  data-work_session_id=<%=params[:work_session_id] %>
-  data-base_url=<%= work_session_calendar_url(:work_session_id => params[:work_session_id]) %>
-</span>
+<span id="data"
+  data-base_url=<%= calendar_url %>
+></span>
 
 <div id='calendar'></div>
 <br><br>

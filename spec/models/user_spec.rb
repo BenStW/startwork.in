@@ -103,5 +103,21 @@ describe User do
     @user_steffi = users(:steffi)
     @user_steffi.activated.should be_false
   end
+    
+  it "shows all events of this week" do
+    number_of_times = @user.all_events_of_this_week.length 
+    t = DateTime.current
+    start_time_yesterday = DateTime.new(t.year, t.month,t.day-1,14)
+    end_time_yesterday = DateTime.new(t.year, t.month,t.day-1,15)
+    e1 = @user.work_session_times.create(start_time:start_time_yesterday, end_time:end_time_yesterday)
+    
+    start_time_tomorrow = DateTime.new(t.year, t.month,t.day+1,14)
+    end_time_tomorrow = DateTime.new(t.year, t.month,t.day+1,15)    
+    e2 = @user.work_session_times.create(start_time:start_time_tomorrow, end_time: end_time_tomorrow)
+
+    new_number_of_times = @user.all_events_of_this_week.length
+    diff_number_of_times = new_number_of_times - number_of_times
+    diff_number_of_times.should eq(1)       
+  end
 
 end

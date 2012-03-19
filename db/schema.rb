@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120318180254) do
+ActiveRecord::Schema.define(:version => 20120319073027) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(:version => 20120318180254) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
     t.datetime "end_time"
+    t.integer  "user_id"
   end
 
   add_index "work_session_times", ["work_session_id"], :name => "index_work_session_times_on_work_session_id"

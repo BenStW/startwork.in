@@ -31,6 +31,7 @@ class User < ActiveRecord::Base
   validates :name, presence: true, length: { maximum: 20 }, uniqueness: true
   has_many :penalties, :foreign_key => "to_user_id"
   has_many :connections
+  has_many :work_session_times, :dependent => :destroy
   
   scope :not_activated, where(:activated => false)
   
@@ -78,6 +79,13 @@ class User < ActiveRecord::Base
   def activated?
     activated
   end
+  
+  def all_events_of_this_week
+    c = DateTime.current
+    today = DateTime.new(c.year,c.month,c.day)
+    self.work_session_times.where("start_time >=?", today)
+  end
+  
 =begin 
   def open_penalties?
     open_penalties = penalties.find_all_by_end_time(nil)

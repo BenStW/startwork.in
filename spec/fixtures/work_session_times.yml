@@ -8,11 +8,14 @@
 #  created_at      :datetime        not null
 #  updated_at      :datetime        not null
 #  end_time        :datetime
+#  user_id         :integer
 #
 
 tomorrow_morning_10am:
-  work_session: procrastinators
+  user: ben
   start_time: <%= DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day+1,10) %>
+  end_time: <%= DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day+1,11) %>  
 tomorrow_morning_11am:
-  work_session: procrastinators
+  user: ben
   start_time: <%= DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day+1,11) %>
+  end_time: <%= DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day+1,13) %>  

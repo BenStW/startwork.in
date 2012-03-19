@@ -10,16 +10,9 @@
 
 class WorkSession < ActiveRecord::Base
   validates :tokbox_session_id, :presence => true
-  has_many :work_session_times, :dependent => :destroy
+  #has_many :work_session_times, :dependent => :destroy
   before_validation :create_tokbox_session
   
-    
-  def all_events_of_this_week
-    c = DateTime.current
-    today = DateTime.new(c.year,c.month,c.day)
-    self.work_session_times.where("start_time >=?", today)
-  end  
-
   
   private
   

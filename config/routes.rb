@@ -6,10 +6,10 @@ StartWork::Application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
 
   #get "calendar/show"
-  match 'work_session/:work_session_id/calendar' => 'calendars#show', :as => :work_session_calendar
-  match 'work_session/:work_session_id/calendar/new_event' => 'calendars#new_event'
-  match 'work_session/:work_session_id/calendar/all_events' => 'calendars#all_events'
-  match 'work_session/:work_session_id/calendar/remove_event' => 'calendars#remove_event'
+  match 'calendar' => 'calendars#show', :as => :calendar
+  match 'calendar/new_event' => 'calendars#new_event'
+  match 'calendar/all_events' => 'calendars#all_events'
+  match 'calendar/remove_event' => 'calendars#remove_event'
 
 
  # get "work_sessions/show"

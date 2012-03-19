@@ -8,8 +8,12 @@
 #  created_at      :datetime        not null
 #  updated_at      :datetime        not null
 #  end_time        :datetime
+#  user_id         :integer
 #
 
 class WorkSessionTime < ActiveRecord::Base
-  belongs_to :work_session
+   validates :user_id, :start_time, :end_time, :presence => true
+    
+ # belongs_to :work_session
+  belongs_to :user
 end
