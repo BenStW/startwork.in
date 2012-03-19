@@ -19,7 +19,11 @@ $(document).ready( ->
       shortMonths: $.datepicker.regional['de'].monthNamesShort, 
       longMonths: $.datepicker.regional['de'].monthNames,
       data: base_url+'/all_events',	
-      newEventText: "",  
+      newEventText: "",
+      users: ['user 1', 'user 2', 'long username', 'user 4'],
+      showAsSeparateUser: true, 
+      buttons: false,
+      timeFormat: "G",
       draggable: ->
         false
       resizable: ->
