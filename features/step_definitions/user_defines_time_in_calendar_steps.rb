@@ -8,8 +8,7 @@ Given /^a work group$/ do
   @work_session.save
 end
 
-When /^he visits the page of the work group$/ do 
-  visit work_session_calendar_en_path :work_session_id => @work_session.id
+When /^he visits the calendar$/ do 
   
  # locator = "$('.wc-full-height-column.wc-day-column-inner.day-2')"
 

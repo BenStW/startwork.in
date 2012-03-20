@@ -1,8 +1,12 @@
 <h1><%= t(".title")%></h1>
 <%= t(".description") %>
 
+
 <span id="data"
-  data-base_url=<%= calendar_url %>
+  data-base_url="<%= calendar_url %>"
+  data-my_user_id="<%=current_user.id%>"
+  data-my_user_name="<%=current_user.name%>"
+  data-users="<%=@users %>"
 ></span>
 
 <div id='calendar'></div>

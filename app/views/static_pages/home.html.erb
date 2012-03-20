@@ -21,46 +21,32 @@
 <% else %>
   <%= raw place_size_in_html %>
   <br>
-  
-  <%=t '.greet_username', :username => current_user.name %><br><br><hr>
-  
+  <h1> <%=t '.greet_username', :username => current_user.name %></h1><br>
+<br>
      <%if current_user.activated? %>
-        <%= link_to t(".camera_test"), camera_path, :class => "btn", :method => :get%>	<br><br>
-        <hr><br>
-        <h2><%= t(".work_groups") %>: </h2><br>
-<!--
-<%= link_to t(".calendar"), calendar_path, :class => "btn"%>
-<hr>
--->
-<div class="row">
-	      <div class="span4">  
-<table class="table">
-	<thead>
-	<tr>
-	<th></th>		
-	<th></th>		
-	</tr>
-	</thead>
-	<tbody>
-	<tr>
-	<td>Procrastinators in Berlin</td>
-	<td><%= link_to t(".start"), show_work_session_path(@group1_id), :class => "connect btn"%></td>
-	</tr>
-	<tr>
-	<td>Gods of work</td>
-	<td><%= link_to t(".start"), show_work_session_path(@group2_id), :class => "connect btn"%></td>
-	</tr>	
-	</tbody>
-	</table>
-	</div>
-</div>	
+
+ 
+  <div class="row">
+  <div class="span4">
+	<h3><%= t(".my_settings") %>:</h3><br>
+      <%= link_to t(".camera_test"), camera_path, :class => "btn",  :method => :get, :style=>"width:150px"%>	<br><br>
+		<%= link_to t(".calendar"), calendar_path, :class => "btn", :style=>"width:150px"%><br><br>
+		<%= link_to t(".maintain_friends"), friendships_path, :class => "btn", :style=>"width:150px"%>  <br><br>
+		       <%= link_to t(".statistics") , statistics_path, :class => "btn", :method => :get, :style=>"width:150px"%><br><br>	
+
+  </div> <!-- span4 -->
+  <div class="span4">
+  	 <h3><%= t(".work_groups") %>: </h3><br>
+<%= link_to "Procrastinators in Berlin", show_work_session_path(@group1_id), :class => "connect btn", :style=>"width:150px"%>	<br><br>
+<%= link_to "Gods of work", show_work_session_path(@group2_id), :class => "connect btn", :style=>"width:150px"%>	<br><br>
 
 
-       
-  
-        <hr>
+
+  </div> <!-- span4 -->
+  </div>  <!-- row -->
+
   	
-         <%= link_to t(".statistics") , statistics_path, :class => "btn", :method => :get%><br><br>
+  
      <% else %>
          <div class="hero-unit">
            <%= t(".not_activated_html") %>

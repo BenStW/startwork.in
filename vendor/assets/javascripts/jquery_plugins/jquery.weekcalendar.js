@@ -119,8 +119,8 @@
           var displayTitleWithTime = calEvent.end.getTime() - calEvent.start.getTime() <= (one_hour / options.timeslotsPerHour);
           if (displayTitleWithTime) {
             return calendar.weekCalendar(
-                        'formatTime', calEvent.start) +
-                        ': ' + calEvent.title;
+                        'formatTime', calEvent.start); 
+                        //+': ' + calEvent.title; Changed by Ben
           } else {
             return calendar.weekCalendar(
                         'formatTime', calEvent.start) +
