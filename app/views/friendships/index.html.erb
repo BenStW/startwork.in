@@ -20,9 +20,10 @@
     <td><%= friendship.friend.name%></td>
 	<td><%= link_to "Remove as friend", friendship, :method => :delete %></td>
   </tr>
+<% end %>
   <tr><td colspan=3>&nbsp;</td></tr>
   <tr><td colspan=3 ><h2>Other users:</h2></td></tr>
-<% end %>
+
 
 <% @users.each do |user| %>
   <tr>
