@@ -64,12 +64,12 @@ $(document).ready ->
     setSoundToBreak = ->
       if publisher
          publisher.publishAudio(true) 
-      $("#voice_button").hide()
+      $("#voice_button_box").hide()
 
     setSoundToWorkSession = ->
       if publisher
          publisher.publishAudio(false) 
-      $("#voice_button").show()    
+      $("#voice_button_box").show()    
 
 
     # creates for each new connection a user_box with a text_box and a stream_box
