@@ -48,43 +48,28 @@ $(document).ready ->
       width: width
       height: height
 
-    $("#user_exists").click ->
-      user_id=$("#user_exists").val()
-      element_id = "user_box_" + user_id
-      e = $("#"+element_id).length>0
-      msg = element_id+ " exists? "+e
-      console.log(msg)
 
-  # $("#show_publisher_button").hide()
-  # $("#hide_publisher_button").hide()
-  # $("#hide_publisher_button").click ->
-  #   $("#publisher_box").addClass("publisher_hidden")
-  #   $(this).hide()
-  #   $("#show_publisher_button").show()
-  # $("#show_publisher_button").click ->
-  #   $("#publisher_box").removeClass("publisher_hidden")
-  #   $(this).hide()
-  #   $("#hide_publisher_button").show()
-  #
-  # hide_publisher = false
-  # $("#hide_publisher").click ->
-  #    hide_publisher = if hide_publisher then false else true
-  #    my_user_box_id = "#user_box_"+my_user_id
-  #    if hide_publisher
-  #    #   $("#publisher_box").css("width", "50px");
-  #    #   $("#publisher_box").css("height", "50px");
-  #     #  $("#publisher_box").css("top", "-10px");
-  #       $("#publisher_box").css("left", "300px");
-  #       $("#publisher_box").css("position", "absolute");
-  #       $("#publisher_box").css("overflow","hidden");
-  #    else
-  #       $("#publisher_box").css("width", "");
-  #       $("#publisher_box").css("height", "");
-  #       $("#publisher_box").css("top", "");
-  #       $("#publisher_box").css("left", "");
-  #       $("#publisher_box").css("position", "");
-  #       $("#publisher_box").css("overflow","");
 
+    $("#voice_button").mousedown ->
+      $("#voice_button").addClass("btn-danger")
+      $("#voice_button").html("Ton an")
+      if publisher
+         publisher.publishAudio(true)
+    $("#voice_button").mouseup ->
+      $("#voice_button").removeClass("btn-danger")
+      $("#voice_button").html("Ton aus")
+      if publisher
+         publisher.publishAudio(false)
+
+    setSoundToBreak = ->
+      if publisher
+         publisher.publishAudio(true) 
+      $("#voice_button").hide()
+
+    setSoundToWorkSession = ->
+      if publisher
+         publisher.publishAudio(false) 
+      $("#voice_button").show()    
 
 
     # creates for each new connection a user_box with a text_box and a stream_box
@@ -242,6 +227,10 @@ $(document).ready ->
         width: 2*width+4*padding
         height: 2*height+4*padding
       publisher = session.publish replaceElementId, pulisherWindowProbs
+
+      date = new Date()
+      minutes = date.getMinutes()
+      if minutes<50 then publisher.publishAudio(false) else publisher.publishAudio(true)
       
       # count the number of connections in hidden field
       $("#connectionCountField").val(event.connections.length)
@@ -526,6 +515,9 @@ $(document).ready ->
       seconds = date.getSeconds()
       # if time is below 50 minutes, then we are in the 50 minutes work session, else in the 10 min pause   
       work_session_duration=50
+
+      if minutes<work_session_duration then setSoundToWorkSession() else setSoundToBreak()
+
       session_duration = if minutes<work_session_duration then work_session_duration*60 else (60 - work_session_duration) *60         
       time_to_full_hour =  60*60 - minutes*60 - seconds
       countdown = if minutes<work_session_duration then time_to_full_hour - (60-work_session_duration)*60 else time_to_full_hour
