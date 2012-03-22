@@ -2,5 +2,7 @@ en:
     calendars:
         show:
             title: Calendar    
-            description: "Please fill out the working hours:"
+            description: "Please fill out your working hours:"
             back: back
+            my_calendar: My Calendar
+            all_friends: All friends          

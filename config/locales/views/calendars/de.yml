@@ -2,5 +2,7 @@ de:
     calendars:
         show:
             title: Kalender
-            description: "Tragt bitte die Arbeitsstunden ein:"
+            description: "Trage deine Arbeitsstunden ein:"
             back: zurück
+            my_calendar: Mein Kalender
+            all_friends: Alle Freunde
