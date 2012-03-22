@@ -19,8 +19,9 @@ gem "meta_search",    '>= 1.1.0.pre' # used for ActiveAdmin
 group :development do
   gem 'annotate', '~> 2.4.1.beta' 
   gem 'guard-rspec'
-
 end
+
+gem 'newrelic_rpm'
 
 group :development,:test do
   gem 'rspec-rails'
