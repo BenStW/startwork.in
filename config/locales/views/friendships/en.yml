@@ -1,4 +1,8 @@
 en:
   friendships:
     index:
+      title: Work-buddies
       back: Back
+      remove_as_friend: Remove as work-buddy
+      add_as_friend: Add as work-buddy
+      other_users: Other users            

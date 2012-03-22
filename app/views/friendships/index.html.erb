@@ -1,4 +1,4 @@
-<h1>Work buddies:</h1>
+<h1><%=t(".title")%>:</h1>
 <br>
 
 <div class="row">
@@ -18,18 +18,18 @@
   <tr>
     <td><%= friendship.friend.id %></td>
     <td><%= friendship.friend.name%></td>
-	<td><%= link_to "Remove as friend", friendship, :method => :delete %></td>
+	<td><%= link_to t(".remove_as_friend"), friendship, :method => :delete %></td>
   </tr>
 <% end %>
   <tr><td colspan=3>&nbsp;</td></tr>
-  <tr><td colspan=3 ><h2>Other users:</h2></td></tr>
+  <tr><td colspan=3 ><h2><%= t(".other_users")%></h2></td></tr>
 
 
 <% @users.each do |user| %>
   <tr>
     <td><%= user.id %></td>
     <td><%= user.name%></td>
-	<td><%= link_to "Add as friend", friendships_path(:friend_id => user), :method => :post %></td>
+	<td><%= link_to t(".add_as_friend"), friendships_path(:friend_id => user), :method => :post %></td>
   </tr>
 <% end %>
 </table>
