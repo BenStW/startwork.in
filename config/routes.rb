@@ -11,7 +11,9 @@ StartWork::Application.routes.draw do
   #get "calendar/show"
   match 'calendar' => 'calendars#show', :as => :calendar
   match 'calendar/new_event' => 'calendars#new_event'
-  match 'calendar/all_events' => 'calendars#all_events'
+  match 'calendar/get_events/(:user_ids)' => 'calendars#get_events'
+  #match 'calendar/all_events' => 'calendars#all_events'
+  
   match 'calendar/remove_event' => 'calendars#remove_event'
 
 

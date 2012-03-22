@@ -1,8 +1,7 @@
 class CalendarsController < ApplicationController
   def show
-    
-    friends = current_user.friendships.map(&:friend).map(&:name)
-    @users = friends.insert(0,current_user.name)
+   @friends = current_user.friendships.map(&:friend)
+#    @users = @friends.insert(0,current_user.name)
   end
   
   def new_event
@@ -18,20 +17,42 @@ class CalendarsController < ApplicationController
     end
   end
 
-  def all_events
-     my_events = current_user.all_events_of_this_week
-     events_array = events_to_array(my_events, 0)
+  def get_events
+    return_hash = Hash.new  
+    options_hash = Hash.new         
+    events_array = events_to_array(current_user.all_events_of_this_week, 0)
 
-    friends = current_user.friendships.map(&:friend)
-    friends.each_with_index do |friend,index|
-      events = friend.all_events_of_this_week
-      events_array += events_to_array(events,index+1) unless events.length==0
+    if params[:user_ids]
+      users_array = [current_user.name]
+      if params[:user_ids] == "all"
+        users_array << "All"
+        events_array += events_to_array(current_user.all_friends_events_of_this_week,1)
+      else
+        user_ids = params[:user_ids].split(',')
+        friends =[]
+        user_ids.each do |user_id|
+          friends << current_user.friendships.where(:friend_id => user_id.to_i).first.friend
+        end
+        friends.each_with_index do |friend,index|
+           users_array.push(friend.name)
+           events = friend.all_events_of_this_week
+           events_array += events_to_array(events,index+1) unless events.length==0
+         end
+      end
+      options_hash[:users] = users_array
+    else
+      options_hash[:showAsSeparateUser] = false
+      options_hash[:users] = []    
     end
-    render :json =>  events_array.to_json  
+
+    return_hash[:options] = options_hash
+    return_hash[:events] = events_array
+    render :json =>  return_hash.to_json  
   end
   
   def remove_event
-    event = WorkSessionTime.find(params[:event])
+    event = current_user.work_session_times.find_by_id(params[:event])
+   # WorkSessionTime.find(params[:event])
     event.delete
     render :json => "succussfully removed time"
   end    

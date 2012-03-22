@@ -14,11 +14,11 @@
 require 'spec_helper'
 
 describe Friendship do
-  fixtures :users
+ 
   before(:each) do
-    @user_ben = users(:ben)
-    @user_steffi = users(:steffi)
-    @friendship = @user_ben.friendships.build(:friend_id => @user_steffi.id)
+    user_ben = FactoryGirl.create(:user)
+    user_steffi = FactoryGirl.create(:user)
+    @friendship = user_ben.friendships.build(:friend_id => user_steffi.id)
   end  
     
 

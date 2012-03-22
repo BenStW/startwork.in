@@ -1,8 +1,8 @@
 require 'spec_helper'
 
+=begin
 
 describe "StaticPages" do
-  fixtures :users
   subject { page }
 
   
@@ -19,14 +19,14 @@ describe "StaticPages" do
       page.should have_content('Curiosity is the driver of learning')      
     end
     it "should show work groups when activated user logged in" do
-      user_ben = users(:ben)
-      sign_in user_ben
+      user = FactoryGirl.create(:user, :activated=>true)
+      sign_in user
       page.should have_content('Signed in successfully') 
       page.should have_content('Work groups') 
     end     
     it "should show not activated message when user not activated" do
-      user_steffi = users(:steffi)
-      sign_in user_steffi
+      user = FactoryGirl.create(:user,:activated => false )
+      sign_in user
       page.should have_content('Signed in successfully') 
       page.should have_content('Your account is not activated yet') 
     end     
@@ -34,3 +34,5 @@ describe "StaticPages" do
 
   
 end
+
+=end

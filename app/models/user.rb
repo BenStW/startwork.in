@@ -90,19 +90,35 @@ class User < ActiveRecord::Base
     today = DateTime.new(c.year,c.month,c.day)
     self.work_session_times.where("start_time >=?", today)
   end
-
-=begin  
-  def add_friend(friend_id)
-    friendship = self.friendships.build(:friend_id => friend_id)
-    inverse_friendship = self.inverse_friendships.build(:user_id => friend_id)
-
-    (friendship.save and inverse_friendship.save)
-  end
   
-  def remove_friendship(friendship_id)
+  
+  
+  def all_friends_events_of_this_week
+    c = DateTime.current
+    today = DateTime.new(c.year,c.month,c.day)
+    friend_ids = self.friendships.map(&:friend).map(&:id)
+    events = WorkSessionTime.where("user_id in (?) and start_time>=?", friend_ids, today).order("start_time")
+    return_events = [events[0]]
+    events.each do |event|
+      last_event = return_events.last
+      if event.start_time==last_event.start_time and event.end_time==last_event.end_time
+        next
+      elsif event.start_time < last_event.start_time
+        raise "#{event.start_time} is lower then #{last_event.start_time}"
+     elsif event.start_time <= last_event.end_time and event.end_time>last_event.end_time        
+       if last_event.end_time.day == event.end_time.day          
+         last_event.end_time = event.end_time
+       else
+          raise "over midnight"
+       end
+      else
+        return_events << event
+      end
+    end
+    return_events 
     
   end
-=end
+
   
 =begin 
   def open_penalties?

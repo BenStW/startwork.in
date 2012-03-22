@@ -2,10 +2,10 @@ require 'spec_helper'
 
 describe StatisticsController do
     render_views  
-    fixtures :users
 
     it "should get statistics" do
-      sign_in users(:ben)
+       user = FactoryGirl.create(:user)
+      sign_in user
       get :show
     end
 end 

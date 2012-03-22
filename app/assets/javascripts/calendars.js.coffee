@@ -7,6 +7,39 @@ $(document).ready( ->
     day_of_week = new Date().getDay()
     base_url = $("#data").data("base_url")
 
+    $("#single_calendar_button").click ->
+      $(this).addClass("btn-primary")
+      $("[name='friend_button']").removeClass("btn-primary")
+      $("#all_friends_button").removeClass("btn-primary")
+      $('#calendar').weekCalendar("refresh")
+
+    $("#all_friends_button").click ->
+      $(this).addClass("btn-primary")
+      $("[name='friend_button']").removeClass("btn-primary")
+      $("#single_calendar_button").removeClass("btn-primary")
+      $('#calendar').weekCalendar("refresh")
+
+    $("[name='friend_button']").click ->
+      if $(this).hasClass("btn-primary")
+        $(this).removeClass("btn-primary")
+        if !$("[name='friend_button']").hasClass("btn-primary")
+          $("#single_calendar_button").addClass("btn-primary")
+      else
+        $(this).addClass("btn-primary")
+        $("#single_calendar_button").removeClass("btn-primary")
+        $("#all_friends_button").removeClass("btn-primary")#
+      $('#calendar').weekCalendar("refresh")
+
+    getUsers = ->
+      users = []
+      if $("#single_calendar_button").hasClass("btn-primary")
+      else if $("#all_friends_button").hasClass("btn-primary")
+        users = "all"	
+      else
+        selected = $("[name='friend_button']").filter(".btn-primary") 
+        users = ($(x).data("user_id") for x in selected)
+      users
+
     $('#calendar').weekCalendar(
       timeslotsPerHour: 1,
       firstDayOfWeek: day_of_week,
@@ -19,10 +52,10 @@ $(document).ready( ->
       longDays: $.datepicker.regional['de'].dayNames, 
       shortMonths: $.datepicker.regional['de'].monthNamesShort, 
       longMonths: $.datepicker.regional['de'].monthNames,
-      data: base_url+'/all_events',	
+      data: (start, end, callback) ->
+        url= base_url+'/get_events/'+getUsers()
+        $.getJSON(url, start: null, end: null, (result) -> callback(result))
       newEventText: "",
-      users: $("#data").data("users"),
-      showAsSeparateUser: true, 
       buttons: false,
       timeFormat: "H",
       timeSeparator: " - ",
@@ -39,7 +72,7 @@ $(document).ready( ->
       resizable: ->
         false
       eventNew : (calEvent, event, FreeBusyManager, calendar)-> 
-        if calEvent.userId!=0
+        if calEvent.userId>0
            $(calendar).weekCalendar('removeEvent',calEvent.id)
         else
           start_time = calEvent.start.toString() 
@@ -58,16 +91,18 @@ $(document).ready( ->
                 200: ->
                   $("#calendar").weekCalendar("refresh")            
 
-      eventClick : (calEvent, event) -> 
-        data = 
-          event: calEvent.id
-        $.ajax
-          url: base_url+'/remove_event'
-          data: data,
-          type: 'POST',
-          statusCode:
-            200: ->
-              $("#calendar").weekCalendar("refresh"))
+      eventClick : (calEvent, event) ->
+        console.log("userId="+calEvent.userId) 
+        if calEvent.userId==0        
+          data = 
+            event: calEvent.id
+          $.ajax
+            url: base_url+'/remove_event'
+            data: data,
+            type: 'POST',
+            statusCode:
+              200: ->
+                $("#calendar").weekCalendar("refresh"))
 
 )      
         

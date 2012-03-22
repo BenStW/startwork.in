@@ -19,28 +19,17 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe FriendshipsController do
-  fixtures :users
-
-  # This should return the minimal set of attributes required to create a valid
-  # Friendship. As you add validations to Friendship, be sure to
-  # update the return value of this method accordingly.
-  def valid_attributes
-    {
-      :friend_id => @user_steffi.id,
-      :user_id => @user_ben.id
-    }
-  end
-  
+ 
   
   before(:each) do
-    @user_ben = users(:ben)
-    @user_steffi = users(:steffi)
+    @user_ben = FactoryGirl.create(:user)
+    @user_steffi = FactoryGirl.create(:user)
     sign_in @user_ben
   end
 
   describe "GET index" do
     it "assigns all friendships as @friendships" do
-      friendship = Friendship.create! valid_attributes
+      friendship = FactoryGirl.create(:friendship, :user_id => @user_ben.id, :friend_id => @user_steffi.id)
       get :index
       assigns(:friendships).should eq([friendship])
     end
@@ -51,12 +40,12 @@ describe FriendshipsController do
     describe "with valid params" do
       it "creates a new Friendship" do
         expect {
-          post :create, valid_attributes
+          post :create, :user_id => @user_ben.id, :friend_id => @user_steffi.id
         }.to change(Friendship, :count).by(2) # for forth and inverse friendship
       end
 
       it "assigns a newly created friendship as @friendship" do
-        post :create,  valid_attributes
+          post :create, :user_id => @user_ben.id, :friend_id => @user_steffi.id
         assigns(:friendship).should be_a(Friendship)
         assigns(:friendship).should be_persisted
       end
@@ -71,16 +60,17 @@ describe FriendshipsController do
 
   describe "DELETE destroy" do
     it "destroys the requested friendship" do
-      friendship = Friendship.create! valid_attributes
-      inverse_friend = Friendship.create! :user_id => @user_steffi.id, :friend_id => @user_ben.id
+      friendship = FactoryGirl.create(:friendship, :user_id => @user_ben.id, :friend_id => @user_steffi.id)
+      inverse_friendship = FactoryGirl.create(:friendship, :user_id => @user_steffi.id, :friend_id => @user_ben.id)
+
       expect {
         delete :destroy, {:id => friendship.to_param}
       }.to change(Friendship, :count).by(-2)
     end
 
     it "redirects to the friendships list" do
-      friendship = Friendship.create! valid_attributes
-      inverse_friend = Friendship.create! :user_id => @user_steffi.id, :friend_id => @user_ben.id
+      friendship = FactoryGirl.create(:friendship, :user_id => @user_ben.id, :friend_id => @user_steffi.id)
+      inverse_friendship = FactoryGirl.create(:friendship, :user_id => @user_steffi.id, :friend_id => @user_ben.id)
       delete :destroy, {:id => friendship.to_param}
       response.should redirect_to(friendships_url)
     end

@@ -4,16 +4,16 @@ Feature: user maintains friendships
   so that I can work with them on startwork
 
   Scenario: user adds a friend
-    Given the user "Ben"
-    When he signs in
-    And he visits the friends page
-    And he adds the user "Steffi" as a friend
-    Then the user "Steffi" is defined as a friend
+    Given an active, logged-in user with name "Ben", email "ben@example.com" and password "secret"
+    And the user with name "Steffi", email "steffi@example.com" and password "secret"
+    When the user goes to "friendships"
+    And the user presses "Add as friend"
+    Then the user sees "Remove as friend"
 
   Scenario: user removes a friend
-    Given the user "Ben"
-    When he signs in
-    And he visits the friends page
-    And he adds the user "Steffi" as a friend
-    And he removes the user "Steffi" as a friend
-    Then the user "Steffi" is not defined as a friend
+    Given an active, logged-in user with name "Ben", email "ben@example.com" and password "secret"
+    And the user with name "Steffi", email "steffi@example.com" and password "secret"
+    When the user goes to "friendships"
+    And the user presses "Add as friend"
+    And the user presses "Remove as friend"
+    Then the user does not sees "Remove as friend"

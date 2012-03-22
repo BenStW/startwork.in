@@ -32,6 +32,7 @@ end
 
 group :test do
   gem 'database_cleaner'
+  gem 'factory_girl_rails'
 
 #  gem 'capybara', '1.1.2'
 #  gem 'rb-fsevent', '0.4.3.1', :require => false

@@ -5,6 +5,7 @@
 # files.
 
 require 'cucumber/rails'
+#require 'factory_girl/step_definitions'
 
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd
@@ -71,5 +72,15 @@ Capybara::Node::Element.class_eval do
       driver.browser.action.move_to(native).move_by(right.to_i, top.to_i).click.perform
     end
   end 
+end
+
+def sign_in(user)
+  visit root_path
+  click_link "Sign in"
+  fill_in "user_email", :with => user.email
+  fill_in "user_password", :with => "secret"  
+  within("form") do
+     click_on "Sign in"
+  end
 end
 

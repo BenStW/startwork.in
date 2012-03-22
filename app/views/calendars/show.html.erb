@@ -1,5 +1,25 @@
-<h1><%= t(".title")%></h1>
-<%= t(".description") %>
+<div class="row">
+  <div class="span3">
+	<h1><%= t(".title")%></h1>
+	<%= t(".description") %>	
+  </div> <!-- end span3 -->
+
+<div class="span9">	
+  <div id="single_calendar_button" class="btn btn-primary" style="width:100px">My calendar</div>	
+  <div id="all_friends_button" class="btn"  style="width:100px">All friends</div>	<br>
+<div style="height:5px">&nbsp;</div>
+<% @friends.each do |friend| %>
+  <div id="friend<%= friend.id %>_button" name="friend_button" data-user_id="<%= friend.id %>" class="btn"  style="width:100px"><%=friend.name %></div>
+<% end %>	
+
+
+	
+  </div> <!-- end span9 -->
+</div> <!-- end row -->
+<br>
+
+
+
 
 
 <span id="data"

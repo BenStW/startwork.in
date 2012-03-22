@@ -22,118 +22,117 @@
 require 'spec_helper'
 
 describe User do
-  fixtures :users   
-  before { @user = users(:ben) }
-    #User.new(name: "Example User", email: "user@example.com", password: "secret") 
-
-  subject { @user }
-
-  it { should respond_to(:name) }
-  it { should respond_to(:email) }
   
-  # sanity check, verifying that the @user object is initially valid:
-  it { should be_valid }
-
+  before { @user = FactoryGirl.create(:user) }
+  
+   subject { @user }
+  
   describe "when name is not present" do
       before { @user.name = " " }
       it { should_not be_valid }
   end
   
   describe "when name is too long" do
-    before { @user.name = "a" * 51 }
-    it { should_not be_valid }
-  end
-  describe "when email format is invalid" do
-    invalid_addresses =  %w[user@foo,com user_at_foo.org example.user@foo.]
-    invalid_addresses.each do |invalid_address|
-      before { @user.email = invalid_address }
-      it { should_not be_valid }
-    end
-  end
-  describe "when email format is valid" do
-     valid_addresses = %w[user@foo.com A_USER@f.b.org frst.lst@foo.jp a+b@baz.cn]
-     valid_addresses.each do |valid_address|
-       before { @user.email = valid_address }
-       it { should be_valid }
+     before { @user.name = "a" * 51 }
+     it { should_not be_valid }
+   end
+   describe "when email format is invalid" do
+     invalid_addresses =  %w[user@foo,com user_at_foo.org example.user@foo.]
+     invalid_addresses.each do |invalid_address|
+       before { @user.email = invalid_address }
+       it { should_not be_valid }
      end
    end
-   it "creates a new user with an existing email" do
-     user_with_same_email = User.new(name: "Example User2", email: @user.email, password: "secret2")
-     user_with_same_email.save
-     user_with_same_email.should_not be_valid
-   end
-   it "creates a new user with an existing name" do
-     user_with_same_name = User.new(name: @user.name, email: "user2@example.com", password: "secret2")
-     user_with_same_name.should_not be_valid     
-   end  
-   
-   describe "when password is not present" do
-     before { @user.password = @user.password_confirmation = " " }
-     it { should_not be_valid }
-   end
-   describe "when password doesn't match confirmation" do
-     before { @user.password_confirmation = "mismatch" }
-     it { should_not be_valid }
-   end
-   
-  it "creates and closes a connection" do
-       should_not be_open_connections
-       @user.start_connection
-       should be_open_connections
-       @user.end_connection
-       should_not be_open_connections        
-  end
+   describe "when email format is valid" do
+      valid_addresses = %w[user@foo.com A_USER@f.b.org frst.lst@foo.jp a+b@baz.cn]
+      valid_addresses.each do |valid_address|
+       before { @user.email = valid_address }
+        it { 
+          should be_valid
+          }
+      end
+    end
   
-  it "calculates the duration of all connections" do
-     conn1 = @user.start_connection
-     conn1.stub(:end_time).and_return(conn1.start_time + 5.minutes)
-     @user.stub(:open_connections?).and_return(false)
+    it "should not be valid with existing name" do
+      user_with_same_name = FactoryGirl.build(:user, :name => @user.name)
+      user_with_same_name.should_not be_valid
+    end
 
-     conn2 = @user.start_connection
-     conn2.stub(:end_time).and_return(conn2.start_time + 5.minutes)
-     @user.stub(:open_connections?).and_return(false)
-     
-     @user.duration_of_connections.should == 10
-  end
-  
-  it "is activated for Ben" do
-    @user.activated.should be_true
-  end
-  it "is activated for Steffi" do
-    @user_steffi = users(:steffi)
-    @user_steffi.activated.should be_false
-  end
-    
-  it "shows all events of this week" do
-    number_of_times = @user.all_events_of_this_week.length 
-    t = DateTime.current
-    start_time_yesterday = DateTime.new(t.year, t.month,t.day-1,14)
-    end_time_yesterday = DateTime.new(t.year, t.month,t.day-1,15)
-    e1 = @user.work_session_times.create(start_time:start_time_yesterday, end_time:end_time_yesterday)
-    
-    start_time_tomorrow = DateTime.new(t.year, t.month,t.day+1,14)
-    end_time_tomorrow = DateTime.new(t.year, t.month,t.day+1,15)    
-    e2 = @user.work_session_times.create(start_time:start_time_tomorrow, end_time: end_time_tomorrow)
+    it "should not be valid with existing email" do  
+      user_with_same_email = FactoryGirl.build(:user, :email => @user.email)
+      user_with_same_email.should_not be_valid
+    end   
 
-    new_number_of_times = @user.all_events_of_this_week.length
-    diff_number_of_times = new_number_of_times - number_of_times
-    diff_number_of_times.should eq(1)       
-  end
-  
-  it "has friendships with friends" do
-    @user_steffi = users(:steffi)
-    friendship = @user.friendships.build(:friend_id => @user_steffi.id)
-    @user.friendships.first.friend.should eql(@user_steffi)
-    @user.save
-    @user.friends.first.should eql(@user_steffi)
-  end
+    describe "when password is not present" do
+      before { @user.password = @user.password_confirmation = " " }
+      it { should_not be_valid }
+    end
+    describe "when password doesn't match confirmation" do
+      before { @user.password_confirmation = "mismatch" }
+      it { should_not be_valid }
+    end
+
+   it "creates and closes a connection" do
+        should_not be_open_connections
+        @user.start_connection
+        should be_open_connections
+        @user.end_connection
+        should_not be_open_connections        
+   end
+   
+   
+   it "calculates the duration of all connections" do
+      conn1 = @user.start_connection
+      conn1.stub(:end_time).and_return(conn1.start_time + 5.minutes)
+      @user.stub(:open_connections?).and_return(false)
+
+      conn2 = @user.start_connection
+      conn2.stub(:end_time).and_return(conn2.start_time + 5.minutes)
+      @user.stub(:open_connections?).and_return(false)
+
+      @user.duration_of_connections.should == 10
+   end
+
+   it "is not activated by default" do
+     @user.activated.should be_false
+   end
+
+   it "shows all events of this week" do
+     number_of_times = @user.all_events_of_this_week.length 
+     t = DateTime.current
+     start_time_yesterday = DateTime.new(t.year, t.month,t.day-1,14)
+     end_time_yesterday = DateTime.new(t.year, t.month,t.day-1,15)
+     e1 = @user.work_session_times.create(start_time:start_time_yesterday, end_time:end_time_yesterday)
+
+     start_time_tomorrow = DateTime.new(t.year, t.month,t.day+1,14)
+     end_time_tomorrow = DateTime.new(t.year, t.month,t.day+1,15)    
+     e2 = @user.work_session_times.create(start_time:start_time_tomorrow, end_time: end_time_tomorrow)
+
+     new_number_of_times = @user.all_events_of_this_week.length
+     diff_number_of_times = new_number_of_times - number_of_times
+     diff_number_of_times.should eq(1)       
+   end
+
+   it "has friendships with friends" do
+     user_steffi = FactoryGirl.create(:user, :name => "steffi")
+     friendship = @user.friendships.build(:friend_id => user_steffi.id)
+     @user.friendships.first.friend.should eql(user_steffi)
+     @user.save
+     @user.friends.first.should eql(user_steffi)
+   end
+
   
   it "has inverse friendships with friends" do
-    @user_steffi = users(:steffi)
-    friendship = @user.friendships.build(:friend_id => @user_steffi.id)
+     user_steffi = FactoryGirl.create(:user, :name => "steffi")
+    friendship = @user.friendships.build(:friend_id => user_steffi.id)
     @user.save    
-    @user_steffi.inverse_friendships.first.user.should eql(@user)
-    @user_steffi.inverse_friends.first.should eql(@user)
-  end  
-
+    user_steffi.inverse_friendships.first.user.should eql(@user)
+    user_steffi.inverse_friends.first.should eql(@user)
+  end
+  
+  it "shows all friends events of this week" do
+    user = FactoryGirl.create(:user_with_two_friends_and_overlapping_times)
+    events =  user.all_friends_events_of_this_week
+    events.count.should eql(1)
+  end
 end
