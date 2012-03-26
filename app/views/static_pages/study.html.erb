@@ -1,8 +1,11 @@
 <!--<h1>Studie</h1>
 <br>
 -->
-<p>
-<a class="btn btn-primary btn-large" href="<%= new_user_registration_path %>">Jetzt für die Studienteilnahme registrieren &raquo;</a></p>
+
+	<% if current_user.nil? %>
+    <p><a class="btn btn-primary btn-large" href="<%= new_user_registration_path %>">
+	Jetzt für die Studienteilnahme        registrieren &raquo;</a></p>
+    <% end %>
 <br>
 
 <h3>Worum geht es bei der Studie?</h3>
@@ -52,4 +55,7 @@
 <li>Nach Markteinführung erhältst du ein Jahr lang einen kostenlosen Zugang zu Startwork (Wert: 60 €). </li>
 </p> 
 
-<a class="btn btn-primary btn-large" href="<%= new_user_registration_path %>">Jetzt für die Studienteilnahme registrieren &raquo;</a></p>
+<% if current_user.nil? %>
+<p><a class="btn btn-primary btn-large" href="<%= new_user_registration_path %>">
+Jetzt für die Studienteilnahme        registrieren &raquo;</a></p>
+<% end %>
