@@ -16,14 +16,11 @@ en:
       calendar: My calendar
       maintain_friends: My work buddies     
       statistics: Statistics 
-      my_settings: My settings       
+      my_settings: My settings         
       not_activated_html: "<h2>Your account is not activated yet.</h2><br>
         <p>Please still have some patience.</p>
-        <p>We will contact you this week (19th to 23rd of March),
-        in order to arrange a meeting on Monday (26th) or Tuesday (27th) next week.</p>
-        <p>In this meeting we will explain you the procedure of the platform, 
-        and a week later (02/03rd March) your account will be activated.</p>
-        <p>If you have any questions, please send <a href='mailto:mail@benedikt-voigt.net'>Benedikt</a> an email.</p>"   
+        <p>We will contact you when the study starts, which will probably be beginning of April.</p>
+        <p>If you have any questions, please send <a href='mailto:robert@startwork.in'>Robert</a> an email.</p>"   
     how_it_works:
       title: "How it works"
       text_html: "<p>You work with up to 5 friends for 50 minutes with a running webcam. 

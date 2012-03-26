@@ -3,10 +3,20 @@ FactoryGirl.define do
   
   
   factory :user, :class=>User do
+    
+  # room  do |user| 
+  #   puts "***************** user.class = #{user.class}"
+  #   #user.class.skip_callback(:create, :before, :build_room) 
+  #   FactoryGirl.create(:room)
+  # end
+
     sequence(:name) { |n| "foo#{n}" }
     sequence(:email) { |n| "foo#{n}@example.com" }
     password "foobar"
     password_confirmation { |u| u.password }
+  #  room
+    
+    
     
     factory :user_with_work_session_time do
       after_create do |user, evaluator|
@@ -47,5 +57,11 @@ FactoryGirl.define do
 
   factory :friendship do
   end
+  
+ factory :room do
+   # somehow this assignment is needed. 
+   # Maybe because then the creation of the room is triggered 
+   tokbox_session_id "factory_tokbox_session_id"
+ end
 
 end

@@ -19,11 +19,9 @@ de:
       my_settings: Organisatorisches     
       not_activated_html: "<h2>Dein Konto ist noch nicht aktiviert</h2><br>
         <p>Bitte habe noch ein wenig Geduld.</p>
-        <p>Wir werden Dich diese Woche (19. März bis 23. März) noch kontaktieren,
-        um für Montag (26. März) oder Dienstag (27. März) einen Termin zu vereinbaren.</p>
-        <p>Auf diesem Termin werden wir dir die Funktionsweise der Plattform erklären
-        und dein Konto eine Woche später (02/03. April) freischalten.</p>
-        <p>Bei Fragen melde dich bei <a href='mailto:mail@benedikt-voigt.net'>Benedikt</a>.</p>"
+        <p>Wir werden Dich kontaktieren, wenn die Studie startet.</p>
+        <p>Dies wird voraussichtlich erst Anfang April sein.</p>
+        <p>Bei Fragen melde dich bei <a href='mailto:robert@startwork.in'>Robert</a>.</p>"
     how_it_works:
       title: "Wie es geht"
 #       <p>Während der Arbeitszeit siehst du in einem Fenster am rechten Rand deine Freunde per Videoübertragung.</p>

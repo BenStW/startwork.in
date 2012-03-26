@@ -29,9 +29,12 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :activated
   
   validates :name, presence: true, length: { maximum: 20 }, uniqueness: true
+  #validates :room, presence: true
+  
   has_many :penalties, :foreign_key => "to_user_id"
   has_many :connections
   has_many :work_session_times, :dependent => :destroy
+  has_one :room
   
   has_many :friendships
   has_many :friends, :through => :friendships
@@ -41,15 +44,8 @@ class User < ActiveRecord::Base
   scope :not_activated, where(:activated => false)
   
   before_create :not_activate
+ # before_create :build_room  #this method exists already because of the association
   
-  def not_activate
-   self.activated = false
-   true
-  end
-  
-  def activate
-    self.activated = true
-  end  
   
   def start_connection
     if !open_connections?      
@@ -97,7 +93,10 @@ class User < ActiveRecord::Base
     c = DateTime.current
     today = DateTime.new(c.year,c.month,c.day)
     friend_ids = self.friendships.map(&:friend).map(&:id)
-    events = WorkSessionTime.where("user_id in (?) and start_time>=?", friend_ids, today).order("start_time")
+    events = WorkSessionTime.where("user_id in (?) and start_time>=?", friend_ids, today).order("start_time")    
+    if events.empty?
+        return []
+    end
     return_events = [events[0]]
     events.each do |event|
       last_event = return_events.last
@@ -118,7 +117,22 @@ class User < ActiveRecord::Base
     return_events 
     
   end
+  
+  
+  private
+  
+  def not_activate
+   self.activated = false
+   true
+  end
+  
+  def activate
+    self.activated = true
+  end  
+  
 
+
+   
   
 =begin 
   def open_penalties?

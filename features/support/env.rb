@@ -78,7 +78,7 @@ def sign_in(user)
   visit root_path
   click_link "Sign in"
   fill_in "user_email", :with => user.email
-  fill_in "user_password", :with => "secret"  
+  fill_in "user_password", :with => user.password #"secret"  
   within("form") do
      click_on "Sign in"
   end

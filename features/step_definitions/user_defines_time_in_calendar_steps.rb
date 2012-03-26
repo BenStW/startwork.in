@@ -1,63 +1,28 @@
-
-Given /^a work group$/ do 
-  # Capybara.javascript_driver is selenium
-
-  @work_session = WorkSession.new
-  @work_session.tokbox_session_id="asdf"
-#  @work_session.generate_tokbox_session
-  @work_session.save
+Given /^the following users with work session times$/ do |table|
+  c = DateTime.current
+  tomorrow = DateTime.new(c.year,c.month,c.day+1,0)
+  table.hashes.each do |hash|
+    name = hash[:name]
+    start_time_hour = hash[:start_time].to_i
+    start_time = tomorrow + start_time_hour.hours
+    end_time_hour = hash[:end_time].to_i
+    end_time = tomorrow + end_time_hour.hours  
+    if start_time >= end_time 
+       raise "Times wrongly defined: #{start_time} >= #{end_time}"  
+    end
+   if !user = User.find_by_name(name)      
+     user = FactoryGirl.create(:user, :name => hash[:name])
+   end
+   ws = FactoryGirl.create(:work_session_time, :user=>user, :start_time=>start_time, :end_time=>end_time)
+  end
 end
 
-When /^he visits the calendar$/ do 
-  
- # locator = "$('.wc-full-height-column.wc-day-column-inner.day-2')"
 
-
- # find("#calendar").click_at(10,10) 
-# find("body").click_at(10,10)
-  
-
-  
-  
- # print page.html
-#  t = page.execute_script("return document.title;")
-#  puts "title = "+t 
-#  $("$('.day-2')).position(); ")
- # //div[@id='calendar']/div/div[2]/table/tbody/tr[2]/td[3]/div
-#  p = page.execute_script("$('div[@id='calendar']/div/div[2]/table/tbody/tr[2]/td[3]/div/div[2]/div').trigger('click')")
-
-#  locator = "$('.wc-full-height-column.wc-day-column-inner.day-2')"
- # clickAt(locator, "0,100")
-  #ChromeDriver driver = new ChromeDriver();
-  # driver.findElement(By.id("someID")).clickAt("25, 25")  
-    
-#  p = page.execute_script("$('.brand').trigger('click')")
-#  print page.html
-#  puts "P = "+p  
-#  print page.html
-end
-
-When /^he selects the day "([^"]*)"$/ do |arg1|
- # @day = DateTime.current + 1.day
-end
-
-When /^he selects the hour "([^"]*)"$/ do |arg1|
-  #p = page.execute_script("return document.title;")
-  #$('.day-2').position(); ")
-  #puts "P = "+p
-
-#  puts p
-#  @day = DateTime.new(@day.year, @day.month, @day.day, 10,0,0)
-#  result = page.evaluate_script('4 + 4')
-#  result.should == 8
-#  print page.html  
-#  page.execute_script("$('body').empty()")  
-  #selenium_session.fireEvent("field", "blur")
-  #page.execute_script("$('.image_grid').trigger('mouseenter');")
-  #page.driver.browser.fireEvent("asdf", "mouseover") 
- # page.execute_script("$('#a').click();")
-end
-
-Then /^this definition is saved successfully$/ do
-  pending # express the regexp above with the code you wish you had
+Given /^the following friendships$/ do |table|
+  table.hashes.each do |hash|
+    user1 = User.find_by_name(hash[:user1])
+    user2 = User.find_by_name(hash[:user2])
+    f1 = FactoryGirl.create(:friendship, :user=>user1, :friend=>user2)
+    f2 = FactoryGirl.create(:friendship, :user=>user2, :friend=>user1)    
+  end
 end

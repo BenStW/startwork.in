@@ -1,7 +1,6 @@
 class CalendarsController < ApplicationController
   def show
    @friends = current_user.friendships.map(&:friend)
-#    @users = @friends.insert(0,current_user.name)
   end
   
   def new_event
@@ -12,7 +11,12 @@ class CalendarsController < ApplicationController
       logger.error "New event had start_time=#{start_time} > end_time=#{end_time}"
       render :json => "not created"
     else
-      current_user.work_session_times.create(start_time:start_time,end_time:end_time)
+      hours = (end_time - start_time)*24-1
+      (0..hours).each do |hour|
+        s_time = start_time+hour.hours
+        e_time = start_time+hour.hours+1.hours
+        current_user.work_session_times.create(start_time:s_time,end_time:e_time)
+      end
      render :json => "succussfully created event"
     end
   end
@@ -26,7 +30,8 @@ class CalendarsController < ApplicationController
       users_array = [current_user.name]
       if params[:user_ids] == "all"
         users_array << "All"
-        events_array += events_to_array(current_user.all_friends_events_of_this_week,1)
+        events = current_user.all_friends_events_of_this_week
+        events_array += events_to_array(events,1) unless events.length==0
       else
         user_ids = params[:user_ids].split(',')
         friends =[]

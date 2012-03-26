@@ -17,8 +17,21 @@ Given /^A user is logged in as "([^\"]*)" with password "([^\"]*)"$/ do |email, 
 end
 
 Given /^an active, logged\-in user with name "([^"]*)", email "([^"]*)" and password "([^"]*)"$/ do |name, email, password|
-    user = FactoryGirl.create(:user, :name => name, :email => email, :password => password, :activated=>true)
+    user = FactoryGirl.create(:user, :name => name, :email => email, :password => password)
+    user.activated=true
+    user.save    
     sign_in user
+end
+
+Given /^an active, logged\-in user "([^"]*)"$/ do |name|
+    user = FactoryGirl.create(:user, :name => name)
+    user.activated=true
+    user.save
+    sign_in user
+end
+
+Given /^the active user with name "([^"]*)"$/ do |name|
+  user = FactoryGirl.create(:user, :name => name, :activated=>true)
 end
 
 

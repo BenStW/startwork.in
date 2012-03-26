@@ -5,6 +5,11 @@ end
 
 When /^the user presses "([^"]*)"$/ do |link|
     click_link link
+ #   sleep 10  
+end
+
+When /^the user sleeps for "([^"]*)" seconds $/ do |seconds|
+    sleep seconds  
 end
 
 When /^I attach the file at "([^\"]*)" to "([^\"]*)"$/ do |path, field|

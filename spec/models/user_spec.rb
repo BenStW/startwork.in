@@ -23,7 +23,12 @@ require 'spec_helper'
 
 describe User do
   
-  before { @user = FactoryGirl.create(:user) }
+  before { @user = FactoryGirl.create(:user)
+  #  puts "********* user: tokbox_session_id = #{@user.room.tokbox_session_id}"
+  #  @room = FactoryGirl.create(:room)
+  #  puts "********* room: tokbox_session_id = #{@room.tokbox_session_id}"
+    }
+     
   
    subject { @user }
   
@@ -31,7 +36,7 @@ describe User do
       before { @user.name = " " }
       it { should_not be_valid }
   end
-  
+
   describe "when name is too long" do
      before { @user.name = "a" * 51 }
      it { should_not be_valid }
