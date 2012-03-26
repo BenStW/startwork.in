@@ -1,5 +1,10 @@
 de:
     invitations:
+        new:
+            title: "Lade deine Freunde zur Teilnahme an der Studie ein"
+            description: "Es macht mehr Spaß, wenn man mit seinen Freunden zusammen lernt. "
+            friends_email: "Gib einfach die Emailadresse deines Freundes ein:"
+            invite: "Einladen"
         create:
             invitation_sent: "Vielen Dank. Die Email wurde erfolgreich verschickt."
             invitation_not_sent: "Die Emailadresse ist nicht korrekt."

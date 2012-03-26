@@ -1,5 +1,10 @@
 en:
     invitations:
+        new:
+            title: "Invite your friends"
+            description: "It is more fun to work together with friends."
+            friends_email: "Just provide the email address of your friend: "
+            invite: "Invite"        
         create:
             invitation_sent: "Thank you. Invitation was succussfully sent."
             invitation_not_sent: "The email address is not correct."

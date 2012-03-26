@@ -1,13 +1,14 @@
 
 <div class="well">
-
+<h3> <%= t(".title")%></h3>
+   <p><%= t(".description")%></p>
 
 <% @invitation = Invitation.new %>
 <%= form_for(@invitation) do |f| %>
 
-    <p><b>Friend's email address:</b></p>
+    <p><%= t(".friends_email")%></p>
     <%= f.text_field :recipient_mail %>
-    <%= f.submit 'Invite', :class => 'btn btn-primary'  %>
+    <%= f.submit t(".invite"), :class => 'btn btn-primary'  %>
 
 <% end %>
 
