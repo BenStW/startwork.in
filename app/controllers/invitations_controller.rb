@@ -6,8 +6,8 @@ class InvitationsController < ApplicationController
     @invitation = Invitation.new(params[:invitation])
     @invitation.sender = current_user
     if @invitation.save
-        #Mailer.deliver_invitation(@invitation, signup_url(@invitation.token))
-        flash[:notice] = t("invitations.create.invitation_sent")
+      InvitationMailer.invitation(@invitation).deliver
+      flash[:notice] = t("invitations.create.invitation_sent")
     else
       flash[:alert] = t("invitations.create.invitation_not_sent") #"Invitation not sent"
     end
