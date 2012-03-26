@@ -1,6 +1,7 @@
 ActiveAdmin.register User do
   filter :name
   filter :email
+  filter :referer  
   scope :not_activated
   
   
@@ -8,6 +9,7 @@ ActiveAdmin.register User do
       column :id
       column :name
       column :email
+      column :referer        
       column :connections do |user|
         user.connections.count
 #        link_to user.connections.count, admin_connections_path

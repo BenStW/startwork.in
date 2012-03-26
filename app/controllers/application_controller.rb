@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
   before_filter :set_locale_from_url 
   before_filter :authenticate_user!
+  before_filter :save_referer
 
 
  private
@@ -18,6 +19,12 @@ class ApplicationController < ActionController::Base
   #  logger.debug "**********************"    
   end
   
-
+  def save_referer
+    unless current_user
+      unless session[:referer]
+        session[:referer] = request.env["HTTP_REFERER"] || 'none'
+      end
+    end
+  end
 
 end

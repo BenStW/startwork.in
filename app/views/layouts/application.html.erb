@@ -74,8 +74,9 @@ gaq.push(['trackPageview']);
 	              <li <%= if_active 'about_us' %>><%=link_to t(".about_us"), about_us_path %></li>
 	              <li <%= if_active 'contact' %>> <%=link_to t(".contact"), contact_path%> </li>
 				</ul> <!-- /.nav -->
-				<ul class="nav pull-right">
+				
 					<% if user_signed_in? %>
+					<ul class="nav pull-right">
 				 <li id="fat-menu" class="dropdown">
 				        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.name %>
 					<b class="caret"></b></a>
@@ -97,6 +98,8 @@ gaq.push(['trackPageview']);
     <br>
 
 
+	
+	
 <br><br>
     <div class="container">
 	<% if notice %>
@@ -112,6 +115,8 @@ gaq.push(['trackPageview']);
       <hr>
       <footer>
         <p>&copy; StartWork 2012</p>
+<p>Referer: <%= session['referer']%></p>
+
       </footer>
 
     </div> <!-- /container -->   

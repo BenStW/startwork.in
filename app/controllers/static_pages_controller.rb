@@ -21,6 +21,9 @@ class StaticPagesController < ApplicationController
   def study
   end  
   
+  def facebook
+  end
+  
   def interested_user
     flash[:notice] = "The user was successfully created"
   end

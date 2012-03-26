@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
   has_many :inverse_friends, :through => :inverse_friendships, :source => :user  
   
-   has_many :sent_invitations, :class_name => 'Invitation', :foreign_key => 'sender_id'
+  has_many :sent_invitations, :class_name => 'Invitation', :foreign_key => 'sender_id'
   
   scope :not_activated, where(:activated => false)
   
@@ -83,11 +83,18 @@ class User < ActiveRecord::Base
     activated
   end
   
+  def save_referer(referer)
+    self.referer = referer
+    self.save
+  end
+  
   def all_events_of_this_week
     c = DateTime.current
     today = DateTime.new(c.year,c.month,c.day)
     self.work_session_times.where("start_time >=?", today)
   end
+  
+  
   
   
   
