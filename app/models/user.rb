@@ -41,6 +41,8 @@ class User < ActiveRecord::Base
   has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
   has_many :inverse_friends, :through => :inverse_friendships, :source => :user  
   
+   has_many :sent_invitations, :class_name => 'Invitation', :foreign_key => 'sender_id'
+  
   scope :not_activated, where(:activated => false)
   
   before_create :not_activate

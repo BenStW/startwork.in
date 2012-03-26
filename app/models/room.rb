@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: rooms
+#
+#  id                :integer         not null, primary key
+#  user_id           :integer
+#  tokbox_session_id :string(255)
+#  created_at        :datetime        not null
+#  updated_at        :datetime        not null
+#
+
 class Room < ActiveRecord::Base
   belongs_to :user
 

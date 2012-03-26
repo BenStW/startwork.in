@@ -1,0 +1,15 @@
+
+<div class="well">
+
+
+<% @invitation = Invitation.new %>
+<%= form_for(@invitation) do |f| %>
+
+    <p><b>Friend's email address:</b></p>
+    <%= f.text_field :recipient_mail %>
+    <%= f.submit 'Invite', :class => 'btn btn-primary'  %>
+
+<% end %>
+
+</div>
+

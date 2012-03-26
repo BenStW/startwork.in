@@ -1,6 +1,8 @@
 # encoding: utf-8
 StartWork::Application.routes.draw do
 
+  resources :invitations
+
   resources :friendships
 
 
