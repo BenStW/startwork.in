@@ -17,6 +17,7 @@
 #  updated_at             :datetime        not null
 #  name                   :string(255)
 #  activated              :boolean
+#  referer                :string(255)
 #
 
 require 'spec_helper'

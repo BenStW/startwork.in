@@ -1,10 +1,17 @@
 
+     <%if current_user %>
+		<h1><%= t '.title_current_user' %></h1>
+		 <br>
+		<%= t(".text_current_user_html") %>
 
+ <% else %>
 
   <div class="hero-unit">
 	<h1><%= t '.title' %></h1>
 	 <br>
 	
 	<%= t(".text_html") %> 
-<!--	 <a class="btn btn-primary btn-large" href="<%= new_user_registration_path %>"><%= t ".sign_up"%> &raquo;</a>-->
+
  </div>
+
+<% end %>

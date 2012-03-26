@@ -23,13 +23,50 @@ de:
         <p>Bei Fragen melde dich bei <a href='mailto:robert@startwork.in'>Robert</a>.</p>"
     how_it_works:
       title: "Wie es geht"
-#       <p>Während der Arbeitszeit siehst du in einem Fenster am rechten Rand deine Freunde per Videoübertragung.</p>
-#          <p>Das Mikrofon ist stumm gestellt, aber während der Pause wieder aktiviert.</p>      
       text_html: "<p>Bei eingeschalteter Webcam arbeitest du in einer Arbeitsgruppe 
         von bis zu 5 Freunden 50 Minuten lang und anschließend macht ihr 10 Minuten Pause.</p>      
         <p>Die soziale Kontrolle wirkt disziplinierend und gleichzeitig erlebst du eine angenehme und intensive Zeit mit deinen Freunden.</p>
         <p>Du gibst  einfach im Kalendar deine gewünschten Arbeitszeiten der nächsten 7 Tage ein 
         und wir erstellen die Arbeitsgruppe basierend auf den Arbeitszeiten deiner Freunde oder ordnen dich einer neuen Lerngruppe zu.</p>"
+      title_current_user: "Wie es geht"
+      text_current_user_html: "Nach der Anmeldung solltest du folgende Schritte als Nächstes ausführen:
+          <ul>
+        <li>Falls bereits Freunde von dir Startwork nutzen, klicke auf 'Meine Workbuddies', 
+        um aus der Nutzerliste deine Freunde als Workbuddies hinzuzufügen. 
+        Wenn noch keine Freunde von dir Startwork nutzen, lade diese zu Startwork ein,
+         oder schreibe eine Mail an <a href='mailto:robert@startwork.in'>Robert@startwork.in</a>, damit wir dir Workbuddies vermitteln.</li>
+
+        <li>Unter 'Mein Kalender' kannst du deine Arbeitszeiten eintragen und 
+        die Arbeitszeiten dein er Workbuddies sehen.
+         Hier könnt ihr unkompliziert eure Zeiten aufeinander abstimmen. 
+         Startwork ist so gedacht, dass ihr eure gesamte Arbeitszeit zusammen verbringt.</li>
+
+        <li>Schreibt eine E-Mail an <a href='mailto:robert@startwork.in'>Robert@startwork.in</a>,
+         damit ihr eure eigene Arbeitsgruppe erhaltet. Den Namen der Arbeitsgruppe könnt ihr euch aussuchen.</li>
+
+        <li>Loggt euch 10 Minuten vor der Zeit zu den verabredeten Arbeitszeiten in eurer Arbeitsgruppe ein,
+         damit ihr genug Zeit habt euch gegenseitig zu erzählen, was ihr an dem Tag schaffen wollt.</li>
+
+        <li>Euer Video wird ausgeblendet, nachdem ihr Startwork den Zugriff auf Kamera und Mikrofon erlaubt habt. 
+        Ihr seid aber in der Arbeitsgruppe. 
+        Ihr könnt die Zugriffserlaubnis über den Button 'Kamera- und Audiotest' auch automatisieren.</li>
+
+        <li>Der automatische Timer beginnt aktuell zu jeder vollen Stunde mit einer 50-minütigen Arbeitsphase, 
+        an die sich eine 10-minütige Pause anschließt. 
+        Die ersten gemeinsamen Minuten des Tages kurz vor Beginn der Abeitsphase sollen dazu genutzt werden, 
+        dass <b>jedes Gruppenmitglied kurz den anderen möglichst konkret erzählt (10-20 Sekunden),
+         was er heute schaffen will.
+          Am Ende des gemeinsamen Arbeitstages soll nochmal jeder den Anderen mitteilen,
+           was er davon geschafft hat. </b></li>
+
+        <li>Das <b>Fenster mit den Videos bitte immer sichtbar halten, </b>
+        die anderen Fenster entsprechend anpassen. Dann wirkt Startwork am stärksten.</li>
+
+        <li>Wir freuen uns über jegliche Nutzung des Feedback-Formulars rechts unten. 
+        Ideen, Eindrücke, Bugs - alles kann und soll mitgeteilt werden.</li>
+        </ul>
+
+         Diese Anleitung wird regelmäßig entsprechend der technischen Weiterentwicklung aktualisiert."
       sign_up: "Weiter zur Registrierung"         
     about_us:
       title: "Über uns" 
