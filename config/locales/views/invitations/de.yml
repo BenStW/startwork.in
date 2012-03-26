@@ -1,5 +1,5 @@
 de:
     invitations:
         create:
-            invitation_sent: "Vielen Dank. Die Email wurde verschickt."
+            invitation_sent: "Vielen Dank. Die Email wurde erfolgreich verschickt."
             invitation_not_sent: "Die Emailadresse ist nicht korrekt."

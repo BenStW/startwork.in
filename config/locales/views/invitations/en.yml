@@ -1,5 +1,5 @@
 en:
     invitations:
         create:
-            invitation_sent: "Thank you. Invitation sent."
+            invitation_sent: "Thank you. Invitation was succussfully sent."
             invitation_not_sent: "The email address is not correct."
