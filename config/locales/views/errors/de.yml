@@ -1,0 +1,6 @@
+de:
+    errors:
+        e404:
+            message: "Die gesuchte Seite existiert nicht."
+        e500:
+            message: "Ooops, ein Fehler ist aufgetreten."

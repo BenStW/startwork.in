@@ -7,6 +7,32 @@ class ApplicationController < ActionController::Base
   before_filter :save_referer
 
 
+
+  unless Rails.application.config.consider_all_requests_local
+     rescue_from ActionController::RoutingError, :with => :render_404
+     rescue_from ActionController::UnknownAction, :with => :render_404
+     rescue_from ActiveRecord::RecordNotFound, :with => :render_404
+     rescue_from Exception, :with => :render_500
+    # rescue_from MyApp::CustomError, :with => :custom_error_resolution
+  end
+    
+  def render_404
+     if /(jpe?g|png|gif)/i === request.path
+       render :text => "404 Not Found", :status => 404
+     else
+       render :template => "errors/404", :layout => 'application', :status => 404
+     end
+   end  
+   
+   def render_500
+     render :template => "errors/500", :layout => 'application', :status => 500
+    end
+  # UsersController
+#  rescue_from MyApp::SomeReallySpecificUserError, :with => :user_controller_resolution
+  
+
+
+
  private
  
   def set_locale

@@ -1,0 +1,8 @@
+en:
+  errors:
+    e404:
+      message: "The page you were looking for doesn't exist."
+    e500:
+      message: "We're sorry, but something went wrong."
+     
+      
