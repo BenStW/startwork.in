@@ -8,8 +8,9 @@ class CalendarEventsController < ApplicationController
   # finds or creates a work_session
   def new_event
     hourly_start_times = split_to_hourly_start_times(DateTime.parse(params[:start_time]),DateTime.parse(params[:end_time]))
-    
+    logger.info "hourly_start_times=#{hourly_start_times.to_yaml}"
     hourly_start_times.each do |start_time|
+       logger.info "start_time=#{start_time.to_yaml}"
       calendar_event = current_user.calendar_events.build(start_time: start_time)
       if work_session = WorkSession.find_existing_work_session(current_user,start_time)
         calendar_event.work_session = work_session
