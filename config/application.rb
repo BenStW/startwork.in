@@ -57,5 +57,12 @@ module StartWork
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+    
+    # Added by Ben
+    # 404 catch all route
+    config.after_initialize do |app|
+      app.routes.append{ match '*a', :to => 'application#render_404' } unless config.consider_all_requests_local
+    end
+    
   end
 end
