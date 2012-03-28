@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
    
    def render_500(exception = nil)
      if exception
-         logger.error "Rendering 500: #{exception.message}"
+         logger.error "**** ERROR **** Rendering 500: #{exception.message}"
      end
      
      render :template => "errors/500", :layout => 'application', :status => 500
