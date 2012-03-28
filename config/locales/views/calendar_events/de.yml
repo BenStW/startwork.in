@@ -1,0 +1,14 @@
+de:
+    calendar_events:
+        show:
+            all: "Alle"
+            title: "Kalender"
+            description: "Trage deine Arbeitsstunden ein:"
+            back: "zurück"
+            my_calendar: "Mein Kalender"
+            all_friends: "Alle Freunde"
+            work_sessions: "Meine Arbeitsgruppen"
+            start_time: "Beginn"
+            room_name: "Raum der Arbeitsgruppe"
+            work_buddies: "Work-buddies"
+            

@@ -19,146 +19,68 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe InvitationsController do
+  
+  before(:each) do
+    @user_ben = FactoryGirl.create(:user)
+    sign_in @user_ben
+  end
 
-  # This should return the minimal set of attributes required to create a valid
-  # Invitation. As you add validations to Invitation, be sure to
-  # update the return value of this method accordingly.
+
   def valid_attributes
-    {}
+    {
+      #:sender_id => @user_ben.id,
+      :recipient_mail => "test@example.com"
+    }
   end
   
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # InvitationsController. Be sure to keep this updated too.
-  def valid_session
-    {}
-  end
-
-  describe "GET index" do
-    it "assigns all invitations as @invitations" do
-      invitation = Invitation.create! valid_attributes
-      get :index, {}, valid_session
-      assigns(:invitations).should eq([invitation])
-    end
-  end
-
-  describe "GET show" do
-    it "assigns the requested invitation as @invitation" do
-      invitation = Invitation.create! valid_attributes
-      get :show, {:id => invitation.to_param}, valid_session
-      assigns(:invitation).should eq(invitation)
-    end
-  end
-
-  describe "GET new" do
-    it "assigns a new invitation as @invitation" do
-      get :new, {}, valid_session
-      assigns(:invitation).should be_a_new(Invitation)
-    end
-  end
-
-  describe "GET edit" do
-    it "assigns the requested invitation as @invitation" do
-      invitation = Invitation.create! valid_attributes
-      get :edit, {:id => invitation.to_param}, valid_session
-      assigns(:invitation).should eq(invitation)
-    end
-  end
 
   describe "POST create" do
-    describe "with valid params" do
+
+    describe "with valid params" do    
       it "creates a new Invitation" do
         expect {
-          post :create, {:invitation => valid_attributes}, valid_session
+          post :create, {:invitation => valid_attributes}
         }.to change(Invitation, :count).by(1)
       end
 
       it "assigns a newly created invitation as @invitation" do
-        post :create, {:invitation => valid_attributes}, valid_session
+        post :create, {:invitation => valid_attributes}
         assigns(:invitation).should be_a(Invitation)
         assigns(:invitation).should be_persisted
       end
 
       it "redirects to the created invitation" do
-        post :create, {:invitation => valid_attributes}, valid_session
-        response.should redirect_to(Invitation.last)
+        post :create, {:invitation => valid_attributes}
+        response.should redirect_to(root_url)
+      end
+    
+      it "sends an email" do 
+         post :create, {:invitation => valid_attributes}
+        invite_email = ActionMailer::Base.deliveries.last
+        invite_email.subject.should == I18n.t("mailers.invitation_mail.subject", :sender_name => @user_ben.name)
       end
     end
+
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved invitation as @invitation" do
         # Trigger the behavior that occurs when invalid params are submitted
         Invitation.any_instance.stub(:save).and_return(false)
-        post :create, {:invitation => {}}, valid_session
+        post :create, {:invitation => {}}
         assigns(:invitation).should be_a_new(Invitation)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Invitation.any_instance.stub(:save).and_return(false)
-        post :create, {:invitation => {}}, valid_session
-        response.should render_template("new")
+        post :create, {:invitation => {}}
+        response.should redirect_to(root_url)
       end
     end
+
   end
 
-  describe "PUT update" do
-    describe "with valid params" do
-      it "updates the requested invitation" do
-        invitation = Invitation.create! valid_attributes
-        # Assuming there are no other invitations in the database, this
-        # specifies that the Invitation created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
-        Invitation.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, {:id => invitation.to_param, :invitation => {'these' => 'params'}}, valid_session
-      end
 
-      it "assigns the requested invitation as @invitation" do
-        invitation = Invitation.create! valid_attributes
-        put :update, {:id => invitation.to_param, :invitation => valid_attributes}, valid_session
-        assigns(:invitation).should eq(invitation)
-      end
-
-      it "redirects to the invitation" do
-        invitation = Invitation.create! valid_attributes
-        put :update, {:id => invitation.to_param, :invitation => valid_attributes}, valid_session
-        response.should redirect_to(invitation)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns the invitation as @invitation" do
-        invitation = Invitation.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Invitation.any_instance.stub(:save).and_return(false)
-        put :update, {:id => invitation.to_param, :invitation => {}}, valid_session
-        assigns(:invitation).should eq(invitation)
-      end
-
-      it "re-renders the 'edit' template" do
-        invitation = Invitation.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Invitation.any_instance.stub(:save).and_return(false)
-        put :update, {:id => invitation.to_param, :invitation => {}}, valid_session
-        response.should render_template("edit")
-      end
-    end
-  end
-
-  describe "DELETE destroy" do
-    it "destroys the requested invitation" do
-      invitation = Invitation.create! valid_attributes
-      expect {
-        delete :destroy, {:id => invitation.to_param}, valid_session
-      }.to change(Invitation, :count).by(-1)
-    end
-
-    it "redirects to the invitations list" do
-      invitation = Invitation.create! valid_attributes
-      delete :destroy, {:id => invitation.to_param}, valid_session
-      response.should redirect_to(invitations_url)
-    end
-  end
+ 
 
 end

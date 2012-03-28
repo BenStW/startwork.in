@@ -2,12 +2,12 @@ class StaticPagesController < ApplicationController
   skip_before_filter :authenticate_user!
   
   def home  
-    first_ws = WorkSession.first
-    if first_ws.nil?
+    first_room = Room.first
+    if first_room.nil?
       @group1_id=0
       @group2_id=0
     else
-      @group1_id = WorkSession.first.id
+      @group1_id = first_room.id
       @group2_id =  @group1_id+1
     end
   end

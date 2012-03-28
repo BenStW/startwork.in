@@ -11,9 +11,12 @@
 #  user_id         :integer
 #
 
+=begin
 class WorkSessionTime < ActiveRecord::Base
    validates  :start_time, :end_time, :presence => true #:user_id,
     
  # belongs_to :work_session
   belongs_to :user
 end
+
+=end

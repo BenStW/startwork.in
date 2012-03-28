@@ -5,4 +5,8 @@ en:
       back: Back
       remove_as_friend: Remove as work-buddy
       add_as_friend: Add as work-buddy
-      other_users: Other users            
+      other_users: Other users      
+      added_as_friend: "%{name} was added as work-buddy."
+      removed_as_friend: "%{name} was removed as work-buddy."      
+      friend_limit: "Currently you can have only %{limit} work-buddies."
+      unable_to_add_friend: "%{name} couldn't be added as work-buddy."            

@@ -17,10 +17,14 @@ de:
       maintain_friends: Meine WorkBuddies      
       statistics: Statistik
       my_settings: Organisatorisches     
-      not_activated_html: "<h2>Dein Konto ist noch nicht aktiviert</h2><br>
-        <p>Bitte habe noch ein wenig Geduld.</p>
-        <p>Wir werden Dich kontaktieren, wenn die Studie startet, was voraussichtlich erst Anfang April sein wird.</p>
-        <p>Bei Fragen melde dich bei <a href='mailto:robert@startwork.in'>Robert</a>.</p>"
+      not_activated_html: "<div class='alert alert-info'>
+      <b>Aktuelle Termine zur Studie:</b><br>Erster Offline-Termin: 10.4.2012, 19 Uhr<br>
+      Studienverlauf: 12.4.12 - 25.4.2012<br>
+      Zweiter Offline-Termin: 26.4.2012, 19 Uhr
+      </div>
+      <h2>Dein Konto ist noch nicht aktiviert</h2><br>
+        <p>Wir werden Dich per Email über den Start der Studie infomieren.</p>
+        <p>Falls Du schon vorher Fragen hast, melde dich bei <a href='mailto:robert@startwork.in'>Robert</a>.</p>"
     how_it_works:
       title: "Wie es geht"
       text_html: "<p>Bei eingeschalteter Webcam arbeitest du in einer Arbeitsgruppe 

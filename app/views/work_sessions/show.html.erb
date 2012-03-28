@@ -39,7 +39,7 @@
 
 	
 <div class="video_window" id="video_window" 
-  data-session_id="<%=@work_session.tokbox_session_id %>" 
+  data-session_id="<%=@tokbox_session_id %>" 
   data-tok_token="<%=@tokbox_token%>" 
   data-api_key="<%=@tokbox_api_key %>" 
   data-user_id="<%=current_user.id%>">
@@ -51,6 +51,8 @@
 <center><%= t(".to_speak_hold_button")%><br>
 	<div id="voice_button" class="btn">Ton aus</div></center>	
   </div><br>
+
+<%= @room_name %>
 
 <div id ="publisher_box" style="outline:0px solid gray;position: absolute; overflow: hidden;">
   <span id="publisher_box_tmp" class="label label-warning">

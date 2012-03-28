@@ -2,10 +2,11 @@
 #
 # Table name: work_sessions
 #
-#  id                :integer         not null, primary key
-#  tokbox_session_id :string(255)
-#  created_at        :datetime        not null
-#  updated_at        :datetime        not null
+#  id         :integer         not null, primary key
+#  created_at :datetime        not null
+#  updated_at :datetime        not null
+#  start_time :datetime
+#  room_id    :integer
 #
 
 procrastinators:

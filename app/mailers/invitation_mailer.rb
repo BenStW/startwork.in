@@ -5,7 +5,7 @@ class InvitationMailer < ActionMailer::Base
     @recipient = invitation.recipient_mail
     @sender_name = invitation.sender.name
     @sender_mail = invitation.sender.email
-    mail(:to => @recipient, :subject => "Einladung von #{@sender_name} zu StartWork.in")
+    mail(:to => @recipient, :subject => t("mailers.invitation_mail.subject", :sender_name =>@sender_name) ) 
   end
 
   

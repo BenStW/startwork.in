@@ -3,7 +3,7 @@ StartWork::Application.routes.draw do
 
 
   resources :invitations
-
+  
   resources :friendships
 
 
@@ -11,16 +11,12 @@ StartWork::Application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
 
-  #get "calendar/show"
-  match 'calendar' => 'calendars#show', :as => :calendar
-  match 'calendar/new_event' => 'calendars#new_event'
-  match 'calendar/get_events/(:user_ids)' => 'calendars#get_events'
-  #match 'calendar/all_events' => 'calendars#all_events'
+  match 'calendar' => 'calendar_events#show', :as => :calendar
+  match 'calendar/new_event' => 'calendar_events#new_event'
+  match 'calendar/get_events/(:user_ids)' => 'calendar_events#get_events'
   
-  match 'calendar/remove_event' => 'calendars#remove_event'
+  match 'calendar/remove_event' => 'calendar_events#remove_event'
 
-
- # get "work_sessions/show"
 
  # scope "(:locale)", :locale => /en|de/  do
      root :to => 'static_pages#home'  

@@ -11,6 +11,7 @@
 #  user_id         :integer
 #
 
+=begin
 require 'spec_helper'
 
 describe WorkSessionTime do
@@ -45,3 +46,4 @@ describe WorkSessionTime do
   
  
 end
+=end

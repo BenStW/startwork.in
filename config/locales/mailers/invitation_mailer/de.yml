@@ -1,0 +1,4 @@
+de:
+    mailers:
+        invitation_mail:
+            subject: "Einladung von %{sender_name} zu StartWork.in"

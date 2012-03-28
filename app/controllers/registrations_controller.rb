@@ -5,9 +5,8 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
     super
-    logger.info "********* Own RegistrationsController ********"
+    current_user.build_room
     current_user.save_referer(session[:referer])
-    logger.info "********* saved  #{session[:referer]} as referer ********"
   end
   
   def edit
