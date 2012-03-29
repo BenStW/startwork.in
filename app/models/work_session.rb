@@ -47,13 +47,14 @@ class WorkSession < ActiveRecord::Base
   
  scope :order_by_calendar_events_count,( lambda do 
    joins(:calendar_events).
-#   select("work_sessions.*,count(calendar_events.work_session_id) as calendar_events_count").
+   select("work_sessions.id").
    group("work_sessions.id").
    order("count(calendar_events.work_session_id)")
  end)
  
  scope :events_count,( lambda do |count|
    joins(:calendar_events).
+   select("work_sessions.id").
    group("work_sessions.id").
    having("count(calendar_events.work_session_id) = ?",count)
  end)
