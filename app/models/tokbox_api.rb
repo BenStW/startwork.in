@@ -17,7 +17,7 @@ class TokboxApi
   
   # this method is called when creating a room
   def generate_session(remote_addr = "0.0.0.0")
-    logger.info "Logger: generate tokbox_session for IP #{remote_addr}"
+    #logger.info "Logger: generate tokbox_session for IP #{remote_addr}"
     puts "puts: generate tokbox_session for IP #{remote_addr}"
     @tokbox_api_obj.create_session(remote_addr)      
   end
