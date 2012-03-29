@@ -43,22 +43,14 @@ class CalendarEvent < ActiveRecord::Base
      where("own_calendar_events.user_id=? and calendar_events.user_id not in (?)",user.id, friend_and_own_ids)
   end)
   
- def self.split_work_session_when_not_friend(user)
-   events_with_foreigners = CalendarEvent.this_week.with_foreigners(user)
-   events_with_foreigners.each do |event|
-     start_time = event.start_time
-     event.find_or_create_work_session!(user,start_time)      
-   end
- end
-  
-  def find_or_create_work_session!(current_user, start_time)
-    if work_session = WorkSession.find_work_session(current_user,start_time)
+  def find_or_create_work_session!    
+    if work_session = WorkSession.find_work_session(self.user,self.start_time)
       self.work_session = work_session
     else 
-      self.work_session = self.build_work_session(:start_time=>start_time, :room => current_user.room)
+      self.work_session = self.build_work_session(:start_time=>self.start_time, :room => self.user.room)
     end
     self.save
+    self.work_session
   end
-
   
 end

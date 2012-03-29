@@ -7,7 +7,7 @@ FactoryGirl.define do
     sequence(:email) { |n| "foo#{n}@example.com" }
     password "foobar"
     password_confirmation { |u| u.password }
-  #  room
+    room
     
     factory :user_with_two_friends_and_same_events do
       after_create do |user, evaluator|
@@ -46,8 +46,8 @@ FactoryGirl.define do
   end
   
  factory :room do
-  # tokbox_session_id "factory_tokbox_session_id"
-   user
+   tokbox_session_id "factory_tokbox_session_id"
+  # user
  end
 
 end

@@ -23,6 +23,11 @@ end
 
 gem 'newrelic_rpm'
 
+group :development do
+  gem "rails-erd"
+end
+
+
 group :development,:test do
   gem 'rspec-rails'
   # gem 'webrat' #use only capybara

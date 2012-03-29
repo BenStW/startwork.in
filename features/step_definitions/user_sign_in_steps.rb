@@ -72,6 +72,7 @@ When /^the user "([^"]*)" is activated$/ do |name|
   user = User.find_by_name(name)
   user.activated = true
   user.save  
+  visit "/"
 end
 
 

@@ -1,4 +1,4 @@
-Given /^the following users with work session times$/ do |table|
+Given /^the following users with calendar events$/ do |table|
   c = DateTime.current
   tomorrow = DateTime.new(c.year,c.month,c.day+1,0)
   table.hashes.each do |hash|
@@ -13,7 +13,7 @@ Given /^the following users with work session times$/ do |table|
    if !user = User.find_by_name(name)      
      user = FactoryGirl.create(:user, :name => hash[:name])
    end
-   ws = FactoryGirl.create(:work_session_time, :user=>user, :start_time=>start_time, :end_time=>end_time)
+   ws = FactoryGirl.create(:calendar_event, :user=>user, :start_time=>start_time)
   end
 end
 

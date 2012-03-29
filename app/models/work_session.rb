@@ -25,42 +25,42 @@ class WorkSession < ActiveRecord::Base
      joins(:calendar_events).where("calendar_events.user_id in (?)", user_ids)
   end)
   
-# scope :has_not_user_ids, (lambda do |user_ids|
-#  #  select("work_sessions.*,calendar_events.*").
-#    joins(:calendar_events).where("calendar_events.user_id not in (?)", user_ids)
-# end)
-  
   scope :only_friends, (lambda do |user|
     friend_ids = user.friendships.map(&:friend).map(&:id)
     has_user_ids(friend_ids)
   end)
   
-#  scope :with_foreigners, (lambda do |user|
-   # friend_ids = user.friendships.map(&:friend).map(&:id)
-  #  friend_and_own_ids = friend_ids + [user.id]
-#    has_not_user_ids(friend_and_own_ids)
-#  end)
-  
   scope :start_time, (lambda do |start_time|
     where("work_sessions.start_time = ?", start_time)
   end)
   
+  
  scope :order_by_calendar_events_count,( lambda do 
    joins(:calendar_events).
-   select("work_sessions.id").
+   select("work_sessions.id, work_sessions.start_time").
    group("work_sessions.id").
    order("count(calendar_events.work_session_id)")
  end)
  
  scope :events_count,( lambda do |count|
    joins(:calendar_events).
-   select("work_sessions.id").
+   select("work_sessions.id, work_sessions.start_time").
    group("work_sessions.id").
    having("count(calendar_events.work_session_id) = ?",count)
  end)
  
+ def self.split_work_session_when_not_friend(user)
+   events_with_foreigners = CalendarEvent.this_week.with_foreigners(user)
+   events_with_foreigners.each do |event|
+     if event.room.user != user
+       start_time = event.start_time
+       event.find_or_create_work_session!(user,start_time)
+     end      
+   end
+ end
  
- def self.optimze_single_work_session(user)
+ 
+ def self.optimize_single_work_session(user)
    single_work_sessions = WorkSession.this_week.has_user_ids(user.id).events_count(1)
    single_work_sessions.each do |single_work_session|
      start_time = single_work_session.start_time
@@ -69,14 +69,10 @@ class WorkSession < ActiveRecord::Base
        calendar_event = single_work_session.calendar_events.first
        single_work_session.delete
        calendar_event.work_session = opt_work_session
+       calendar_event.save
      end
    end
   end
-  
-  def self.split_work_session_when_not_friend(user)
-    work_sessions
-  end
-  
   
   def self.find_work_session(user, start_time)
     # Currently find the work session with the maximum friends

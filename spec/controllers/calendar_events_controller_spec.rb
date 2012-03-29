@@ -45,8 +45,9 @@ describe CalendarEventsController do
     obj["events"].count.should eq(3) 
   end
   
-  it "should delete saved calendar events" do
+  it "should delete saved calendar event" do     
      calendar_event = @user.calendar_events.first
+     work_session = calendar_event.find_or_create_work_session!    
      post :remove_event, event: calendar_event.id
      @user.calendar_events.count.should eq(0)          
   end

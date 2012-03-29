@@ -11,19 +11,16 @@
 
 require 'spec_helper'
 
-
-
 describe Room do
   
   before(:each) do
-    @room = FactoryGirl.build(:room)
+    @room = FactoryGirl.create(:room)
   end
   
-  it "creates a tokbox_session_id when asked if valid" do
-    @room.tokbox_session_id.should be_nil    
+  it "is valid with a tokbox_session_id" do
     @room.should be_valid
-    @room.tokbox_session_id.should_not be_nil
   end
+
 end
 
 

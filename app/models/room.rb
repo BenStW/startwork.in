@@ -10,7 +10,7 @@
 #
 
 class Room < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :user #host
 
   validates :tokbox_session_id, :presence => true
   #has_many :work_session_times, :dependent => :destroy

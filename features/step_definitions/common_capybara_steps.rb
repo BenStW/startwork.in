@@ -21,6 +21,6 @@ Then /^the user does not sees "([^"]*)"$/ do |text|
 end
 
 Then /^the user sees "([^"]*)"$/ do |text|
-  page.has_content?(text)
+  page.should have_content(text)
 end
 

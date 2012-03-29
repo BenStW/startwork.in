@@ -6,7 +6,7 @@ Feature: user defines time in calendar
   #@javascript
   Scenario: user defines time in calendar
     Given an active, logged-in user "Benedikt"
-    And the following users with work session times
+    And the following users with calendar events
     | name     | start_time | end_time |
     | Benedikt | 10         | 13       |
     | Robert   | 11         | 12       |
@@ -16,5 +16,5 @@ Feature: user defines time in calendar
     | user1    | user2  |
     | Benedikt | Robert |
     | Benedikt | Miro   |
-    And the user presses "My calendar"
+  #  And the user presses "My calendar"
 

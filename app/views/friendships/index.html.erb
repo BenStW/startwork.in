@@ -15,7 +15,7 @@
 	</tr>
 	</thead>
 <% @friendships.each do |friendship| %>
-  <tr>
+  <tr id=<%= friendship.friend.name%>>
     <td><%= friendship.friend.id %></td>
     <td><%= friendship.friend.name%></td>
 	<td><%= link_to t(".remove_as_friend"), friendship, :method => :delete %></td>
@@ -26,7 +26,7 @@
 
 
 <% @users.each do |user| %>
-  <tr>
+  <tr id=<%= user.name%>>
     <td><%= user.id %></td>
     <td><%= user.name%></td>
 	<td><%= link_to t(".add_as_friend"), friendships_path(:friend_id => user), :method => :post %></td>
