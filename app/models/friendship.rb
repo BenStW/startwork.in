@@ -18,8 +18,8 @@ class Friendship < ActiveRecord::Base
   before_destroy :update_work_sessions_after_destroy
   
   def update_work_sessions_after_create
-    WorkSession.optimze_single_work_session(user)
-    WorkSession.optimize_single_work_session(friend)
+  # WorkSession.optimze_single_work_session(user)
+  # WorkSession.optimize_single_work_session(friend)
   end
   
   def update_work_sessions_after_destroy

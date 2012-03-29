@@ -96,7 +96,7 @@ class User < ActiveRecord::Base
   
   def all_friends_events_of_this_week
     friend_ids = self.friendships.map(&:friend).map(&:id)
-   events = CalendarEvent.this_week.has_user_ids(friend_ids)
+   events = CalendarEvent.this_week.has_user_ids(friend_ids).order_by_start_time
     if events.empty?
         return []
     end
@@ -106,7 +106,7 @@ class User < ActiveRecord::Base
       if next_event.start_time==last_event.start_time
         next
       elsif next_event.start_time < last_event.start_time
-        raise "#{event.start_time} is lower then #{last_event.start_time}"
+        raise "#{next_event.start_time} is lower then #{last_event.start_time}"
       else
         return_events << next_event
       end

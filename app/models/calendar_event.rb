@@ -22,6 +22,8 @@ class CalendarEvent < ActiveRecord::Base
     where("calendar_events.start_time >= ?", today)
   end)
   
+  scope :order_by_start_time, order("calendar_events.start_time ASC")
+  
   scope :has_user_ids,( lambda do |user_ids|
     where("calendar_events.user_id in (?)",user_ids)
   end)
