@@ -75,6 +75,9 @@ StartWork::Application.configure do
     :enable_starttls_auto => true
    } 
    
+
+   
+   
 =begin
    config.action_mailer.default_url_options = { :host => 'fierce-ice-1470.herokuapp.com' }
 

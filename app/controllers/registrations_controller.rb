@@ -5,8 +5,10 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
     super
-    current_user.build_room
-    current_user.save_referer(session[:referer])
+    if current_user
+      current_user.build_room
+      current_user.save_referer(session[:referer])
+    end
   end
   
   def edit
