@@ -18,7 +18,7 @@
   <div><%= f.label t(".password_confirmation") %>
   <%= f.password_field :password_confirmation %></div>
 <br />
-  <div><%= f.submit t(".sign_up"), :class => "btn-large btn-primary",:onclick => "pageTracker._trackPageview('/click/sign_up')"  %></div>
+  <div><%= f.submit t(".sign_up"), :class => "btn-large btn-primary",:onclick => "_gaq.push(['_trackPageview', '/click/sign_up'])"  %></div>
 
 <% end %>
 
