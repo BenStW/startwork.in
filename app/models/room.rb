@@ -26,7 +26,8 @@ class Room < ActiveRecord::Base
          tokbox_session = "tokbox_session_id_test" 
        else
          begin
-           tokbox_session = TokboxApi.instance.generate_session
+           ip_address = self.user.current_sign_in_ip
+           tokbox_session = TokboxApi.instance.generate_session ip_address
          rescue Timeout::Error
            tokbox_session = "Timeout::Error -> no tokbox_session"
            logger.error "Timeout:Error -> Room #{self.id} for user #{self.user.id} without tokbox_session"        
