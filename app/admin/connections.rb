@@ -1,4 +1,5 @@
 ActiveAdmin.register Connection do
+    menu :priority => 20
   filter :user
   
   index do

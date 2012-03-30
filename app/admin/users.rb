@@ -1,4 +1,6 @@
 ActiveAdmin.register User do
+  menu :priority => 1 #, :parent => "User Administration"
+  
   filter :name
   filter :email
   filter :referer  
@@ -36,9 +38,10 @@ ActiveAdmin.register User do
       f.buttons
     end
     
-    show do
+    show do 
       h3 user.name
       attributes_table :id, :email, :activated 
+      h2 link_to "CalendarEvents", admin_calendar_events_path
     end
     
   
