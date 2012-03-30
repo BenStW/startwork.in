@@ -11,7 +11,7 @@ FactoryGirl.define do
     
     factory :user_with_two_friends_and_same_events do
       after_create do |user, evaluator|
-        own_start_time = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day+1,10)
+        own_start_time = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,10)+1.day
         own_calendar_event = 
           FactoryGirl.create(:calendar_event, :user => user, :start_time => own_start_time)
        
@@ -33,7 +33,7 @@ FactoryGirl.define do
 
   
   factory :calendar_event do
-    start_time DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day+1,10)
+    start_time DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,10)+1.day
     user
   end
 
@@ -41,7 +41,7 @@ FactoryGirl.define do
   end
   
   factory :work_session do
-    start_time DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day+1,10)
+    start_time DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,10)+1.day
     room
   end
   

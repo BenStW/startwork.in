@@ -1,3 +1,9 @@
 MetricFu::Configuration.run do |config|
   config.metrics -= [:rcov]
+  config.metrics -= [:flog]
+# config.metrics = [:reek] 
+
+# puts "config = #{config.metrics.to_yaml}"
+
+
 end

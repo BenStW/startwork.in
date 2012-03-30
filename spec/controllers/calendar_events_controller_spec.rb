@@ -10,7 +10,7 @@ describe CalendarEventsController do
   end
   
   it "should create two calendar events for two hours" do
-    start_time = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day+2,10)
+    start_time = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,10)+2.days
     end_time = start_time + 2.hours    
     number_of_events = @user.calendar_events.length
     post :new_event, start_time: start_time, end_time: end_time
