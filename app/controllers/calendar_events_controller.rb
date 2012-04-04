@@ -12,6 +12,7 @@ class CalendarEventsController < ApplicationController
     hourly_start_times = split_to_hourly_start_times(DateTime.parse(params[:start_time]),DateTime.parse(params[:end_time]))
     hourly_start_times.each do |start_time|
       calendar_event = current_user.calendar_events.build(start_time: start_time)
+      calendar_event.save
     #  calendar_event.find_or_create_work_session!
     end
     render :json => "succussfully created event"
