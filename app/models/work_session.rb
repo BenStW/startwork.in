@@ -38,7 +38,7 @@ class WorkSession < ActiveRecord::Base
  scope :order_by_calendar_events_count,( lambda do 
    joins(:calendar_events).
    select("work_sessions.id, work_sessions.start_time").
-   group("work_sessions.id").
+   group("work_sessions.id, work_sessions.start_time").  #group("work_sessions.id").
    order("count(calendar_events.work_session_id)")
  end)
  
