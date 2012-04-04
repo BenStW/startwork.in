@@ -17,7 +17,7 @@ class Room < ActiveRecord::Base
   has_many :work_sessions
   before_validation :populate_tokbox_session
   
-  private
+  
   
   def populate_tokbox_session    
     if  self.tokbox_session_id.nil?    
