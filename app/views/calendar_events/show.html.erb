@@ -34,7 +34,7 @@
 
 
 
-
+<% if false then %>
   <%= raw place_size_in_html %>
 <div class="row">
 <div class="span8 offset2">
@@ -47,6 +47,7 @@
 	<th><%= t(".work_buddies")%></th>
 	</tr>
 	</thead>	
+
 
 <% @work_sessions.each do |work_session| %>
 <tr><td>
@@ -65,7 +66,9 @@
 		</tr>
 <% end%>	
 </table>
+
 </div><!-- span4 -->
 </div><!-- row -->
+<% end%>
 
 <%= link_to t(".back"), root_path, :class => "btn-large btn-primary"%>

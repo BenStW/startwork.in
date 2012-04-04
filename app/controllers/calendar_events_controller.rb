@@ -1,9 +1,9 @@
 class CalendarEventsController < ApplicationController
   def show
      @friends = current_user.friendships.map(&:friend)
-     puts @friends.to_yaml
-     @work_sessions = current_user.all_events_of_this_week.map(&:work_session).sort_by!{|w| w[:start_time]}     
-     puts @work_sessions.to_yaml
+   #  puts @friends.to_yaml
+   #  @work_sessions = current_user.all_events_of_this_week.map(&:work_session).sort_by!{|w| w[:start_time]}     
+   #  puts @work_sessions.to_yaml
   end
   
   # creates a calendar event and
