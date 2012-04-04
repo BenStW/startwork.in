@@ -12,7 +12,7 @@ class CalendarEventsController < ApplicationController
     hourly_start_times = split_to_hourly_start_times(DateTime.parse(params[:start_time]),DateTime.parse(params[:end_time]))
     hourly_start_times.each do |start_time|
       calendar_event = current_user.calendar_events.build(start_time: start_time)
-      calendar_event.find_or_create_work_session!
+    #  calendar_event.find_or_create_work_session!
     end
     render :json => "succussfully created event"
   end
@@ -53,10 +53,10 @@ class CalendarEventsController < ApplicationController
   
   def remove_event
     calendar_event = current_user.calendar_events.find_by_id(params[:event])
-    work_session = calendar_event.work_session
-    if work_session.calendar_events.count == 1
-      work_session.delete
-    end
+  # work_session = calendar_event.work_session
+  # if work_session.calendar_events.count == 1
+  #   work_session.delete
+  # end
     calendar_event.delete
     render :json => "succussfully removed time"
   end    
