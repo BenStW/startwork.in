@@ -10,4 +10,5 @@ en:
             work_sessions: "My work sessions"            
             start_time: "start time"
             room_name: "room"
-            work_buddies: "work buddies"                      
+            work_buddies: "work buddies" 
+            maintain_friends: "Add work buddies"                               

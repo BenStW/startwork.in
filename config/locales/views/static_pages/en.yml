@@ -10,10 +10,14 @@ en:
       interested_user_sign_up: "I want to join"   
       learn_more: "Learn more" 
       sign_up: "To sign up for the research study please click here"
+      next_room_html: "<b>%{host}'s room</b><br>(join now)"         
       camera_test: Camera and audio test
       work_groups: Work groups 
       start: Start
-      calendar: My calendar
+      maintain_work_sessions_html: "<b>Maintain work sessions</b>"
+      next_session: "Next Session"  
+      nobody: "No WorkBuddies yet"      
+      with: "with"    
       maintain_friends: My work buddies     
       statistics: Statistics 
       my_settings: My settings         

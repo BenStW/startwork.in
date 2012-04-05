@@ -1,41 +1,7 @@
-<%= raw place_size_in_html %>
-
-<!--
-<div id="ben" style="color-background:red" class="btn">Gong testen</div>
--->
-
-<!--
-<div id="hide_video" style="color-background:red" class="btn">Video verstecken</div>
--->
 
 <input id="connectionCountField" type="hidden" value="0" />
 
-
-<div id="warning_count_down_window" title="Hey, are you still there?">
-	<form>
-		Hit Esc to cancel penalty!
-		<div id="warning_count_down_timer" class="penalty_timer_box">
-		Timer
-		</div>	
-	</form>
-</div>
-<div id="penalty_count_up_window" title="You have got a penalty!">
-	<div id="penalty_count_up_timer" class="penalty_timer_box">
-	Timer
-	</div>
-	
-	<form>
-	<fieldset>
-		<label for="name">Give your excuse:</label>
-		<input type="text" name="name" id="excuse"  />
-	</fieldset>
-	</form>
-</div>
-
-
 <div id="jplayer">jplayer</div>
-
-
 
 	
 <div class="video_window" id="video_window" 
@@ -47,20 +13,37 @@
   <div class="upper_box" id="timer">
      timer
   </div>
-  <div class="upper_box1" id="voice_button_box">
-<center><%= t(".to_speak_hold_button")%><br>
-	<div id="voice_button" class="btn">Ton aus</div></center>	
-  </div><br>
-
-<%= @room_name %>
-
-<div id ="publisher_box" style="outline:0px solid gray;position: absolute; overflow: hidden;">
-  <span id="publisher_box_tmp" class="label label-warning">
-	   please wait...
-  </span>
-</div>
+ 
+  <div id="voice_button_box">
+    <center>
+    <%= t(".to_speak_hold_button")%><br>
+	<div id="voice_button" class="btn">Ton aus</div><br><br>
+	<%= @room_name %>
+	</center>	
+  </div>
 
 
+	<center>
+  <div id ="publisher_box" class="publisher_box">
+	<center>
+    <span id="publisher_box_tmp" ><!--class="label label-warning"-->
+	  <!-- please wait...-->
+    </span>
+</center>
+  </div>
+</center>
+
+  <% @work_buddies.each do |work_buddy| %>
+  <div id=user_box_<%= work_buddy.id %> class=user_box data-user_id=<%= work_buddy.id %> >
+     <div class=text_box>
+       <%= work_buddy.name%><br>
+     </div><!-- text_box -->
+     <div class=stream_box id=stream_box_<%= work_buddy.id %>>
+       <div id=stream_box_tmp_<%= work_buddy.id %> class=stream_box_tmp>
+       </div><!-- stream_box -->
+     </div><!-- stream_box -->		
+   </div> <!-- user_box -->
+  <% end%>
 </div> <!-- video_window-->
 
 

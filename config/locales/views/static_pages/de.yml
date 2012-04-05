@@ -9,11 +9,15 @@ de:
          Ohne Aufschieberitis!</p>" 
       interested_user_sign_up: "Ich will mitmachen"       
       learn_more: "Erfahre mehr"
-      sign_up: "Für Registrierung zur Studienteilnahme hier klicken"      
+      sign_up: "Für Registrierung zur Studienteilnahme hier klicken"
+      next_room_html: "<b>%{host}'s room</b><br>(jetzt beitreten)"      
       camera_test: Kamera und Audio Test
       work_groups: Arbeitsgruppen
       start: Start
-      calendar: Mein Kalender
+      maintain_work_sessions_html: "<b>ArbeitsSessions organisieren</b>"
+      next_session: "Nächste Session"
+      with: "mit"
+      nobody: "Noch keine WorkBuddies"
       maintain_friends: Meine WorkBuddies      
       statistics: Statistik
       my_settings: Organisatorisches     

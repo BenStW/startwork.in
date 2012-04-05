@@ -11,7 +11,7 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-//= require jquery_ujs
+// require jquery_ujs - needed?
 //= require jquery-ui
 //= require jquery_plugins/jquery-ui-i18n
 //= require jquery_plugins/jquery.jplayer.min

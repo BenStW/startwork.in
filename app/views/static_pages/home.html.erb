@@ -9,49 +9,46 @@
 
 <p><a class="btn btn-primary btn-large" href="<%= show_interested_user_path %>"><%= t ".interested_user_sign_up"%> &raquo;</a></p>
 
-
-<!--
-<p><a class="btn btn-primary btn-large" href="<%= new_user_registration_path %>"><%= t ".sign_up"%> &raquo;</a></p>
--->
-<!--
-    <p><a class="btn btn-primary btn-large" href="<%= how_it_works_path%>"><%= t ".learn_more"%> &raquo;</a></p>
--->
   </div><!-- end of main hero unit -->
                        
 <% else %>
-  <%= raw place_size_in_html %>
+
   <br>
   <h1> <%=t '.greet_username', :username => current_user.name %></h1><br>
 <br>
      <%if current_user.activated? %>
 
  
+<% if !@next_work_session.nil?%>
   <div class="row">
-  <div class="span4">
-	<h3><%= t(".my_settings") %>:</h3><br>
-      <%= link_to t(".camera_test"), camera_path, :class => "btn",  :method => :get, :style=>"width:150px"%>	<br><br>
-		<%= link_to t(".calendar"), calendar_path, :class => "btn", :style=>"width:150px"%><br><br>
-		<%= link_to t(".maintain_friends"), friendships_path, :class => "btn", :style=>"width:150px"%>  <br><br>
-		       <%= link_to t(".statistics") , statistics_path, :class => "btn", :method => :get, :style=>"width:150px"%><br><br>	
+  <div class="span3 offset3">
+<b>	<%= t(".next_session")%>:</b><br>
+<%= I18n.localize(@next_work_session.start_time.in_time_zone("Berlin")) %> <br> <%= @user_names %><br>
 
-  </div> <!-- span4 -->
-  <div class="span4">
-  	 <h3><%= t(".work_groups") %>: </h3><br>
-<%= link_to "Procrastinators in Berlin", show_work_session_path(@work_session1_id), :class => "connect btn", :style=>"width:150px"%>	<br><br>
-<%= link_to "Gods of work", show_work_session_path(@work_session2_id), :class => "connect btn", :style=>"width:150px"%>	<br><br>
-
+	</div></div>
+<% end %>	
+	
+  <div class="row">
+  <div class="span3">		
+		<%= link_to t(".maintain_work_sessions_html"), calendar_path, :class => "btn", :style=>"width:150px;height:50px"%><br><br>
+  </div> <!-- span3 -->
 
 
-  </div> <!-- span4 -->
+<% if !@next_work_session.nil?%>
+  <div class="span3">
+	<%= link_to t(".next_room_html", :host=>@room_host), show_work_session_path(@next_work_session), :class => "connect btn", :style=>"width:150px;height:50px"%>
+  </div> <!-- span3 -->
+<% end %>
+
   </div>  <!-- row -->
 
   	
   
      <% else %>
          <div class="hero-unit">
-           <%= t(".not_activated_html") %>
+           <%= t(".not_activated_html") %><br>
 
-<br>
+
 				  <div class="row">
 		          <div class="span7">
 		          <%=   render :template => 'invitations/new' %>
