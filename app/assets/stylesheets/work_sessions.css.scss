@@ -1,0 +1,41 @@
+
+// Place all the styles related to the work_sessions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+// Full size of element: width(inner content) + padding + border + margin (outer)
+
+$width: 200px;
+$height: 200px;
+$padding: 12px;
+
+div.upper_box {font-size: 20px;line-height:$height/8;text-align:center;width:$width+$padding;border-style:solid;border-color:white;border-width:$padding/2;background-color:red1;outline:0px solid gray;}
+
+
+div.video_window
+{
+	width: $width + 2*$padding;  /* the width of the content: add margin, border, padding*/
+	/*height: 5 * $height + 10 * $padding;*/
+	padding:0px;
+	border:0px;
+	margin:0px;
+    outline:0px solid gray;
+}
+
+div.publisher_box_tmp {position: absolute; overflow: hidden}
+div.publisher_box { width:$width; height:$height; padding:0px; border-style:solid;border-width:$padding/2; margin:$padding/2;margin-top:0px; outline:1px solid gray}
+
+
+div.user_box {      }
+
+div.text_box { width:$width+$padding; height:20; padding:0px; padding-left:$padding;padding-top:$padding;border:0px; margin:0px; font-weight:bold; outline:0px solid gray; background-color1:green }
+
+div.stream_box { width:$width; height:$height; padding:0px; border-style:solid;border-width:$padding/2; margin:$padding/2;margin-top:0px; outline:0px solid gray}
+
+div.stream_box_tmp { width:$width; height:$height; padding:0px; border:0px; margin:0px; outline:0px solid gray; }
+
+.publisher_hidden {
+    height: 1px;
+    left: -10px;
+    top: -10px;
+    width: 1px;
+}
