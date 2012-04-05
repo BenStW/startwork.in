@@ -72,7 +72,7 @@ $(document).ready ->
       for stream in streams
         if stream.connection.connectionId == session.connection.connectionId 
           console.log("   same connection. Move publisher box to the far east.")  
-         # $("#publisher_box").addClass("publisher_hidden") 
+          $("#publisher_box").addClass("publisher_hidden") 
         else
           connectionData = JSON.parse(stream.connection.data)          
           user_name = connectionData.user_name
