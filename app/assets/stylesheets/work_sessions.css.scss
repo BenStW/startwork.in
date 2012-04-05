@@ -35,7 +35,9 @@ div.stream_box_tmp { width:$width; height:$height; padding:0px; border:0px; marg
 
 .publisher_hidden {
     height: 1px;
-    left: -10px;
-    top: -10px;
+    left: -1000px;
+    top: -1000px;
     width: 1px;
+    position: absolute;
+    overflow: hidden
 }
