@@ -2,17 +2,19 @@ class StaticPagesController < ApplicationController
   skip_before_filter :authenticate_user!
   
   def home  
-    next_calendar_event = current_user.calendar_events.next
-    if next_calendar_event.count>0
-      @next_work_session = next_calendar_event[0].work_session
-      users = @next_work_session.users - [current_user]
-      @user_names = users.map(&:name).join(", ")
-      if @user_names.blank?
-        @user_names = t("static_pages.home.nobody")
-      else
-        @user_names = t("static_pages.home.with")+" "+@user_names
+    if current_user
+      next_calendar_event = current_user.calendar_events.next
+      if next_calendar_event.count>0
+        @next_work_session = next_calendar_event[0].work_session
+        users = @next_work_session.users - [current_user]
+        @user_names = users.map(&:name).join(", ")
+        if @user_names.blank?
+          @user_names = t("static_pages.home.nobody")
+        else
+          @user_names = t("static_pages.home.with")+" "+@user_names
+        end
+        @room_host = @next_work_session.room.user.name
       end
-      @room_host = @next_work_session.room.user.name
     end
   end
 

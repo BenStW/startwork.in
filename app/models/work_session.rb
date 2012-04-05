@@ -76,6 +76,7 @@ class WorkSession < ActiveRecord::Base
   
   def self.find_work_session(user, start_time)
     # Currently find the work session with the maximum friends
+    # it finds also work sessions with foreigners, connected over a friend
     work_session = WorkSession.start_time(start_time).only_friends(user).order_by_calendar_events_count.last
   end
 end    
