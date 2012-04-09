@@ -11,12 +11,18 @@ class CalendarEventsController < ApplicationController
   def new_event
     hourly_start_times = split_to_hourly_start_times(DateTime.parse(params[:start_time]),DateTime.parse(params[:end_time]))
     hourly_start_times.each do |start_time|
-      calendar_event = current_user.calendar_events.build(start_time: start_time)
-      calendar_event.save
-      calendar_event.find_or_create_work_session!
+      if current_user.calendar_events.find_by_start_time(start_time)
+        logger.error("ERROR: calendar event for user #{current_user.name} at #{start_time} does already exist.")
+        #CalendarEvent.find_by_sql('select c1.id from calendar_events as c1 inner join calendar_events as c2 on c1.user_id=c2.user_id and c1.start_time=c2.start_time where c1.id<>c2.id')        
+      else
+        calendar_event = current_user.calendar_events.build(start_time: start_time)
+        calendar_event.save
+        calendar_event.find_or_create_work_session!
+      end
     end
     render :json => "succussfully created event"
   end
+  
 
   def get_events
     return_hash = Hash.new  
@@ -53,12 +59,17 @@ class CalendarEventsController < ApplicationController
   end
   
   def remove_event
-    calendar_event = current_user.calendar_events.find_by_id(params[:event])
+   calendar_event = current_user.calendar_events.find_by_id(params[:event])
    work_session = calendar_event.work_session
-   if work_session.calendar_events.count == 1
+   calendar_event.delete
+   if work_session.calendar_events.count == 0
      work_session.delete
-   end
-    calendar_event.delete
+   elsif work_session.room.user == current_user     
+     first_user = work_session.users.first
+     work_session.room = first_user.room
+     work_session.save
+    end
+    
     render :json => "succussfully removed time"
   end    
   
