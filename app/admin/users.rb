@@ -21,6 +21,9 @@ ActiveAdmin.register User do
       column "last sign in at", :last_sign_in_at
       column "sign in count", :sign_in_count
       column :activated
+      column "Action" do |user|
+        link_to 'Impersonate', impersonate_admin_user_path(user)
+      end      
       default_actions
     end
     
@@ -44,5 +47,9 @@ ActiveAdmin.register User do
       h2 link_to "CalendarEvents", admin_calendar_events_path
     end
     
+    member_action :impersonate do
+        sign_in(:user, User.find(params[:id]))
+        redirect_to root_path
+    end
   
 end
