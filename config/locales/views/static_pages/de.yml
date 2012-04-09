@@ -107,18 +107,22 @@ de:
       text: "Schreibe eine Mail an"
     camera:
       title: "Kamera Einstellungen"
-      audio_title: "Audio Test"
-      play_jplayer: "Teste den Sound"
       allow_always_access_html: "<h2>Erlaube immer den Zugriff auf die Kamera</h2>
         <ol><li><b>Öffene das Kontext-Menü:</b> Rechter Maus-click (Windows) oder Control-click (Macintosh) 
         auf die Video Box. </li>
       	<li><b>Gehe auf Einstellungen</b></li>
       	<li><b>Gehe auf den Reiter Zugriffsschutz</b></li>
       	<li><b>Setze Zulassen und Speichern</b> </li>
-      	</ol>
-      	<br><br>Kannst du dich im Video sehen?<br>
-      	<a class='btn btn-primary' href='/'>Wenn ja, dann gehe weiter</a><br><br>				
-      	Falls du irgendwelche Probleme erfährst, dann besuche die Webseite des
-      	<a href='http://helpx.adobe.com/flash-player.html' target='_blank'>Adobe flash players</a>."  
-   
-    
+      	</ol>" 
+      see_video: "Hast du Dein Video sehen können? Und hast du vier Schritte umsetzen können?"
+      success: "Ja, alles hat funktioniert."
+      no_success: "Nein, es gab Probleme."
+    audio:
+      title: "Audio test"
+      play_jplayer: "Teste den Sound"      
+      test_audio: "Wir testen noch unsere Plattform: Kannst du bitte überprüfen, ob du nach Drücken des Knopfes den Sound hörst?"
+      hear_audio: "Konntest du den Sound hören?"   
+      success: "Ja, den Sound konnte ich hören"
+      no_success: "Nein, es gab Probleme"
+      success_msg: "Wunderbar! Schön, dass alles funktioniert hat"
+      no_success_msg: "Danke schön. Wir werden Dich wegen der technischen Probleme kontaktieren"

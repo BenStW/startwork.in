@@ -16,18 +16,25 @@
 
 <div class="span7">
    <div class="well">
-	 <%= t(".allow_always_access_html") %> 
+	 <%= t(".allow_always_access_html", :url=>audio_path) %> 
    	
-    </div>
+   </div><!-- well-->
 
-</div>
-</div>
+<%= t(".see_video")%>
+<br>
+<a class='btn btn-success' href='<%=camera_path%>?success=true' ><%=t(".success")%></a>&nbsp;&nbsp;
+<a class='btn btn-warning' href='<%=camera_path%>?success=false' ><%=t(".no_success")%></a>
+
 
 <br><br>
+<!--				
+If you experience any troubles, please visit the website of the 
+<a href='http://helpx.adobe.com/flash-player.html' target='_blank'>Adobe flash player</a>.-->
+
+</div><!-- span-->
+</div><!-- row-->
 
 
-<h1><%= t '.audio_title' %></h1><br>
-<div id="play_jplayer" class="btn"><%= t(".play_jplayer") %></div>
-<div id="jplayer">jplayer</div><br><br>
+<br><br>
 
 

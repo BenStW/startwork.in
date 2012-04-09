@@ -36,9 +36,30 @@ class StaticPagesController < ApplicationController
 
   
   def camera
-    @api_key = TokboxApi.instance.api_key
-    @api_secret = TokboxApi.instance.api_secret
-    @session_id = TokboxApi.instance.get_session_for_camera_test
-    @tok_token = TokboxApi.instance.generate_token_for_camera_test
+    if params[:success]
+      success = CameraAudio.find_or_create_by_user_id(:user=>current_user)
+      success.video_success=params[:success]
+      success.save
+      redirect_to audio_url
+    else
+      @api_key = TokboxApi.instance.api_key
+      @api_secret = TokboxApi.instance.api_secret
+      @session_id = TokboxApi.instance.get_session_for_camera_test
+      @tok_token = TokboxApi.instance.generate_token_for_camera_test
+    end
   end  
+  
+  def audio
+    if params[:success]
+      success = CameraAudio.find_or_create_by_user_id(:user=>current_user)
+      success.audio_success=params[:success]
+      success.save
+      if success.video_success==false or success.audio_success== false
+        notice = t("static_pages.audio.no_success_msg")
+      else
+        notice = t("static_pages.audio.success_msg")
+      end
+      redirect_to root_url, :notice => notice
+   end
+ end
 end

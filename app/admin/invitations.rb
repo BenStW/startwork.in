@@ -1,5 +1,5 @@
 ActiveAdmin.register Invitation do
-    menu :priority => 3
+    menu :priority => 4
   filter :sender
   
   index do

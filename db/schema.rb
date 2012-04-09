@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120329132015) do
+ActiveRecord::Schema.define(:version => 20120409081019) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -56,6 +56,16 @@ ActiveRecord::Schema.define(:version => 20120329132015) do
 
   add_index "calendar_events", ["user_id"], :name => "index_calendar_events_on_user_id"
 
+  create_table "camera_audios", :force => true do |t|
+    t.integer  "user_id"
+    t.boolean  "video_success"
+    t.boolean  "audio_success"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "camera_audios", ["user_id"], :name => "index_camera_audios_on_user_id"
+
   create_table "connections", :force => true do |t|
     t.integer  "user_id"
     t.datetime "created_at", :null => false
@@ -97,6 +107,18 @@ ActiveRecord::Schema.define(:version => 20120329132015) do
     t.datetime "updated_at",   :null => false
     t.datetime "start_time"
     t.datetime "end_time"
+  end
+
+  create_table "reminders", :force => true do |t|
+    t.string   "name"
+    t.text     "message"
+    t.datetime "appointment"
+    t.string   "phonenumber"
+    t.boolean  "flag1"
+    t.boolean  "flag2"
+    t.boolean  "flag3"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "rooms", :force => true do |t|

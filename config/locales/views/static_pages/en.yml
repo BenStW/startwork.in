@@ -40,20 +40,26 @@ en:
       title: "Contact" 
       text: "Write us an email at "
     camera:
-      title: "Camera settings"
-      audio_title: "Audio Test"
-      play_jplayer: "Test the sound"      
+      title: "Camera settings"    
       allow_always_access_html: "<h2>Allow always access of the camera</h2>
         <ol><li><b>Open context menue:</b> Please right-click (Windows) or Control-click (Macintosh) 
         on the video box. </li>
       	<li><b>Select Settings</b></li>
       	<li><b>Choose the privacy tab</b></li>
       	<li><b>Set the 'allow' and 'remember' checkboxes</b> </li>
-      	</ol>
-      	<br><br>Do you see your video?<br>
-      	<a class='btn btn-primary' href='/'>If successful, continue</a><br><br>				
-      	If you experience any troubles, please visit the website of the 
-      	<a href='http://helpx.adobe.com/flash-player.html' target='_blank'>Adobe flash player</a>."
+      	</ol>"
+      see_video: "Do you see your video? And have you successfully implemented the four steps?"   
+      success: "Yes, everything went fine"
+      no_success: "No, I experienced problems"
+    audio:
+      title: "Audio settings"
+      play_jplayer: "Test the sound"      
+      test_audio: "As we still test our application, can you please try if you can hear the sound when pressing the button below."
+      hear_audio: "Can you hear the audio?"   
+      success: "Yes, everything went fine"
+      no_success: "No, I experienced problems"
+      success_msg: "Great, glad that everything went fine."
+      no_success_msg: "Thank you, we wil contact you concerning your technical problems."      
 
           
     

@@ -25,6 +25,8 @@ StartWork::Application.routes.draw do
      match 'contact' => 'static_pages#contact', :as => :contact
      match 'about_us' => 'static_pages#about_us', :as => :about_us
      match 'camera' => 'static_pages#camera', :as => :camera
+     match 'audio' => 'static_pages#audio', :as => :audio
+     
      match 'study' => 'static_pages#study', :as => :study   
      match 'facebook' => 'static_pages#facebook', :as => :facebook        
 

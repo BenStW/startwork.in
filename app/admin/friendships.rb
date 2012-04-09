@@ -1,5 +1,5 @@
 ActiveAdmin.register Friendship do
-  menu :priority => 4
+  menu :priority => 5
   filter :user
   filter :friend
   

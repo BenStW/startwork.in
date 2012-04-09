@@ -38,6 +38,7 @@ class User < ActiveRecord::Base
   has_many :calendar_events, :dependent => :destroy
   
   has_one :room
+  has_one :camera_audio  
   
   has_many :friendships
   has_many :friends, :through => :friendships
