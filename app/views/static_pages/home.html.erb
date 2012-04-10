@@ -16,7 +16,7 @@
   <br>
   <h1> <%=t '.greet_username', :username => current_user.name %></h1><br>
 <br>
-     <%if current_user.activated? %>
+
 
  
 <% if !@next_work_session.nil?%>
@@ -41,25 +41,16 @@
 <% end %>
 
   </div>  <!-- row -->
+<br><br>
 
+<div class="row">
+<div class="span6">
+  <%=   render :template => 'invitations/new' %>
+  </div> <!-- span6 -->
+ </div>  <!-- row -->
   	
   
-     <% else %>
-         <div class="hero-unit">
-           <%= t(".not_activated_html") %><br>
 
-
-				  <div class="row">
-		          <div class="span7">
-		          <%=   render :template => 'invitations/new' %>
-		          </div>
-		        </div>
-
-
- 
-        </div>	 <!-- hero-unit -->
-
-     <% end %>
   	
   
 <% end %>

@@ -48,14 +48,12 @@ class CalendarEvent < ActiveRecord::Base
      where("own_calendar_events.user_id=? and calendar_events.user_id not in (?)",user.id, friend_and_own_ids)
   end)
   
-  def find_or_create_work_session!    
-    if work_session = WorkSession.find_work_session(self.user,self.start_time)
-      self.work_session = work_session
-    else 
+  def find_or_create_work_session!
+    self.work_session = WorkSession.find_work_session(self.user,self.start_time)    
+    if self.work_session.nil?
       self.work_session = self.build_work_session(:start_time=>self.start_time, :room => self.user.room)
     end
-    self.save
-    self.work_session
+    self.save    
   end
   
 end

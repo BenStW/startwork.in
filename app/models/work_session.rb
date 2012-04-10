@@ -53,8 +53,8 @@ class WorkSession < ActiveRecord::Base
    events_with_foreigners = CalendarEvent.this_week.with_foreigners(user)
    events_with_foreigners.each do |event|
      if event.room.user != user
-       start_time = event.start_time
-       event.find_or_create_work_session!(user,start_time)
+       puts "event #{event.id} starting at #{event.start_time} must get a new WorkSession"
+       event.find_or_create_work_session!
      end      
    end
  end
@@ -69,6 +69,9 @@ class WorkSession < ActiveRecord::Base
        calendar_event = single_work_session.calendar_events.first
        single_work_session.delete
        calendar_event.work_session = opt_work_session
+       if calendar_event.work_session.nil?
+         raise "Error: work_session is nil"
+       end
        calendar_event.save
      end
    end

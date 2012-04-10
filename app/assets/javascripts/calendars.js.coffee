@@ -4,12 +4,12 @@
 
 $(document).ready( ->
   if $('#calendar').length>0
-     if $("#data").data("user_activated") == true
-       start_day = new Date()
-     else
-       start_day =  new Date("2012-04-19") 
-     base_url = $("#data").data("base_url")
-
+    if $("#data").data("user_activated") == true
+      start_day = new Date()
+    else
+      start_day =  new Date("2012-04-19") 
+    base_url = $("#data").data("base_url")
+    
     $("#single_calendar_button").click ->
       $(this).addClass("btn-primary")
       $("[name='friend_button']").removeClass("btn-primary")

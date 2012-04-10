@@ -15,7 +15,7 @@ class Friendship < ActiveRecord::Base
   validates :user, :friend, presence: true
   
   after_create :update_work_sessions_after_create
-  before_destroy :update_work_sessions_after_destroy
+  after_destroy :update_work_sessions_after_destroy
   
   def update_work_sessions_after_create
     WorkSession.optimize_single_work_session(user)
