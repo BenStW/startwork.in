@@ -45,7 +45,7 @@ class WorkSession < ActiveRecord::Base
  scope :events_count,( lambda do |count|
    joins(:calendar_events).
    select("work_sessions.id, work_sessions.start_time").
-   group("work_sessions.id").
+   group("work_sessions.id, work_sessions.start_time").  #group("work_sessions.id").
    having("count(calendar_events.work_session_id) = ?",count)
  end)
  
