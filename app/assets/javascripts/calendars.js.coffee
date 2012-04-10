@@ -4,8 +4,11 @@
 
 $(document).ready( ->
   if $('#calendar').length>0
-    day_of_week = new Date().getDay()
-    base_url = $("#data").data("base_url")
+     if $("#data").data("user_activated") == true
+       start_day = new Date()
+     else
+       start_day =  new Date("2012-04-19") 
+     base_url = $("#data").data("base_url")
 
     $("#single_calendar_button").click ->
       $(this).addClass("btn-primary")
@@ -41,8 +44,9 @@ $(document).ready( ->
       users
 
     $('#calendar').weekCalendar(
+      date:  start_day,
       timeslotsPerHour: 1,
-      firstDayOfWeek: day_of_week,
+      firstDayOfWeek:  start_day.getDay(), 
       defaultEventLength: 1,
       height:  (calendar) ->
         h = $(window).height() #- $("h1").outerHeight(true)
@@ -92,7 +96,6 @@ $(document).ready( ->
                   $("#calendar").weekCalendar("refresh")            
 
       eventClick : (calEvent, event) ->
-        console.log("userId="+calEvent.userId) 
         if calEvent.userId==0        
           data = 
             event: calEvent.id

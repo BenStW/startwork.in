@@ -62,7 +62,7 @@ class CalendarEventsController < ApplicationController
    calendar_event = current_user.calendar_events.find_by_id(params[:event])
    work_session = calendar_event.work_session
    calendar_event.delete
-   if work_session.calendar_events.count == 0
+   if work_session.calendar_events.count == 0 
      work_session.delete
    elsif work_session.room.user == current_user     
      first_user = work_session.users.first
