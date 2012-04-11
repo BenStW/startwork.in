@@ -124,12 +124,18 @@ $(document).ready ->
     # in response to a call to the connect() method of the Session object. 
     sessionConnectedHandler = (event) ->
       replaceElementId = "publisher_box_tmp"
-      publisher = session.publish replaceElementId, windowProps
 
       date = new Date()
       minutes = date.getMinutes()
-      if minutes<50 then publisher.publishAudio(false) else publisher.publishAudio(true)
-      
+      publishAudio = if minutes<50 then false else true
+      console.log "publishAudio = "+publishAudio
+
+      properties = 
+        publishAudio: publishAudio
+        width: width
+        height: height
+      publisher = session.publish replaceElementId, properties
+            
       # count the number of connections in hidden field
       $("#connectionCountField").val(event.connections.length)
       user_ids = (JSON.parse(connection.data).user_id for connection in event.connections)
@@ -262,10 +268,6 @@ $(document).ready ->
     play_gong = ->
       mute_audio_for_x_sec(8)
       $("#jplayer").jPlayer("play")
-      # $.fn.soundPlay(
-      #   url: '/audios/boxing-bell.wav',
-      #   playerId: 'embed_player',
-      #   command: 'play')
 
 
     # can be deleted

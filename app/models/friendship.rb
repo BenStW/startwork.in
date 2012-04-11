@@ -24,7 +24,7 @@ class Friendship < ActiveRecord::Base
   
   def update_work_sessions_after_destroy
     WorkSession.split_work_session_when_not_friend(user)
-    WorkSession.split_work_session_when_not_friend(friend)
+    #WorkSession.split_work_session_when_not_friend(friend)
   end
   
 end

@@ -56,7 +56,7 @@
 	<%= I18n.localize(work_session.start_time.in_time_zone("Berlin")) %> 
 	</td>
 	<td>
-<%= link_to "#{work_session.room.user.name}'s room", show_work_session_path(work_session), :class => "connect btn", :style=>"width:150px"%>
+<%= work_session.room.user.name %>'s room
 	</td>
 	
 	<td>	

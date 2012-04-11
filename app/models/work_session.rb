@@ -65,7 +65,7 @@ class WorkSession < ActiveRecord::Base
    single_work_sessions.each do |single_work_session|
      start_time = single_work_session.start_time
      opt_work_session = WorkSession.find_work_session(user,start_time)
-     if opt_work_session != single_work_session
+     if opt_work_session != single_work_session and !opt_work_session.nil?
        calendar_event = single_work_session.calendar_events.first
        single_work_session.delete
        calendar_event.work_session = opt_work_session
