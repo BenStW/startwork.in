@@ -13,6 +13,8 @@ $(document).ready ->
   padding = 20
 
 
+
+
   $('.connect').click (event)-> 
     url = event.target
     doc_width=$(document).width()
@@ -38,30 +40,61 @@ $(document).ready ->
     timeout = null
     timer_is_on = 0
 
+    start_break_minutes = 55
+    start_work_minutes = 5
+
     windowProps = 
       width: width
       height: height
 
+    isWorkSession = ->
+      date = new Date()
+      minutes = date.getMinutes()
+      if minutes >= start_work_minutes and minutes < start_break_minutes
+         true
+      else
+         false
+
+    workSessionDuration = ->
+      start_break_minutes - start_work_minutes
+
+
+    getCountDownTillNextEvent = ->
+      date = new Date()
+      minutes = date.getMinutes()
+      seconds = date.getSeconds()
+
+      if isWorkSession()
+        countdown = start_break_minutes*60 - minutes*60 - seconds
+      else
+        if minutes < start_work_minutes
+          countdown = start_work_minutes*60 - minutes*60 - seconds
+        else
+          countdown = 60*60 - minutes*60 - seconds + start_work_minutes*60
 
 
     $("#voice_button").mousedown ->
       $("#voice_button").addClass("btn-danger")
       $("#voice_button").html("Ton an")
       if publisher
+         console.log "mouseDown: publishAudio=true"	
          publisher.publishAudio(true)
     $("#voice_button").mouseup ->
       $("#voice_button").removeClass("btn-danger")
       $("#voice_button").html("Ton aus")
       if publisher
+         console.log "mouseUp: publishAudio=false"		
          publisher.publishAudio(false)
 
     setSoundToBreak = ->
       if publisher
+         console.log "setSoundToBreak: publishAudio=true"
          publisher.publishAudio(true) 
       $("#voice_button_box").hide()
 
     setSoundToWorkSession = ->
       if publisher
+         console.log "setSoundToWorkSession: publishAudio=false"	
          publisher.publishAudio(false) 
       $("#voice_button_box").show()    
 
@@ -125,9 +158,7 @@ $(document).ready ->
     sessionConnectedHandler = (event) ->
       replaceElementId = "publisher_box_tmp"
 
-      date = new Date()
-      minutes = date.getMinutes()
-      publishAudio = if minutes<50 then false else true
+      publishAudio =  if isWorkSession() then false else true
       console.log "publishAudio = "+publishAudio
 
       properties = 
@@ -290,19 +321,23 @@ $(document).ready ->
     
     
     startTimer = ->
-      date = new Date()
-      minutes = date.getMinutes()
-      seconds = date.getSeconds()
-      # if time is below 50 minutes, then we are in the 50 minutes work session, else in the 10 min pause   
-      work_session_duration=50
+    # date = new Date()
+    # minutes = date.getMinutes()
+    # seconds = date.getSeconds()
+    #
+    # # if time is below 50 minutes, then we are in the 50 minutes work session, else in the 10 min pause   
+    # work_session_duration=50
 
-      if minutes<work_session_duration then setSoundToWorkSession() else setSoundToBreak()
-
-      session_duration = if minutes<work_session_duration then work_session_duration*60 else (60 - work_session_duration) *60         
-      time_to_full_hour =  60*60 - minutes*60 - seconds
-      countdown = if minutes<work_session_duration then time_to_full_hour - (60-work_session_duration)*60 else time_to_full_hour
+      is_work_session = isWorkSession() 
+      if is_work_session then setSoundToWorkSession() else setSoundToBreak()
+      countdown = getCountDownTillNextEvent()
       timer_is_on=1
-      doCount(countdown,minutes<work_session_duration )  
+      doCount(countdown,is_work_session )
+      
+    # session_duration = if minutes<work_session_duration then work_session_duration*60 else (60 - work_session_duration) *60         
+    # time_to_full_hour =  60*60 - minutes*60 - seconds
+    # countdown = if minutes<work_session_duration then time_to_full_hour - (60-work_session_duration)*60 else time_to_full_hour
+
     
     if $("#timer").length>0   
       startTimer()

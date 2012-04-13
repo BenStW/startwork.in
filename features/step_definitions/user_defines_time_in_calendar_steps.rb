@@ -17,6 +17,22 @@ Given /^the following users with calendar events$/ do |table|
   end
 end
 
+Given /^the following busers with calendar eventss$/ do |table|
+  c = DateTime.current
+  tomorrow = DateTime.new(c.year,c.month,c.day+1,0)
+  table.hashes.each do |hash|
+    name = hash[:name]
+    start_time_hour = hash[:start_time].to_i
+    start_time = tomorrow + start_time_hour.hours
+    end_time_hour = hash[:end_time].to_i
+    end_time = tomorrow + end_time_hour.hours  
+    if start_time >= end_time 
+       raise "Times wrongly defined: #{start_time} >= #{end_time}"  
+    end
+    sign_up(name)
+  end
+end
+
 
 Given /^the following friendships$/ do |table|
   table.hashes.each do |hash|

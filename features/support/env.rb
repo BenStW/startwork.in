@@ -84,3 +84,10 @@ def sign_in(user)
   end
 end
 
+def sign_up(name)
+    user = FactoryGirl.create(:user, :name => name)
+    user.activated=true
+    user.save
+    sign_in user
+end
+
