@@ -114,6 +114,7 @@ $(document).ready ->
           new_element_id = "user_box_" + user_id
           replaceElementId = "stream_box_tmp_"+user_id
           replaceElement = $("#"+replaceElementId)
+          #TODO: stream_box may contain already a failing subscriber. Remove it when creating a new stream_box_tmp
           if replaceElement.length==0
             html =  "<div id=stream_box_tmp_"+ user_id + " class=stream_box_tmp>
 		     </div><!-- stream_box -->"

@@ -28,6 +28,8 @@ class StaticPagesController < ApplicationController
   end  
   
   def facebook
+    if current_user1
+    end
   end
   
   def interested_user

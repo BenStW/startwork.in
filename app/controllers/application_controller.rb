@@ -7,16 +7,16 @@ class ApplicationController < ActionController::Base
   before_filter :save_referer
 
 
-#
-# unless Rails.application.config.consider_all_requests_local
-#    rescue_from ActionController::RoutingError, :with => :render_404
-#    rescue_from ActionController::UnknownAction, :with => :render_404
-#    rescue_from ActiveRecord::RecordNotFound, :with => :render_404
-#    rescue_from Exception, :with => :render_500
-#   # rescue_from MyApp::CustomError, :with => :custom_error_resolution
-# end
-    
-  def render_404
+
+   unless Rails.application.config.consider_all_requests_local
+     rescue_from ActionController::RoutingError, :with => :render_404
+     rescue_from ActionController::UnknownAction, :with => :render_404
+     rescue_from ActiveRecord::RecordNotFound, :with => :render_404
+     rescue_from Exception, :with => :render_500
+    # rescue_from MyApp::CustomError, :with => :custom_error_resolution
+  end
+     
+  def render_404(exception = nil)
      if /(jpe?g|png|gif)/i === request.path
        render :text => "404 Not Found", :status => 404
      else
@@ -25,12 +25,16 @@ class ApplicationController < ActionController::Base
    end  
    
    def render_500(exception = nil)
-     if exception
-         logger.error "**** ERROR **** Rendering 500: #{exception.message}"
-     end
+    if exception
+      send_mail_when_exception(exception)
+      Rails.logger.error "**** ERROR ****: #{exception.class}: #{exception.message}"
+    else
+      Rails.logger.info "**** ERROR ****: no exception"
+    end
      
      render :template => "errors/500", :layout => 'application', :status => 500
     end
+    
   # UsersController
 #  rescue_from MyApp::SomeReallySpecificUserError, :with => :user_controller_resolution
   
@@ -38,6 +42,11 @@ class ApplicationController < ActionController::Base
 
 
  private
+ 
+ def send_mail_when_exception(exception)
+   Rails.logger.error "ERROR: sending mail"          
+   ErrorMailer.deliver_exception(exception,current_user).deliver
+ end
  
   def set_locale
   #  logger.debug "**********************"

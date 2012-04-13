@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>Hallo Benedikt</h1>
+
+<h2><%= "#{@exception.class}: #{@exception.message}" %></h2>
+
+<% if @current_user %>
+<b>User</b>:<br>
+<%= "id=#{@current_user.id} name=#{@current_user.name}"%>
+<br><br>
+<% end %>
+
+<b>exception.backtrace</b>:<br>
+<%= @exception.backtrace.join("\n")%>
+
+  </body>
+</html>
