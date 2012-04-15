@@ -49,13 +49,11 @@ de:
         <li>Euer Video wird ausgeblendet, nachdem ihr Startwork den Zugriff auf Kamera und Mikrofon erlaubt habt. 
         Ihr seid aber in der Arbeitsgruppe. 
         Ihr könnt die Zugriffserlaubnis über den Button 'Kamera- und Audiotest' auch automatisieren.</li>
-        <li>Der automatische Timer beginnt aktuell zu jeder vollen Stunde mit einer 50-minütigen Arbeitsphase, 
-        an die sich eine 10-minütige Pause anschließt.
-        Die ersten gemeinsamen Minuten des Tages kurz vor Beginn der Abeitsphase sollen dazu genutzt werden, 
-        dass jedes Gruppenmitglied kurz den anderen möglichst konkret erzählt (10-20 Sekunden), was er heute schaffen will. 
-        Am Ende des gemeinsamen Arbeitstages soll nochmal jeder den Anderen mitteilen, was er davon geschafft hat. 
-        Während der Arbeitsphasen soll die Regel gelten, dass der Arbeitsplatz nicht verlassen wird und 
-        die Gruppenmitglieder sich ausschließlich mit Arbeitsinhalten befassen.</li>
+        <li>Der automatische Timer beginnt jeweils 5 Minuten nach der vollen Stunde mit einer 50-minütigen Arbeitsphase,
+         an die sich eine 10-minütige Pause anschließt, 
+         in der man sich unterhalten kann und der Arbeitsplatz verlassen werden darf.
+          Während der Arbeitsphasen soll die Regel gelten, dass der Arbeitsplatz nicht verlassen wird und 
+          die Gruppenmitglieder sich ausschließlich mit Arbeitsinhalten befassen.</li>
         <li><b>Das Fenster mit den Videos bitte immer sichtbar halten</b>, die anderen Fenster entsprechend anpassen. 
         Dann wirkt Startwork am stärksten.</li>
         <li>Wir freuen uns über jegliche Nutzung des Feedback-Formulars rechts unten. 
