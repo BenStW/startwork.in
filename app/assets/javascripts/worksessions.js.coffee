@@ -36,7 +36,7 @@ $(document).ready ->
     session = TB.initSession session_id  
     toggle = true
     publisher = null
-    publisher_hidden = 1
+    publisher_hidden = 0
 
     timeout = null
     timer_is_on = 0
@@ -117,8 +117,10 @@ $(document).ready ->
         if stream.connection.connectionId == session.connection.connectionId 
         #  console.log("   same connection. Move publisher box to the far east.")  
         #  $("#publisher_box").addClass("publisher_hidden") 
-           console.log("   same connection. Set the visibility of the publiser to hidden.")
+           console.log("   same connection. Set the visibility of the publisher to hidden.")
+           #$("#publisher_box").appendTo("#video_window")
            $("#publisher_box").css("visibility", "hidden")
+           publisher_hidden=1
         else
           connectionData = JSON.parse(stream.connection.data)          
           user_name = connectionData.user_name
@@ -176,7 +178,7 @@ $(document).ready ->
       console.log "publishAudio = "+publishAudio
 
       properties = 
-        publishAudio: publishAudio
+       # publishAudio: publishAudio
         width: width
         height: height
       publisher = session.publish replaceElementId, properties
