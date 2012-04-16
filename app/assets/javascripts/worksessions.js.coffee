@@ -76,10 +76,12 @@ $(document).ready ->
     $("#timer").click ->
       if publisher_hidden
         publisher_hidden=0
-        $("#publisher_box").removeClass("publisher_hidden")
+        $("#publisher_box").css("visibility", "visible")
+        #$("#publisher_box").removeClass("publisher_hidden")
       else
         publisher_hidden=1
-        $("#publisher_box").addClass("publisher_hidden")  
+        $("#publisher_box").css("visibility", "hidden")
+        #$("#publisher_box").addClass("publisher_hidden")  
 
 
     $("#voice_button").mousedown ->
@@ -115,6 +117,8 @@ $(document).ready ->
         if stream.connection.connectionId == session.connection.connectionId 
         #  console.log("   same connection. Move publisher box to the far east.")  
         #  $("#publisher_box").addClass("publisher_hidden") 
+           console.log("   same connection. Set the visibility of the publiser to hidden.")
+           $("#publisher_box").css("visibility", "hidden")
         else
           connectionData = JSON.parse(stream.connection.data)          
           user_name = connectionData.user_name

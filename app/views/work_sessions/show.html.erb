@@ -23,16 +23,7 @@
   </div>
 
 
-	<center>
-  <div id ="publisher_box" class="publisher_box">
-	<center>
-    <span id="publisher_box_tmp" ><!--class="label label-warning"-->
-	  <!-- please wait...-->
-	    <img src="/assets/video_dummy.gif">
-    </span>
-</center>
-  </div>
-</center>
+
 
   <% @work_buddies.each do |work_buddy| %>
   <div id=user_box_<%= work_buddy.id %> class=user_box data-user_id=<%= work_buddy.id %> >
@@ -46,6 +37,18 @@
      </div><!-- stream_box -->		
    </div> <!-- user_box -->
   <% end%>
+
+	<center>
+  <div id ="publisher_box" class="publisher_box">
+	<center>
+    <span id="publisher_box_tmp" ><!--class="label label-warning"-->
+	  <!-- please wait...-->
+	    <img src="/assets/video_dummy.gif">
+    </span>
+</center>
+  </div>
+</center>
+
 </div> <!-- video_window-->
 
 
