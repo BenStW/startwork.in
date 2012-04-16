@@ -28,7 +28,7 @@ class WorkSessionsController < ApplicationController
         work_session = user.calendar_events.order(:start_time).first.work_session
         @tokbox_session_id = work_session.room.tokbox_session_id
         @room_name = "#{work_session.room.user.name}' room"
-        @work_buddies = work_session.users - [current_user]
+        @work_buddies = work_session.users - [user]
         
         connection_data = { :user_id => "#{user.id}", :user_name => "#{user.name}" } 
         @tokbox_token = TokboxApi.instance.generate_token @tokbox_session_id, connection_data
