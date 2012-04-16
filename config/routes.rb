@@ -41,7 +41,8 @@ StartWork::Application.routes.draw do
      
     
      resources :groups
-     match 'work_session/:id' => 'work_sessions#show', :as => :show_work_session    
+     match 'work_session/:id' => 'work_sessions#show', :as => :show_work_session
+     match 'work_session/test/:username' => 'work_sessions#test', :as => :test_work_session        
      
     
      post '/connections/start', :to => 'connections#start'  

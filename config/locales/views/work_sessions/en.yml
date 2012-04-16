@@ -2,3 +2,4 @@ en:
   work_sessions:
     show:
       to_speak_hold_button: "To speak hold button"
+      wrong_user: "Oops, your user is not foreseen for this work session!"

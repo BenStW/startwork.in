@@ -36,6 +36,7 @@ $(document).ready ->
     session = TB.initSession session_id  
     toggle = true
     publisher = null
+    publisher_hidden = 1
 
     timeout = null
     timer_is_on = 0
@@ -71,6 +72,14 @@ $(document).ready ->
           countdown = start_work_minutes*60 - minutes*60 - seconds
         else
           countdown = 60*60 - minutes*60 - seconds + start_work_minutes*60
+
+    $("#timer").click ->
+      if publisher_hidden
+        publisher_hidden=0
+        $("#publisher_box").removeClass("publisher_hidden")
+      else
+        publisher_hidden=1
+        $("#publisher_box").addClass("publisher_hidden")  
 
 
     $("#voice_button").mousedown ->
