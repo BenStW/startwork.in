@@ -39,7 +39,7 @@ class StaticPagesController < ApplicationController
   
   def camera
     if params[:success]
-      success = CameraAudio.find_or_create_by_user_id(:user=>current_user)
+      success = CameraAudio.find_or_create_by_user_id(current_user.id)
       success.video_success=params[:success]
       success.save
       redirect_to audio_url
@@ -53,7 +53,7 @@ class StaticPagesController < ApplicationController
   
   def audio
     if params[:success]
-      success = CameraAudio.find_or_create_by_user_id(:user=>current_user)
+      success = CameraAudio.find_or_create_by_user_id(current_user.id)
       success.audio_success=params[:success]
       success.save
       if success.video_success==false or success.audio_success== false
