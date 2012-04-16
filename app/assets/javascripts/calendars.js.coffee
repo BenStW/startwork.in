@@ -7,7 +7,9 @@ $(document).ready( ->
     if $("#data").data("user_activated") == true
       start_day = new Date()
     else
-      start_day =  new Date("2012-04-19") 
+      start_day =  new Date(2012,3,19)
+    console.log("start_day="+start_day)
+    console.log("day= "+start_day.getDay())
     base_url = $("#data").data("base_url")
     
     $("#single_calendar_button").click ->
@@ -52,10 +54,10 @@ $(document).ready( ->
         h = $(window).height() #- $("h1").outerHeight(true)
         #console.log "height="+h
         h
-      shortDays: $.datepicker.regional['de'].dayNamesShort, 
-      longDays: $.datepicker.regional['de'].dayNames, 
-      shortMonths: $.datepicker.regional['de'].monthNamesShort, 
-      longMonths: $.datepicker.regional['de'].monthNames,
+  #    shortDays: $.datepicker.regional['de'].dayNamesShort, 
+  #    longDays: $.datepicker.regional['de'].dayNames, 
+  #    shortMonths: $.datepicker.regional['de'].monthNamesShort, 
+  #    longMonths: $.datepicker.regional['de'].monthNames,
       data: (start, end, callback) ->
         url= base_url+'/get_events/'+getUsers()
         $.getJSON(url, start: null, end: null, (result) -> callback(result))
