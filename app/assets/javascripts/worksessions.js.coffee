@@ -168,7 +168,7 @@ $(document).ready ->
       console.log "publishAudio = "+publishAudio
 
       properties = 
-        publishAudio: publishAudio
+       # publishAudio: publishAudio
         width: width
         height: height
       publisher = session.publish replaceElementId, properties
