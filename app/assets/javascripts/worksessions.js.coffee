@@ -123,8 +123,8 @@ $(document).ready ->
         if stream.connection.connectionId == session.connection.connectionId 
            console.log("   same connection. Set the visibility of the publisher to hidden.")
            hidePublisher()
-           publishAudio =  if isWorkSession() then false else true
-           publisher.publishAudio(publishAudio)
+          # publishAudio =  if isWorkSession() then false else true
+          # publisher.publishAudio(publishAudio)
         else
           connectionData = JSON.parse(stream.connection.data)          
           user_id = connectionData.user_id
@@ -166,11 +166,11 @@ $(document).ready ->
     sessionConnectedHandler = (event) ->
       replaceElementId = "publisher_box_tmp"
 
-   #   publishAudio =  if isWorkSession() then false else true
-     # console.log "publishAudio = "+publishAudio
+      publishAudio =  if isWorkSession() then false else true
+      console.log "publishAudio = "+publishAudio
 
       properties = 
-       # publishAudio: publishAudio
+        publishAudio: publishAudio
         width: width
         height: height
       publisher = session.publish replaceElementId, properties
