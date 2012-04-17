@@ -74,13 +74,13 @@ $(document).ready ->
           countdown = 60*60 - minutes*60 - seconds + start_work_minutes*60
 
     hidePublisher = ->
-      #$("#publisher_box").css("visibility", "visible")
-      $("#publisher_box").removeClass("publisher_hidden")
+      $("#publisher_box").css("visibility", "visible")
+      #$("#publisher_box").removeClass("publisher_hidden")
       publisher_hidden=1    
 
     showPublisher = ->
-      #$("#publisher_box").css("visibility", "visible")
-      $("#publisher_box").addClass("publisher_hidden")
+      $("#publisher_box").css("visibility", "visible")
+      #$("#publisher_box").addClass("publisher_hidden")
       publisher_hidden=0
 
     $("#timer").click ->
@@ -121,8 +121,6 @@ $(document).ready ->
       console.log("subscribe to "+streams.length+" streams")
       for stream in streams
         if stream.connection.connectionId == session.connection.connectionId 
-        #  console.log("   same connection. Move publisher box to the far east.")  
-        #  $("#publisher_box").addClass("publisher_hidden") 
            console.log("   same connection. Set the visibility of the publisher to hidden.")
            hidePublisher()
         else
