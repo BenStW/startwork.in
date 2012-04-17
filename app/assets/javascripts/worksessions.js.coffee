@@ -230,8 +230,7 @@ $(document).ready ->
          user_ids.push(my_user_id)
       postConnectionEnd(user_ids)
 
-      for user_id in user_ids
-        do 	$("#stream_box_"+user_id).append("<img src='/assets/video_dummy.gif'>")
+      $("#stream_box_"+user_id).append("<img src='/assets/video_dummy.gif'>") for user_id in user_ids
 
     connectionCreatedHandler = (event) ->
       connectionsCreated = event.connections 
