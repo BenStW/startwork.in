@@ -73,15 +73,21 @@ $(document).ready ->
         else
           countdown = 60*60 - minutes*60 - seconds + start_work_minutes*60
 
+    hidePublisher ->
+      #$("#publisher_box").css("visibility", "visible")
+      $("#publisher_box").removeClass("publisher_hidden")     
+
+    showPublisher ->
+      #$("#publisher_box").css("visibility", "visible")
+      $("#publisher_box").addClass("publisher_hidden") 
+
     $("#timer").click ->
       if publisher_hidden
         publisher_hidden=0
-        $("#publisher_box").css("visibility", "visible")
-        #$("#publisher_box").removeClass("publisher_hidden")
+        showPublisher()
       else
         publisher_hidden=1
-        $("#publisher_box").css("visibility", "hidden")
-        #$("#publisher_box").addClass("publisher_hidden")  
+        hidePublisher()
 
 
     $("#voice_button").mousedown ->
@@ -118,8 +124,7 @@ $(document).ready ->
         #  console.log("   same connection. Move publisher box to the far east.")  
         #  $("#publisher_box").addClass("publisher_hidden") 
            console.log("   same connection. Set the visibility of the publisher to hidden.")
-           #$("#publisher_box").appendTo("#video_window")
-           $("#publisher_box").css("visibility", "hidden")
+           hidePublisher()
            publisher_hidden=1
         else
           connectionData = JSON.parse(stream.connection.data)          
