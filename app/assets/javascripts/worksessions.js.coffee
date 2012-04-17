@@ -74,7 +74,7 @@ $(document).ready ->
           countdown = 60*60 - minutes*60 - seconds + start_work_minutes*60
 
     hidePublisher = ->
-      $("#publisher_box").css("visibility", "visible")
+      $("#publisher_box").css("visibility", "hidden")
       #$("#publisher_box").removeClass("publisher_hidden")
       publisher_hidden=1    
 
