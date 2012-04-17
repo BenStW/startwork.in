@@ -125,20 +125,20 @@ $(document).ready ->
            hidePublisher()
         else
           connectionData = JSON.parse(stream.connection.data)          
-          user_name = connectionData.user_name
+         # user_name = connectionData.user_name
           user_id = connectionData.user_id
           console.log("   subscribe to connection of user_id "+user_id+" ("+user_name+")")
-          new_element_id = "user_box_" + user_id
+         # new_element_id = "user_box_" + user_id
           replaceElementId = "stream_box_tmp_"+user_id
-          replaceElement = $("#"+replaceElementId)
+         # replaceElement = $("#"+replaceElementId)
           #TODO: stream_box may contain already a failing subscriber. Remove it when creating a new stream_box_tmp
-          if replaceElement.length==0
-            html =  "<div id=stream_box_tmp_"+ user_id + " class=stream_box_tmp>
-		     </div><!-- stream_box -->"
-            $("#stream_box_"+user_id).append(html)
-            console.log("created stream_box_tmp") 
-          else
-            console.log("no need to create stream_box_tmp")             
+         # if replaceElement.length==0
+         #   html =  "<div id=stream_box_tmp_"+ user_id + " class=stream_box_tmp>
+		 #    </div><!-- stream_box -->"
+         #   $("#stream_box_"+user_id).append(html)
+         #   console.log("created stream_box_tmp") 
+         # else
+         #   console.log("no need to create stream_box_tmp")             
           session.subscribe stream, replaceElementId, windowProps
         
   
@@ -230,7 +230,17 @@ $(document).ready ->
          user_ids.push(my_user_id)
       postConnectionEnd(user_ids)
 
-      $("#stream_box_"+user_id).append("<img src='/assets/video_dummy.gif'>") for user_id in user_ids
+      for user_id in user_ids
+        html =  "<div id=stream_box_tmp_"+ user_id + " class=stream_box_tmp>
+	           <img src='/assets/video_dummy.gif'>
+		     </div><!-- stream_box -->"
+        #replaceElementId = "stream_box_tmp_"+user_id
+        #replaceElement = $("#"+replaceElementId)
+        if $("#stream_box_tmp_"+user_id).length==0		
+          $("#stream_box_"+user_id).append(html)
+        else	
+          console.log("ERROR: stream_box_tmp exist already")	
+      #$("#stream_box_"+user_id).append("<img src='/assets/video_dummy.gif'>") for user_id in user_ids
 
     connectionCreatedHandler = (event) ->
       connectionsCreated = event.connections 
