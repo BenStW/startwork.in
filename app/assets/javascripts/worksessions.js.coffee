@@ -127,7 +127,7 @@ $(document).ready ->
           connectionData = JSON.parse(stream.connection.data)          
          # user_name = connectionData.user_name
           user_id = connectionData.user_id
-          console.log("   subscribe to connection of user_id "+user_id+" ("+user_name+")")
+         # console.log("   subscribe to connection of user_id "+user_id+" ("+user_name+")")
          # new_element_id = "user_box_" + user_id
           replaceElementId = "stream_box_tmp_"+user_id
          # replaceElement = $("#"+replaceElementId)
