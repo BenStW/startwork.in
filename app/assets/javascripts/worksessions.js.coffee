@@ -73,20 +73,20 @@ $(document).ready ->
         else
           countdown = 60*60 - minutes*60 - seconds + start_work_minutes*60
 
-    hidePublisher ->
+    hidePublisher = ->
       #$("#publisher_box").css("visibility", "visible")
-      $("#publisher_box").removeClass("publisher_hidden")     
+      $("#publisher_box").removeClass("publisher_hidden")
+      publisher_hidden=1    
 
-    showPublisher ->
+    showPublisher = ->
       #$("#publisher_box").css("visibility", "visible")
-      $("#publisher_box").addClass("publisher_hidden") 
+      $("#publisher_box").addClass("publisher_hidden")
+      publisher_hidden=0
 
     $("#timer").click ->
       if publisher_hidden
-        publisher_hidden=0
         showPublisher()
       else
-        publisher_hidden=1
         hidePublisher()
 
 
@@ -125,7 +125,6 @@ $(document).ready ->
         #  $("#publisher_box").addClass("publisher_hidden") 
            console.log("   same connection. Set the visibility of the publisher to hidden.")
            hidePublisher()
-           publisher_hidden=1
         else
           connectionData = JSON.parse(stream.connection.data)          
           user_name = connectionData.user_name
