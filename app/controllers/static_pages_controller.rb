@@ -28,6 +28,7 @@ class StaticPagesController < ApplicationController
   end  
   
   def facebook
+    # the following is an error by purpose to test the sending of an error mail
     if current_user1
     end
   end

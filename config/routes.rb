@@ -35,8 +35,7 @@ StartWork::Application.routes.draw do
        
     
      #devise_for :users
-     devise_for :users, :controllers => {:registrations => "registrations"}
-     
+     devise_for :users, :controllers => {:registrations => "registrations"}   
      #devise_for :users, :controllers => {:sessions => "devise_sessions"}
      
     
@@ -49,12 +48,7 @@ StartWork::Application.routes.draw do
      post '/connections/end', :to => 'connections#end'
     
      match 'statistics' => 'statistics#show', :as => :statistics
-    
-    
-     match 'penalties/add' => 'penalties#add'
-     match 'penalties/latest' => 'penalties#latest'
-     match 'penalties/cancel/:penalty_id' => 'penalties#cancel'  
-     match 'penalties/end/:penalty_id' => 'penalties#end'  
+ 
     
  # end
   

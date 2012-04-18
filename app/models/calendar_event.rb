@@ -56,4 +56,5 @@ class CalendarEvent < ActiveRecord::Base
     self.save    
   end
   
+  
 end

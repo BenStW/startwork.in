@@ -1,9 +1,7 @@
 class CalendarEventsController < ApplicationController
   def show
      @friends = current_user.friendships.map(&:friend)
-   #  puts @friends.to_yaml
      @work_sessions = current_user.all_events_of_this_week.map(&:work_session).sort_by!{|w| w[:start_time]}     
-   #  puts @work_sessions.to_yaml
   end
   
   # creates a calendar event and
@@ -97,7 +95,12 @@ class CalendarEventsController < ApplicationController
     end
     hours = (end_time - start_time)*24-1
     (0..hours).each do |hour|
-      start_times << start_time+hour.hours
+        hourly_start_time = start_time+hour.hours      
+        if hourly_start_time.hour == 23
+          logger.error "Workaround: don't accept working hours of 21UTC (23Uhr)."
+        else
+          start_times << start_time+hour.hours
+        end
     end
     start_times
   end

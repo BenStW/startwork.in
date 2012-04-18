@@ -43,8 +43,7 @@ class ApplicationController < ActionController::Base
 
  private
  
- def send_mail_when_exception(exception)
-   Rails.logger.error "ERROR: sending mail"          
+ def send_mail_when_exception(exception)        
    ErrorMailer.deliver_exception(exception,current_user).deliver
  end
  

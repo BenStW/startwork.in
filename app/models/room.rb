@@ -1,3 +1,6 @@
+# = General Information
+# 
+
 # == Schema Information
 #
 # Table name: rooms

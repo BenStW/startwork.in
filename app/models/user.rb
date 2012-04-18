@@ -32,7 +32,6 @@ class User < ActiveRecord::Base
   validates :name, presence: true, length: { maximum: 20 }, uniqueness: true
   #validates :room, presence: true
   
-  has_many :penalties, :foreign_key => "to_user_id"
   has_many :connections
  # has_many :work_session_times, :dependent => :destroy
   has_many :calendar_events, :dependent => :destroy
@@ -129,27 +128,4 @@ class User < ActiveRecord::Base
   end  
   
 
-
-   
-  
-=begin 
-  def open_penalties?
-    open_penalties = penalties.find_all_by_end_time(nil)
-    open_penalties = close_old_open_penalties(open_penalties)
-    open_penalties.length>0 
-  end
-  
-  private
-   
-  def close_old_open_penalties(open_penalties)
-    for penalty in open_penalties
-      if !penalty.current_work_hour?
-        penalty.close
-        penalty.save
-        open_penalties.delete(penalty)
-      end
-    end
-    open_penalties
-  end  
-=end 
 end
