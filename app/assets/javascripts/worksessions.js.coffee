@@ -305,7 +305,8 @@ $(document).ready ->
         console.log("publisher already defined")  	
         publisher.publishAudio(false)	
         f = ->
-          publisher.publishAudio(true)
+          publishAudio =  if isWorkSession() then false else true
+          publisher.publishAudio(publishAudio)
           clearTimeout(t)
         t = setTimeout(f,sec*1000)
       else
@@ -316,49 +317,34 @@ $(document).ready ->
       $("#jplayer").jPlayer("play")
 
 
-    # can be deleted
-    play_sound = (sound) ->
-      console.log("play_sound was called")
-      if (window.HTMLAudioElement) 
-        snd = new Audio('')
-        if(snd.canPlayType('audio/wav'))
-	      # TODO: publish may not be defined yet
-          publisher.publishAudio(false)
-          snd = new Audio(sound)
-          snd.play()
-          f = ->
-            publisher.publishAudio(true)
-            clearTimeout(t)
-          #t = setTimeout(f,8000)
-        else
-          alert('GONG!!! - HTML5 Audio is not supported by your browser!')
+  # # can be deleted
+  # play_sound = (sound) ->
+  #   console.log("play_sound was called")
+  #   if (window.HTMLAudioElement) 
+  #     snd = new Audio('')
+  #     if(snd.canPlayType('audio/wav'))
+  #       # TODO: publish may not be defined yet
+  #       publisher.publishAudio(false)
+  #       snd = new Audio(sound)
+  #       snd.play()
+  #       f = ->
+  #         publisher.publishAudio(true)
+  #         clearTimeout(t)
+  #       #t = setTimeout(f,8000)
+  #     else
+  #       alert('GONG!!! - HTML5 Audio is not supported by your browser!')
       
     
     
     startTimer = ->
-    # date = new Date()
-    # minutes = date.getMinutes()
-    # seconds = date.getSeconds()
-    #
-    # # if time is below 50 minutes, then we are in the 50 minutes work session, else in the 10 min pause   
-    # work_session_duration=50
-
       is_work_session = isWorkSession() 
       if is_work_session then setSoundToWorkSession() else setSoundToBreak()
       countdown = getCountDownTillNextEvent()
       timer_is_on=1
       doCount(countdown,is_work_session )
-      
-    # session_duration = if minutes<work_session_duration then work_session_duration*60 else (60 - work_session_duration) *60         
-    # time_to_full_hour =  60*60 - minutes*60 - seconds
-    # countdown = if minutes<work_session_duration then time_to_full_hour - (60-work_session_duration)*60 else time_to_full_hour
 
-    
     if $("#timer").length>0   
       startTimer()
-    
-    
-    
     
     session.addEventListener 'sessionConnected', sessionConnectedHandler
     session.addEventListener 'streamCreated', streamCreatedHandler
