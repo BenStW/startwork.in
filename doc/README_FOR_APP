@@ -1,2 +1,51 @@
-Use this README file to introduce your application and point to useful places in the API for learning more.
 Run "rake doc:app" to generate API documentation for your models, controllers, helpers, and libraries.
+
+
+
+= Overview
+
+
+== User Administration
+For User administration the gem "devise" is used.
+The model User is the central model, as all other models are somehow connected to the user.
+
+== CalendarEvent
+Each user can define CalendarEvent's, which are the hourly events defined in his calendar.
+
+== Friendship
+The users can establish Friendship's between each other. 
+Each Friendship is created twice: for a friendship of user1 to user2 a friendship of user2 to user1 is also created.
+
+== WorkSession
+If friends choose the same CalendarEvent (same day and hour), then they share the same WorkSession.
+A WorkSession is a set of CalendarEvent's of the same time of different users.
+
+== Room
+Each WorkSession is 1:1 associated with a Room.
+A Room contains the technical data for a specific video chat.
+
+For each user one room is created.
+If one user creates a CalendarEvent when no friend has a CalendarEvent at this time, 
+then a WorkSession with the users room is created.
+
+If one user creates a CalendarEvent when a friend has already a CalendarEvent (and therefore a WorkSession) at this time,
+then the WorkSession (and its Room) of the friend is used.
+   
+== TokboxApi
+The used video chat functionality is provided by TokBox.
+The model TokboxApi generates the TokBox Sessions and the TokBox tokens.
+A Room contains a fix TokBox Session and for each member of WorkSession a TokBox token is generated.
+
+== Invitation
+The Invitation model and controller are used to send an invitation to email addresses provided by the user.
+
+== InterestedUser
+The InsterestedUser model allows to leave an email address on the first page without signing up.
+
+== Other models and controllers
+The connections model and controller as well as the statistics controller are currently not (really) used.
+
+== ActiveAdmin
+This gem is quite useful to analyse the data over a good admin frontend.
+Use it by calling http://localhost:3000/admin
+

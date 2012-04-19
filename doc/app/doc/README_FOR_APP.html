@@ -141,9 +141,82 @@
 
 <div id="documentation" class="description">
   
-<p>Use this README file to introduce your application and point to useful
-places in the API for learning more. Run “rake doc:app” to generate API
-documentation for your models, controllers, helpers, and libraries.</p>
+<p>Run “rake doc:app” to generate API documentation for your models,
+controllers, helpers, and libraries.</p>
+
+<h1 id="label-Overview">Overview</h1>
+
+<h2 id="label-User+Administration"><a href="../User.html">User</a> Administration</h2>
+
+<p>For <a href="../User.html">User</a> administration the gem “devise” is
+used. The model <a href="../User.html">User</a> is the central model, as
+all other models are somehow connected to the user.</p>
+
+<h2 id="label-CalendarEvent"><a href="../CalendarEvent.html">CalendarEvent</a></h2>
+
+<p>Each user can define CalendarEvent’s, which are the hourly events defined
+in his calendar.</p>
+
+<h2 id="label-Friendship"><a href="../Friendship.html">Friendship</a></h2>
+
+<p>The users can establish Friendship’s between each other.  Each <a
+href="../Friendship.html">Friendship</a> is created twice: for a friendship
+of user1 to user2 a friendship of user2 to user1 is also created.</p>
+
+<h2 id="label-WorkSession"><a href="../WorkSession.html">WorkSession</a></h2>
+
+<p>If friends choose the same <a
+href="../CalendarEvent.html">CalendarEvent</a> (same day and hour), then
+they share the same <a href="../WorkSession.html">WorkSession</a>. A <a
+href="../WorkSession.html">WorkSession</a> is a set of CalendarEvent’s of
+the same time of different users.</p>
+
+<h2 id="label-Room"><a href="../Room.html">Room</a></h2>
+
+<p>Each <a href="../WorkSession.html">WorkSession</a> is 1:1 associated with a
+<a href="../Room.html">Room</a>. A <a href="../Room.html">Room</a> contains
+the technical data for a specific video chat.</p>
+
+<p>For each user one room is created. If one user creates a <a
+href="../CalendarEvent.html">CalendarEvent</a> when no friend has a <a
+href="../CalendarEvent.html">CalendarEvent</a> at this time,  then a <a
+href="../WorkSession.html">WorkSession</a> with the users room is created.</p>
+
+<p>If one user creates a <a href="../CalendarEvent.html">CalendarEvent</a>
+when a friend has already a <a
+href="../CalendarEvent.html">CalendarEvent</a> (and therefore a <a
+href="../WorkSession.html">WorkSession</a>) at this time, then the <a
+href="../WorkSession.html">WorkSession</a> (and its <a
+href="../Room.html">Room</a>) of the friend is used.</p>
+
+<h2 id="label-TokboxApi"><a href="../TokboxApi.html">TokboxApi</a></h2>
+
+<p>The used video chat functionality is provided by TokBox. The model <a
+href="../TokboxApi.html">TokboxApi</a> generates the TokBox Sessions and
+the TokBox tokens. A <a href="../Room.html">Room</a> contains a fix TokBox
+Session and for each member of <a
+href="../WorkSession.html">WorkSession</a> a TokBox token is generated.</p>
+
+<h2 id="label-Invitation"><a href="../Invitation.html">Invitation</a></h2>
+
+<p>The <a href="../Invitation.html">Invitation</a> model and controller are
+used to send an invitation to email addresses provided by the user.</p>
+
+<h2 id="label-InterestedUser"><a href="../InterestedUser.html">InterestedUser</a></h2>
+
+<p>The InsterestedUser model allows to leave an email address on the first
+page without signing up.</p>
+
+<h2 id="label-Other+models+and+controllers">Other models and controllers</h2>
+
+<p>The connections model and controller as well as the statistics controller
+are currently not (really) used.</p>
+
+<h2 id="label-ActiveAdmin">ActiveAdmin</h2>
+
+<p>This gem is quite useful to analyse the data over a good admin frontend.
+Use it by calling <a
+href="http://localhost:3000/admin">localhost:3000/admin</a></p>
 
 </div>
 

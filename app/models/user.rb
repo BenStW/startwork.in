@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :activated, :referer
+  attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :activated, :referer, :control_group
   
   validates :name, presence: true, length: { maximum: 20 }, uniqueness: true
   #validates :room, presence: true
@@ -47,6 +47,7 @@ class User < ActiveRecord::Base
   has_many :sent_invitations, :class_name => 'Invitation', :foreign_key => 'sender_id'
   
   scope :not_activated, where(:activated => false)
+  scope :control_group, where(:control_group => true)  
   
   before_create :not_activate
   

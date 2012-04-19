@@ -40,7 +40,11 @@
 
 <% if !@next_work_session.nil?%>
   <div class="span3">
-	<%= link_to t(".next_room_html", :host=>@room_host), show_work_session_path(@next_work_session), :class => "connect btn", :style=>"width:150px;height:50px"%>
+	<% if current_user.control_group %> 
+	<%= link_to t(".next_room_html", :host=>@room_host),"javascript:alert ('Benutzer der Kontrollgruppe können während der Studie diese Funktion nicht nutzen.')", :class => "btn", :style=>"width:150px;height:50px" %>
+	<% else %>	
+	<%= link_to t(".next_room_html", :host=>@room_host), show_work_session_path(@next_work_session), :class => "connect btn", :style=>"width:150px;height:50px" %>
+	<% end %>
   </div> <!-- span3 -->
 
 <% end %>

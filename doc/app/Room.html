@@ -182,7 +182,7 @@
 
 <p>Table name: rooms</p>
 
-<pre>id_asdf                :integer         not null, primary key
+<pre>id                :integer         not null, primary key
 user_id           :integer
 tokbox_session_id :string(255)
 created_at        :datetime        not null
@@ -224,7 +224,7 @@ updated_at        :datetime        not null</pre>
 
           
           <div class="method-source-code" id="populate_tokbox_session-source">
-            <pre><span class="ruby-comment"># File app/models/room.rb, line 22</span>
+            <pre><span class="ruby-comment"># File app/models/room.rb, line 25</span>
  <span class="ruby-keyword">def</span> <span class="ruby-identifier">populate_tokbox_session</span>    
    <span class="ruby-keyword">if</span>  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">tokbox_session_id</span>.<span class="ruby-identifier">nil?</span>    
      <span class="ruby-keyword">if</span> <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">env</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;test&quot;</span>

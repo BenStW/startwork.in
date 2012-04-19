@@ -5,6 +5,7 @@ ActiveAdmin.register User do
   filter :email
   filter :referer  
   scope :not_activated
+  scope :control_group 
   
   
   index do
@@ -21,6 +22,7 @@ ActiveAdmin.register User do
       column "last sign in at", :last_sign_in_at
       column "sign in count", :sign_in_count
       column :activated
+      column :control_group      
       column "Action" do |user|
         link_to 'Impersonate', impersonate_admin_user_path(user)
       end      
@@ -37,6 +39,7 @@ ActiveAdmin.register User do
       end
       f.inputs "User Details - can be changed" do
         f.input :activated
+        f.input :control_group        
       end
       f.buttons
     end
