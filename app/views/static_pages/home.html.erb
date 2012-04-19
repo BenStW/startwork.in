@@ -40,11 +40,7 @@
 
 <% if !@next_work_session.nil?%>
   <div class="span3">
-	 <% if current_user.activated?%>
 	<%= link_to t(".next_room_html", :host=>@room_host), show_work_session_path(@next_work_session), :class => "connect btn", :style=>"width:150px;height:50px"%>
-	<% else %>
-	<span class="btn" style="width:150px;height:50px" onclick="alert('Die Funktion wird erst am 19.04.2012 aktiviert.')"  > <%= t(".next_room_html", :host=>@room_host)%> </span>
-	<% end %>	
   </div> <!-- span3 -->
 
 <% end %>
