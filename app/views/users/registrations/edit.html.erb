@@ -3,8 +3,11 @@
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
   <%= devise_error_messages! %>
 
-  <div><%= f.label t(".name") %>
-  <%= f.text_field :name %></div><br />
+  <div><%= f.label t(".first_name") %>
+  <%= f.text_field :first_name %></div><br />
+
+  <div><%= f.label t(".last_name") %>
+  <%= f.text_field :last_name %></div><br />
 
   <div><%= f.label t(".email") %>
   <%= f.email_field :email %></div><br />

@@ -42,7 +42,7 @@ describe WorkSession do
       @user2 = FactoryGirl.create(:user)     
 
       @user1_room = FactoryGirl.create(:room, :user=>@user1)    
-      @user1_time = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day+1,10)
+      @user1_time = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,10)+1.day
       @user1_work_session = FactoryGirl.create(:work_session, :start_time=>@user1_time, :room=>@user1_room)
       @user1_calendar_event = FactoryGirl.create(:calendar_event, 
         :work_session=>@user1_work_session, :user=>@user1, :start_time=>@user1_time)

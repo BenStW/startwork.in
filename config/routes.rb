@@ -15,6 +15,8 @@ StartWork::Application.routes.draw do
   match 'calendar/new_event' => 'calendar_events#new_event'
   match 'calendar/get_events/(:user_ids)' => 'calendar_events#get_events'
   
+  match 'calendar/own_events' => 'calendar_events#get_own_events'  
+  
   match 'calendar/remove_event' => 'calendar_events#remove_event'
 
 
@@ -27,7 +29,6 @@ StartWork::Application.routes.draw do
      match 'camera' => 'static_pages#camera', :as => :camera
      match 'audio' => 'static_pages#audio', :as => :audio
      
-     match 'study' => 'static_pages#study', :as => :study   
      match 'facebook' => 'static_pages#facebook', :as => :facebook        
 
      match 'interested_user'  => 'interested_user#show',:via => :get, :as => :show_interested_user   

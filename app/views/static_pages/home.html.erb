@@ -7,7 +7,7 @@
     <%= t ".welcome_text_html" %>	
 
 
-<p><a class="btn btn-primary btn-large" href="<%= show_interested_user_path %>"><%= t ".interested_user_sign_up"%> &raquo;</a></p>
+<p><a class="btn btn-primary btn-large" href="<%= new_user_registration_path %>"><%= t ".join_now"%> &raquo;</a></p>
 
   </div><!-- end of main hero unit -->
                        
@@ -40,11 +40,7 @@
 
 <% if !@next_work_session.nil?%>
   <div class="span3">
-	<% if current_user.control_group %> 
-	<%= link_to t(".next_room_html", :host=>@room_host),"javascript:alert ('Benutzer der Kontrollgruppe können während der Studie diese Funktion nicht nutzen.')", :class => "btn", :style=>"width:150px;height:50px" %>
-	<% else %>	
 	<%= link_to t(".next_room_html", :host=>@room_host), show_work_session_path(@next_work_session), :class => "connect btn", :style=>"width:150px;height:50px" %>
-	<% end %>
   </div> <!-- span3 -->
 
 <% end %>

@@ -41,7 +41,8 @@ de:
     registrations:
       edit:
         edit: "Ändere"
-        name: "Name"
+        first_name: "Vorname"
+        last_name: "Nachname"        
         email: "Email"
         password: "Passwort"
         leave_blank: "Einfach leer lassen, wenn du es nicht ändern möchtest"
@@ -53,7 +54,8 @@ de:
         are_you_sure: "Bist du sicher?"
         unhappy: "Unzufrieden?"
       new:
-        name: "Name"
+        first_name: "Vorname"
+        last_name: "Nachname"
         email: "Email"
         password: "Passwort"
         password_confirmation: "Bitte bestätige das Passwort"

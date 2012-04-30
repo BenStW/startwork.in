@@ -21,6 +21,18 @@ class CalendarEventsController < ApplicationController
     render :json => "succussfully created event"
   end
   
+  def get_all_friends_events
+    current_user.all_friends_events_of_this_week
+  end
+  
+  def get_own_events
+     render :json => current_user.calendar_events.this_week.to_json  
+  end
+  
+  def get_selected_events
+    friends_ids = params[:user_ids].split(',') 
+  end
+  
 
   def get_events
     return_hash = Hash.new  

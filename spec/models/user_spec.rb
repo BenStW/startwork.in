@@ -15,9 +15,9 @@
 #  last_sign_in_ip        :string(255)
 #  created_at             :datetime        not null
 #  updated_at             :datetime        not null
-#  name                   :string(255)
-#  activated              :boolean
 #  referer                :string(255)
+#  first_name             :string(255)
+#  last_name              :string(255)
 #
 
 require 'spec_helper'
@@ -33,13 +33,18 @@ describe User do
   
    subject { @user }
   
-  describe "when name is not present" do
-      before { @user.name = " " }
+  describe "when first name is not present" do
+      before { @user.first_name = " " }
+      it { should_not be_valid }
+  end
+  
+  describe "when last name is not present" do
+      before { @user.last_name = " " }
       it { should_not be_valid }
   end
 
-  describe "when name is too long" do
-     before { @user.name = "a" * 51 }
+  describe "when first name is too long" do
+     before { @user.first_name = "a" * 51 }
      it { should_not be_valid }
    end
    describe "when email format is invalid" do
@@ -59,10 +64,10 @@ describe User do
       end
     end
   
-    it "should not be valid with existing name" do
-      user_with_same_name = FactoryGirl.build(:user, :name => @user.name)
-      user_with_same_name.should_not be_valid
-    end
+ #  it "should not be valid with existing name" do
+ #    user_with_same_name = FactoryGirl.build(:user, :first_name => @user.first_name)
+ #    user_with_same_name.should_not be_valid
+ #  end
 
     it "should not be valid with existing email" do  
       user_with_same_email = FactoryGirl.build(:user, :email => @user.email)
@@ -99,17 +104,14 @@ describe User do
       @user.duration_of_connections.should == 10
    end
 
-   it "is not activated by default" do
-     @user.activated.should be_false
-   end
 
    it "shows all events of this week" do
      number_of_times = @user.all_events_of_this_week.length 
      t = DateTime.current
-     start_time_yesterday = DateTime.new(t.year, t.month,t.day-1,14)
+     start_time_yesterday = DateTime.new(t.year, t.month,t.day,14) - 1.day
      e1 = @user.calendar_events.create(start_time:start_time_yesterday)
 
-     start_time_tomorrow = DateTime.new(t.year, t.month,t.day+1,14)
+     start_time_tomorrow = DateTime.new(t.year, t.month,t.day,14) + 1.day
      e2 = @user.calendar_events.create(start_time:start_time_tomorrow)
 
      new_number_of_times = @user.all_events_of_this_week.length
@@ -118,7 +120,7 @@ describe User do
    end
 
    it "has friendships with friends" do
-     user_steffi = FactoryGirl.create(:user, :name => "steffi")
+     user_steffi = FactoryGirl.create(:user, :first_name => "steffi", :last_name => "Rothenberger")
      friendship = @user.friendships.build(:friend_id => user_steffi.id)
      @user.friendships.first.friend.should eql(user_steffi)
      @user.save
@@ -127,7 +129,7 @@ describe User do
 
   
   it "has inverse friendships with friends" do
-     user_steffi = FactoryGirl.create(:user, :name => "steffi")
+     user_steffi = FactoryGirl.create(:user, :first_name => "steffi", :last_name => "Rothenberger")
     friendship = @user.friendships.build(:friend_id => user_steffi.id)
     @user.save    
     user_steffi.inverse_friendships.first.user.should eql(@user)

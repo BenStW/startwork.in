@@ -69,7 +69,6 @@ gaq.push(['trackPageview']);
 	          <a class="brand" href="/">StartWork</a>
 	          <div class="nav-collapse">
 	            <ul class="nav">
-	              <li <%= if_active 'study' %>><%= link_to t(".study"), study_path %></li>
 	              <li <%= if_active 'how_it_works' %>><%= link_to t(".how_it_works"), how_it_works_path %></li>
 	              <li <%= if_active 'about_us' %>><%=link_to t(".about_us"), about_us_path %></li>
 	              <li <%= if_active 'contact' %>> <%=link_to t(".contact"), contact_path%> </li>

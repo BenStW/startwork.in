@@ -24,8 +24,7 @@ class StaticPagesController < ApplicationController
   end
   def about_us
   end
-  def study
-  end  
+
   
   def facebook
     # the following is an error by purpose to test the sending of an error mail

@@ -15,9 +15,9 @@
 #  last_sign_in_ip        :string(255)
 #  created_at             :datetime        not null
 #  updated_at             :datetime        not null
-#  name                   :string(255)
-#  activated              :boolean
 #  referer                :string(255)
+#  first_name             :string(255)
+#  last_name              :string(255)
 #
 
 class User < ActiveRecord::Base
@@ -27,9 +27,10 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :activated, :referer, :control_group
-  
-  validates :name, presence: true, length: { maximum: 20 }, uniqueness: true
+  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me,  :referer
+
+  validates :email, presence: true, uniqueness: true  
+  validates :first_name, :last_name, presence: true, length: { maximum: 20 }#, uniqueness: true
   #validates :room, presence: true
   
   has_many :connections
@@ -46,10 +47,9 @@ class User < ActiveRecord::Base
   
   has_many :sent_invitations, :class_name => 'Invitation', :foreign_key => 'sender_id'
   
-  scope :not_activated, where(:activated => false)
-  scope :control_group, where(:control_group => true)  
-  
-  before_create :not_activate
+  def name
+    "#{first_name or ''} #{last_name or ''}"
+  end
   
   def start_connection
     if !open_connections?      
@@ -81,9 +81,7 @@ class User < ActiveRecord::Base
     duration
   end
   
-  def activated?
-    activated
-  end
+
   
   def save_referer(referer)
     self.referer = referer
@@ -93,6 +91,7 @@ class User < ActiveRecord::Base
   def all_events_of_this_week
     self.calendar_events.this_week
   end
+  
   
   
   def all_friends_events_of_this_week
@@ -114,19 +113,7 @@ class User < ActiveRecord::Base
     end
     return_events 
     
-  end
-  
-  
-  private
-  
-  def not_activate
-   self.activated = false
-   true
-  end
-  
-  def activate
-    self.activated = true
-  end  
+  end 
   
 
 end

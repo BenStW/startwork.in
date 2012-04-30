@@ -40,7 +40,8 @@ en:
     registrations:
       edit:
         edit: "Edit"
-        name: "Name"
+        first_name: "First Name"
+        last_name: "Last Name"        
         email: "Email"
         password: "Password"
         leave_blank: "leave blank if you don't want to change it"
@@ -52,7 +53,8 @@ en:
         are_you_sure: "Are you sure?"
         unhappy: "Unhappy? "       
       new:
-        name: "Name"
+        first_name: "First Name"
+        last_name: "Last Name"        
         email: "Email"
         password: "Password"
         password_confirmation: "Password confirmation"

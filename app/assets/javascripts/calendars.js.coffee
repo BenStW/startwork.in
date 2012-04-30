@@ -4,12 +4,7 @@
 
 $(document).ready( ->
   if $('#calendar').length>0
-    if $("#data").data("user_activated") == true
-      start_day = new Date()
-    else
-      start_day =  new Date(2012,3,19)
-   # console.log("start_day="+start_day)
-   # console.log("day= "+start_day.getDay())
+    start_day = new Date()
     base_url = $("#data").data("base_url")
     
     $("#single_calendar_button").click ->
@@ -45,6 +40,35 @@ $(document).ready( ->
         users = ($(x).data("user_id") for x in selected)
       users
 
+
+    eventToJqueryCalendarEvent = (event) ->
+      end_time = new Date(event.start_time)
+      console.log("end_time="+end_time)
+      end_time = end_time.setHours(event_start_time.getHours()+1)
+      console.log("end_time="+end_time)
+      alert "end_time="+end_time
+      jquery_calendar_event = 
+        id: event.id
+        start_time: event.start_time
+        end_time: end_time
+
+    eventsToJqueryCalendarEvents = (response) ->
+     #console.log("eventsToJqueryCalendarEvents")	
+     #events = (eventToJqueryCalendarEvent(e1) for e1 in response)
+     #console.log(events)
+     #jquery_events =
+     #   options: 
+     #     "showAsSeparateUser":true
+     #     "users":["ben1","ben2"]
+     #   events: events
+     #console.log(jquery_events)
+     #jquery_events
+      e = 
+           events:[
+             "id":10182
+             "start":"2012-04-28T08:00:00Z"
+             "end":"2012-04-28T09:00:00Z"]   
+
     $('#calendar').weekCalendar(
       date:  start_day,
       timeslotsPerHour: 1,
@@ -61,6 +85,15 @@ $(document).ready( ->
       data: (start, end, callback) ->
         url= base_url+'/get_events/'+getUsers()
         $.getJSON(url, start: null, end: null, (result) -> callback(result))
+    # data: (start, end, callback) ->
+    #   #start and end contain the start and end time of the calendar
+    #   url= base_url+'/own_events'
+    #   # returns a jQuery XMLHttpRequest (jqXHR) object
+    #   jqXHR = $.getJSON(url, (result) -> callback(result))
+    #   jqXHR.done(  (response) ->
+    #     console.log("jqXHR.done")
+    #     eventsToJqueryCalendarEvents(response))
+
       newEventText: "",
       buttons: false,
       timeFormat: "H",
