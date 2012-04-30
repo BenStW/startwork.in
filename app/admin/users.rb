@@ -1,7 +1,9 @@
 ActiveAdmin.register User do
   menu :priority => 1 #, :parent => "User Administration"
   
-  filter :name
+  filter :first_name
+  filter :last_name
+  
   filter :email
   filter :referer  
   scope :not_activated
@@ -34,12 +36,9 @@ ActiveAdmin.register User do
     
       f.inputs "User Details - not to be changed" do
         f.input :id
-        f.input :name
+        f.input :first_name
+        f.input :last_name        
         f.input :email
-      end
-      f.inputs "User Details - can be changed" do
-        f.input :activated
-        f.input :control_group        
       end
       f.buttons
     end
