@@ -6,9 +6,6 @@ ActiveAdmin.register User do
   
   filter :email
   filter :referer  
-  scope :not_activated
-  scope :control_group 
-  
   
   index do
       column :id
@@ -22,9 +19,7 @@ ActiveAdmin.register User do
       end
       column "created at", :created_at
       column "last sign in at", :last_sign_in_at
-      column "sign in count", :sign_in_count
-      column :activated
-      column :control_group      
+      column "sign in count", :sign_in_count  
       column "Action" do |user|
         link_to 'Impersonate', impersonate_admin_user_path(user)
       end      
@@ -45,7 +40,7 @@ ActiveAdmin.register User do
     
     show do 
       h3 user.name
-      attributes_table :id, :email, :activated 
+      attributes_table :id, :email
       h2 link_to "CalendarEvents", admin_calendar_events_path
     end
     
