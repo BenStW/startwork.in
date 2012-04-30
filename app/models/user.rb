@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
   attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me,  :referer
 
   validates :email, presence: true, uniqueness: true  
-  validates :first_name, :last_name, presence: true, length: { maximum: 20 }#, uniqueness: true
+  validates :first_name, :last_name, presence: true, length: { maximum: 30 }#, uniqueness: true
   #validates :room, presence: true
   
   has_many :connections
