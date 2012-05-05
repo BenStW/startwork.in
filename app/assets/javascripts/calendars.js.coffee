@@ -30,44 +30,91 @@ $(document).ready( ->
         $("#all_friends_button").removeClass("btn-primary")#
       $('#calendar').weekCalendar("refresh")
 
-    getUsers = ->
-      users = []
+    # returns all user Ids to be queried with the corresponding calendar events from database
+    selectedUserIDs = ->
+     user_ids = []
+     if not $("#single_calendar_button").hasClass("btn-primary")
+       friend_buttons = $("[name='friend_button']")
+       if not $("#all_friends_button").hasClass("btn-primary")
+          friend_buttons = friend_buttons.filter(".btn-primary")
+       user_ids = ($(x).data("user_id") for x in friend_buttons)
+     user_ids.push($("#data").data("my_user_id")) #always push my own user_id
+     user_ids 
+
+
+   # returns the user2column_hash with key=back_user_id and value the jquery calendar column_id, and
+   # returns the array user_name. The position in the array corresponds to the value of the user2column_hash.
+    selectedUsers =  -> 
+     user2column_hash = {}  
+     user_names = []
+     friend_buttons = $("[name='friend_button']").filter(".btn-primary")
+     i=1
+     for friend_button in friend_buttons
+       user_id = $(friend_button).data("user_id")
+       user_name = $(friend_button).html()
+       user_names.push(user_name)
+       user2column_hash[user_id] = i
+       i = i+1
+     [user2column_hash,user_names]
+
+
+    backendEventToFrontendEvent = (frontend_event,user2column_hash) ->
+      start_time = new Date(frontend_event.start_time)
+      end_time = new Date(frontend_event.start_time)
+      end_time.setHours(start_time.getHours()+1)
+      column_id = 0
       if $("#single_calendar_button").hasClass("btn-primary")
-      else if $("#all_friends_button").hasClass("btn-primary")
-        users = "all"	
-      else
-        selected = $("[name='friend_button']").filter(".btn-primary") 
-        users = ($(x).data("user_id") for x in selected)
-      users
-
-
-    eventToJqueryCalendarEvent = (event) ->
-      end_time = new Date(event.start_time)
-      console.log("end_time="+end_time)
-      end_time = end_time.setHours(event_start_time.getHours()+1)
-      console.log("end_time="+end_time)
-      alert "end_time="+end_time
+         column_id = 0
+      else 
+        if frontend_event.user_id==$("#data").data("my_user_id")
+          column_id = 0
+        else if $("#all_friends_button").hasClass("btn-primary")
+          column_id = 1
+        else
+          column_id = user2column_hash[frontend_event.user_id]
       jquery_calendar_event = 
-        id: event.id
-        start_time: event.start_time
-        end_time: end_time
+        id: frontend_event.id
+        start: start_time
+        end: end_time
+        userId: column_id 
+    
 
-    eventsToJqueryCalendarEvents = (response) ->
-     #console.log("eventsToJqueryCalendarEvents")	
-     #events = (eventToJqueryCalendarEvent(e1) for e1 in response)
-     #console.log(events)
-     #jquery_events =
-     #   options: 
-     #     "showAsSeparateUser":true
-     #     "users":["ben1","ben2"]
-     #   events: events
-     #console.log(jquery_events)
-     #jquery_events
-      e = 
-           events:[
-             "id":10182
-             "start":"2012-04-28T08:00:00Z"
-             "end":"2012-04-28T09:00:00Z"]   
+    getUser2Column_UserNames = () ->
+      user_names = []
+      user2column_hash = {}
+      if $("#all_friends_button").hasClass("btn-primary")
+         user_names = [$("#data").data("my_user_name"), "all"]
+      else if not $("#single_calendar_button").hasClass("btn-primary")
+         selected_users = selectedUsers() #returns selected_user_ids and selected_user_names, which correspond to each other in order
+         user2column_hash = selected_users[0]
+         selected_user_names = selected_users[1]
+         user_names = [$("#data").data("my_user_name")] #put own name at the beginning
+         user_names = user_names.concat(selected_user_names)
+      [user2column_hash,user_names]	
+
+    # The user has three possibilities to view calendar events:
+    # 1) showing only his calendar events --> $("#single_calendar_button") is pressed
+    # 2) showing his calendar events (colomn 0) and these of specific friends (column>0)
+    # 3) showing all calendar events of him (column 0) and all his friends (column 1)
+    # The columns are titled as follows:
+    # 1) no title
+    # 2) own name (column 0) and the specific names per column (column>1). These names must be get from page and 
+    #    not per calendar event from the backend, as not all friends have calendar events defined
+    # 3) own name (column 0) and "all" (column 1)
+    # It is important that the column name matches to calendar event. This is only in case 2) a challenge.
+    # Therefore user_names and user2column_hash is provided by one method
+    backendEventsToFrontendEvents = (frontend_events) ->
+      user2column_user_names = getUser2Column_UserNames()
+      user2column_hash = user2column_user_names[0] #user2column_hash is a hash to translate backend user_ids to frontend column_ids
+      user_names = user2column_user_names[1]
+
+      frontend_events = (backendEventToFrontendEvent(frontend_event,user2column_hash) for frontend_event in frontend_events)
+      calendar_events = 
+        options: 
+          "showAsSeparateUser":true
+          "users": user_names	
+        events: frontend_events
+
 
     $('#calendar').weekCalendar(
       date:  start_day,
@@ -82,18 +129,19 @@ $(document).ready( ->
       longDays: $.datepicker.regional['de'].dayNames, 
       shortMonths: $.datepicker.regional['de'].monthNamesShort, 
       longMonths: $.datepicker.regional['de'].monthNames,
-      data: (start, end, callback) ->
-        url= base_url+'/get_events/'+getUsers()
-        $.getJSON(url, start: null, end: null, (result) -> callback(result))
-    # data: (start, end, callback) ->
-    #   #start and end contain the start and end time of the calendar
-    #   url= base_url+'/own_events'
-    #   # returns a jQuery XMLHttpRequest (jqXHR) object
-    #   jqXHR = $.getJSON(url, (result) -> callback(result))
-    #   jqXHR.done(  (response) ->
-    #     console.log("jqXHR.done")
-    #     eventsToJqueryCalendarEvents(response))
 
+      # start and end contain the start and end time of the week calendar, but they are not needed in this application
+      # callback contains the callback function, which argument should contain the calendar events
+      data: (start, end, callback) ->
+        # under the following url the backend calendar events are fetched.
+        url = base_url+'/events/'+selectedUserIDs()
+        $.getJSON(url 
+            # the anonymous function to be called after the JSON-request
+            (frontend_events) -> 
+              frontend_events=backendEventsToFrontendEvents(frontend_events)            
+              callback(frontend_events)
+            )
+     
       newEventText: "",
       buttons: false,
       timeFormat: "H",

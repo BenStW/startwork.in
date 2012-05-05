@@ -21,54 +21,13 @@ class CalendarEventsController < ApplicationController
     render :json => "succussfully created event"
   end
   
-  def get_all_friends_events
-    current_user.all_friends_events_of_this_week
+  def events
+    user_ids = params[:user_ids].split(',')
+    #TODO: verify that current_user is allowed to access these calendar_events (this means, that they are his friends)
+    render :json => CalendarEvent.this_week.has_user_ids(user_ids).to_json #(:include => {:user =>{ :only=>:id, :methods => :name}})
   end
-  
-  def get_own_events
-     render :json => current_user.calendar_events.this_week.to_json  
-  end
-  
-  def get_selected_events
-    friends_ids = params[:user_ids].split(',') 
-  end
-  
 
-  def get_events
-    return_hash = Hash.new  
-    options_hash = Hash.new         
-    events_array = events_to_array(current_user.all_events_of_this_week, 0)
-
-    if params[:user_ids]
-      users_array = [current_user.name]
-      if params[:user_ids] == "all"
-        users_array << t("calendar_events.show.all")
-        events = current_user.all_friends_events_of_this_week
-        events_array += events_to_array(events,1) unless events.length==0
-      else
-        user_ids = params[:user_ids].split(',')
-        friends =[]
-        user_ids.each do |user_id|
-          friends << current_user.friendships.where(:friend_id => user_id.to_i).first.friend
-        end
-        friends.each_with_index do |friend,index|
-           users_array.push(friend.name)
-           events = friend.all_events_of_this_week
-           events_array += events_to_array(events,index+1) unless events.length==0
-         end
-      end
-      options_hash[:users] = users_array
-    else
-      options_hash[:showAsSeparateUser] = false
-      options_hash[:users] = []    
-    end
-
-    return_hash[:options] = options_hash
-    return_hash[:events] = events_array
-    render :json =>  return_hash.to_json  
-  end
-  
-  def remove_event
+   def remove_event
    calendar_event = current_user.calendar_events.find_by_id(params[:event])
    work_session = calendar_event.work_session
    calendar_event.delete
@@ -82,21 +41,10 @@ class CalendarEventsController < ApplicationController
     
     render :json => "succussfully removed time"
   end    
+
+
   
   private 
-  def events_to_array(events, user_id)
-    events_array = Array.new
-    for event in events  
-      e = Hash.new
-      e[:id] = event.id 
-      e[:start] = event.start_time
-      e[:end] = event.start_time+1.hour
-      e[:userId] = user_id
-      events_array.push(e)      
-    end
-    events_array
-  end  
-  
   def split_to_hourly_start_times(start_time, end_time)
     start_times = []
     if start_time>end_time

@@ -13,9 +13,8 @@ StartWork::Application.routes.draw do
 
   match 'calendar' => 'calendar_events#show', :as => :calendar
   match 'calendar/new_event' => 'calendar_events#new_event'
-  match 'calendar/get_events/(:user_ids)' => 'calendar_events#get_events'
-  
-  match 'calendar/own_events' => 'calendar_events#get_own_events'  
+  match 'calendar/events/(:user_ids)' => 'calendar_events#events'  
+
   
   match 'calendar/remove_event' => 'calendar_events#remove_event'
 

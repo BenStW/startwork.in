@@ -92,28 +92,7 @@ class User < ActiveRecord::Base
     self.calendar_events.this_week
   end
   
-  
-  
-  def all_friends_events_of_this_week
-    friend_ids = self.friendships.map(&:friend).map(&:id)
-   events = CalendarEvent.this_week.has_user_ids(friend_ids).order_by_start_time
-    if events.empty?
-        return []
-    end
-    return_events = [events[0]]
-    events.each do |next_event|
-      last_event = return_events.last
-      if next_event.start_time==last_event.start_time
-        next
-      elsif next_event.start_time < last_event.start_time
-        raise "#{next_event.start_time} is lower then #{last_event.start_time}"
-      else
-        return_events << next_event
-      end
-    end
-    return_events 
-    
-  end 
+ 
   
 
 end
