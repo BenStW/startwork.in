@@ -1,7 +1,7 @@
 de:
     invitations:
         new:
-            title: "Lade deine Freunde zur Teilnahme an der Studie ein"
+            title: "Lade deine Freunde ein"
             description: "Es macht mehr Spaß, wenn man mit seinen Freunden zusammen lernt. "
             friends_email: "Gib einfach die Emailadresse deines Freundes ein:"
             invite: "Einladen"

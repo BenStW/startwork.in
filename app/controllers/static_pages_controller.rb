@@ -4,8 +4,8 @@ class StaticPagesController < ApplicationController
   def home  
     if current_user
       next_calendar_event = current_user.calendar_events.next
-      if next_calendar_event.count>0
-        @next_work_session = next_calendar_event[0].work_session
+      if next_calendar_event
+        @next_work_session = next_calendar_event.work_session
         users = @next_work_session.users - [current_user]
         @user_names = users.map(&:name).join(", ")
         if @user_names.blank?
@@ -30,10 +30,6 @@ class StaticPagesController < ApplicationController
     # the following is an error by purpose to test the sending of an error mail
     if current_user1
     end
-  end
-  
-  def interested_user
-    flash[:notice] = "The user was successfully created"
   end
 
   

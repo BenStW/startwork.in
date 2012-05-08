@@ -8,5 +8,4 @@ de:
       other_users: "Andere Benutzer"
       added_as_friend: "%{name} wurde als Work-Buddy hinzugefügt."
       removed_as_friend: "%{name} wurde als Work-Buddy entfernt."      
-      friend_limit: "Derzeit kannst du maximal %{limit} Work-Buddies haben."
       unable_to_add_friend: "%{name} konnte als Work-Buddy nicht hinzugefügt werden."

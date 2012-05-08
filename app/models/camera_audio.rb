@@ -12,6 +12,7 @@
 
 class CameraAudio < ActiveRecord::Base
   belongs_to :user
+  validates :user, :presence => true
   
   scope :problems,( lambda do 
     where("video_success = false or audio_success = false")

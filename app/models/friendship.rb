@@ -13,18 +13,12 @@ class Friendship < ActiveRecord::Base
   belongs_to :user
   belongs_to :friend, :class_name => "User"
   validates :user, :friend, presence: true
+
   
-  after_create :update_work_sessions_after_create
-  after_destroy :update_work_sessions_after_destroy
-  
-  def update_work_sessions_after_create
-    WorkSession.optimize_single_work_session(user)
-   # WorkSession.optimize_single_work_session(friend)
+  def self.create_reciproke_friendship(user1,user2)
+    user1.friendships.create(:friend_id => user2.id)
+    user1.inverse_friendships.create(:user_id => user2.id)
   end
-  
-  def update_work_sessions_after_destroy
-    WorkSession.split_work_session_when_not_friend(user)
-    #WorkSession.split_work_session_when_not_friend(friend)
-  end
+
   
 end

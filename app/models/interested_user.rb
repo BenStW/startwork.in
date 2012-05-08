@@ -9,9 +9,11 @@
 #
 
 class InterestedUser < ActiveRecord::Base
-  validates :email, :presence => true
-  validates_format_of :email,
-    :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
+  # model InterestedUser is not needed anymore, but should be kept to hold the data in the database
+  
+# validates :email, :presence => true
+# validates_format_of :email,
+#   :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
   
   
 end

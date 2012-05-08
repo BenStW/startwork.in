@@ -6,8 +6,10 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     super
     if current_user
-      current_user.build_room
-      current_user.save_referer(session[:referer])
+      room = current_user.build_room
+      room.populate_tokbox_session 
+      current_user.referer = session[:referer]
+      current_user.save
     end
   end
   

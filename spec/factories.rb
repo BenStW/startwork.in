@@ -15,18 +15,21 @@ FactoryGirl.define do
         own_start_time = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,10)+1.day
         own_calendar_event = 
           FactoryGirl.create(:calendar_event, :user => user, :start_time => own_start_time)
+        own_work_session = own_calendar_event.work_session
        
         friend1 = FactoryGirl.create(:user)
         friendship1 = FactoryGirl.create(:friendship, :user => user, :friend => friend1)
-        friend1_start_time = own_start_time +1.hours
+        inv_friendship1 = FactoryGirl.create(:friendship, :user => friend1, :friend => user)        
+        friend1_start_time = own_start_time
         friend1_calendar_event = 
-          FactoryGirl.create(:calendar_event, :user => friend1, :start_time => friend1_start_time)
+          FactoryGirl.create(:calendar_event, :user => friend1, :start_time => friend1_start_time, :work_session => own_work_session)
 
         friend2 = FactoryGirl.create(:user)
         friendship2 = FactoryGirl.create(:friendship, :user => user, :friend => friend2)
-        friend2_start_time = own_start_time +1.hours
+        inv_friendship2 = FactoryGirl.create(:friendship, :user => friend2, :friend => user)                
+        friend2_start_time = own_start_time
         friend2_calendar_event = 
-          FactoryGirl.create(:calendar_event, :user => friend2, :start_time => friend2_start_time)
+          FactoryGirl.create(:calendar_event, :user => friend2, :start_time => friend2_start_time, :work_session => own_work_session)
 
       end
     end
@@ -34,11 +37,14 @@ FactoryGirl.define do
 
   
   factory :calendar_event do
-    start_time DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,10)+1.day
     user
+    start_time DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,10)+1.day
+    work_session { |ce| FactoryGirl.create(:work_session, :start_time => ce.start_time, :room => ce.user.room )}
   end
 
   factory :friendship do
+    user
+    association :friend, factory: :user
   end
   
   factory :work_session do
@@ -46,9 +52,22 @@ FactoryGirl.define do
     room
   end
   
- factory :room do
-   tokbox_session_id "factory_tokbox_session_id"
-  # user
- end
+  factory :connection do 
+    user
+    start_time DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,DateTime.current.hour)
+  end
+  
+  factory :room do
+    tokbox_session_id "factory_tokbox_session_id"
+  end
+  
+  factory :invitation do
+    association :sender, factory: :user
+    recipient_mail "recipient@mail.com"
+  end
+  
+  factory :camera_audio do
+    user
+  end
 
 end

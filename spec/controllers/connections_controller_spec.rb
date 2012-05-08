@@ -1,11 +1,15 @@
 require 'spec_helper'
 
 describe ConnectionsController do
-  render_views  
+ # render_views  
 
   before(:each) do
     @user = FactoryGirl.create(:user)
     sign_in @user
+  end
+  
+  context "start" do
+    
   end
 
   it "should start connection" do

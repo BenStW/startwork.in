@@ -17,16 +17,16 @@ class TokboxApi
   
   # this method is called when creating a room
   def generate_session(remote_addr = "0.0.0.0")
-    #logger.info "Logger: generate tokbox_session for IP #{remote_addr}"
-    puts "puts: generates tokbox_session for IP #{remote_addr} " #" with P2P preference "
+   # logger.info "generates tokbox_session for IP #{remote_addr} " #" with P2P preference "
    # session_properties = {OpenTok::SessionPropertyConstants::P2P_PREFERENCE => "enabled"}
     @tokbox_api_obj.create_session remote_addr  #, session_properties
   end
   
-  # for chat
-  def generate_token(tokbox_session_id, connection_data)
-    if(tokbox_session_id.nil? || connection_data[:user_id].nil? || connection_data[:user_name].nil?)
-      raise "To generate a tokbox token the session must exist and the connection data must contain the user_id and user_name"
+  # the identification for each user within the chat
+  def generate_token(tokbox_session_id, user)
+    connection_data = { :user_id => "#{user.id}", :user_name => "#{user.name}" } 
+    if(tokbox_session_id.nil? or user.nil?)
+      raise "To generate a tokbox token the session and the user must exist"
     end
     @tokbox_api_obj.generate_token session_id: tokbox_session_id, connection_data: connection_data.to_json
   end

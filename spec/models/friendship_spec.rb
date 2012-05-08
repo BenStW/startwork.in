@@ -12,26 +12,50 @@
 require 'spec_helper'
 
 describe Friendship do
+  
  
-  before(:each) do
-    user_ben = FactoryGirl.create(:user)
-    user_steffi = FactoryGirl.create(:user)
-    @friendship = user_ben.friendships.build(:friend_id => user_steffi.id)
-  end  
+  
+  context "attributes" do
     
-
-  it "is valid with valid attributes" do
-    @friendship.should be_valid
+    before(:each) { @friendship = FactoryGirl.build(:friendship)}
+    
+    it "should be valid with attributes from factory" do
+       @friendship.should be_valid
+    end
+    
+    it "should not be valid without an user" do
+      @friendship.user = nil
+      @friendship.should_not be_valid
+    end
+    
+    it "should not be valid without a friend" do
+      @friendship.friend = nil
+      @friendship.should_not be_valid
+    end
   end
   
-  it "should not be valid without user" do
-    @friendship.user_id = nil
-    @friendship.should_not be_valid
+  context "associations" do 
+    
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+      @friend = FactoryGirl.create(:user)    
+      @friendship = @user.friendships.create(:friend => @friend)
+    end
+    
+    it "makes a friend accessible from a user" do
+      @user.friends.first.should eq(@friend) 
+    end
+    
+    it "does not make the user accessible from a friend" do
+      @friend.friends.count.should eq(0)
+    end   
+    
+    it "needs an inverse friendship to make the user accessible from a friend" do 
+      @inverse_friendship = @user.inverse_friendships.create(:user => @friend)
+      @friend.friends.first.should eq(@user) 
+    end
+    
   end
-  
-  it "should not be valid without friend" do
-    @friendship.friend_id = nil
-    @friendship.should_not be_valid
-  end  
-  
 end
+
+

@@ -26,15 +26,17 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  # Setup accessible (or protected) attributes for your model
+  # Specifies a white list of model attributes that can be set via mass-assignment.
   attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me,  :referer
 
   validates :email, presence: true, uniqueness: true  
   validates :first_name, :last_name, presence: true, length: { maximum: 30 }#, uniqueness: true
+  
+  # each user owns a video room. 
+  # The room is created by the registrations_controller, when the user is created.
   #validates :room, presence: true
   
   has_many :connections
- # has_many :work_session_times, :dependent => :destroy
   has_many :calendar_events, :dependent => :destroy
   
   has_one :room
@@ -81,18 +83,6 @@ class User < ActiveRecord::Base
     duration
   end
   
-
-  
-  def save_referer(referer)
-    self.referer = referer
-    self.save
-  end
-  
-  def all_events_of_this_week
-    self.calendar_events.this_week
-  end
-  
- 
   
 
 end
