@@ -31,7 +31,8 @@ class CalendarEvent < ActiveRecord::Base
   end
   
   def self.next
-    where("calendar_events.start_time >= (?)", DateTime.current).
+    # end_time (=start_time+1.hour) should be less then current time
+    where("calendar_events.start_time >= (?)", DateTime.current-1.hour).
     order("calendar_events.start_time").limit(1)[0]   
   end
   

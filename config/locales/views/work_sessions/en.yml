@@ -3,3 +3,5 @@ en:
     show:
       to_speak_hold_button: "To speak hold button"
       wrong_user: "Oops, your user is not foreseen for this work session!"
+      too_early: "Please log into the work session maximum 5 minutes before the start."
+      too_late: "This work session is over."

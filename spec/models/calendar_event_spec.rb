@@ -79,6 +79,20 @@ describe CalendarEvent do
       CalendarEvent.next.should eq(event_at_9am)
     end
     
+    it "selects next event starting 5 minutes after now" do
+      tomorrow_8am = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,8)+1.day
+      DateTime.stub(:current).and_return(tomorrow_8am+5.minutes)
+      event_at_8am = FactoryGirl.create(:calendar_event,:start_time=>tomorrow_8am) 
+      CalendarEvent.next.should eq(event_at_8am)
+    end
+    
+    it "does not select next event starting 65 minutes ago" do
+      tomorrow_8am = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,8)+1.day
+      DateTime.stub(:current).and_return(tomorrow_8am+65.minutes)
+      event_at_8am = FactoryGirl.create(:calendar_event,:start_time=>tomorrow_8am) 
+      CalendarEvent.next.start_time.should > tomorrow_8am
+    end     
+    
     it "selects events with foreigners for a given user" do
       new_user = FactoryGirl.create(:user)
       #create a calendar event for the new_user with the same work_session

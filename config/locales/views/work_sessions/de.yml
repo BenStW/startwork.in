@@ -3,3 +3,5 @@ de:
     show:
       to_speak_hold_button: "Zum Sprechen den Knopf gedrückt halten"
       wrong_user: "Oops, dein Benutzer ist fuer diese WorkSession nicht vorgesehen!"
+      too_early: "Bitte logge dich erst frühestens fünf Minuten vor Beginn der WorkSession ein."     
+      too_late: "Diese WorkSession ist bereits beendet."       

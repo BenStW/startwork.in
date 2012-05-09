@@ -131,7 +131,17 @@ $(document).ready ->
           replaceElementId = "stream_box_tmp_"+user_id
           session.subscribe stream, replaceElementId, windowProps
         
-  
+    $("#test_button").click (event) ->
+      user_ids = [1,2]
+      data = 
+        user_ids: user_ids
+      console.log "connection created. Post to /connection/start: user_ids = "+user_ids
+      $.ajax
+         url: '/connections/start',
+         data: data,
+         type: 'POST',
+         success: (data) ->
+             console.log data       
 
     postConnectionStart = (user_ids) ->   
       data = 

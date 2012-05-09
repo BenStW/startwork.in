@@ -14,8 +14,6 @@ StartWork::Application.routes.draw do
   match 'calendar' => 'calendar_events#show', :as => :calendar
   match 'calendar/new_event' => 'calendar_events#new_event'
   match 'calendar/events/(:user_ids)' => 'calendar_events#events'  
-
-  
   match 'calendar/remove_event' => 'calendar_events#remove_event'
 
 
@@ -30,8 +28,8 @@ StartWork::Application.routes.draw do
      
      match 'facebook' => 'static_pages#facebook', :as => :facebook        
 
-     match 'interested_user'  => 'interested_user#show',:via => :get, :as => :show_interested_user   
-     match 'interested_user' => 'interested_user#create',:via => :post, :as => :create_interested_user   
+   #  match 'interested_user'  => 'interested_user#show',:via => :get, :as => :show_interested_user   
+  #   match 'interested_user' => 'interested_user#create',:via => :post, :as => :create_interested_user   
        
     
      #devise_for :users
@@ -41,11 +39,9 @@ StartWork::Application.routes.draw do
     
      resources :groups
      match 'work_session/:id' => 'work_sessions#show', :as => :show_work_session
-     match 'work_session/test/:username' => 'work_sessions#test', :as => :test_work_session        
-     
     
-     post '/connections/start', :to => 'connections#start'  
-     post '/connections/end', :to => 'connections#end'
+     post 'connections/start', :to => 'connections#start'  
+     post 'connections/end', :to => 'connections#end'
     
      match 'statistics' => 'statistics#show', :as => :statistics
  

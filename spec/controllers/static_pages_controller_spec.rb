@@ -37,6 +37,25 @@ describe StaticPagesController do
       assigns(:next_work_session).should eq(calendar_event.work_session)      
     end
     
+    it "should assign the next work session when it has started 10 minutes ago" do
+      tomorrow_10_10am = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,10)+1.day+10.minutes
+      DateTime.stub(:current).and_return(tomorrow_10_10am) 
+      sign_in @user
+      calendar_event = Factory.create(:calendar_event,:user=>@user)
+      get :home
+      assigns(:next_work_session).should eq(calendar_event.work_session)      
+    end
+    
+    it "should not assign the next work session when it has started 65 minutes ago" do
+      tomorrow_11_05am = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,10)+1.day+65.minutes
+      DateTime.stub(:current).and_return(tomorrow_11_05am) 
+      calendar_event = Factory.create(:calendar_event,:user=>@user)
+      get :home
+      assigns(:next_work_session).should eq(nil)      
+      
+    end
+      
+    
     it "should assign room host" do
       sign_in @user
       calendar_event = Factory.create(:calendar_event,:user=>@user)

@@ -74,11 +74,15 @@ Capybara::Node::Element.class_eval do
   end 
 end
 
+def log_out
+  page.driver.delete destroy_user_session_path
+end
+
 def sign_in(user)
   visit root_path
   click_link "Sign in"
   fill_in "user_email", :with => user.email
-  fill_in "user_password", :with => user.password #"secret"  
+  fill_in "user_password", :with => "secret" #user.password 
   within("form") do
      click_on "Sign in"
   end
@@ -86,7 +90,6 @@ end
 
 def sign_up(name)
     user = FactoryGirl.create(:user, :name => name)
-    user.activated=true
     user.save
     sign_in user
 end
