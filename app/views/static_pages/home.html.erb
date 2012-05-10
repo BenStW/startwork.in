@@ -40,7 +40,8 @@
 
 <% if !@next_work_session.nil?%>
   <div class="span3">
-	<div class="join_work_session btn" style="width:150px;height:50px"> <%= t(".next_room_html", :host=>@room_host)%></div>
+	<div class="join_work_session btn" style="width:150px;height:50px" url_check=<%=work_session_can_we_start_url%> url=<%= work_session_url%>
+		  > <%= t(".next_room_html", :host=>@room_host)%></div>
   </div> <!-- span3 -->
 
 <% end %>
