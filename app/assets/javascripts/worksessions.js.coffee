@@ -14,16 +14,21 @@ $(document).ready ->
 
 
 
-
   $('.join_work_session').click (event)-> 
-    url = event.target
-    doc_width=$(document).width()
-    window_width = width + 2*padding
-    popup_start = doc_width - width
-    window.open(url,
-       'StartWork',
-       'width='+window_width+',location=no,menubar=no,toolbar=no,scrollbars=yes,resizable=yes,left='+popup_start) 
-    false
+    event.preventDefault()
+    $.ajax
+       url: '/work_session/can_we_start',
+       type: 'GET',
+       success: (data) ->
+         if data
+           doc_width=$(document).width()
+           window_width = width + 2*padding
+           popup_start = doc_width - width
+           window.open('/work_session',
+              'StartWork',
+              'width='+window_width+',location=no,menubar=no,toolbar=no,scrollbars=yes,resizable=yes,left='+popup_start)
+         else
+           alert "Du kannst erst 5 Minuten vor Beginn der WorkSession beitreten."
 
   
   # only run code when videobox is present
