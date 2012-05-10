@@ -5,9 +5,9 @@ Given /^the following users with calendar events$/ do |table|
     start_time = tomorrow + hash[:start_time].to_i.hours
     end_time = tomorrow + hash[:end_time].to_i.hours  
     user = FactoryGirl.create(:user, :first_name => hash[:name]) unless user = User.find_by_first_name(hash[:name])  
+    log_out       
     sign_in user
     visit calendar_new_event_path(:start_time=>start_time, :end_time=>end_time)
-    log_out   
   end
 end
 
@@ -16,10 +16,10 @@ Given /^the following friendships$/ do |table|
   table.hashes.each do |hash|
     user1 = FactoryGirl.create(:user, :first_name => hash[:user1]) unless user1 = User.find_by_first_name(hash[:user1])  
     user2 = FactoryGirl.create(:user, :first_name => hash[:user2]) unless user2 = User.find_by_first_name(hash[:user2]) 
-    sign_in user1 
+    log_out  
+    sign_in user1      
     visit friendships_url
     find('#'+user2.first_name).click_link("Add as work-buddy")
-    log_out   
   end
 end
 
@@ -27,10 +27,11 @@ When /^the following friendships are removed$/ do |table|
   table.hashes.each do |hash|
     user1 = User.find_by_first_name(hash[:user1])  
     user2 = User.find_by_first_name(hash[:user2])
-    sign_in user1 
+    log_out
+    sign_in user1     
     visit friendships_url
     find('#'+user2.first_name).click_link("Remove as work-buddy")
-    log_out
+
   end
 end
 

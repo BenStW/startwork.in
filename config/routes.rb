@@ -37,7 +37,7 @@ StartWork::Application.routes.draw do
      #devise_for :users, :controllers => {:sessions => "devise_sessions"}
      
     
-     resources :groups
+     match 'work_session/next' => 'work_sessions#next', :as => :next_work_session   
      match 'work_session/:id' => 'work_sessions#show', :as => :show_work_session
     
      post 'connections/start', :to => 'connections#start'  

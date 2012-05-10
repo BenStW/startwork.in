@@ -5,3 +5,4 @@ en:
       wrong_user: "Oops, your user is not foreseen for this work session!"
       too_early: "Please log into the work session maximum 5 minutes before the start."
       too_late: "This work session is over."
+      no_work_session: "No work session defined. Please define in your calendar new work sessions"

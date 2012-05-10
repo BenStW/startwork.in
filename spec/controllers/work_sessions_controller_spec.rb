@@ -64,5 +64,22 @@ describe WorkSessionsController do
     end
       
   end 
+  
+  context "next" do
+    before(:each) do 
+      @user = FactoryGirl.create(:user_with_two_friends_and_same_events)
+      @work_session = @user.calendar_events[0].work_session
+      sign_in @user   
+      tomorrow_10am = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,10)+1.day
+      DateTime.stub(:current).and_return(tomorrow_10am)               
+    end  
+    
+    it "should redirect to 'show' with the next work_session" do
+      get :next
+      work_session = @user.calendar_events.next.work_session
+      response.should redirect_to(show_work_session_url(work_session))
+    end
+
+  end
 
 end

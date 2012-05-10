@@ -9,7 +9,7 @@ class WorkSessionsController < ApplicationController
       render :text =>  t("work_sessions.show.wrong_user")
     elsif min_diff < -5
       render :text => t("work_sessions.show.too_early")
-    elsif min_diff>60
+    elsif min_diff>55
       render :text => t("work_sessions.show.too_late")      
     else     
        @tokbox_session_id = work_session.room.tokbox_session_id
@@ -19,6 +19,15 @@ class WorkSessionsController < ApplicationController
        @tokbox_token = TokboxApi.instance.generate_token @tokbox_session_id, current_user
        @tokbox_api_key = TokboxApi.instance.api_key
      end
+  end
+  
+  def next
+    work_session  = current_user.calendar_events.next.work_session
+    if work_session
+      redirect_to show_work_session_url work_session
+    else
+      render :text => t("work_sessions.show.no_work_session")
+    end
   end
 
 end

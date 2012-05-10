@@ -15,7 +15,7 @@ $(document).ready ->
 
 
 
-  $('.connect').click (event)-> 
+  $('.join_work_session').click (event)-> 
     url = event.target
     doc_width=$(document).width()
     window_width = width + 2*padding
