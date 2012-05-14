@@ -52,6 +52,7 @@ class WorkSession < ActiveRecord::Base
   
   
   def self.events_count_with_user_ids(user_ids)
+    #FIXME: add this_week
     WorkSession.find_by_sql(
       ["select distinct ce_count_table.work_session_id, start_time,events_count from
       (SELECT work_session_id,count(work_session_id) as events_count from calendar_events
@@ -62,14 +63,16 @@ class WorkSession < ActiveRecord::Base
   end  
   
   def self.single_work_sessions_with_user_id(user_id)
+    c = DateTime.current
+    today = DateTime.new(c.year,c.month,c.day)
     WorkSession.find_by_sql(
       ["select distinct ce_count_table.work_session_id, start_time from
       (SELECT work_session_id,count(work_session_id) as events_count from calendar_events
       GROUP BY work_session_id) as ce_count_table left join
       calendar_events
       on ce_count_table.work_session_id=calendar_events.work_session_id
-      where events_count=1 and user_id in (?) 
-      order by start_time ASC", user_id])
+      where events_count=1 and user_id in (?) and start_time >= ?
+      order by start_time ASC", user_id, today])
   end  
   
  # def self.events_count_with_user_ids(count,user_ids)

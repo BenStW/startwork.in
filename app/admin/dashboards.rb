@@ -7,7 +7,7 @@ ActiveAdmin::Dashboards.build do
       column :email      
       column :created_at
     end
-    strong { link_to "View All Users for study", admin_users_path }
+    strong { link_to "View All Users", admin_users_path }
   end
   
 
@@ -18,7 +18,7 @@ ActiveAdmin::Dashboards.build do
       column :email      
       column :created_at
     end
-    strong { link_to "View All Users for beta testing", admin_interested_users_path }
+    strong { link_to "View the collected email addresses during the study", admin_interested_users_path }
   end
   
   section "Recent invitations for the study" do
