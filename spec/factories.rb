@@ -69,5 +69,12 @@ FactoryGirl.define do
   factory :camera_audio do
     user
   end
+  
+  factory :calendar_invitation do
+    association :sender, factory: :user
+  end
+  
+  factory :calendar_invitation_mailer do 
+  end
 
 end

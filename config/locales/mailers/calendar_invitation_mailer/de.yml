@@ -1,0 +1,4 @@
+de:
+    mailers:
+        calendar_invitation_mailer:
+            subject: "Einladung von #{@sender.name} für StartWork"

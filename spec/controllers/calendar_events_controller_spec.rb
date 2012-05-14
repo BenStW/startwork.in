@@ -106,6 +106,12 @@ describe CalendarEventsController do
      response.should be_success 
    end   
    
+   it "should render nothing when no user_ids given" do
+     get :events
+     response.body.should eq(" ") 
+   end
+   
+   
    it "should show my calendar event" do   
      data = get :events, :user_ids => @user.id
      body = data.body
@@ -125,7 +131,8 @@ describe CalendarEventsController do
    end
    
    it "should show the calendar events of my specified friends" do   
-     friend_ids = @user.friendships.map(&:friend).map(&:id).join(",")
+  #   friend_ids = @user.friendships.map(&:friend).map(&:id).join(",")
+     friend_ids = @user.friends.map(&:id).join(",")
      user_ids = @user.id.to_s+","+friend_ids
      data = get :events, :user_ids => user_ids
      body = data.body
@@ -135,6 +142,51 @@ describe CalendarEventsController do
    end    
        
  end
+ 
+ 
+ context "send_invitation" do
+   
+   before(:each) do
+      @user = FactoryGirl.create(:user_with_two_friends_and_same_events)
+      @friend_ids = @user.friends.map(&:id).join(",")
+      sign_in @user
+      single_ws_start_time = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,10)+2.days   
+      calendar_event = FactoryGirl.create(:calendar_event, :user=>@user, :start_time=>single_ws_start_time) 
+      WorkSession.stub(:single_work_sessions_with_user_id).and_return([calendar_event.work_session])      
+   end
+   
+   it "should render nothing when no user_ids given" do
+     get :send_invitation
+     response.should be_success
+     response.body.should eq(" ") 
+   end
+   
+   it "should create a CalendarInvitation when user is given" do     
+     get :send_invitation, :user_ids=>@friend_ids
+     CalendarInvitation.all.count.should eq(1)
+   end
+   
+   it "should not create a CalendarInvitation when no user is given" do     
+     get :send_invitation
+     CalendarInvitation.all.count.should eq(0)
+   end
+   
+   it "should find the single worksessions of the user" do
+     WorkSession.should_receive(:single_work_sessions_with_user_id).with(@user.id)
+     get :send_invitation, :user_ids=>@friend_ids          
+   end
+   
+   it "should create and send a CalendarInvitationMailer for each selected friend" do
+     email = mock CalendarInvitationMailer
+     CalendarInvitationMailer.stub(:calendar_invitation_email).and_return(email)
+     email.stub(:deliver)
+     email.should_receive(:deliver)     
+     CalendarInvitationMailer.should_receive(:calendar_invitation_email).exactly(2).times 
+     get :send_invitation, :user_ids=>@friend_ids
+   end
+  
+ end
+ 
  
   context "remove_event" do
     

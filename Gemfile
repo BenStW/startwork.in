@@ -24,7 +24,7 @@ end
 gem 'newrelic_rpm'
 
 group :development do
-  gem "rails-erd"
+  gem "rails-erd"  #entity relationship diagram
 end
 
 

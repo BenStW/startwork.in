@@ -11,5 +11,7 @@ de:
             start_time: "Beginn"
             room_name: "Raum der Arbeitsgruppe"
             work_buddies: "Work-buddies"
-            maintain_friends: "Work-buddies hinzufügen"        
+            maintain_friends: "Work-buddies hinzufügen"  
+            show_calendar_events: "Zeige die Zeiten deiner WorkBuddies an:"   
+            send_invitation: "Einladung senden"                 
             

@@ -11,4 +11,6 @@ en:
             start_time: "start time"
             room_name: "room"
             work_buddies: "work buddies" 
-            maintain_friends: "Add work buddies"                               
+            maintain_friends: "Add work buddies"  
+            show_calendar_events: "Show the working times of your WorkBuddies:"    
+            send_invitation: "Send invitation"

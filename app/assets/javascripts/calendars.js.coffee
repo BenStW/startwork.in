@@ -6,6 +6,22 @@ $(document).ready( ->
   if $('#calendar').length>0
     start_day = new Date()
     base_url = $("#data").data("base_url")
+
+    $("#send_invitation").click ->
+       if selectedUserIDs().length<1
+          $('#no_users_selected_modal').modal("show")
+       else
+         $('#send_invitation_modal').modal("show")
+
+    $("#send_invitation_confirmation").click ->
+       url = $(this).attr("url") + "/" + selectedUserIDs()
+       request = $.ajax
+          url: url
+          type: 'GET'
+          success: (data) -> 
+             console.log data
+          #  html = "<div class='alert alert-success'>"+data+"</div>"
+          #  $(".container").after(html)
     
     $("#single_calendar_button").click ->
       $(this).addClass("btn-primary")
@@ -38,7 +54,6 @@ $(document).ready( ->
        if not $("#all_friends_button").hasClass("btn-primary")
           friend_buttons = friend_buttons.filter(".btn-primary")
        user_ids = ($(x).data("user_id") for x in friend_buttons)
-     user_ids.push($("#data").data("my_user_id")) #always push my own user_id
      user_ids 
 
 
@@ -134,7 +149,9 @@ $(document).ready( ->
       # callback contains the callback function, which argument should contain the calendar events
       data: (start, end, callback) ->
         # under the following url the backend calendar events are fetched.
-        url = base_url+'/events/'+selectedUserIDs()
+        user_ids =  selectedUserIDs()
+        user_ids.push($("#data").data("my_user_id")) #always push my own user_id
+        url = base_url+'/events/'+user_ids
         $.getJSON(url 
             # the anonymous function to be called after the JSON-request
             (frontend_events) -> 

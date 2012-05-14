@@ -42,19 +42,47 @@ class WorkSession < ActiveRecord::Base
     order("count(calendar_events.work_session_id)")
   end
   
+  #Don't combine this query with has_user_ids, because it breaks the query
   def self.events_count(count)
     joins(:calendar_events).
     select("work_sessions.id, work_sessions.start_time").
     group("work_sessions.id, work_sessions.start_time").  
     having("count(calendar_events.work_session_id) = ?",count)
   end
-   
-  def self.events_count_x(count)
-     joins(:calendar_events).
-     select("work_sessions.id").
-     group("work_sessions.id"). 
-     having("count(calendar_events.work_session_id) = ?",count) 
-   end 
+  
+  
+  def self.events_count_with_user_ids(user_ids)
+    WorkSession.find_by_sql(
+      ["select distinct ce_count_table.work_session_id, start_time,events_count from
+      (SELECT work_session_id,count(work_session_id) as events_count from calendar_events
+      GROUP BY work_session_id) as ce_count_table left join
+      calendar_events
+      on ce_count_table.work_session_id=calendar_events.work_session_id
+      where user_id in (?)", user_ids])
+  end  
+  
+  def self.single_work_sessions_with_user_id(user_id)
+    WorkSession.find_by_sql(
+      ["select distinct ce_count_table.work_session_id, start_time from
+      (SELECT work_session_id,count(work_session_id) as events_count from calendar_events
+      GROUP BY work_session_id) as ce_count_table left join
+      calendar_events
+      on ce_count_table.work_session_id=calendar_events.work_session_id
+      where events_count=1 and user_id in (?) 
+      order by start_time ASC", user_id])
+  end  
+  
+ # def self.events_count_with_user_ids(count,user_ids)
+ #   WorkSession.find_by_sql(
+ #     ["select distinct ce_count_table.work_session_id, start_time,events_count from
+ #     (SELECT work_session_id,count(work_session_id) as events_count from calendar_events
+ #     GROUP BY work_session_id) as ce_count_table left join
+ #     calendar_events
+ #     on ce_count_table.work_session_id=calendar_events.work_session_id
+ #     where events_count = ?
+ #     and user_id in (?)", count, user_ids])
+ # end
+ #  
  
    def self.split_work_session_when_not_friend(user)
      events_with_foreigners = CalendarEvent.this_week.with_foreigners(user)
@@ -83,6 +111,7 @@ class WorkSession < ActiveRecord::Base
    end 
    
    def self.optimize_single_work_sessions(user)
+     #FIXME: not only single work sessions are found
      single_work_sessions = WorkSession.this_week.has_user_ids(user.id).events_count(1)
      single_work_sessions.each do |single_work_session|
        single_work_session.optimize_single_work_session(user)

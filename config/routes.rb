@@ -15,6 +15,7 @@ StartWork::Application.routes.draw do
   match 'calendar/new_event' => 'calendar_events#new_event'
   match 'calendar/events/(:user_ids)' => 'calendar_events#events'  
   match 'calendar/remove_event' => 'calendar_events#remove_event'
+  match 'calendar/send_invitation/(:user_ids)' => 'calendar_events#send_invitation', :as => :calendar_send_invitation
 
 
  # scope "(:locale)", :locale => /en|de/  do

@@ -45,11 +45,29 @@ class CalendarEventsController < ApplicationController
      first_user = work_session.users.first
      work_session.room = first_user.room
      work_session.save
-   end
-    
+   end   
    render :json => "succussfully removed time"
-  end    
-
+  end  
+  
+  
+  def send_invitation
+    if params[:user_ids].nil?
+      render :nothing => true
+    else
+      calendar_invitation = CalendarInvitation.new(:sender_id=>current_user.id)      
+      calendar_invitation.save      
+      
+      work_sessions = WorkSession.single_work_sessions_with_user_id(current_user.id)
+      users = params[:user_ids].split(',').map{|user_id| User.find(user_id)}
+      
+      users.each do |user|
+          email = CalendarInvitationMailer.calendar_invitation_email(work_sessions, current_user, user)
+          email.deliver
+      end      
+      render :json => "succussfully sent invitation"
+    end
+  end  
+  
 
   
   private 
