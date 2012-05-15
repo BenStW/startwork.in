@@ -7,19 +7,22 @@ class FriendshipsController < ApplicationController
   end
   
   def create
-    friendship = current_user.friendships.build(:friend_id => params[:friend_id])
-    inverse_friendship = current_user.inverse_friendships.build(:user_id => params[:friend_id])
-    
-    if (friendship.save and inverse_friendship.save)
-      WorkSession.optimize_single_work_sessions(friendship.friend)
-      WorkSession.optimize_single_work_sessions(current_user)
-      flash[:notice] = t("friendships.index.added_as_friend",:name => friendship.friend.name )
-      redirect_to friendships_url
+    limit = 10
+    if(current_user.friends.count>=limit)
+      flash[:alert] = t("friendships.index.limit",:limit => limit )
     else
-      flash[:alert] = t("friendships.index.unable_to_add_friend",:name => friendship.friend.name )
-      redirect_to friendships_url
+      friendship = current_user.friendships.build(:friend_id => params[:friend_id])
+      inverse_friendship = current_user.inverse_friendships.build(:user_id => params[:friend_id])
+      
+      if (friendship.save and inverse_friendship.save)
+        WorkSession.optimize_single_work_sessions(friendship.friend)
+        WorkSession.optimize_single_work_sessions(current_user)
+        flash[:notice] = t("friendships.index.added_as_friend",:name => friendship.friend.name )
+      else
+        flash[:alert] = t("friendships.index.unable_to_add_friend",:name => friendship.friend.name )        
+      end
     end
-    
+    redirect_to friendships_url
   end
 
   def destroy

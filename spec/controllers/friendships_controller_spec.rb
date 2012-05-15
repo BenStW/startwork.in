@@ -4,8 +4,8 @@ require 'spec_helper'
 describe FriendshipsController do
  
   before(:each) do
-    @user_ben = FactoryGirl.create(:user, :first_name=>"Benedikt", :last_name=>"Voigt")
-    @user_steffi = FactoryGirl.create(:user, :first_name=>"Steffi", :last_name=>"Rothenberger")
+    @user_ben = FactoryGirl.create(:user, :first_name=>"Benedikt")
+    @user_steffi = FactoryGirl.create(:user, :first_name=>"Steffi")
     sign_in @user_ben
   end
 
@@ -52,7 +52,7 @@ describe FriendshipsController do
 
   context "POST create" do
         
-    it "should redirect to friendship_url" do
+    it "should redirect to friendship_url when succussful" do
       post :create, :user_id => @user_ben.id, :friend_id => @user_steffi.id
       response.should redirect_to(friendship_url)
     end
@@ -75,6 +75,30 @@ describe FriendshipsController do
       calendar_event_ben.reload   
       calendar_event_steffi.reload
       calendar_event_ben.work_session.should eq(calendar_event_steffi.work_session)
+   end
+   
+   it "does not allow to create 11 friends" do
+     (1..11).each do |index|
+       user = FactoryGirl.create(:user)
+       post :create, :user_id => @user_ben.id, :friend_id => user.id
+     end
+     @user_ben.friends.count.should eq(10)
+   end
+   
+   it "should redirect to friendship_url when tried to create the 11th friend" do
+      (1..11).each do |index|
+        user = FactoryGirl.create(:user)
+        post :create, :user_id => @user_ben.id, :friend_id => user.id
+        response.should redirect_to(friendship_url)
+      end   
+    end
+   
+   it "should output the flash alert 'You can have only 10 workbuddies at maximum' when tried to create the 11th friend" do
+     (1..11).each do |index|
+       user = FactoryGirl.create(:user)
+       post :create, :user_id => @user_ben.id, :friend_id => user.id
+     end
+     flash[:alert].should eql("You can have only 10 workbuddies at maximum.")
    end
   end
 
