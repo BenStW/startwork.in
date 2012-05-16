@@ -1,3 +1,5 @@
+
+
 class StaticPagesController < ApplicationController
   skip_before_filter :authenticate_user!
   
@@ -24,14 +26,6 @@ class StaticPagesController < ApplicationController
   end
   def about_us
   end
-
-  
-  def facebook
-    # the following is an error by purpose to test the sending of an error mail
-    if current_user1
-    end
-  end
-
   
   def camera
     if params[:success]

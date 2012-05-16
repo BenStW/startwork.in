@@ -24,7 +24,8 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable 
+
 
   # Specifies a white list of model attributes that can be set via mass-assignment.
   attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me,  :referer
@@ -83,6 +84,21 @@ class User < ActiveRecord::Base
     duration
   end
   
+  def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
+    data = access_token.extra.raw_info
+    if user = self.find_by_email(data.email)
+      user
+    else # Create a user with a stub password. 
+      puts data.to_yaml
+      self.create!(
+             :email => data.email,
+             :first_name => data.first_name,
+             :last_name => data.last_name,
+            # :referer => data.link || "Facebook"
+             :password => Devise.friendly_token[0,20]
+       ) 
+    end
+  end
   
 
 end

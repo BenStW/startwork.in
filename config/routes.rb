@@ -26,15 +26,18 @@ StartWork::Application.routes.draw do
      match 'about_us' => 'static_pages#about_us', :as => :about_us
      match 'camera' => 'static_pages#camera', :as => :camera
      match 'audio' => 'static_pages#audio', :as => :audio
-     
-     match 'facebook' => 'static_pages#facebook', :as => :facebook        
+     match 'fb_connect' => 'static_pages#fb_connect', :as => :fb_connect
+     match 'fb_channel' => 'static_pages#fb_channel', :as => :fb_channel
+
+
+   
 
    #  match 'interested_user'  => 'interested_user#show',:via => :get, :as => :show_interested_user   
   #   match 'interested_user' => 'interested_user#create',:via => :post, :as => :create_interested_user   
        
     
-     #devise_for :users
-     devise_for :users, :controllers => {:registrations => "registrations"}   
+#     devise_for :users, :controllers => {:registrations => "registrations"} 
+     devise_for :users, :controllers => {:registrations => "registrations", :omniauth_callbacks => "users/omniauth_callbacks" }       
      #devise_for :users, :controllers => {:sessions => "devise_sessions"}
      
     
@@ -45,6 +48,8 @@ StartWork::Application.routes.draw do
      post 'connections/end', :to => 'connections#end'
     
      match 'statistics' => 'statistics#show', :as => :statistics
+     
+
  
     
  # end
