@@ -6,10 +6,10 @@
     <h1><%= t ".welcome" %></h1><br>
     <%= t ".welcome_text_html" %>	
 
-
-<p><a class="btn btn-primary btn-large" href="<%= new_user_registration_path %>"><%= t ".join_now"%> &raquo;</a></p>
+<!--
+<p><a class="btn btn-primary btn-large" href="<%= new_user_registration_path %>"><%= t ".join_now"%> &raquo;</a></p>-->
 <br>
-<p><a href="<%=user_omniauth_authorize_path(:facebook)%>">.<!--<img src='/assets/facebook_anmelden.png'>--></a></p>
+<p><a href="<%=user_omniauth_authorize_path(:facebook)%>"><img src='/assets/facebook_anmelden.png'></a></p>
   </div><!-- end of main hero unit -->
                        
 <% else %>
