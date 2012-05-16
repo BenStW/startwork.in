@@ -13,7 +13,7 @@ de:
   statistics: statistik
   sign_in: anmelden
   sign_up: registrieren
-  users: benutzer
+#  users: benutzer  #don't translate it, because it doesn't work with devise/omniauth
   
   work_session: arbeitssitzung
   calendar: kalender
