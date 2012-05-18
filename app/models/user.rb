@@ -90,13 +90,17 @@ class User < ActiveRecord::Base
       user
     else # Create a user with a stub password. 
       puts data.to_yaml
-      self.create!(
+      user = self.create!(
              :email => data.email,
              :first_name => data.first_name,
              :last_name => data.last_name,
             # :referer => data.link || "Facebook"
-             :password => Devise.friendly_token[0,20]
-       ) 
+             :password => Devise.friendly_token[0,20]             
+       )        
+       room = user.build_room
+       room.populate_tokbox_session 
+       user.save       
+       
     end
   end
   
