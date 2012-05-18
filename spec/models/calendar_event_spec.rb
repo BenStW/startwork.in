@@ -116,12 +116,17 @@ describe CalendarEvent do
  context "with work_session" do
    
    it "should build a work_session" do
+     @calendar_event.work_session.delete
      @calendar_event.work_session = nil
+     @calendar_event.should_not be_valid     
      @calendar_event.find_or_build_work_session
+     @calendar_event.save
+     @calendar_event.work_session.should_not be_nil
      @calendar_event.should be_valid
    end
    
-   it "should assign an existing work_session" do     
+   it "should assign an existing work_session" do    
+     @calendar_event.work_session.delete      
      @calendar_event.work_session = nil
      
      new_work_session = FactoryGirl.create(:work_session)

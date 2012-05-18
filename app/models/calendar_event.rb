@@ -53,9 +53,8 @@ class CalendarEvent < ActiveRecord::Base
  end
   
   def find_or_build_work_session
-    if not self.work_session = WorkSession.find_work_session(self.user,self.start_time)    
-      self.work_session = self.build_work_session(:start_time=>self.start_time, :room => self.user.room)
-    end
+    self.work_session = WorkSession.find_work_session(self.user,self.start_time)  ||   
+                        self.build_work_session(:start_time=>self.start_time, :room => self.user.room)
   end
  
 =begin
