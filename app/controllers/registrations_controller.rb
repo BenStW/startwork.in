@@ -3,6 +3,8 @@ class RegistrationsController < Devise::RegistrationsController
     super
   end
 
+# Currently the RegistrationsController is not used anymore,
+# as all users are created through Facebook in the user model
   def create
     super
     if current_user

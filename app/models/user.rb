@@ -99,7 +99,8 @@ class User < ActiveRecord::Base
        )        
        room = user.build_room
        room.populate_tokbox_session 
-       user.save       
+       user.save 
+       user      
        
     end
   end
