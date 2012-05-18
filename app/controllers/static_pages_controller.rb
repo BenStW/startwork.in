@@ -27,6 +27,10 @@ class StaticPagesController < ApplicationController
   def about_us
   end
   
+  def ben
+    
+  end
+  
   def camera
     if params[:success]
       success = CameraAudio.find_or_create_by_user_id(current_user.id)

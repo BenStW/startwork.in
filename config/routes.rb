@@ -26,6 +26,8 @@ StartWork::Application.routes.draw do
      match 'about_us' => 'static_pages#about_us', :as => :about_us
      match 'camera' => 'static_pages#camera', :as => :camera
      match 'audio' => 'static_pages#audio', :as => :audio
+     match 'ben' => 'static_pages#ben', :as => :ben
+
 
    #  match 'interested_user'  => 'interested_user#show',:via => :get, :as => :show_interested_user   
   #   match 'interested_user' => 'interested_user#create',:via => :post, :as => :create_interested_user   
