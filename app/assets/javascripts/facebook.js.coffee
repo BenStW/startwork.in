@@ -1,7 +1,7 @@
 $(document).ready -> 
    if $("#fb-root").length > 0
      FB.init(
-        appId: '232041530243765',
+        appId: '330646523672055',
         xfbml: true, 
         cookie: true)
      FB.ui(
