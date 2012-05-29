@@ -22,6 +22,13 @@ class StaticPagesController < ApplicationController
 
   def how_it_works
   end
+  def effect
+  end  
+  def pilot_study
+  end
+  def scientific_principles
+  end
+  
   def contact
   end
   def about_us

@@ -33,8 +33,8 @@ class User < ActiveRecord::Base
   attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me,  :referer, :fb_ui, :room, :registered
 
   validates :fb_ui, presence: true, uniqueness: true  
-  validates :first_name, presence: true, length: { maximum: 30 }
-  validates :last_name,  length: { maximum: 30 }
+  validates :first_name, presence: true, length: { maximum: 50 }
+  validates :last_name,  length: { maximum: 50 }
 
   
   # each user owns a video room. 

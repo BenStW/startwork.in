@@ -2,6 +2,7 @@ en:
   layouts:
     application:
       how_it_works: How it works
+      effect: Effect
       study: Study
       about_us: About us
       contact: Contact

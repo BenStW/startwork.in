@@ -49,12 +49,12 @@ describe User do
   #  end   
     
     it "should not be valid when first name is too long" do
-      @user.first_name = "a" * 31 
+      @user.first_name = "a" * 51 
       @user.should_not be_valid
     end   
     
     it "should not be valid when last name is too long" do
-      @user.last_name = "a" * 31 
+      @user.last_name = "a" * 51 
       @user.should_not be_valid
     end      
     
