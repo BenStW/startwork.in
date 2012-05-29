@@ -104,7 +104,7 @@ class User < ActiveRecord::Base
     user = nil
   #  if user = self.find_by_email(data.email)
   #    user
-    puts "raw_info = #{data.to_yaml}"
+ #   puts "raw_info = #{data.to_yaml}"
     
     if user = User.find_by_fb_ui(data.id)
       user.update_attributes(
@@ -122,7 +122,7 @@ class User < ActiveRecord::Base
              :password => Devise.friendly_token[0,20]  
        )                    
     end
-  #  user.update_fb_friends(access_token)
+    user.update_fb_friends(access_token)
     user
   end
   
