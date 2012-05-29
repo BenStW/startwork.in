@@ -4,36 +4,46 @@ Given /^the following users with calendar events$/ do |table|
   table.hashes.each do |hash|
     start_time = tomorrow + hash[:start_time].to_i.hours
     end_time = tomorrow + hash[:end_time].to_i.hours  
-    user = FactoryGirl.create(:user, :first_name => hash[:name]) unless user = User.find_by_first_name(hash[:name])  
-    log_out       
-    sign_in user
+    step "a logged-in facebook user \"#{hash[:name]}\""   
     visit calendar_new_event_path(:start_time=>start_time, :end_time=>end_time)
+    visit root_url
+    step "the user hits \"Log out\""
   end
 end
 
-
-Given /^the following friendships$/ do |table|
+When /^the user has following fb friends$/ do |table|
   table.hashes.each do |hash|
-    user1 = FactoryGirl.create(:user, :first_name => hash[:user1]) unless user1 = User.find_by_first_name(hash[:user1])  
-    user2 = FactoryGirl.create(:user, :first_name => hash[:user2]) unless user2 = User.find_by_first_name(hash[:user2]) 
-    log_out  
-    sign_in user1      
-    visit friendships_url
-    find('#'+user2.first_name).click_link("Add as work-buddy")
+    user = hash[:user]
+    step "a facebook user \"Ben\" and his friends \"#{hash[:friends]}\""
+    step "the user hits the facebook button"
+    step "the user hits \"Log out\""            
   end
 end
 
-When /^the following friendships are removed$/ do |table|
-  table.hashes.each do |hash|
-    user1 = User.find_by_first_name(hash[:user1])  
-    user2 = User.find_by_first_name(hash[:user2])
-    log_out
-    sign_in user1     
-    visit friendships_url
-    find('#'+user2.first_name).click_link("Remove as work-buddy")
 
-  end
-end
+
+#Given /^the following friendships$/ do |table|
+#  table.hashes.each do |hash|
+#    user1 = FactoryGirl.create(:user, :first_name => hash[:user1]) unless user1 = User.find_by_first_name(hash[:user1])  
+#    user2 = FactoryGirl.create(:user, :first_name => hash[:user2]) unless user2 = User.find_by_first_name(hash[:user2]) 
+#    log_out  
+#    sign_in user1      
+#    visit friendships_url
+#    find('#'+user2.first_name).click_link("Add as work-buddy")
+#  end
+#end
+
+#When /^the following friendships are removed$/ do |table|
+#  table.hashes.each do |hash|
+#    user1 = User.find_by_first_name(hash[:user1])  
+#    user2 = User.find_by_first_name(hash[:user2])
+#    log_out
+#    sign_in user1     
+#    visit friendships_url
+#    find('#'+user2.first_name).click_link("Remove as work-buddy")
+#
+#  end
+#end
 
 Then /^the following work_sessions$/ do |table|
   c = DateTime.current

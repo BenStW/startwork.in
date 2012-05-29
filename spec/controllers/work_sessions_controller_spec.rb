@@ -5,6 +5,9 @@ describe WorkSessionsController do
   
   context "show" do
     before(:each) do 
+      TokboxApi.stub_chain(:instance,:generate_token).and_return("token")
+      TokboxApi.stub_chain(:instance,:api_key).and_return("api_key")
+            
       @user = FactoryGirl.create(:user_with_two_friends_and_same_events)
       @work_session = @user.calendar_events[0].work_session
       sign_in @user   

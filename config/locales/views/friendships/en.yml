@@ -5,7 +5,9 @@ en:
       back: Back
       remove_as_friend: Remove as work-buddy
       add_as_friend: Add as work-buddy
-      other_users: Other users      
+      facebook_users: Your other Facebook friends
+      requested_friends: "Your requested WorkBuddies"  
+      requested_by_friends: "WorkBuddies not confirmed by you"               
       added_as_friend: "%{name} was added as work-buddy."
       removed_as_friend: "%{name} was removed as work-buddy."      
       unable_to_add_friend: "%{name} couldn't be added as work-buddy." 

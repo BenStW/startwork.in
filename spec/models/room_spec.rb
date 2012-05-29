@@ -12,28 +12,25 @@
 require 'spec_helper'
 
 describe Room do
+  before(:each) do
+#    TokboxApi.stub_chain(:instance, :generate_session).and_return("tokbox_session_id")  
+    @user = FactoryGirl.create(:user)
+    @room = @user.room      
+  end
   
   context "attributes" do 
-    
-    before(:each) { @room = FactoryGirl.create(:room) }
-    
     it "should be valid with attributes of factory" do
        @room.should be_valid
     end
     
-    it "should not be valid without a tokbox_session_id" do
+    it "should populate tokbox_session_id when validating" do
       @room.tokbox_session_id = nil
-      @room.should_not be_valid   
+      @room.should be_valid  
+      @room.tokbox_session_id.should_not be_nil 
     end
   end
   
   context "methods" do
-
-    before(:each) do 
-      @user = FactoryGirl.create(:user)
-      @room = @user.room
-    end
-    
     it "should populate tokbox_session_id when not populated yet" do      
       @room.tokbox_session_id = nil
       @room.populate_tokbox_session

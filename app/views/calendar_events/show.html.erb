@@ -1,29 +1,38 @@
+<%- content_for(:head) do -%>
+<%= javascript_include_tag "calendar" -%>
+<%- end -%>
 
+
+<!--
 <div class="row"> 
    <div class="span2">
 	  <%= link_to t(".maintain_friends"), friendships_path, :style=>style="height:40px;width:100px", :class => "btn btn-info"%> 
-   </div> <!-- end span -->	
-
+   </div> 
+-->
+<!--
    <div class="span10">
 	 <%= t(".show_calendar_events") %>
 	
 	 <div class="btn-group">
        <div id="single_calendar_button" class="btn btn-primary" style="width:100px">	<%= t(".my_calendar") %></div>	
        <div id="all_friends_button" class="btn selected"  style="width:100px"><%= t(".all_friends") %></div>
-     </div><!-- end btn-group -->
+     </div>
 
-   </div> <!-- end span -->
-</div> <!-- end row -->
-
-
+   </div> 
+</div>
 <div style="height:10px">&nbsp;</div>
+-->
 
 
+
+
+
+<!--
 <div class="row"> 
    <div class="span2">
      <div id="send_invitation" class="btn btn-info" style="height:40px;width:100px"><%= t(".send_invitation") %></div>
-    <!-- <a data-toggle="modal" href="#send_invitation_modal" class="btn btn-primary btn-large">Send Email</a> -->
-   </div> <!-- end span -->
+      <a data-toggle="modal" href="#send_invitation_modal" class="btn btn-primary btn-large">Send Email</a> 
+   </div> 
 
    <div class="span10">
 	  <div class="btn-group">	
@@ -32,10 +41,10 @@
 	          data-user_id="<%= friend.id %>" class="btn" style="height:40px;width:100px">
              <%=friend.name %></div>
        <% end %>
-      </div> <!-- end btn-group -->
-   </div> <!-- end span -->
-</div> <!-- end row -->
-
+      </div> 
+   </div> 
+</div> 
+-->
 
 
 

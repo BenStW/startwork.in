@@ -78,15 +78,16 @@ def log_out
   page.driver.delete destroy_user_session_path
 end
 
-def sign_in(user)
-  visit root_path
-  click_link "Sign in"
-  fill_in "user_email", :with => user.email
-  fill_in "user_password", :with => "secret" #user.password 
-  within("form") do
-     click_on "Sign in"
-  end
-end
+
+#def sign_in(user)
+#  visit root_path
+#  click_link "Sign in"
+#  fill_in "user_email", :with => user.email
+#  fill_in "user_password", :with => "secret" #user.password 
+#  within("form") do
+#     click_on "Sign in"
+#  end
+#end
 
 def sign_up(name)
     user = FactoryGirl.create(:user, :name => name)
@@ -94,3 +95,28 @@ def sign_up(name)
     sign_in user
 end
 
+
+def mock_auth(name,friends=[])
+    OmniAuth.config.test_mode = true
+    OmniAuth.config.mock_auth[:facebook] = {
+      :provider => 'facebook',
+    }
+    mock_extra = mock("mock_extra",
+       :raw_info => 
+         mock("mock_raw_info",
+         :id => name, #store the name as Facebook unique id
+         :email => "#{name}@startwork.in",
+         :first_name => name,
+         :last_name => "xyz"))
+          
+    OmniAuth.config.mock_auth[:facebook].stub(:extra).and_return(mock_extra) 
+    OmniAuth.config.mock_auth[:facebook].stub_chain(:credentials,:token).and_return("my token")   
+    
+    friends_mock = []
+    friends.each do |friend|
+      friend_mock = mock("FbGraph::User", :name => friend, :identifier => friend)
+      friends_mock.push(friend_mock)
+    end
+    FbGraph::User.stub_chain(:new, :fetch, :friends).and_return(friends_mock) 
+    TokboxApi.stub_chain(:instance, :generate_session).and_return("tokbox_session_id")
+end

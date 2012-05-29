@@ -3,7 +3,7 @@ When /^the user goes to "([^"]*)"$/ do |path|
   visit path
 end
 
-When /^the user presses "([^"]*)"$/ do |link|
+When /^the user hits "([^"]*)"$/ do |link|
     click_link link
  #   sleep 10  
 end

@@ -85,3 +85,9 @@ de:
       no_success: "Nein, es gab Probleme"
       success_msg: "Wunderbar! Schön, dass alles funktioniert hat"
       no_success_msg: "Danke schön. Wir werden Dich wegen der technischen Probleme kontaktieren"
+    welcome:
+        submit: "Als Facebook Nachricht absenden."
+        message_title: "Die Nachricht an deine Freunde:"    
+        message: "Hallo, benutze doch StartWork, um mit mir gemeinsam zu lernen und arbeiten."   
+        select_all: "Alle selektieren"
+        unselect_all: "Selektion aufheben"                 

@@ -16,7 +16,10 @@ describe WorkSession do
  
   context "attributes" do
     
-    before(:each) {  @work_session = FactoryGirl.create(:work_session) }
+    before(:each) do
+      @work_session = FactoryGirl.create(:work_session)
+      #Room.any_instance.stub(:populate_tokbox_session).and_return("tokbox_session_id") 
+    end
     
     it "should be valid with attributes from the factory" do
       @work_session.should be_valid
@@ -80,8 +83,9 @@ describe WorkSession do
     end      
      
     it "selects work_session with friends" do
-      Friendship.create_reciproke_friendship(@user1,@user2) 
       WorkSession.count.should eq(2)
+      Friendship.create_reciproke_friendship(@user1,@user2) 
+      WorkSession.count.should eq(1)
       WorkSession.with_friends(@user1).length.should eq(1)
       WorkSession.with_friends(@user2).length.should eq(1) 
     end   
@@ -105,93 +109,104 @@ describe WorkSession do
 
     
   end
-  
-  context "with reorganization" do
-    
-    before(:each) do 
-      @user1 = FactoryGirl.create(:user)
-      @user2 = FactoryGirl.create(:user)
-      @calendar_event1 = FactoryGirl.create(:calendar_event, :user=>@user1)
-      @calendar_event2 = FactoryGirl.create(:calendar_event, :user=>@user2)
-      @work_session1 = @calendar_event1.work_session
-      @work_session2 = @calendar_event2.work_session
-    end
-    
-    it "assigns the work_session of a work buddy when they are befriended and have the same time" do   
-      WorkSession.count.should eq(2)    
-      Friendship.create_reciproke_friendship(@user1,@user2)
-      WorkSession.optimize_single_work_sessions(@user1)
-      @calendar_event1.reload
-      @calendar_event2.reload
-      WorkSession.count.should eq(1)
-      @calendar_event1.work_session.should eq(@calendar_event2.work_session)       
-    end
-    
-    it "does not assign the work_session of a work buddy when they are not befriended and have the same time" do   
-      WorkSession.count.should eq(2)    
-      WorkSession.optimize_single_work_sessions(@user1)
-      @calendar_event1.reload
-      @calendar_event2.reload
-      WorkSession.count.should eq(2)
-      @calendar_event1.work_session.should_not eq(@calendar_event2.work_session)       
-    end  
-    
-    it "assigns the work_session of a work buddy when they are befriended, but don't have the same time" do   
-      WorkSession.count.should eq(2)
-      @calendar_event2.start_time += 1.hour    
-      @work_session2.start_time += 1.hour   
-      @calendar_event2.save
-      @work_session2.save
-      Friendship.create_reciproke_friendship(@user1,@user2)
-      WorkSession.optimize_single_work_sessions(@user1)
-      WorkSession.count.should eq(2)
-      @calendar_event1.work_session.should_not eq(@calendar_event2.work_session)       
-    end     
-    
-    it "finds the best work_session for a user and start_time" do 
-      Friendship.create_reciproke_friendship(@user1,@user2)   
-      opt_work_session = WorkSession.find_work_session(@user1,@calendar_event1.start_time)  
-      opt_work_session.should eq(@work_session2) 
-    end
-    
-    it "does not find a work_session if user has no friends" do 
-      opt_work_session = WorkSession.find_work_session(@user1,@calendar_event1.start_time)  
-      opt_work_session.should eq(nil) 
-    end 
-    
-    it "does not find the best work_session, if friend does not have the same start_time" do 
-      Friendship.create_reciproke_friendship(@user1,@user2)
-      @calendar_event2.start_time += 1.hour    
-      @work_session2.start_time += 1.hour  
-      @calendar_event2.save
-      @work_session2.save          
-      opt_work_session = WorkSession.find_work_session(@user1,@calendar_event1.start_time)  
-      opt_work_session.should eq(nil) 
-    end  
-    
-    it "splits the work_session when work buddies are not friends anymore" do
-      new_user = FactoryGirl.create(:user_with_two_friends_and_same_events)      
-      friend1 = new_user.friendships[0].friend
-      friend2 = new_user.friendships[1].friend
-      new_user.calendar_events[0].work_session.should eq(friend1.calendar_events[0].work_session)     
-      new_user.calendar_events[0].work_session.should eq(friend2.calendar_events[0].work_session)
-      new_user.friendships[0].destroy
-      friend1.friendships.find_by_friend_id(new_user.id).destroy
-      WorkSession.split_work_session_when_not_friend(new_user)
-      WorkSession.split_work_session_when_not_friend(friend1)
-      new_user.calendar_events[0].reload
-      friend1.calendar_events[0].reload
-      friend2.calendar_events[0].reload    
-
-      new_user.calendar_events[0].work_session.should_not eq(friend1.calendar_events[0].work_session)     
-      new_user.calendar_events[0].work_session.should eq(friend2.calendar_events[0].work_session)
-      
-    end    
    
-    
-  end
+   context "with reorganization" do
+     
+     before(:each) do 
+       @user1 = FactoryGirl.create(:user)
+       @user2 = FactoryGirl.create(:user)
+       @calendar_event1 = FactoryGirl.create(:calendar_event, :user=>@user1)
+       @calendar_event2 = FactoryGirl.create(:calendar_event, :user=>@user2)
+       @work_session1 = @calendar_event1.work_session
+       @work_session2 = @calendar_event2.work_session
+     end
+     
+     it "assigns the work_session of a work buddy when they are befriended and have the same time" do   
+       WorkSession.count.should eq(2)    
+       Friendship.create_reciproke_friendship(@user1,@user2)
+       WorkSession.optimize_single_work_sessions(@user1)
+       @calendar_event1.reload
+       @calendar_event2.reload
+       WorkSession.count.should eq(1)
+       @calendar_event1.work_session.should eq(@calendar_event2.work_session)       
+     end
+     
+     it "does not assign the work_session of a work buddy when they are not befriended and have the same time" do   
+       WorkSession.count.should eq(2)    
+       WorkSession.optimize_single_work_sessions(@user1)
+       @calendar_event1.reload
+       @calendar_event2.reload
+       WorkSession.count.should eq(2)
+       @calendar_event1.work_session.should_not eq(@calendar_event2.work_session)       
+     end  
+     
+     it "assigns the work_session of a work buddy when they are befriended, but don't have the same time" do   
+       WorkSession.count.should eq(2)
+       @calendar_event2.start_time += 1.hour    
+       @work_session2.start_time += 1.hour   
+       @calendar_event2.save
+       @work_session2.save
+       Friendship.create_reciproke_friendship(@user1,@user2)
+       WorkSession.optimize_single_work_sessions(@user1)
+       WorkSession.count.should eq(2)
+       @calendar_event1.work_session.should_not eq(@calendar_event2.work_session)       
+     end     
+     
+     it "finds the best work_session for a user and start_time" do 
+       Friendship.create_reciproke_friendship(@user1,@user2)   
+       opt_work_session = WorkSession.find_work_session(@user1,@calendar_event1.start_time)  
+       opt_work_session.should eq(@work_session2) 
+     end
+     
+     it "does not find a work_session if user has no friends" do 
+       opt_work_session = WorkSession.find_work_session(@user1,@calendar_event1.start_time)  
+       opt_work_session.should eq(nil) 
+     end 
+     
+     it "does not find the best work_session, if friend does not have the same start_time" do 
+       Friendship.create_reciproke_friendship(@user1,@user2)
+       @calendar_event2.start_time += 1.hour    
+       @work_session2.start_time += 1.hour  
+       @calendar_event2.save
+       @work_session2.save          
+       opt_work_session = WorkSession.find_work_session(@user1,@calendar_event1.start_time)  
+       opt_work_session.should eq(nil) 
+     end  
+     
+     it "splits the work_session when work buddies are not friends anymore" do
+       new_user = FactoryGirl.create(:user_with_two_friends_and_same_events)      
+       friend1 = new_user.friendships[0].friend
+       friend2 = new_user.friendships[1].friend
+       new_user.calendar_events[0].work_session.should eq(friend1.calendar_events[0].work_session)     
+       new_user.calendar_events[0].work_session.should eq(friend2.calendar_events[0].work_session)
+       new_user.friendships[0].destroy
+       friend1.friendships.find_by_friend_id(new_user.id).destroy
+       WorkSession.split_work_session_when_not_friend(new_user)
+       WorkSession.split_work_session_when_not_friend(friend1)
+       new_user.calendar_events[0].reload
+       friend1.calendar_events[0].reload
+       friend2.calendar_events[0].reload    
  
+       new_user.calendar_events[0].work_session.should_not eq(friend1.calendar_events[0].work_session)     
+       new_user.calendar_events[0].work_session.should eq(friend2.calendar_events[0].work_session)
+       
+     end    
+    
+     
+   end
+  
 end
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
    
 
 #  

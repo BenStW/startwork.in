@@ -18,7 +18,10 @@ class Friendship < ActiveRecord::Base
   def self.create_reciproke_friendship(user1,user2)
     user1.friendships.create(:friend_id => user2.id)
     user1.inverse_friendships.create(:user_id => user2.id)
+    WorkSession.optimize_single_work_sessions(user1)
+    WorkSession.optimize_single_work_sessions(user2)    
   end
+  
 
   
 end

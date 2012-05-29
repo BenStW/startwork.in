@@ -18,6 +18,8 @@
 #  referer                :string(255)
 #  first_name             :string(255)
 #  last_name              :string(255)
+#  fb_ui                  :string(255)
+#  registered             :boolean
 #
 
 ben:

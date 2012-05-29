@@ -15,7 +15,7 @@ gem 'devise'
 gem 'activeadmin'
 gem "meta_search",    '>= 1.1.0.pre' # used for ActiveAdmin
 
-#gem "fb_graph"
+gem "fb_graph"
 gem "omniauth-facebook"
 
 group :development do

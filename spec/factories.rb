@@ -8,7 +8,12 @@ FactoryGirl.define do
     sequence(:email) { |n| "foo#{n}@example.com" }
     password "secret"
     password_confirmation { |u| u.password }
-    room
+    sequence(:fb_ui) { |n| n.to_s} 
+    current_sign_in_ip "0.0.0.0"
+
+    after_build do |user|
+      TokboxApi.stub_chain(:instance, :generate_session).and_return("tokbox_session_id")  
+    end
     
     factory :user_with_two_friends_and_same_events do
       after_create do |user, evaluator|
@@ -49,7 +54,7 @@ FactoryGirl.define do
   
   factory :work_session do
     start_time DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,10)+1.day
-    room
+    room 
   end
   
   factory :connection do 
@@ -57,8 +62,11 @@ FactoryGirl.define do
     start_time DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,DateTime.current.hour)
   end
   
-  factory :room do
-    tokbox_session_id "factory_tokbox_session_id"
+  factory :room do  
+    user  
+    after_build do |user|
+      TokboxApi.stub_chain(:instance, :generate_session).and_return("tokbox_session_id")  
+    end
   end
   
   factory :invitation do

@@ -7,16 +7,16 @@ class RegistrationsController < Devise::RegistrationsController
 # as all users are created through Facebook in the user model
   def create
     super
-    if current_user
-      room = current_user.build_room
-      room.populate_tokbox_session 
-      current_user.referer = session[:referer]
-      current_user.save
-    end
+  # if current_user
+  #   room = current_user.build_room
+  #   room.populate_tokbox_session 
+  #   current_user.referer = session[:referer]
+  #   current_user.save
+  # end
   end
   
   def edit
-    super
+      redirect_to root_url
   end  
 
   def update

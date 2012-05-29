@@ -3,9 +3,10 @@ StartWork::Application.routes.draw do
 
 
   resources :invitations
-  
-  resources :friendships
 
+  match 'friendships/create_all_fb_friends' => "friendships#create_all_fb_friends", :as => :create_friendship_all_fb_friends  
+  resources :friendships
+#  match 'friendships/create_with_fb_friend/(:fb_ui)' => "friendships#create_with_fb_friend", :as => :create_friendship_with_fb_friend
 
   ActiveAdmin.routes(self)
 
@@ -13,7 +14,8 @@ StartWork::Application.routes.draw do
 
   match 'calendar' => 'calendar_events#show', :as => :calendar
   match 'calendar/new_event' => 'calendar_events#new_event'
-  match 'calendar/events/(:user_ids)' => 'calendar_events#events'  
+  match 'calendar/events' => 'calendar_events#events'  
+#  match 'calendar/events/(:user_ids)' => 'calendar_events#events'  
   match 'calendar/remove_event' => 'calendar_events#remove_event'
   match 'calendar/send_invitation/(:user_ids)' => 'calendar_events#send_invitation', :as => :calendar_send_invitation
 
@@ -21,12 +23,14 @@ StartWork::Application.routes.draw do
  # scope "(:locale)", :locale => /en|de/  do
      root :to => 'static_pages#home'  
 
+     match 'welcome' => 'static_pages#welcome', :as => :welcome
      match 'how_it_works' => 'static_pages#how_it_works', :as => :how_it_works
      match 'contact' => 'static_pages#contact', :as => :contact
      match 'about_us' => 'static_pages#about_us', :as => :about_us
      match 'camera' => 'static_pages#camera', :as => :camera
      match 'audio' => 'static_pages#audio', :as => :audio
      match 'ben' => 'static_pages#ben', :as => :ben
+     match 'send_facebook_message' => 'static_pages#send_facebook_message', :as => :send_facebook_message
 
 
    #  match 'interested_user'  => 'interested_user#show',:via => :get, :as => :show_interested_user   

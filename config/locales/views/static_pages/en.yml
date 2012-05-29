@@ -59,7 +59,13 @@ en:
       success: "Yes, everything went fine"
       no_success: "No, I experienced problems"
       success_msg: "Great, glad that everything went fine."
-      no_success_msg: "Thank you, we wil contact you concerning your technical problems."      
+      no_success_msg: "Thank you, we wil contact you concerning your technical problems."  
+    welcome:
+      submit: "Send as Facebook message"
+      message_title: "The message to your friends:"    
+      message: "Hi, please join StartWork to learn and work with me." 
+      select_all: "Select all"
+      unselect_all: "Unselect all"         
 
           
     

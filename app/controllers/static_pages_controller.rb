@@ -1,7 +1,7 @@
 
 
 class StaticPagesController < ApplicationController
-  skip_before_filter :authenticate_user!
+  skip_before_filter :authenticate_user!,  :except => [:welcome, :camera, :audio, :ben]
   
   def home  
     if current_user
@@ -29,6 +29,21 @@ class StaticPagesController < ApplicationController
   
   def ben
     
+  end
+  
+  def welcome
+   if current_user.registered
+     redirect_to root_url
+   else
+     current_user.registered=true
+     current_user.save   
+   end    
+  end
+  
+  def send_facebook_message
+    @marked = params[:friends]
+    @message = params[:message]
+    redirect_to welcome_url    
   end
   
   def camera

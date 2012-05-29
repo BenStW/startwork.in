@@ -31,7 +31,8 @@ class WorkSession < ActiveRecord::Base
   end
   
   def self.with_friends(user)
-    friend_ids = user.friendships.map(&:friend).map(&:id)
+#    friend_ids = user.friendships.map(&:friend).map(&:id)
+    friend_ids = user.friends.map(&:id)
     has_user_ids(friend_ids)
   end
    

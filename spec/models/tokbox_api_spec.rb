@@ -4,6 +4,11 @@ describe TokboxApi do
   
   context "methods" do
     
+    before(:each) do
+   #   TokboxApi.unstub(:instance)
+    end
+    
+    
     it "is a singleton object" do
       TokboxApi.instance.should eq(TokboxApi.instance)
     end
@@ -21,7 +26,8 @@ describe TokboxApi do
     
     it "generates a token when session and user are given" do
       session = TokboxApi.instance.generate_session
-      user = FactoryGirl.create(:user)
+      user = mock("User", :name=>"Ben", :id=>4711)
+    #  user = FactoryGirl.create(:user)
       token = TokboxApi.instance.generate_token(session, user)
       token.should_not eq(nil)
     end  

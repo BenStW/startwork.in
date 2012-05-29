@@ -9,7 +9,12 @@ ActiveAdmin.register User do
   
   index do
       column :id
+      column :first_name
+      column :last_name            
       column :name
+      column "room" do |user| user.room.id end 
+      column "tokbox" do |user| user.room.tokbox_session_id end 
+      column "Facebook ID", :fb_ui
       column :email
       column :referer        
       column :connections do |user|
@@ -17,6 +22,7 @@ ActiveAdmin.register User do
 #        link_to user.connections.count, admin_connections_path
        # link_to "Ruby on Rails search", :controller => "admin_connections", :query => "ruby on rails"
       end
+      column :registered
       column "created at", :created_at
       column "last sign in at", :last_sign_in_at
       column "sign in count", :sign_in_count  

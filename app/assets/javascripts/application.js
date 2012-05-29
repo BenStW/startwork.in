@@ -19,7 +19,7 @@
 //= require twitter/bootstrap-dropdown
 //= require twitter/bootstrap-modal
 //= require twitter/bootstrap-transition
-//= require_tree .
+// require_tree .    - don't require all scripts in general, pick only the relevant ones
 // require jquery_plugins/jquery.popupWindow - not needed yet
 // require twitter/bootstrap - not needed
 // require twitter/bootstrap.min - not needed

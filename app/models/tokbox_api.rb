@@ -28,7 +28,7 @@ class TokboxApi
     if(tokbox_session_id.nil? or user.nil?)
       raise "To generate a tokbox token the session and the user must exist"
     end
-    @tokbox_api_obj.generate_token session_id: tokbox_session_id, connection_data: connection_data.to_json
+     @tokbox_api_obj.generate_token session_id: tokbox_session_id, connection_data: connection_data.to_json
   end
   
   def get_session_for_camera_test

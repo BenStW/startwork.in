@@ -1,0 +1,47 @@
+<%- content_for(:head) do -%>
+<%= javascript_include_tag "http://connect.facebook.net/en_US/all.js" -%>
+<%= javascript_include_tag "facebook" -%>
+<%- end -%>
+
+<h1>Welcome</h1>
+
+  <div id="fb-root"></div>
+
+
+
+<!--
+<div class="row">
+  <div class="span3">
+
+  <%= form_tag(send_facebook_message_url, :method=>"post") do %>
+
+
+
+    <table class="table table-striped">
+    	<thead>
+    	<tr>
+    	<th>box</th>	
+    	<th>Picture</th>		
+    	<th>Name</th>
+    	</tr>
+    	</thead>
+    <% @friends.each do |friend| %>
+      <tr id=<%= friend.fb_ui%>>
+    	<td><%= check_box_tag "friends[]", friend.fb_ui %></td>
+    	<td><img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture "></td>
+        <td><%= friend.name%></td>
+      </tr>
+    <% end %>
+    </table>
+
+    <div id="select_all_button" class="btn btn-large"><%=t(".select_all")%></div>
+    <div id="unselect_all_button" class="btn btn-large"><%=t(".unselect_all")%></div>
+    <br><br>
+    <%= t(".message_title")%>
+    <%= text_area_tag 'message',  t(".message"), :size => "40x5"%>
+    <%= submit_tag t(".submit"), :class => "btn-large btn-primary"%>
+    <% end %>
+
+  </div>
+</div>-->
+

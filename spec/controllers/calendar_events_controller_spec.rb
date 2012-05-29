@@ -106,40 +106,23 @@ describe CalendarEventsController do
      response.should be_success 
    end   
    
-   it "should render nothing when no user_ids given" do
-     get :events
-     response.body.should eq(" ") 
-   end
-   
-   
-   it "should show my calendar event" do   
-     data = get :events, :user_ids => @user.id
+   it "should show my calendar event and of my friends" do   
+     data = get :events
      body = data.body
      obj = ActiveSupport::JSON.decode(body)
-     obj.count.should eq(1)
+     obj.count.should eq(3)
    end    
    
    it "should show my calendar event with 3 fields (id, user_id and start_time)" do  
      calendar_event = @user.calendar_events[0] 
-     data = get :events, :user_ids => @user.id
+     data = get :events
      body = data.body
      obj = ActiveSupport::JSON.decode(body)
      json_calendar_event = obj[0]
      json_calendar_event["id"].should eq(calendar_event.id)
      json_calendar_event["user_id"].should eq(@user.id)      
      DateTime.parse(json_calendar_event["start_time"]).should eq(calendar_event.start_time)
-   end
-   
-   it "should show the calendar events of my specified friends" do   
-  #   friend_ids = @user.friendships.map(&:friend).map(&:id).join(",")
-     friend_ids = @user.friends.map(&:id).join(",")
-     user_ids = @user.id.to_s+","+friend_ids
-     data = get :events, :user_ids => user_ids
-     body = data.body
-     obj = ActiveSupport::JSON.decode(body)
-     #Factory has one calendar event for this user and two equal calendar events for his friends
-     obj.count.should eq(3)
-   end    
+   end   
        
  end
  

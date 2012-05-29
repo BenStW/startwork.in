@@ -17,7 +17,8 @@ class Room < ActiveRecord::Base
 
   validates :tokbox_session_id, :presence => true
   has_many :work_sessions, :dependent => :destroy
-#  before_validation :populate_tokbox_session, difficult to test
+  
+  before_validation :populate_tokbox_session
   
   def populate_tokbox_session    
     if  self.tokbox_session_id.nil?    

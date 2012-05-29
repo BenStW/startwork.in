@@ -112,10 +112,39 @@ describe StaticPagesController do
     end  
   end
   
+  context "welcome" do   
+    before(:each) do 
+      @user = FactoryGirl.create(:user)
+      sign_in @user
+    end   
+   
+    it "should be success" do      
+      get :welcome
+      response.should be_success 
+    end   
+    it "should render about_us" do   
+      get :welcome
+      response.should render_template("welcome")
+    end  
+    it "should set the registered attribute to true" do
+      @user.registered.should eq(false)
+      get :welcome
+      @user.reload
+      @user.registered.should eq(true)
+    end
+    
+
+  end  
+  
   context "camera" do
     before(:each) do 
       @user = FactoryGirl.create(:user)
       sign_in @user
+      TokboxApi.instance.stub(
+        :api_key => "xxx",
+        :api_secret => "xxx",
+        :get_session_for_camera_test => "xxx",
+        :generate_token_for_camera_test   => "xxx")            
     end
 
     it "should be success" do      

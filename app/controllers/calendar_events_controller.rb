@@ -23,13 +23,16 @@ class CalendarEventsController < ApplicationController
   end
   
   def events
-    if params[:user_ids].nil?
-      render :nothing => true
-    else
-      user_ids = params[:user_ids].split(',')
+   # if params[:user_ids].nil?
+   #   render :nothing => true
+   # else
+   #  user_ids = params[:user_ids].split(',')
       #TODO: verify that current_user is allowed to access these calendar_events (this means, that they are his friends)
+     # render :json => CalendarEvent.this_week.has_user_ids(user_ids).to_json(:only=>[:id,:start_time,:user_id])
+     friend_ids = current_user.friends.map(&:id)
+     user_ids = friend_ids.push(current_user.id)
       render :json => CalendarEvent.this_week.has_user_ids(user_ids).to_json(:only=>[:id,:start_time,:user_id])
-    end
+   # end
   end
 
    def remove_event

@@ -7,6 +7,26 @@ $(document).ready( ->
     start_day = new Date()
     base_url = $("#data").data("base_url")
 
+    $("#ben").click ->
+      alert "this is ben"
+      data = 
+        start_time: "2012-05-30T06:00:00Z"
+        end_time: "2012-05-30T07:00:00Z"
+      $.ajax
+        url: "http://localhost:3000/calendar/new_event",
+        data: data,
+   #     beforeSend: (xhr) -> 
+   #      xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+#        headers: 
+#         'X-Transaction': 'POST Example',
+#         'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        type: 'POST'
+    # request = $.ajax
+    #    url: "http://localhost:3000/calendar/events"
+    #    type: "GET"
+    #    success: (data) ->
+    #      console.log data
+
     $("#send_invitation").click ->
        if selectedUserIDs().length<1
           $('#no_users_selected_modal').modal("show")
@@ -77,16 +97,18 @@ $(document).ready( ->
       start_time = new Date(frontend_event.start_time)
       end_time = new Date(frontend_event.start_time)
       end_time.setHours(start_time.getHours()+1)
-      column_id = 0
-      if $("#single_calendar_button").hasClass("btn-primary")
-         column_id = 0
-      else 
-        if frontend_event.user_id==$("#data").data("my_user_id")
+    #  column_id = 0
+    #  if $("#single_calendar_button").hasClass("btn-primary")
+    #     column_id = 0
+    #  else 
+      if frontend_event.user_id==$("#data").data("my_user_id")
           column_id = 0
-        else if $("#all_friends_button").hasClass("btn-primary")
+      else
           column_id = 1
-        else
-          column_id = user2column_hash[frontend_event.user_id]
+     #   else if $("#all_friends_button").hasClass("btn-primary")
+#          column_id = 1
+ #       else
+  #        column_id = user2column_hash[frontend_event.user_id]
       jquery_calendar_event = 
         id: frontend_event.id
         start: start_time
@@ -118,16 +140,16 @@ $(document).ready( ->
     # 3) own name (column 0) and "all" (column 1)
     # It is important that the column name matches to calendar event. This is only in case 2) a challenge.
     # Therefore user_names and user2column_hash is provided by one method
-    backendEventsToFrontendEvents = (frontend_events) ->
-      user2column_user_names = getUser2Column_UserNames()
-      user2column_hash = user2column_user_names[0] #user2column_hash is a hash to translate backend user_ids to frontend column_ids
-      user_names = user2column_user_names[1]
-
-      frontend_events = (backendEventToFrontendEvent(frontend_event,user2column_hash) for frontend_event in frontend_events)
+    backendEventsToFrontendEvents = (backend_events) ->
+     # user2column_user_names = getUser2Column_UserNames()
+     # user2column_hash = user2column_user_names[0] #user2column_hash is a hash to translate backend user_ids to frontend column_ids
+     # user_names = user2column_user_names[1]
+      user2column_hash = []
+      frontend_events = (backendEventToFrontendEvent(backend_event,user2column_hash) for backend_event in backend_events)
       calendar_events = 
         options: 
           "showAsSeparateUser":true
-          "users": user_names	
+          "users": ["Ich","Freunde"]	
         events: frontend_events
 
 
@@ -149,9 +171,9 @@ $(document).ready( ->
       # callback contains the callback function, which argument should contain the calendar events
       data: (start, end, callback) ->
         # under the following url the backend calendar events are fetched.
-        user_ids =  selectedUserIDs()
-        user_ids.push($("#data").data("my_user_id")) #always push my own user_id
-        url = base_url+'/events/'+user_ids
+       # user_ids =  selectedUserIDs()
+       # user_ids.push($("#data").data("my_user_id")) #always push my own user_id
+        url = base_url+'/events'  #'/'+user_ids
         $.getJSON(url 
             # the anonymous function to be called after the JSON-request
             (frontend_events) -> 
@@ -191,6 +213,8 @@ $(document).ready( ->
               url: base_url+'/new_event',
               data: data,
               type: 'POST',
+              beforeSend: (xhr) -> 
+                xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content')),
               statusCode:
                 200: ->
                   $("#calendar").weekCalendar("refresh")            

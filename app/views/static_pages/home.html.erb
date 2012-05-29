@@ -1,3 +1,10 @@
+<%- content_for(:head) do -%>
+   <% if user_signed_in? %>
+       <%= javascript_include_tag "join_worksessions" -%>
+   <%- end -%>
+<%- end -%>
+
+
 
 <% if !user_signed_in? %>
 
@@ -9,7 +16,8 @@
 <!--
 <p><a class="btn btn-primary btn-large" href="<%= new_user_registration_path %>"><%= t ".join_now"%> &raquo;</a></p>-->
 <br>
-<p><a href="<%=user_omniauth_authorize_path(:facebook)%>"><img src='/assets/facebook_anmelden.png'></a></p>
+<p><a id="facebook_link" href="<%=user_omniauth_authorize_path(:facebook)%>"><img src='/assets/facebook_anmelden.png'></a></p>
+
   </div><!-- end of main hero unit -->
                        
 <% else %>

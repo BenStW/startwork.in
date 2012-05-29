@@ -4,36 +4,30 @@
 <div class="row">
 <div class="span6">
 
-
-
+	
+	
 <table class="table table-striped">
 	<thead>
 	<tr>
-	<th>id</th>
+	<th>Picture</th>		
 	<th>Name</th>
-	<th>Action</th>	
+<!--	<th>Action</th>	-->
 	</tr>
 	</thead>
-<% @friendships.each do |friendship| %>
-  <tr id=<%= friendship.friend.first_name%>>
-    <td><%= friendship.friend.id %></td>
-    <td><%= friendship.friend.name%></td>
-	<td><%= link_to t(".remove_as_friend"), friendship, :method => :delete %></td>
+<% @friends.each do |friend| %>
+  <tr id=<%= friend.first_name%>>
+	<td><img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture "></td>
+    <td><%= friend.name%></td>
+<!--	<td>< link_to t(".remove_as_friend"), friendship_url, :method => :delete ></td> -->
   </tr>
 <% end %>
-  <tr><td colspan=3>&nbsp;</td></tr>
-  <tr><td colspan=3 ><h2><%= t(".other_users")%></h2></td></tr>
 
 
-<% @users.each do |user| %>
-  <tr id=<%= user.first_name%>>
-    <td><%= user.id %></td>
-    <td><%= user.name%></td>
-	<td><%= link_to t(".add_as_friend"), friendships_path(:friend_id => user), :method => :post %></td>
-  </tr>
-<% end %>
+
 </table>
 
 </div></div>
+
 <br><br>
+<br><br><br>
 <%= link_to t(".back"), calendar_path, :class => "btn-large btn-primary"%>
