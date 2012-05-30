@@ -11,8 +11,8 @@ ActiveAdmin::Dashboards.build do
       "#{User.all.count} users"    
     end    
     ul do
-         li "#{User.where(:registered=>:false).count} active users"
-         li "#{User.where(:registered=>:true).count} facebook friends"
+         li "#{User.where(:registered=>:true).count} active users"
+         li "#{User.where(:registered=>:false).count} facebook friends"
        end
   end    
   
