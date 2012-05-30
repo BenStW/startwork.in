@@ -23,8 +23,13 @@ class TokboxApi
   end
   
   # the identification for each user within the chat
-  def generate_token(tokbox_session_id, user)
-    connection_data = { :user_id => "#{user.id}", :user_name => "#{user.name}" } 
+  def generate_token(tokbox_session_id, user, guest=false)
+    if guest
+      connection_data = { :user_id => "1"}
+    else       
+      connection_data = { :user_id => "#{user.id}", :user_name => "#{user.name}"} 
+    end
+    
     if(tokbox_session_id.nil? or user.nil?)
       raise "To generate a tokbox token the session and the user must exist"
     end

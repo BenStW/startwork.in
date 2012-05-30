@@ -114,6 +114,7 @@ $(document).ready ->
             connectionData = JSON.parse(stream.connection.data)          
             user_id = connectionData.user_id
             replaceElementId = "stream_box_tmp_"+user_id
+            console.log("replaceElementId = "+replaceElementId)
             session.subscribe stream, replaceElementId, windowProps
               
       
@@ -155,16 +156,18 @@ $(document).ready ->
         replaceElementId = "publisher_box_tmp"
       
         publishAudio =  if isWorkSession() then false else true
-        console.log "publishAudio = "+publishAudio
       
         properties = 
           publishAudio: publishAudio
           width: width
           height: height
+        console.log("**** publish now with audio="+publishAudio+" at the ID="+replaceElementId)
         publisher = session.publish replaceElementId, properties
+
               
         # count the number of connections in hidden field
         $("#connectionCountField").val(event.connections.length)
+
         user_ids = (JSON.parse(connection.data).user_id for connection in event.connections)
       
         # if more then 1 person is in the work_session, then document the connections 

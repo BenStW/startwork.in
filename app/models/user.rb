@@ -53,9 +53,11 @@ class User < ActiveRecord::Base
   has_many :inverse_friends, :through => :inverse_friendships, :source => :user , :dependent => :destroy 
   
   has_many :sent_invitations, :class_name => 'Invitation', :foreign_key => 'sender_id', :dependent => :destroy
+#  belongs_to :work_session, :foreign_key => 'guest_id'
   
   after_initialize :init
   after_create :create_room #user must be first created with stored IP-address 
+  before_destroy :remove_guest_from_work_session
 
   def init
     self.registered ||= false
@@ -154,5 +156,12 @@ class User < ActiveRecord::Base
            :referer => "FB-friend made to WorkBuddy by #{self.name}",
            :password => Devise.friendly_token[0,20],
      )           
+  end
+  
+  def remove_guest_from_work_session
+     WorkSession.where(:guest_id=>self.id) do |work_session|
+       work_session.guest_id = nil
+       work_session.save
+     end
   end
 end

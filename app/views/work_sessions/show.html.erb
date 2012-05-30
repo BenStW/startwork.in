@@ -28,29 +28,18 @@
 
 
   <% @work_buddies.each do |work_buddy| %>
-  <div id=user_box_<%= work_buddy.id %> class=user_box data-user_id=<%= work_buddy.id %> >
+  <div id=user_box_<%= work_buddy.id||"1" %> class=user_box data-user_id=<%= work_buddy.id||"1" %> >
      <div class=text_box>
        <%= work_buddy.name%><br>
      </div><!-- text_box -->
-     <div class=stream_box id=stream_box_<%= work_buddy.id %>>
-       <div id=stream_box_tmp_<%= work_buddy.id %> class=stream_box_tmp>
+     <div class=stream_box id=stream_box_<%= work_buddy.id||"1" %>>
+       <div id=stream_box_tmp_<%= work_buddy.id||"1" %> class=stream_box_tmp>
 	     <img src="/assets/video_dummy.gif">
        </div><!-- stream_box -->
      </div><!-- stream_box -->		
    </div> <!-- user_box -->
   <% end%>
 
-
-  <div id=guest_box class=user_box  >
-     <div class=text_box>
-       Guest<br>
-     </div><!-- text_box -->
-     <div class=stream_box id=stream_box_guest>
-       <div id=stream_box_tmp_guest class=stream_box_tmp>
-	     <img src="/assets/video_dummy.gif">
-       </div><!-- stream_box -->
-     </div><!-- stream_box -->		
-   </div> <!-- user_box -->
 
 
 

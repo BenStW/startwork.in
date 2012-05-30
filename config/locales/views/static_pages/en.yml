@@ -16,6 +16,7 @@ en:
       start: Start
       maintain_work_sessions_html: "<b>Maintain work sessions</b>"
       next_session: "Next Session"  
+      guest_work_session_html: "<b>Guest work session</b><br>(join now)"
       nobody: "No WorkBuddies yet"      
       with: "with"    
       maintain_friends: My work buddies     

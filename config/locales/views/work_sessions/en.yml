@@ -3,3 +3,4 @@ en:
     show:
       to_speak_hold_button: "To speak hold button"
       no_work_session: "You currently do not have a work session planned. Please define them in your calendar."
+      no_guest_work_session: "There is currently no work session to join as a guest."

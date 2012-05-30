@@ -3,3 +3,4 @@ de:
     show:
       to_speak_hold_button: "Zum Sprechen den Knopf gedrückt halten"
       no_work_session: "Du hast keine WorkSession für jetzt geplant. Bitte definiere deine WorkSessions im Kalender."
+      no_guest_work_session: "Momentan findet keine WorkSession, an der du als Gast teilnehmen kannst."

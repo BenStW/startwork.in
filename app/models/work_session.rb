@@ -15,6 +15,7 @@ class WorkSession < ActiveRecord::Base
   has_many :users, :through=> :calendar_events  
   belongs_to :room
   before_destroy :remove_users_from_worksession
+  belongs_to :guest, :class_name => "User"
   
   def self.this_week
     c = DateTime.current
@@ -87,6 +88,25 @@ class WorkSession < ActiveRecord::Base
  #     and user_id in (?)", count, user_ids])
  # end
  #  
+
+   def self.find_for_guest(user)
+     c = DateTime.current
+     this_hour = DateTime.new(c.year,c.month,c.day, c.hour)          
+     where("
+       work_sessions.start_time = ? and 
+       (guest_id is null or guest_id = ?)",     
+       this_hour,  user.id).
+     limit(1)[0]     
+   end
+   
+   def self.assign_for_guest(user)
+     work_session = WorkSession.find_for_guest(user)
+     if !work_session.nil?
+       work_session.guest_id = user.id
+       work_session.save
+     end
+     work_session     
+   end
  
    def self.split_work_session_when_not_friend(user)
      events_with_foreigners = CalendarEvent.this_week.with_foreigners(user)

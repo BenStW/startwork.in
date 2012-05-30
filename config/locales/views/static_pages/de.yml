@@ -15,6 +15,7 @@ de:
       start: Start
       maintain_work_sessions_html: "<b>ArbeitsSessions organisieren</b>"
       next_session: "Nächste Session"
+      guest_work_session: "<b>Gast Session</b><br>(jetzt beitreten)"      
       with: "mit"
       nobody: "Noch keine WorkBuddies"
       maintain_friends: Meine WorkBuddies      

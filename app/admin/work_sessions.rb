@@ -25,6 +25,9 @@ ActiveAdmin.register WorkSession do
       column "host of room" do |work_session|
          user = work_session.room.user
           link_to user.name, admin_user_path(user)  
-      end        
+      end   
+      column "guest" do |work_session|
+        link_to work_session.guest.name, admin_user_path(work_session.guest)   unless work_session.guest.nil?
+      end           
     end
 end
