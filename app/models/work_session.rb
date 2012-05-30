@@ -129,7 +129,7 @@ class WorkSession < ActiveRecord::Base
    end
    
    def remove_users_from_worksession
-     
+     #TODO
    end
     
    

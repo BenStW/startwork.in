@@ -102,7 +102,6 @@ $(document).ready ->
         $("#voice_button_box").show()    
       
       
-      # creates for each new connection a user_box with a text_box and a stream_box
       subscribeToStreams = (streams) -> 
         console.log("subscribe to "+streams.length+" streams")
         for stream in streams
@@ -126,8 +125,8 @@ $(document).ready ->
            url: '/connections/start',
            data: data,
            type: 'POST',
-           beforeSend: (xhr) -> 
-             xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+        #   beforeSend: (xhr) -> 
+        #     xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
            success: (data) ->
                console.log data  
       
@@ -141,8 +140,8 @@ $(document).ready ->
            url: '/connections/end',
            data: data,
            type: 'POST',
-           beforeSend: (xhr) -> 
-               xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+      #     beforeSend: (xhr) -> 
+      #         xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
            success: (data) ->
                console.log data
        
@@ -251,8 +250,6 @@ $(document).ready ->
         supplied: "mp3, oga",
         swfPath: "/audios/Jplayer.swf")
       
-      $("#ben").click ->
-        play_gong()
       
       
       leadingzero = (number) ->
@@ -316,8 +313,8 @@ $(document).ready ->
       if $("#timer").length>0   
         startTimer()
       
-      session.addEventListener 'sessionConnected', sessionConnectedHandler
-      session.addEventListener 'streamCreated', streamCreatedHandler
+      session.addEventListener 'sessionConnected', sessionConnectedHandler #publishes own video
+      session.addEventListener 'streamCreated', streamCreatedHandler # shows videos of the others
       # session.addEventListener 'signalReceived', signalReceivedHandler
       session.addEventListener 'connectionCreated', connectionCreatedHandler
       session.addEventListener 'connectionDestroyed', connectionDestroyedHandler

@@ -114,8 +114,8 @@ $(document).ready ->
                   url: base_url+'/new_event',
                   data: data,
                   type: 'POST',
-                  beforeSend: (xhr) -> 
-                    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+              #    beforeSend: (xhr) -> 
+               #     xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
                   statusCode:
                     200: ->
                       $("#calendar").weekCalendar("refresh")
@@ -129,8 +129,8 @@ $(document).ready ->
                 url: base_url+'/remove_event'
                 data: data,
                 type: 'POST',
-                beforeSend: (xhr) -> 
-                  xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+             #   beforeSend: (xhr) -> 
+             #     xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
                 statusCode:
                   200: ->
                     $("#calendar").weekCalendar("refresh"))
