@@ -1,18 +1,25 @@
 ActiveAdmin::Dashboards.build do
-  
-  section "Recent users for the study" do
-    table_for User.order("created_at desc").limit(3) do
-      column :id      
-      column :name
-      column :email      
-      column :created_at
-    end
-    strong { link_to "View All Users", admin_users_path }
+  section "Calendar statistics" do
+    ul do
+      li "#{CalendarEvent.this_week.count} calendar events this week"
+      li "#{CalendarEvent.today.count} calendar events today"    
+    end    
   end
-
-
-
-  # Define your dashboard sections here. Each block will be
+  
+  section "User statistics" do
+    div do
+      "#{User.all.count} users"    
+    end    
+    ul do
+         li "#{User.where(:registered=>:false).count} active users"
+         li "#{User.where(:registered=>:true).count} facebook friends"
+       end
+  end    
+  
+                 
+  
+  
+    # Define your dashboard sections here. Each block will be
   # rendered on the dashboard in the context of the view. So just
   # return the content which you would like to display.
   

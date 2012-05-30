@@ -22,6 +22,13 @@ class CalendarEvent < ActiveRecord::Base
     where("calendar_events.start_time >= ?", today)
   end 
   
+  def self.today
+    c = DateTime.current
+    today = DateTime.new(c.year,c.month,c.day)
+    tomorrow = today + 1.day
+    where("calendar_events.start_time >= ? and calendar_events.start_time < ?", today, tomorrow)
+  end  
+  
   def self.order_by_start_time
     order("calendar_events.start_time ASC")
   end
