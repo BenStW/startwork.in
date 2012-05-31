@@ -1,0 +1,69 @@
+
+
+
+
+
+	
+<div class="video_window" id="test_video_window" 
+  data-session_id="<%=@tokbox_session_id %>" 
+  data-tok_token="<%=@tokbox_token%>" 
+  data-api_key="<%=@tokbox_api_key %>" 
+  data-user_id="current_user.id">
+  
+  <div class="upper_box" >
+     Test Work Session
+  </div>
+ 
+    <center>
+<br>
+   <!-- <div id="soud_all_button" class="btn" style="width:200px">Sound off for all</div><br>
+	<div id="walkie_button" class="btn" style="width:200px">Sound off for me</div><br><br>-->
+<!--	<div id="hide_pub_by_display_none" class="btn" style="width:200px">Hide publisher by display</div><br> -->
+	<div id="hide_pub_by_visibility" class="btn" style="width:200px">Hide publisher by visibility</div><br>
+	<div id="hide_pub_by_move" class="btn" style="width:200px">Hide publisher by move</div><br>	<br>
+
+	<div id="add_box" class="btn" style="width:200px">add box</div><br>	
+	
+	<br>
+	</center>	
+
+
+
+
+  <div id=user_box_<%= @work_buddy %> class=user_box data-user_id=<%= @work_buddy %> >
+     <div class=text_box>
+       User<%= @work_buddy%><br>
+     </div><!-- text_box -->
+     <div class=stream_box id=stream_box_<%= @work_buddy %>>
+       <div id=stream_box_tmp_<%= @work_buddy %> class=stream_box_tmp>
+	     <img src="/assets/video_dummy.gif">
+       </div><!-- stream_box -->
+     </div><!-- stream_box -->		
+   </div> <!-- user_box -->
+
+<!--
+<div id="publisher_box" style="position: absolute;overflow: hidden;text-align: center;border: 1px solid black;background-color: #fff">
+	<div id="publisher_box_tmp">Connecting...</div>
+</div>-->
+
+<b>publisher:</b>
+<!--	<center> -->
+  <div id ="publisher_box" class="publisher_box1">
+	<center>
+    <span id="publisher_box_tmp" ><!--class="label label-warning"-->
+	  <!-- please wait...-->
+	    <img src="/assets/video_dummy.gif">
+    </span>
+</center>
+  </div>
+
+<!--</center>-->
+
+
+</div> <!-- video_window-->
+
+
+
+
+
+

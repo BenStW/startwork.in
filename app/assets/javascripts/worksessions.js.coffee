@@ -23,6 +23,7 @@ $(document).ready ->
       toggle = true
       publisher = null
       publisher_hidden = 0
+     # $("#user_box_1").css("visibility", "hidden")
       
       timeout = null
       timer_is_on = 0
@@ -60,14 +61,23 @@ $(document).ready ->
             countdown = 60*60 - minutes*60 - seconds + start_work_minutes*60
       
       hidePublisher = ->
-        $("#publisher_box").css("visibility", "hidden")
+        #$("#publisher_box").css("visibility", "hidden")
         #$("#publisher_box").removeClass("publisher_hidden")
+        $("#publisher_box").css("width", "1px")
+        $("#publisher_box").css("height", "1px")
+        $("#publisher_box").css("top", "-10px")
+        $("#publisher_box").css("left", "-10px")
         publisher_hidden=1    
       
       showPublisher = ->
-        $("#publisher_box").css("visibility", "visible")
+        #$("#publisher_box").css("visibility", "visible")
         #$("#publisher_box").addClass("publisher_hidden")
+        $("#publisher_box").css("width", "150px")
+        $("#publisher_box").css("height", "150px")
+        $("#publisher_box").css("top", "50px")
+        $("#publisher_box").css("left", "25px")
         publisher_hidden=0
+
       
       $("#timer").click ->
         if publisher_hidden
@@ -99,8 +109,20 @@ $(document).ready ->
         if publisher
            console.log "setSoundToWorkSession: publishAudio=false"	
            publisher.publishAudio(false) 
-        $("#voice_button_box").show()    
-      
+        $("#voice_button_box").show()   
+
+      addVideoBox = (user_id, user_name) ->
+          html =  "<div id='user_box_"+user_id+"' data-user_id='"+user_id+"'>                      
+                      <div class='text_box'>
+                        "+user_name+"<br>
+                      </div><!-- text_box -->
+                      <div  id='streambox_"+user_id+"' class='stream_box'>
+                        <div id='stream_box_tmp_"+user_id+"' class='stream_box_tmp'>
+                          <img src='/assets/video_dummy.gif'>
+                        </div><!-- stream_box -->
+                     </div><!-- stream_box -->		
+                  </div> <!-- user_box -->"
+          $("#video_window").append(html)
       
       subscribeToStreams = (streams) -> 
         console.log("subscribe to "+streams.length+" streams")
@@ -113,6 +135,8 @@ $(document).ready ->
           else
             connectionData = JSON.parse(stream.connection.data)          
             user_id = connectionData.user_id
+            user_name = connectionData.user_name
+            addVideoBox(user_id, user_name)
             replaceElementId = "stream_box_tmp_"+user_id
             console.log("replaceElementId = "+replaceElementId)
             session.subscribe stream, replaceElementId, windowProps
@@ -212,14 +236,15 @@ $(document).ready ->
         postConnectionEnd(user_ids)
       
         for user_id in user_ids
-          # if no stream_box_tmp is given, then create a new one
-          if $("#stream_box_tmp_"+user_id).length==0	
-            html =  "<div id=stream_box_tmp_"+ user_id + " class=stream_box_tmp>
-      	           <img src='/assets/video_dummy.gif'>
-      		     </div><!-- stream_box -->"		
-            $("#stream_box_"+user_id).append(html)
-          else	
-            console.log("ERROR: stream_box_tmp exists already")	
+           $("#user_box_"+user_id).remove()
+       #   # if no stream_box_tmp is given, then create a new one
+       #   if $("#stream_box_tmp_"+user_id).length==0	
+       #     html =  "<div id=stream_box_tmp_"+ user_id + " class=stream_box_tmp>
+       #            <img src='/assets/video_dummy.gif'>
+       # 	     </div><!-- stream_box -->"		
+       #     $("#stream_box_"+user_id).append(html)
+       #   else	
+       #     console.log("ERROR: stream_box_tmp exists already")	
       
       connectionCreatedHandler = (event) ->
         connectionsCreated = event.connections 
@@ -317,7 +342,7 @@ $(document).ready ->
         startTimer()
       
       session.addEventListener 'sessionConnected', sessionConnectedHandler #publishes own video
-      session.addEventListener 'streamCreated', streamCreatedHandler # shows videos of the others
+      session.addEventListener 'streamCreated', streamCreatedHandler # shows videos of the others, creates video box
       # session.addEventListener 'signalReceived', signalReceivedHandler
       session.addEventListener 'connectionCreated', connectionCreatedHandler
       session.addEventListener 'connectionDestroyed', connectionDestroyedHandler

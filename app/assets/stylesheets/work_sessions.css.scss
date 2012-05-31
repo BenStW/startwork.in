@@ -22,8 +22,8 @@ div.video_window
 }
 
 div.publisher_box_tmp {position: absolute; overflow: hidden}
-div.publisher_box { width:$width; height:$height; padding:0px; border-style:solid;border-width:$padding/2; margin:$padding/2;margin-top:0px; outline:1px solid gray}
-
+div.publisher_box_old { width:$width; height:$height; padding:0px; border-style:solid;border-width:$padding/2; margin:$padding/2;margin-top:0px; outline:1px solid gray}
+div.publisher_box {position: absolute;overflow: hidden; width:$width; height:$height; padding:0px; border-style:solid;border-width:$padding/2; margin:$padding/2;margin-top:0px; outline:1px solid gray}
 
 div.user_box {      }
 
