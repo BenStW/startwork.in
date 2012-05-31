@@ -25,13 +25,7 @@ class TokboxApi
   # the identification for each user within the chat
   def generate_token(tokbox_session_id, user, guest=false)
     if guest=="test"
-      if user == 1
-        connection_data = { :user_id => "1", :user_name => "User1"} 
-      elsif user == 2
-        connection_data = { :user_id => "2", :user_name => "User2"}
-      else 
-        raise "Error" 
-      end
+        connection_data = { :user_id => user, :user_name => "User #{user}"} 
     elsif guest==true
       connection_data = { :user_id => "#{user.id}", :user_name => "Gast: #{user.name}"} 
     else       
