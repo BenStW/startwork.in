@@ -37,7 +37,7 @@ class WorkSessionsController < ApplicationController
     @tokbox_session_id = "1_MX4xMzE4NzY1Mn5-MjAxMi0wNS0zMCAxODozMjozNy4wNjMxNTcrMDA6MDB-MC42NDI2MzUyMzI2MTJ-"
     @room_name = "Test room"
     @work_buddy = if user_id==1 then 2 else 1 end
-    puts "XXXXX work_buddy=#{@work_buddy}"
+   # puts "XXXXX work_buddy=#{@work_buddy}"
          
     @tokbox_token = TokboxApi.instance.generate_token @tokbox_session_id, user_id, "test"
     @tokbox_api_key = TokboxApi.instance.api_key    

@@ -21,93 +21,58 @@ $(document).ready ->
       api_key = $("#test_video_window").data("api_key")
       session = TB.initSession session_id  
       publisher = null
-      hide_pub_by_visibility = 1
-      hide_pub_by_display_none = 1
-      hide_pub_by_move = 1
-      
+      audio_on = 1
 
       windowProps = 
         width: width
         height: height
-      
 
       
-      $("#hide_pub_by_visibility").click ->
-        if hide_pub_by_visibility
-            $("#publisher_box").css("visibility", "visible")
-            hide_pub_by_visibility=0
-        else
-            $("#publisher_box").css("visibility", "hidden")
-            hide_pub_by_visibility=1
-
-      $("#hide_pub_by_display_none").click ->
-        if hide_pub_by_display_none
-            $("#publisher_box").css("visibility", "visible")
-            hide_pub_by_display_none=0
-        else
-            $("#publisher_box").css("visibility", "hidden")
-            hide_pub_by_display_none=1
- 
-      $("#hide_pub_by_move").click ->
-        if hide_pub_by_move
-            $("#publisher_box").css("width", "1px")
-            $("#publisher_box").css("height", "1px")
-            $("#publisher_box").css("top", "-10px")
-            $("#publisher_box").css("left", "-10px")
-            hide_pub_by_move=0
-        else
-            $("#publisher_box").css("width", "100px")
-            $("#publisher_box").css("height", "100px")
-            $("#publisher_box").css("top", "10px")
-            $("#publisher_box").css("left", "10px")
-            hide_pub_by_move=1
-
-      $("#add_box").click ->
-           html =  "<div class='user_box'>
-		              <div class=text_box>
-		                User<br>
-		              </div><!-- text_box -->
-	                  <div class=stream_box>
-                         <div class=stream_box_tmp>
-                           <img src='/assets/video_dummy.gif'>
-                         </div><!-- stream_box -->
-                      </div><!-- stream_box -->		
-                   </div> <!-- user_box -->"
-           $("#test_video_window").append(html)
-      
-      $("#walkie_button").mousedown ->
-        $("#walkie_button").addClass("btn-danger")
-        $("#walkie_button").html("Sound on for me")
-        if publisher
-           console.log "mouseDown: publishAudio=true"	
-           publisher.publishAudio(true)
-      $("#walkie_button").mouseup ->
-        $("#walkie_button").removeClass("btn-danger")
-        $("#walkie_button").html("Sound off for me")
-        if publisher
-           console.log "mouseUp: publishAudio=false"		
+      $("#voice_button").click ->
+        if audio_on
+           $("#voice_button").removeClass("btn-danger")
+           $("#voice_button").html("Sound off")
            publisher.publishAudio(false)
+           audio_on=0
+        else
+           $("#voice_button").addClass("btn-danger")
+           $("#voice_button").html("Sound on")
+           publisher.publishAudio(true)
+           audio_on=1
       
 
+      addVideoBox = (user_id, user_name) ->
+          html =  "<div id='user_box_"+user_id+"' data-user_id='"+user_id+"'>                      
+                      <div class='text_box'>
+                        "+user_name+"<br>
+                      </div><!-- text_box -->
+                      <div  id='streambox_"+user_id+"' class='stream_box'>
+                        <div id='stream_box_tmp_"+user_id+"' class='stream_box_tmp'>
+                          <img src='/assets/video_dummy.gif'>
+                        </div><!-- stream_box -->
+                     </div><!-- stream_box -->		
+                  </div> <!-- user_box -->"
+          $("#test_video_window").append(html)
       
       subscribeToStreams = (streams) -> 
         console.log("subscribe to "+streams.length+" streams")
         for stream in streams
           if stream.connection.connectionId == session.connection.connectionId 
-             console.log("   same connection. Set the visibility of the publisher to hidden.")
-          #   hidePublisher()
-            # publishAudio =  if isWorkSession() then false else true
-            # publisher.publishAudio(publishAudio)
+            # console.log("   same connection. Set the visibility of the publisher to hidden.")
           else
-            connectionData = JSON.parse(stream.connection.data)          
+            connectionData = JSON.parse(stream.connection.data)  
+            console.log "**** Connection Data *****"
+            console.log connectionData        
             user_id = connectionData.user_id
+            user_name = connectionData.user_name
+            console.log("**** add video box for user_id "+user_id+" and name="+user_name)
+            addVideoBox(user_id, user_name)
             replaceElementId = "stream_box_tmp_"+user_id
             console.log("replaceElementId = "+replaceElementId)
             session.subscribe stream, replaceElementId, windowProps
+            console.log("***** replaced  = "+replaceElementId)
               
 
-       
-      		
       
       
       
@@ -122,6 +87,7 @@ $(document).ready ->
           height: height
         publisher = session.publish replaceElementId, properties
 
+        user_ids = (JSON.parse(connection.data).user_id for connection in event.connections)
         subscribeToStreams event.streams 
              
       
@@ -131,14 +97,24 @@ $(document).ready ->
          # Subscribe to any new streams that are created
          subscribeToStreams event.streams
       
-  
+
+      
+      
+      connectionDestroyedHandler = (event) ->
+        connectionsDestroyed = event.connections  
+        user_ids = (JSON.parse(connection.data).user_id for connection in connectionsDestroyed)  
+        for user_id in user_ids
+           $("#user_box_"+user_id).remove()
+	
+      
+      connectionCreatedHandler = (event) ->
+         console.log "connection created"
+      
       
       session.addEventListener 'sessionConnected', sessionConnectedHandler #publishes own video
-      session.addEventListener 'streamCreated', streamCreatedHandler # shows videos of the others
-      # session.addEventListener 'signalReceived', signalReceivedHandler
-   #   session.addEventListener 'connectionCreated', connectionCreatedHandler
-   #   session.addEventListener 'connectionDestroyed', connectionDestroyedHandler
-    #  TB.addEventListener 'exception', exceptionHandler
+      session.addEventListener 'streamCreated', streamCreatedHandler # shows videos of the others, creates video box
+      session.addEventListener 'connectionCreated', connectionCreatedHandler
+      session.addEventListener 'connectionDestroyed', connectionDestroyedHandler
       session.connect api_key, tok_token
       
     
