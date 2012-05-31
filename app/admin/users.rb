@@ -1,6 +1,8 @@
 ActiveAdmin.register User do
   menu :priority => 1 #, :parent => "User Administration"
   
+  scope :registered?
+  
   filter :first_name
   filter :last_name
   

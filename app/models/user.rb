@@ -67,6 +67,10 @@ class User < ActiveRecord::Base
     "#{first_name or ''} #{last_name or ''}"
   end
   
+  def self.registered?
+    where("registered = ?", true)
+  end  
+  
   def is_friend?(user)
      self.friends.map(&:id).include?(user.id)
    end
