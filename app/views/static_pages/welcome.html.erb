@@ -1,10 +1,44 @@
-<%- content_for(:head) do -%>
-<%= javascript_include_tag "http://connect.facebook.net/en_US/all.js" -%>
-<%- end -%>
 
-<h1>Welcome</h1>
-<br>
+
+<div class="hero-unit">
+   <div class="row">
+      <div class="span7">
+    
+         <h2>Hallo <%= @name %>!</h2><br>
+         <p>schön, dass du bei uns mitmachst!</p>
+
+         <% if !@friends.empty?%>
+
+             <p>Wir haben gesehen, dass schon ein paar deiner Freunde dabei sind:</p><br>
+                    
+             <div class="row">
+                <% @friends.each do |friend| %>
+                  <div class="span1">
+                  <img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture"><br>
+                  <%= friend.first_name%>
+                </div>
+                <% end %>
+             </div> <!-- row --><br>
+         <% end %>
+         <br>
+         <h2>Wie funktioniert es?</h2><br>
+         <p>Du hast gleich die Möglichkeit StartWork live auszuprobieren. 
+         Hier nochmal die Kurzfassung von StartWork:</p>
+         <p>
+         1) du kommst in eine Webcam-Gruppe mit max. 4 weiteren Nutzern<br>
+         2) Zur vollen Stunde startet die Session mit 5min Vorstellungsrunde<br>
+         3) Dann arbeitet jeder 50min für sich konzentriert an seinem Projekt<br>
+         4) Schließlich gibt es vor der nächsten Session nochmal 5min Kaffeepause<br>
+         </p><br>
+        <a href='<%= welcome_session_path %>' class="btn btn-primary">Weiter</a>
+      </div> <!-- span8 -->
+      <div class="span3">
+	     <h2>Erklärvideo</h2>
+    	  <img src="/assets/erklaer_video.png">
+	  </div>
+  </div> <!-- general row -->
+</div><!-- hero-unit -->
 
 	
 
-<div id="fb-root"></div>
+

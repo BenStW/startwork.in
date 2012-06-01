@@ -71,6 +71,14 @@ class User < ActiveRecord::Base
     where("registered = ?", true)
   end  
   
+  def registered_friends
+     User.find_by_sql(
+       ["select users.id, users.first_name, users.fb_ui,users.registered from users inner join friendships
+         on users.id=friendships.friend_id
+         where friendships.user_id = ?
+         and registered=true",self.id])
+  end  
+  
   def is_friend?(user)
      self.friends.map(&:id).include?(user.id)
    end

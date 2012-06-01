@@ -39,12 +39,18 @@ class StaticPagesController < ApplicationController
   end
   
   def welcome
-   if current_user.registered
-     redirect_to root_url
-   else
-     current_user.registered=true
-     current_user.save   
-   end    
+  # if current_user.registered
+  #   redirect_to root_url
+  # else
+  #   current_user.registered=true
+     @name = current_user.first_name
+     @friends = current_user.registered_friends
+  #   current_user.save   
+  # end    
+  end
+  
+  def welcome_session
+    
   end
   
   def send_facebook_message

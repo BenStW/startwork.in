@@ -24,6 +24,8 @@ StartWork::Application.routes.draw do
      root :to => 'static_pages#home'  
 
      match 'welcome' => 'static_pages#welcome', :as => :welcome
+     match 'welcome_session' => 'static_pages#welcome_session', :as => :welcome_session
+
      match 'effect' => 'static_pages#effect', :as => :effect
      match 'pilot_study' => 'static_pages#pilot_study', :as => :pilot_study
      match 'scientific_principles' => 'static_pages#scientific_principles', :as => :scientific_principles

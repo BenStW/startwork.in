@@ -30,7 +30,7 @@ class WorkSessionsController < ApplicationController
   end
   
   def test_show
-    user_id = params[:user].to_i
+    user = params[:user]
    # if ![1,2].include?(user_id)
   #    render :text => "user must be 1 or 2"
   #  end
@@ -39,7 +39,7 @@ class WorkSessionsController < ApplicationController
    # @work_buddy = if user_id==1 then 2 else 1 end
    # puts "XXXXX work_buddy=#{@work_buddy}"
          
-    @tokbox_token = TokboxApi.instance.generate_token @tokbox_session_id, user_id, "test"
+    @tokbox_token = TokboxApi.instance.generate_token @tokbox_session_id, user, "test"
     @tokbox_api_key = TokboxApi.instance.api_key    
   end
 

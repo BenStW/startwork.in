@@ -130,6 +130,35 @@ describe User do
     end
   end    
   
+  context "registered_friends" do
+    it "should return empty array if no friends" do
+      registered_friends = @user.registered_friends
+      registered_friends.should be_empty
+    end
+    it "should return empty array if friend is not registered" do
+      new_user = FactoryGirl.create(:user)
+      Friendship.create_reciproke_friendship(@user,new_user)
+      registered_friends = @user.registered_friends
+      registered_friends.should be_empty            
+    end
+    it "should return array with friend if friend is registered" do
+      new_user = FactoryGirl.create(:user, :registered=>true)
+      Friendship.create_reciproke_friendship(@user,new_user)
+      new_user.registered.should eq(true)
+      registered_friends = @user.registered_friends
+     # registered_friends.should eq([new_user])       
+    end     
+    it "should return id, name and fb_ui if friend is registered" do
+      new_user = FactoryGirl.create(:user, :registered=>true)
+      Friendship.create_reciproke_friendship(@user,new_user)
+      registered_friend = @user.registered_friends[0]    
+      registered_friend.id.should eq(new_user.id)      
+      registered_friend.name.should eq(new_user.name)      
+      registered_friend.fb_ui.should eq(new_user.fb_ui)         
+      registered_friend.registered.should eq(new_user.registered)         
+    end
+  end
+  
   context "handles connections" do
     it "starts a connection" do
       @user.connections.count.should eq(0)
