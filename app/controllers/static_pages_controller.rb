@@ -50,7 +50,12 @@ class StaticPagesController < ApplicationController
   end
   
   def welcome_session
-    
+    work_session = WorkSession.assign_for_guest(current_user)
+    if work_session.nil?
+      redirect_to root_url, :alert=> "Aktuell ist keine WorkSession vorhanden, wo Du als Gast teilnehmen kannst."
+    else
+      @work_buddies = work_session.users
+    end
   end
   
   def send_facebook_message

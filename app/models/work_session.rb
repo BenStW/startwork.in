@@ -94,14 +94,14 @@ class WorkSession < ActiveRecord::Base
      this_hour = DateTime.new(c.year,c.month,c.day, c.hour)          
      where("
        work_sessions.start_time = ? and 
-       (guest_id is null or guest_id = ?)",     
+       (guest_id = ? or guest_id is null)",     
        this_hour,  user.id).
      limit(1)[0]     
    end
    
    def self.assign_for_guest(user)
      work_session = WorkSession.find_for_guest(user)
-     if !work_session.nil?
+     if !work_session.nil? and work_session.guest_id.nil?
        work_session.guest_id = user.id
        work_session.save
      end
