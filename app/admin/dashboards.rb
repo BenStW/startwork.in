@@ -3,6 +3,7 @@ ActiveAdmin::Dashboards.build do
     ul do
       li "#{CalendarEvent.this_week.count} calendar events this week"
       li "#{CalendarEvent.today.count} calendar events today"    
+      li "#{WorkSession.current.count} current worksessions"
     end    
   end
   

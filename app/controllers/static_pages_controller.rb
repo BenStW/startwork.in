@@ -42,10 +42,11 @@ class StaticPagesController < ApplicationController
   # if current_user.registered
   #   redirect_to root_url
   # else
-  #   current_user.registered=true
+     current_user.registered=true
+     current_user.save 
      @name = current_user.first_name
      @friends = current_user.registered_friends
-  #   current_user.save   
+  #     
   # end    
   end
   

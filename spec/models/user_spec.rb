@@ -153,7 +153,7 @@ describe User do
       Friendship.create_reciproke_friendship(@user,new_user)
       registered_friend = @user.registered_friends[0]    
       registered_friend.id.should eq(new_user.id)      
-      registered_friend.name.should eq(new_user.name)      
+      registered_friend.first_name.should eq(new_user.first_name)      
       registered_friend.fb_ui.should eq(new_user.fb_ui)         
       registered_friend.registered.should eq(new_user.registered)         
     end

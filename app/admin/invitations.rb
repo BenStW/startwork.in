@@ -1,5 +1,5 @@
 ActiveAdmin.register Invitation do
-    menu :priority => 4
+    menu :priority => 4, :parent => "User Administration"
   filter :sender
   
   index do

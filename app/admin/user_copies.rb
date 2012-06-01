@@ -1,5 +1,5 @@
 ActiveAdmin.register UserCopy do
-  menu :priority => 1 #, :parent => "User Administration"
+  menu :priority => 1 , :parent => "User Administration"
   
   filter :first_name
   filter :last_name

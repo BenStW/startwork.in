@@ -59,6 +59,23 @@ describe WorkSession do
       new_start_time = @work_session.start_time + 1.hour
       WorkSession.start_time(new_start_time).count.should eq(0)
     end
+    
+    it "finds current work session" do
+       DateTime.stub(:current).and_return(@work_session.start_time+10.minutes)
+       ws = WorkSession.current
+       ws.count.should eq(1)
+       ws[0].should eq(@work_session)  
+    end
+    it "finds not the work session in 70 minutes when searched for current" do
+      DateTime.stub(:current).and_return(@work_session.start_time+70.minutes)
+      ws = WorkSession.current
+      ws.count.should eq(0)
+    end
+    it "finds not the work session before 10 minutes when searched for current" do
+      DateTime.stub(:current).and_return(@work_session.start_time-10.minutes)
+      ws = WorkSession.current
+      ws.count.should eq(0)  
+    end
   end
   
   context "with class methods to find and assign a guest work session" do
@@ -68,42 +85,35 @@ describe WorkSession do
        @work_session = FactoryGirl.create(:work_session)
     end
     
-    it "assigns a guest to a work session" do
-      WorkSession.stub(:find_for_guest).and_return(@work_session)
-      ws = WorkSession.assign_for_guest(@user)
-      ws.should eq(@work_session)
-      ws.guest_id.should eq(@user.id)
+    it "finds a worksession without guest" do
+      ws = WorkSession.free_for_guest(@user)
+      ws[0].should eq(@work_session)
     end
     
-    it "finds a work session for a guest" do
-       DateTime.stub(:current).and_return(@work_session.start_time+10.minutes)
-       ws = WorkSession.find_for_guest(@user)
-       ws.should eq(@work_session)
-    end
-    
-    it "does not find a work session if it is already occupied by a guest" do
-      DateTime.stub(:current).and_return(@work_session.start_time+10.minutes)
-      @work_session.guest_id = 4711
-      @work_session.save
-      ws = WorkSession.find_for_guest(@user)
-      ws.should eq(nil)      
-    end
-    it "does find a work session if it is already occupied by the requesting user" do
-      DateTime.stub(:current).and_return(@work_session.start_time+10.minutes)
+    it "finds a worksession with user as guest" do
       @work_session.guest_id = @user.id
       @work_session.save
-      ws = WorkSession.find_for_guest(@user)
-       ws.should eq(@work_session)     
-    end    
-    it "does not find a work session if existing work session was last hour" do
-      DateTime.stub(:current).and_return(@work_session.start_time+70.minutes)
-      ws = WorkSession.find_for_guest(@user)
-      ws.should eq(nil)      
+      ws = WorkSession.free_for_guest(@user)
+      ws[0].should eq(@work_session)     
     end
-    it "does not find a work session if existing work session will be in one hour" do
-      DateTime.stub(:current).and_return(@work_session.start_time-10.minutes)
-      ws = WorkSession.find_for_guest(@user)
-      ws.should eq(nil)      
+    
+    it "does not find a worksession when guest is occupied" do
+      @work_session.guest_id = 4711
+      @work_session.save
+      ws = WorkSession.free_for_guest(@user)
+      ws.count.should eq(0)    
+    end
+
+    
+    it "assigns a guest to a work session" do
+      WorkSession.stub_chain(:current,:free_for_guest,:first).and_return(@work_session)
+      ws = WorkSession.assign_for_guest(@user)
+      ws.guest_id.should eq(@user.id)
+    end
+    it "returns a work session" do
+      WorkSession.stub_chain(:current,:free_for_guest,:first).and_return(@work_session)
+      ws = WorkSession.assign_for_guest(@user)
+      ws.should eq(@work_session)
     end    
     
   end

@@ -1,7 +1,8 @@
 ActiveAdmin.register WorkSession do
     menu :priority => 11
   filter :start_time
-  scope :this_week
+  scope :this_week  
+  scope :current
 
 
   index do
@@ -28,6 +29,7 @@ ActiveAdmin.register WorkSession do
       end   
       column "guest" do |work_session|
         link_to work_session.guest.name, admin_user_path(work_session.guest)   unless work_session.guest.nil?
-      end           
+      end   
+      default_actions        
     end
 end
