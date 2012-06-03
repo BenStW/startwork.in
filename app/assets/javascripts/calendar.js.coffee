@@ -126,10 +126,11 @@ $(document).ready ->
                       $("#calendar").weekCalendar("refresh")
 
           eventMouseover: (event,element,domEvent) ->
+             console.log("EVENT")
              if event.userId>0
               # console.log(event)
               # console.log(element)
-              # console.log(domEvent)
+               console.log(domEvent)
                $(domEvent.target).attr("rel","popover")
                title = event.start.getHours()+":00 <br>"+event.name
                $(domEvent.target).attr("data-title",title)
