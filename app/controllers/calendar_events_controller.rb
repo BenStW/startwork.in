@@ -31,7 +31,9 @@ class CalendarEventsController < ApplicationController
      # render :json => CalendarEvent.this_week.has_user_ids(user_ids).to_json(:only=>[:id,:start_time,:user_id])
      friend_ids = current_user.friends.map(&:id)
      user_ids = friend_ids.push(current_user.id)
-      render :json => CalendarEvent.this_week.has_user_ids(user_ids).to_json(:only=>[:id,:start_time,:user_id])
+      render :json => CalendarEvent.this_week.has_user_ids(user_ids).to_json(
+      :only=>[:id,:start_time,:user_id],:include => {:user => {:only=>[:id,:first_name,:last_name]}} )
+
    # end
   end
 

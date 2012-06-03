@@ -4,7 +4,7 @@
 
 $(document).ready ->
    if $("#calendar").length > 0
-        
+	        
        start_day = new Date()
        base_url = $("#data").data("base_url")
        
@@ -12,7 +12,7 @@ $(document).ready ->
          start_time = new Date(frontend_event.start_time)
          end_time = new Date(frontend_event.start_time)
          end_time.setHours(start_time.getHours()+1)
-         if frontend_event.user_id==$("#data").data("my_user_id")
+         if frontend_event.user.id==$("#data").data("my_user_id")
              column_id = 0
          else
              column_id = 1
@@ -20,21 +20,8 @@ $(document).ready ->
            id: frontend_event.id
            start: start_time
            end: end_time
-           userId: column_id 
-       
-       
-       getUser2Column_UserNames = () ->
-         user_names = []
-         user2column_hash = {}
-         if $("#all_friends_button").hasClass("btn-primary")
-            user_names = [$("#data").data("my_user_name"), "all"]
-         else if not $("#single_calendar_button").hasClass("btn-primary")
-            selected_users = selectedUsers() #returns selected_user_ids and selected_user_names, which correspond to each other in order
-            user2column_hash = selected_users[0]
-            selected_user_names = selected_users[1]
-            user_names = [$("#data").data("my_user_name")] #put own name at the beginning
-            user_names = user_names.concat(selected_user_names)
-         [user2column_hash,user_names]	
+           userId: column_id
+           name: frontend_event.user.first_name + " " + frontend_event.user.last_name
        
        # The user has three possibilities to view calendar events:
        # 1) showing only his calendar events --> $("#single_calendar_button") is pressed
@@ -119,6 +106,17 @@ $(document).ready ->
                   statusCode:
                     200: ->
                       $("#calendar").weekCalendar("refresh")
+
+          eventMouseover: (event,element) ->
+             if event.userId>0
+               console.log(event)
+               console.log(element)
+               #$("#work_buddies_box").html("Beginn: "+event.start+"<br>WorkBuddy: "+event.name)
+               $(element).tooltip("show")
+
+
+          eventMouseout: (event) ->
+          #   $("#work_buddies_box").html("")
       
       
           eventClick : (calEvent, event) ->

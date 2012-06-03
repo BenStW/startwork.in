@@ -18,6 +18,8 @@
 //= require jquery_plugins/jquery.weekcalendar
 //= require twitter/bootstrap-dropdown
 //= require twitter/bootstrap-modal
+//= require twitter/bootstrap-tooltip
+//= require twitter/bootstrap-popover
 //= require twitter/bootstrap-transition
 //= require_tree . 
 // require jquery_plugins/jquery.popupWindow - not needed yet

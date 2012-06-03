@@ -8,15 +8,16 @@ $(document).ready ->
      $("#jplayer").jPlayer("play")
      console.log("jplayer played")
    
-   $("#jplayer").jPlayer(
-     ready: -> 
-       $(this).jPlayer(
-         "setMedia",  
-           mp3: "/audios/boxing-bell.mp3",			
-           oga: "/audios/boxing-bell.ogg")
-     solution: "html,flash", # HTML5 with Flash fallback
-     supplied: "mp3, oga",
-     swfPath: "/audios/Jplayer.swf")
+   if $("#play_jplayer").length>0
+     $("#jplayer").jPlayer(
+       ready: -> 
+         $(this).jPlayer(
+           "setMedia",  
+             mp3: "/audios/boxing-bell.mp3",			
+             oga: "/audios/boxing-bell.ogg")
+       solution: "html,flash", # HTML5 with Flash fallback
+       supplied: "mp3, oga",
+       swfPath: "/audios/Jplayer.swf")
 
 
 

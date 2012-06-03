@@ -23,35 +23,34 @@ de:
       my_settings: Organisatorisches     
     how_it_works:
       title: "Wie es geht"
-      text_current_user_html: "<p>Nach der Anmeldung solltest du folgende Schritte als Nächstes ausführen: </p>
-        <ul>
-        <li>Falls bereits Freunde von dir Startwork nutzen, klicke auf 'Meine Workbuddies', 
-        um aus der Nutzerliste deine Freunde als Workbuddies hinzuzufügen. 
-        Wenn noch keine Freunde von dir Startwork nutzen, lade diese zu Startwork ein, 
-        oder schreibe eine Mail an <a href='mailto:robert@startwork.in'>Robert@startwork.in</a>, damit wir dir Workbuddies vermitteln.</li>
-        <li>Unter 'Mein Kalender' kannst du deine Arbeitszeiten eintragen und 
-        die Arbeitszeiten deiner Workbuddies sehen. 
-        Hier könnt ihr unkompliziert eure Zeiten aufeinander abstimmen. 
-        Startwork ist so gedacht, dass ihr eure gesamte Arbeitszeit zusammen verbringt.</li>
-        <li>Sobald deckungsgleiche Termine zwischen Workbuddies bestehen, 
-        wird auf der Startseite ein Link zum Betreten des Arbeitsraumes generiert.</li>
-        <li>Loggt euch pünktlich zum Beginn der Arbeitsession in den Arbeitsraum über die Startseite ein und 
-        erzählt euch gegenseitig kurz aber möglichst konkret, was ihr heute schaffen wollt.
-        Am Ende des gemeinsamen Arbeitstages soll sich nochmal gegenseitig erzählt werden, was man davon geschafft hat.</li>
-        <li>Euer Video wird ausgeblendet, nachdem ihr Startwork den Zugriff auf Kamera und Mikrofon erlaubt habt. 
-        Ihr seid aber in der Arbeitsgruppe. 
-        Ihr könnt die Zugriffserlaubnis über den Button 'Kamera- und Audiotest' auch automatisieren.</li>
-        <li>Der automatische Timer beginnt jeweils 5 Minuten nach der vollen Stunde mit einer 50-minütigen Arbeitsphase,
-         an die sich eine 10-minütige Pause anschließt, 
-         in der man sich unterhalten kann und der Arbeitsplatz verlassen werden darf.
+      text_current_user_html: 
+          "<p>Nach der Anmeldung solltest du folgende Schritte als Nächstes ausführen: </p>
+            <ul>
+            <li>Lade deine Facebook-Freunde zu StartWork ein.
+         <li>Unter 'Mein Kalender' kannst du deine Arbeitszeiten eintragen und 
+         die Arbeitszeiten deiner Facebook-Freunde ('Workbuddies') sehen. 
+         Hier könnt ihr unkompliziert eure Zeiten aufeinander abstimmen. 
+         Startwork ist so gedacht, dass ihr eure gesamte Arbeitszeit zusammen verbringt.</li>
+         <li>Sobald deckungsgleiche Termine zwischen Workbuddies bestehen, 
+         wird auf der Startseite ein Link zum Betreten des Arbeitsraumes generiert.</li>
+         <li>Loggt euch pünktlich zum Beginn der Arbeitsession in den Arbeitsraum über die Startseite ein und 
+         erzählt euch gegenseitig kurz aber möglichst konkret, was ihr heute schaffen wollt. 
+         Am Ende des gemeinsamen Arbeitstages soll sich nochmal gegenseitig erzählt werden, 
+         was man davon geschafft hat.</li>
+         <li>Euer Video wird ausgeblendet, nachdem ihr Startwork den Zugriff auf Kamera und Mikrofon erlaubt habt.
+          Ihr seid aber in der Arbeitsgruppe.
+           Ihr könnt die Zugriffserlaubnis über den Button 'Kamera- und Audiotest' auch automatisieren.</li>
+         <li>Der automatische Timer beginnt jeweils 5 Minuten nach der vollen Stunde 
+         mit einer 50-minütigen Arbeitsphase, an die sich eine 10-minütige Pause anschließt,
+          in der man sich unterhalten kann und der Arbeitsplatz verlassen werden darf. 
           Während der Arbeitsphasen soll die Regel gelten, dass der Arbeitsplatz nicht verlassen wird und 
           die Gruppenmitglieder sich ausschließlich mit Arbeitsinhalten befassen.</li>
-        <li><b>Das Fenster mit den Videos bitte immer sichtbar halten</b>, die anderen Fenster entsprechend anpassen. 
-        Dann wirkt Startwork am stärksten.</li>
-        <li>Wir freuen uns über jegliche Nutzung des Feedback-Formulars rechts unten. 
-        Ideen, Eindrücke, Bugs - alles kann und soll mitgeteilt werden.</li>
-        </ul>
-        <p>Diese Anleitung wird regelmäßig entsprechend der technischen Weiterentwicklung aktualisiert.</p>" 
+         <li><b>Das Fenster mit den Videos bitte immer sichtbar halten, </b>
+         die anderen Fenster entsprechend anpassen. Dann wirkt Startwork am stärksten.</li>
+         <li>Wir freuen uns über jegliche Nutzung des Feedback-Formulars rechts unten. 
+         Ideen, Eindrücke, Bugs - alles kann und soll mitgeteilt werden.</li>
+         </ul>
+         <p>Diese Anleitung wird regelmäßig entsprechend der technischen Weiterentwicklung aktualisiert.</p>"      
       text_html: "<p>Bei eingeschalteter Webcam arbeitest du in einer Arbeitsgruppe 
         von bis zu 5 Freunden 50 Minuten lang und anschließend macht ihr 10 Minuten Pause.</p>      
         <p>Die soziale Kontrolle wirkt disziplinierend und gleichzeitig erlebst du eine angenehme und intensive Zeit mit deinen Freunden.</p>
