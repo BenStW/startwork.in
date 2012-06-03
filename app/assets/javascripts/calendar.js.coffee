@@ -7,37 +7,55 @@ $(document).ready ->
 	        
        start_day = new Date()
        base_url = $("#data").data("base_url")
+
+       $("[rel=popover]").popover()
        
-       backendEventToFrontendEvent = (frontend_event,user2column_hash) ->
-         start_time = new Date(frontend_event.start_time)
-         end_time = new Date(frontend_event.start_time)
+       backendEventToFrontendEvent = (backend_event) ->
+         start_time = new Date(backend_event.start_time)
+         end_time = new Date(backend_event.start_time)
          end_time.setHours(start_time.getHours()+1)
-         if frontend_event.user.id==$("#data").data("my_user_id")
+         if backend_event.user.id==$("#data").data("my_user_id")
              column_id = 0
          else
              column_id = 1
          jquery_calendar_event = 
-           id: frontend_event.id
+           id: backend_event.id
            start: start_time
            end: end_time
            userId: column_id
-           name: frontend_event.user.first_name + " " + frontend_event.user.last_name
+           name: backend_event.user.first_name + " " + backend_event.user.last_name
        
-       # The user has three possibilities to view calendar events:
-       # 1) showing only his calendar events --> $("#single_calendar_button") is pressed
-       # 2) showing his calendar events (colomn 0) and these of specific friends (column>0)
-       # 3) showing all calendar events of him (column 0) and all his friends (column 1)
-       # The columns are titled as follows:
-       # 1) no title
-       # 2) own name (column 0) and the specific names per column (column>1). These names must be get from page and 
-       #    not per calendar event from the backend, as not all friends have calendar events defined
-       # 3) own name (column 0) and "all" (column 1)
-       # It is important that the column name matches to calendar event. This is only in case 2) a challenge.
-       # Therefore user_names and user2column_hash is provided by one method
-      
+       merge_events_of_same_time = (frontend_events) ->
+         own_events = []
+         other_events = []
+         for event in frontend_events
+           if event.userId==0
+             own_events.push(event)
+           else
+             other_events.push(event)
+         other_events = other_events.sort(
+             (a,b) ->  a.start-b.start)
+         merged_other_events = []
+         last_event = other_events.shift()
+         for event in other_events
+           # console.log(event.start + " - " + last_event.start)
+            if Date.parse(event.start) == Date.parse(last_event.start)
+              event.name = last_event.name+"<br>"+event.name
+            else
+            #  console.log(Date.parse(event.start)+"<>"+Date.parse(last_event.start))
+              merged_other_events.push(last_event)
+            last_event = event
+         merged_other_events.push(event)  
+         own_events.concat(merged_other_events)
+       #  own_events.concat(other_events)
+
+
        backendEventsToFrontendEvents = (backend_events) ->
          user2column_hash = []
-         frontend_events = (backendEventToFrontendEvent(backend_event,user2column_hash) for backend_event in backend_events)
+         frontend_events = (backendEventToFrontendEvent(backend_event) for backend_event in backend_events)
+       #  console.log frontend_events
+         frontend_events = merge_events_of_same_time(frontend_events)
+       #  console.log frontend_events
          calendar_events = 
            options: 
              "showAsSeparateUser":true
@@ -107,17 +125,16 @@ $(document).ready ->
                     200: ->
                       $("#calendar").weekCalendar("refresh")
 
-          eventMouseover: (event,element) ->
+          eventMouseover: (event,element,domEvent) ->
              if event.userId>0
-               console.log(event)
-               console.log(element)
-               #$("#work_buddies_box").html("Beginn: "+event.start+"<br>WorkBuddy: "+event.name)
-               $(element).tooltip("show")
+              # console.log(event)
+              # console.log(element)
+              # console.log(domEvent)
+               $(domEvent.target).attr("rel","popover")
+               title = event.start.getHours()+":00 <br>"+event.name
+               $(domEvent.target).attr("data-title",title)
+               $(domEvent.target).popover("show")
 
-
-          eventMouseout: (event) ->
-          #   $("#work_buddies_box").html("")
-      
       
           eventClick : (calEvent, event) ->
             if calEvent.userId==0        
