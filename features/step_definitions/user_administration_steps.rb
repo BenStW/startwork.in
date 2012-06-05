@@ -20,6 +20,14 @@ Given /^an already registered facebook user "([^"]*)"$/ do |name|
   step "the user hits \"Log out\""
 end
 
+Given /^a facebook user "([^"]*)" and his registered friends "([^"]*)"$/ do |name, friends|
+  friends.split( /, */ ).each do |friend|
+    step "an already registered facebook user \"#{friend}\""
+  end
+  step "a facebook user \"#{name}\" and his friends \"#{friends}\""
+
+end
+
 Given /^his facebook friend "([^"]*)"$/ do |name|
    friends = FbGraph::User.new.fetch.friends
    new_friend = mock("FbGraph::User", :name => name, :identifier => name)
@@ -29,7 +37,6 @@ end
 
 When /^the user hits the facebook button$/ do
   visit root_url
-#  puts page.html
   find("#facebook_link").click
 end
 

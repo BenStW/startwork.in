@@ -122,7 +122,7 @@ describe StaticPagesController do
       get :welcome
       response.should be_success 
     end   
-    it "should render about_us" do   
+    it "should render welcome" do   
       get :welcome
       response.should render_template("welcome")
     end  
@@ -132,8 +132,23 @@ describe StaticPagesController do
       @user.reload
       @user.registered.should eq(true)
     end
-    
-
+  end  
+  
+  
+  context "welcome session" do   
+    before(:each) do 
+      @user = FactoryGirl.create(:user)
+      sign_in @user
+    end   
+   
+    it "should be success" do      
+      get :welcome_session
+      response.should be_success 
+    end   
+    it "should render welcome_session" do   
+      get :welcome_session
+      response.should render_template("welcome_session")
+    end  
   end  
   
   context "camera" do
