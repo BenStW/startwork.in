@@ -64,5 +64,12 @@ module StartWork
       app.routes.append{ match '*a', :to => 'application#render_404' } unless config.consider_all_requests_local
     end
     
+   # require 'rack/no-www'
+    # Added by Ben
+  #  if Rails.env.production?
+   #       config.middleware.insert_before Rack::Lock, Rack::NoWWW
+  #  end
+  config.autoload_paths += %W( #{ config.root }/lib/middleware )
+    
   end
 end
