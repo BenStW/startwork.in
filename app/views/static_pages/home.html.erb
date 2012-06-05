@@ -22,7 +22,20 @@
   <h1> <%=t '.greet_username', :username => current_user.name %></h1><br>
 <br>
 
+<% if !@friends.empty?%>
 
+    <p>Deine Freunde, die bereits schon bei StartWork sind:</p>
+           
+    <div class="row">
+       <% @friends.each do |friend| %>
+         <div class="span1">
+         <img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture"><br>
+         <%= friend.first_name%>
+       </div>
+       <% end %>
+    </div> <!-- row --><br>
+<% end %>
+<br>
 
 <% if !@next_work_session.nil?%>
   <div class="row">

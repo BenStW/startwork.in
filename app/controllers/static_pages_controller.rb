@@ -5,6 +5,7 @@ class StaticPagesController < ApplicationController
   
   def home  
     if current_user
+      @friends = current_user.registered_friends
       next_calendar_event = current_user.calendar_events.next
       if next_calendar_event
         @next_work_session = next_calendar_event.work_session
