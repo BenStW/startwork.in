@@ -2,7 +2,7 @@
 
 <div class="hero-unit">
    <div class="row">
-      <div class="span7">
+      <div class="span5">
     
          <h2>Hallo <%= @name %>!</h2><br>
          <p>schön, dass du bei uns mitmachst!</p>
@@ -20,6 +20,17 @@
                 <% end %>
              </div> <!-- row --><br>
          <% end %>
+   </div> <!-- end column span -->
+   <div class="span3">
+		     <h2>Erklärvideo</h2>
+		<iframe src="http://player.vimeo.com/video/43476740" width="400" height="300" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+	    	 <!-- <img src="/assets/erklaer_video.png">-->
+   </div> <!-- end column span -->
+  </div> <!-- row span -->
+
+
+<div class="row">
+   <div class="span8">
          <br>
          <h2>Wie funktioniert es?</h2><br>
          <p>Du hast gleich die Möglichkeit StartWork live auszuprobieren. 
@@ -32,10 +43,7 @@
          </p><br>
         <a href='<%= welcome_session_path %>' class="btn btn-primary">Weiter</a>
       </div> <!-- span8 -->
-      <div class="span3">
-	     <h2>Erklärvideo</h2>
-    	  <img src="/assets/erklaer_video.png">
-	  </div>
+
   </div> <!-- general row -->
 </div><!-- hero-unit -->
 
