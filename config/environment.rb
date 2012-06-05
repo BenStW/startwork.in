@@ -9,6 +9,6 @@ Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
 
 #added by Ben
-Rails::Initializer.run do |config|
-  config.middleware.use “NoWWW” if RAILS_ENV == ‘production’
-end
+#Rails::Initializer.run do |config|
+#  config.middleware.use “NoWWW” #if RAILS_ENV == ‘production’
+#end
