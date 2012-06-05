@@ -73,7 +73,7 @@ class User < ActiveRecord::Base
   
   def registered_friends
      User.find_by_sql(
-       ["select users.id, users.first_name, users.fb_ui,users.registered from users inner join friendships
+       ["select users.id, users.first_name, users.fb_ui,users.registered,users.email from users inner join friendships
          on users.id=friendships.friend_id
          where friendships.user_id = ?
          and registered=true",self.id])

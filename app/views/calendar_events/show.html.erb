@@ -1,6 +1,17 @@
 <div class="row">
+  <div class="span2">
+     <div id="send_invitation" class="btn btn-info" style1="height:20px;width:100px">
+        <%= t(".send_invitation")%>
+     </div>
+     <!-- <a data-toggle="modal" href="#send_invitation_modal" class="btn btn-primary btn-large">Send Email</a> -->
+   </div> <!-- end span2 -->
+
+</div><!-- end row -->
+<br>
+<div class="row">
   <div class="span4"><%= t(".description")%></div>
 </div>
+
 
 <span id="data"
   data-base_url="<%= calendar_url %>"
@@ -60,7 +71,8 @@
      <h3>Einladung an Work-Buddies senden</h3>
   </div>
   <div class="modal-body">
-     <p>Möchtest du jetzt eine Einladung an deine ausgewählten Work-Buddies senden?</p>
+     <p>Möchtest du jetzt eine Einladung an deine Work-Buddies auf StartWork senden?</p>
+     <p>Deine Work-Buddies erhalten dann die Liste deiner Arbeitsstunden, für die noch kein WorkBuddy gefunden wurde.</p>
   </div>
   <div class="modal-footer">
        <a href="#" url="<%=calendar_send_invitation_url%>" id="send_invitation_confirmation" class="btn" data-dismiss="modal">Senden</a>
@@ -68,19 +80,6 @@
   </div>
 </div>
 
-<div class="modal hide fade" id="no_users_selected_modal">
-  <div class="modal-header">
-     <button class="close" data-dismiss="modal">×</button>
-     <h3>Einladung an Work-Buddies senden</h3>
-  </div>
-  <div class="modal-body">
-     <p>	Selektiere erst deine WorkBuddies, denen du eine Einladung senden möchtest.</p>
-          <p>     Oder drücke 'Alle Freunde', wenn du allen eine Einladung schicken möchtest.</p>
-  </div>
-  <div class="modal-footer">
-       <a href="#" class="btn" data-dismiss="modal">Ok</a>
-  </div>
-</div>
 
 
 

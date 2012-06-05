@@ -28,3 +28,8 @@ Then /^the user does not see "([^"]*)"$/ do |text|
   page.should_not have_content(text)
 end
 
+Given /^TokBox is unstubbed$/ do
+#  TokboxApi.stub_chain(:instance, :generate_session).and_return("tokbox_session_id")  
+  TokboxApi.unstub(:instance)
+end
+

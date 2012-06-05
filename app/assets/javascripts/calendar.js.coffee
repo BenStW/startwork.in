@@ -8,8 +8,19 @@ $(document).ready ->
        start_day = new Date()
        base_url = $("#data").data("base_url")
 
-       $("[rel=popover]").popover()
+    #   $("[rel=popover]").popover()
+
+       $("#send_invitation").click ->
+            $('#send_invitation_modal').modal("show")
        
+       $("#send_invitation_confirmation").click ->
+          url = $(this).attr("url")
+          request = $.ajax
+             url: url
+             type: 'GET'
+             success: (data) -> 
+                console.log data
+        
        backendEventToFrontendEvent = (backend_event) ->
          start_time = new Date(backend_event.start_time)
          end_time = new Date(backend_event.start_time)

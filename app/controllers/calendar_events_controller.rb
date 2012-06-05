@@ -56,21 +56,18 @@ class CalendarEventsController < ApplicationController
   
   
   def send_invitation
-    if params[:user_ids].nil?
-      render :nothing => true
-    else
-      calendar_invitation = CalendarInvitation.new(:sender_id=>current_user.id)      
-      calendar_invitation.save      
-      
-      work_sessions = WorkSession.single_work_sessions_with_user_id(current_user.id)
-      users = params[:user_ids].split(',').map{|user_id| User.find(user_id)}
-      
-      users.each do |user|
-          email = CalendarInvitationMailer.calendar_invitation_email(work_sessions, current_user, user)
-          email.deliver
-      end      
-      render :json => "succussfully sent invitation"
-    end
+    calendar_invitation = CalendarInvitation.new(:sender_id=>current_user.id)      
+    calendar_invitation.save      
+    
+    work_sessions = WorkSession.single_work_sessions_with_user_id(current_user.id)
+    users = current_user.registered_friends
+    
+    users.each do |user|
+        email = CalendarInvitationMailer.calendar_invitation_email(work_sessions, current_user, user)
+        puts "**** write email to #{user.first_name}"
+        email.deliver
+    end      
+    render :json => "succussfully sent invitation"
   end  
   
 

@@ -5,6 +5,7 @@ Feature: user tests camera and audio
 
   Scenario: camera and audio works
     Given a logged-in facebook user "Ben"
+    And TokBox is unstubbed
     When the user goes to "camera"
     And the user hits "Yes, everything went fine"
     And the user hits "Yes, everything went fine"
@@ -12,6 +13,7 @@ Feature: user tests camera and audio
 
   Scenario: camera work, audio does not work
     Given a logged-in facebook user "Ben"
+    And TokBox is unstubbed
     When the user goes to "camera"
     And the user hits "Yes, everything went fine"
     And the user hits "No, I experienced problems"
@@ -19,6 +21,7 @@ Feature: user tests camera and audio
 
   Scenario: camera does not work, audio works
     Given a logged-in facebook user "Ben"
+    And TokBox is unstubbed
     When the user goes to "camera"
     And the user hits "No, I experienced problems"
     And the user hits "Yes, everything went fine"
@@ -26,6 +29,7 @@ Feature: user tests camera and audio
 
   Scenario: camera does not work, audio does not work
     Given a logged-in facebook user "Ben"
+    And TokBox is unstubbed
     When the user goes to "camera"
     And the user hits "No, I experienced problems"
     And the user hits "No, I experienced problems"
