@@ -7,7 +7,7 @@
 	<% #TODO: translation%>
     <h1>Hallo <%= @recipient.first_name%>,</h1>
     
-	<%= @sender.name%> fragt dich, ob du mit ihm auf <%= link_to "StartWork.in", root_url %> arbeiten möchtest.<br><br>
+	<%= @sender.name%> fragt dich, ob du mit ihm auf <a href="http://www.startwork.in">StartWork.in</a><% link_to "StartWork.in", root_url %> arbeiten möchtest.<br><br>
 	
 	Bisher fehlen ihm noch WorkBuddies zu folgenden Zeiten:<br>
 	
@@ -21,7 +21,7 @@
 	    <% end %><br><br>
 
 Um mit <%= @recipient.first_name%> zusammenzuarbeiten, <br>
-trage einfach auf <%= link_to "StartWork.in", root_url %> deine Lernzeiten zu den genannten Zeiten ein.<br><br>
+trage einfach auf <a href="http://www.startwork.in">StartWork.in</a><% link_to "StartWork.in", root_url %> deine Lernzeiten zu den genannten Zeiten ein.<br><br>
 
 Wir wünschen dir gutes Arbeiten,<br>
 Dein StartWork.in Team
