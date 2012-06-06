@@ -1,7 +1,7 @@
 
 
 class StaticPagesController < ApplicationController
-  skip_before_filter :authenticate_user!,  :except => [:welcome, :camera, :audio, :ben, :blog]
+  skip_before_filter :authenticate_user!,  :except => [:welcome, :camera, :audio, :ben]
   
   def home  
     if current_user
