@@ -26,6 +26,7 @@ StartWork::Application.routes.draw do
      match 'welcome' => 'static_pages#welcome', :as => :welcome
      match 'welcome_session' => 'static_pages#welcome_session', :as => :welcome_session
      match 'facebook' => 'static_pages#facebook', :as => :facebook
+     match 'blog' => 'static_pages#blog', :as => :blog
 
      match 'effect' => 'static_pages#effect', :as => :effect
      match 'pilot_study' => 'static_pages#pilot_study', :as => :pilot_study

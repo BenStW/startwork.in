@@ -39,6 +39,9 @@ class StaticPagesController < ApplicationController
     
   end
   
+  def blog
+  end
+  
   def welcome
   # if current_user.registered
   #   redirect_to root_url
