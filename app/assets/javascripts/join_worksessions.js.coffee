@@ -6,13 +6,25 @@ $(document).ready ->
   padding = 20
 
   popup_work_session = (url)->
+    screenX = screen.availWidth
+    screenY = screen.availHeight
+    height = screenY
+    if (screenX <= width + 2*padding)
+       screenX = width + 2*padding;
+    doc_width=$(document).width()
+    window_width = width + 2*padding
+    popup_start = screenX - width + 2*padding
+    window.open(url,
+       'StartWork',
+       'width='+window_width+',height='+height+',location=no,menubar=no,toolbar=no,scrollbars=yes,resizable=yes,left='+popup_start+',top=0')
+
+  popup_work_session_old = (url)->
     doc_width=$(document).width()
     window_width = width + 2*padding
     popup_start = doc_width - width
     window.open(url,
        'StartWork',
        'width='+window_width+',location=no,menubar=no,toolbar=no,scrollbars=yes,resizable=yes,left='+popup_start)
-
 
   $('#join_work_session').click (event)-> 
     event.preventDefault()
