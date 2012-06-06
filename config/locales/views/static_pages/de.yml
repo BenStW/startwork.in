@@ -60,7 +60,8 @@ de:
       sign_up: "Weiter zur Registrierung"         
     about_us:
       title: "Über uns" 
-      text_html: "Wir sind drei Gründer in Berlin Mitte."
+      text_html: "Das Gründungsteam von StartWork: <a href='mailto:benedikt@startwork.in'>Benedikt</a>, 
+        <a href='mailto:robert@startwork.in'>Robert</a>, <a href='mailto:miro@startwork.in'>Miro</a>."
     contact:
       title: "Kontakt" 
       text: "Schreibe eine Mail an"
