@@ -1,4 +1,4 @@
-
+  <div class="hero-unit">
      <%if current_user %>
 		<h1><%= t '.title_current_user' %></h1>
 		 <br>
@@ -9,12 +9,19 @@
 
  <% else %>
 
-  <div class="hero-unit">
-	<h1><%= t '.title' %></h1>
-	 <br>
-	
-	<%= t(".text_html") %> 
 
- </div>
+	<h1><%= t '.title' %></h1><br>
+	<div class="row">
+	  <div class="span5">	
+	<%= t(".text_html") %>
+	</div>
+		<div class="span5">
+           <iframe src="http://player.vimeo.com/video/43476740" width="400" height="300"
+           frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+      </div>
+
+		</div>
+
 
 <% end %>
+ </div>
