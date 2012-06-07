@@ -25,9 +25,9 @@
   </div><!-- end of main hero unit -->
                        
 <% else %>
-
+  <div class="hero-unit">
   <br>
-  <h1> <%=t '.greet_username', :username => current_user.name %></h1><br>
+  <h2> <%=t '.greet_username', :username => current_user.name %></h2><br>
 <br>
 
 <% if !@friends.empty?%>
@@ -67,7 +67,7 @@
 <% if !@next_work_session.nil?%>
   <div class="span3">
 	<div id="join_work_session" class="btn" style="width:150px;height:50px" url_check=<%=work_session_can_we_start_url%> url=<%= work_session_url%>
-		  > <%= t(".next_room_html", :host=>@room_host)%></div>
+		  ><%= t(".next_room_html", :host=>@room_host)%></div>
   </div> <!-- span3 -->
 
 <% end %>
@@ -85,7 +85,7 @@
   </div> <!-- span6 -->
  </div>  <!-- row -->
   	
-  
+   </div>
 
   	
   
