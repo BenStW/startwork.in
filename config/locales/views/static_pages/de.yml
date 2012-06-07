@@ -62,9 +62,11 @@ de:
       title: "Über uns" 
       text_html: "Das Gründungsteam von StartWork: <a href='mailto:benedikt@startwork.in'>Benedikt</a>, 
         <a href='mailto:robert@startwork.in'>Robert</a>, <a href='mailto:miro@startwork.in'>Miro</a>."
-    contact:
-      title: "Kontakt" 
-      text: "Schreibe eine Mail an"
+    impressum:
+      title: "Impressum" 
+      text_html: "<b>Eigentümer der Seite:</b><br><br>
+         StartWork<br>Ziegelstraße 30<br>10117 Berlin<br>
+         <a href='mailto:info@startwork.in'>info@startwork.in</a>"
     camera:
       title: "Kamera Einstellungen"
       allow_always_access_html: "<h2>Erlaube immer den Zugriff auf die Kamera</h2>

@@ -32,7 +32,7 @@ StartWork::Application.routes.draw do
      match 'pilot_study' => 'static_pages#pilot_study', :as => :pilot_study
      match 'scientific_principles' => 'static_pages#scientific_principles', :as => :scientific_principles
      match 'how_it_works' => 'static_pages#how_it_works', :as => :how_it_works
-     match 'contact' => 'static_pages#contact', :as => :contact
+     match 'impressum' => 'static_pages#impressum', :as => :impressum
      match 'about_us' => 'static_pages#about_us', :as => :about_us
      match 'camera' => 'static_pages#camera', :as => :camera
      match 'audio' => 'static_pages#audio', :as => :audio

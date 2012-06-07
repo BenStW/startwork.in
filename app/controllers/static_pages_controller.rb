@@ -30,7 +30,7 @@ class StaticPagesController < ApplicationController
   def scientific_principles
   end
   
-  def contact
+  def impressum
   end
   def about_us
   end

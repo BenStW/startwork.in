@@ -71,7 +71,6 @@
 	              <li <%= if_active 'effect' %>><%= link_to t(".effect"), effect_path %></li>
 	              <li <%= if_active 'blog' %>><%=link_to t(".blog"), blog_path %></li>
 	              <li <%= if_active 'about_us' %>><%=link_to t(".about_us"), about_us_path %></li>
-	              <li <%= if_active 'contact' %>> <%=link_to t(".contact"), contact_path%> </li>
 				</ul> <!-- /.nav -->
 				
 					<% if user_signed_in? %>
@@ -114,7 +113,7 @@
 	<%= yield %>
       <hr>
       <footer>
-        <p>&copy; StartWork 2012</p>
+        <p>&copy; StartWork 2012<br><%= link_to "Impressum", impressum_path%></p>
 
       </footer>
 
