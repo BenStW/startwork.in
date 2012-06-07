@@ -9,9 +9,11 @@
 		   <img src="/assets/library_long.jpg">
 <br><br>
 	    <h1><%= t ".welcome" %></h1><br>
-	    <%= t ".welcome_text_html" %>
-		 <p><a id="facebook_link" href="<%=user_omniauth_authorize_path(:facebook)%>">
-		   <img src='/assets/facebook_anmelden.png'></a></p>
+	    <%= t ".welcome_text_html" %></p>
+		
+		<a id="facebook_link" href="<%=user_omniauth_authorize_path(:facebook)%>">
+		   <img src='/assets/facebook_anmelden.png'></a><br>
+		(Wir posten nichts auf deine Wall)
 
 	
   </div><!-- end of main hero unit -->

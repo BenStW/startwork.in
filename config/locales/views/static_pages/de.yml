@@ -5,8 +5,9 @@ de:
       greet_username: "Willkommen, %{username}!"    
       welcome_text_html: "<p>Neugierde ist der natürliche Lerntrieb.</p>
          <p>Aber manchmal braucht man ganz einfach Disziplin, um eine längere Lern- und Arbeitsphase erfolgreich zu absolvieren.</p>
-         <p>Für diese Aufgaben helfen wir dir: auf unserer Seite kannst du mit Freunden gemeinsam lernen und arbeiten. 
-         Ohne Aufschieberitis!</p>" 
+         <p>Für diese Aufgaben helfen wir dir: mit unserer Seite kannst du mit Freunden gemeinsam lernen und arbeiten, <br>
+         und dabei neue Leute kennenlernen. 
+         </p>" 
       join_now: "Ich will mitmachen"   
       learn_more: "Erfahre mehr"
       next_room_html: "<b>%{host}'s room</b><br>(jetzt beitreten)"      
@@ -52,7 +53,7 @@ de:
          </ul>
          <p>Diese Anleitung wird regelmäßig entsprechend der technischen Weiterentwicklung aktualisiert.</p>"      
       text_html: "<p>Bei eingeschalteter Webcam arbeitest du in einer Arbeitsgruppe 
-        von bis zu 5 Freunden 50 Minuten lang und anschließend macht ihr 10 Minuten Pause.</p>      
+        von bis zu 4 Freunden (oder neuen Leuten) 50 Minuten lang und anschließend macht ihr 10 Minuten Pause.</p>      
         <p>Die soziale Kontrolle wirkt disziplinierend und gleichzeitig erlebst du eine angenehme und intensive Zeit mit deinen Freunden.</p>
         <p>Du gibst  einfach im Kalendar deine gewünschten Arbeitszeiten der nächsten 7 Tage ein 
         und wir erstellen die Arbeitsgruppe basierend auf den Arbeitszeiten deiner Freunde oder ordnen dich einer neuen Lerngruppe zu.</p>"
