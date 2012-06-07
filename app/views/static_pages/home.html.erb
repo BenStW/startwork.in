@@ -6,24 +6,22 @@
 
   <!-- Main hero unit for a primary marketing message or call to action -->
   <div class="hero-unit">
-
+		   <img src="/assets/library_long.jpg">
+<br><br>
    <div class="row">
       <div class="span5">
 	    <h1><%= t ".welcome" %></h1><br>
-	    <%= t ".welcome_text_html" %>	
-	 </div>
+	    <%= t ".welcome_text_html" %>
+		 <p><a id="facebook_link" href="<%=user_omniauth_authorize_path(:facebook)%>">
+		   <img src='/assets/facebook_anmelden.png'></a></p>
+		</div>
      <div class="span5">
            <iframe src="http://player.vimeo.com/video/43476740" width="400" height="300"
            frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
       </div>
-   </div>
-	
-	
-<!--
-<p><a class="btn btn-primary btn-large" href="<%= new_user_registration_path %>"><%= t ".join_now"%> &raquo;</a></p>-->
-<br>
-<p><a id="facebook_link" href="<%=user_omniauth_authorize_path(:facebook)%>"><img src='/assets/facebook_anmelden.png'></a></p>
+	</div>
 
+	
   </div><!-- end of main hero unit -->
                        
 <% else %>
