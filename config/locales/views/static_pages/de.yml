@@ -64,9 +64,19 @@ de:
         <a href='mailto:robert@startwork.in'>Robert</a>, <a href='mailto:miro@startwork.in'>Miro</a>."
     impressum:
       title: "Impressum" 
-      text_html: "<b>Eigentümer der Seite:</b><br><br>
+      text_html: "<b>Eigentümer der Seite:</b><br>
          StartWork<br>Ziegelstraße 30<br>10117 Berlin<br>
-         <a href='mailto:info@startwork.in'>info@startwork.in</a>"
+         <a href='mailto:info@startwork.in'>info@startwork.in</a><br><br>
+         <b>Rechtliche Angaben:</b><br>
+         Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz: beantragt<br>
+         Inhaltlich Verantwortlicher gemäß TMG<br>
+         Miro Wilms<br>
+         <a href='mailto:Miro@startwork.in'>Miro@startwork.in</a><br><br>
+
+         <b>Technische Angaben:</b><br>
+         Technisch Verantwortlicher:<br>
+         Miro Wilms<br>
+         <a href='mailto:Miro@startwork.in'>Miro@startwork.in</a><br><br>"
     camera:
       title: "Kamera Einstellungen"
       allow_always_access_html: "<h2>Erlaube immer den Zugriff auf die Kamera</h2>
