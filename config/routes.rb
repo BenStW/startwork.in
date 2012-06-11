@@ -52,6 +52,9 @@ StartWork::Application.routes.draw do
      
      match 'work_session/can_we_start' => 'work_sessions#can_we_start', :as => :work_session_can_we_start   
      match 'work_session/room_change(/:session)' => 'work_sessions#room_change', :as => :work_session_room_change
+     match 'work_session/get_time' => 'work_sessions#get_time', :as => :work_session_get_time
+     match 'work_session/time_sync(/:time)' => 'work_sessions#time_sync', :as => :work_session_time_sync
+
 
      match 'work_session(/:guest)' => 'work_sessions#show', :as => :work_session
      match 'test_work_session/:user' => 'work_sessions#test_show', :as => :test_work_session

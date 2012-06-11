@@ -36,8 +36,9 @@ $(document).ready ->
         height: height
       
       isWorkSession = ->
-        date = new Date()
-        minutes = date.getMinutes()
+       # time = new Date()
+        time = get_time()
+        minutes = time.getMinutes()
         if minutes >= start_work_minutes and minutes < start_break_minutes
            true
         else
@@ -48,9 +49,10 @@ $(document).ready ->
       
       
       getCountDownTillNextEvent = ->
-        date = new Date()
-        minutes = date.getMinutes()
-        seconds = date.getSeconds()
+       # time = new Date()
+        time = get_time()
+        minutes = time.getMinutes()
+        seconds = time.getSeconds()
       
         if isWorkSession()
           countdown = start_break_minutes*60 - minutes*60 - seconds
@@ -124,8 +126,18 @@ $(document).ready ->
                   </div> <!-- user_box -->"
           $("#video_window").append(html)
 
-      $("#room_change").click ->
-          reload_if_room_change()      
+      $("#time_sync").click ->
+         time = get_time()
+
+      get_time = ->
+         time = ""
+         $.ajax
+            url: '/work_session/get_time'
+            type: 'GET'
+            success: (data) ->
+               time = new Date(data)
+            async:   false
+         time
 
      
       reload_if_room_change = ->

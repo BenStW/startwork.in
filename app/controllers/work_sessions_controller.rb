@@ -52,6 +52,17 @@ class WorkSessionsController < ApplicationController
         render :json => true
       end
   end
+  
+  def get_time
+    render :json => DateTime.now
+  end
+  
+ #def time_sync
+ #  time = Time.at(params[:time].to_i)/1000
+ #  puts "time=#{time}"
+ #  render :json => true
+ #  
+ #end
         
 
 
