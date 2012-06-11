@@ -34,6 +34,10 @@ $(document).ready ->
       windowProps = 
         width: width
         height: height
+
+      $("#reload").click ->
+         location.reload()
+         console.log "reloaded"
       
       isWorkSession = ->
         date = new Date()
@@ -293,8 +297,11 @@ $(document).ready ->
            h = Math.floor(countdown/3600)
            m = Math.floor((countdown - (h * 3600))/60)
            s = (countdown-(h*3600))%60
-           #console.log h+":"+m+":"+s+" work_session:"+work_session_boolean
+         #  console.log h+":"+m+":"+s+" work_session:"+work_session_boolean
            prefix_html = if work_session_boolean then "Arbeitsphase:<br />" else "Pause:<br />"
+           if !work_session_boolean and m==5 and s==0
+              console.log ("reload!") 
+              location.reload()
            m = m+1 # because no seconds are displayed, 40sec should be 1minute
            html = prefix_html + "noch " + m + " Min"
         	 # "+leadingzero(h) + ':' +
