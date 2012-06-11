@@ -42,6 +42,18 @@ class WorkSessionsController < ApplicationController
     @tokbox_token = TokboxApi.instance.generate_token @tokbox_session_id, user, "test"
     @tokbox_api_key = TokboxApi.instance.api_key    
   end
+  
+  def room_change
+     session = params[:session]
+     work_session = next_work_session
+     if work_session and work_session.room.tokbox_session_id == session
+        render :json => false
+      else
+        render :json => true
+      end
+  end
+        
+
 
   
     

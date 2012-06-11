@@ -34,10 +34,6 @@ $(document).ready ->
       windowProps = 
         width: width
         height: height
-
-      $("#reload").click ->
-         location.reload()
-         console.log "reloaded"
       
       isWorkSession = ->
         date = new Date()
@@ -127,6 +123,22 @@ $(document).ready ->
                      </div><!-- stream_box -->		
                   </div> <!-- user_box -->"
           $("#video_window").append(html)
+
+      $("#room_change").click ->
+          reload_if_room_change()      
+
+     
+      reload_if_room_change = ->
+        $.ajax
+           url: '/work_session/room_change/'+session_id,
+           type: 'GET'
+           success: (data) ->
+              if data
+                console.log("room change")
+                location.reload()
+              else
+                console.log "NO room change"	
+        
       
       subscribeToStreams = (streams) -> 
         console.log("subscribe to "+streams.length+" streams")
@@ -300,8 +312,7 @@ $(document).ready ->
          #  console.log h+":"+m+":"+s+" work_session:"+work_session_boolean
            prefix_html = if work_session_boolean then "Arbeitsphase:<br />" else "Pause:<br />"
            if !work_session_boolean and m==5 and s==0
-              console.log ("reload!") 
-              location.reload()
+              reload_if_room_change()
            m = m+1 # because no seconds are displayed, 40sec should be 1minute
            html = prefix_html + "noch " + m + " Min"
         	 # "+leadingzero(h) + ':' +

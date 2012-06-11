@@ -95,5 +95,34 @@ describe WorkSessionsController do
       response.body.should eq("false")   
     end     
   end
+  
+  context "room_change" do
+    before(:each) do 
+      @user = FactoryGirl.create(:user_with_two_friends_and_same_events)
+      @work_session = @user.calendar_events[0].work_session
+      sign_in @user   
+      tomorrow_10am = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,10)+1.day
+      DateTime.stub(:current).and_return(tomorrow_10am)               
+    end   
+    
+    it "should render 'false' when the work_session has the same session" do
+      get :room_change, :session=>@work_session.room.tokbox_session_id
+      response.body.should eq("false")         
+    end    
+     
+    it "should render 'true' when WorkSession starts in 10 minutes" do     
+      tomorrow_9_50am = DateTime.current-10.minutes
+      DateTime.stub(:current).and_return(tomorrow_9_50am)
+      get :room_change, :session=>@work_session.room.tokbox_session_id
+      response.body.should eq("true")   
+    end
+    
+    it "should render 'true' when WorkSession has ended 5 minutes ago" do 
+      tomorrow_11_05am = DateTime.current+65.minutes
+      DateTime.stub(:current).and_return(tomorrow_11_05am)
+      get :room_change, :session=>@work_session.room.tokbox_session_id
+      response.body.should eq("true")   
+    end     
+  end  
 
 end
