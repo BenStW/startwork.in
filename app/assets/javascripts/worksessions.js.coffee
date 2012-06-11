@@ -130,15 +130,16 @@ $(document).ready ->
          time = get_time()
 
       get_time = ->
-         time = ""
-         $.ajax
-            url: '/work_session/get_time'
-            type: 'GET'
-            success: (data) ->
-               time = new Date(data)
-            async:   false
-         time
-
+         new Date()
+        #time = ""
+        #$.ajax
+        #   url: '/work_session/get_time'
+        #   type: 'GET'
+        #   success: (data) ->
+        #      time = new Date(data)
+        #   async:   false
+        #time
+        #
      
       reload_if_room_change = ->
         $.ajax
