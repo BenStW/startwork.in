@@ -19,6 +19,7 @@ $(document).ready ->
       session_id  = $("#video_window").data("session_id")
       tok_token = $("#video_window").data("tok_token")
       api_key = $("#video_window").data("api_key")
+      url = $("#video_window").data("url")
       session = TB.initSession session_id  
       toggle = true
       publisher = null
@@ -130,20 +131,20 @@ $(document).ready ->
          time = get_time()
 
       get_time = ->
-         new Date()
-        #time = ""
-        #$.ajax
-        #   url: '/work_session/get_time'
-        #   type: 'GET'
-        #   success: (data) ->
-        #      time = new Date(data)
-        #   async:   false
-        #time
-        #
+        # new Date()
+        time = ""
+        $.ajax
+           url: url + '/get_time'
+           type: 'GET'
+           success: (data) ->
+              time = new Date(data)
+           async:   false
+        time
+        
      
       reload_if_room_change = ->
         $.ajax
-           url: '/work_session/room_change/'+session_id,
+           url: url+'/room_change/'+session_id,
            type: 'GET'
            success: (data) ->
               if data
