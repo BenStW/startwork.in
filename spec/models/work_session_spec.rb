@@ -187,13 +187,18 @@ describe WorkSession do
        @calendar_event1.work_session.should eq(@calendar_event2.work_session)       
      end
      
-     it "does assign the work_session of a work buddy when they are not befriended and have the same time" do   
+     it "assigns the work_session of a work buddy when they are not befriended and have the same time" do   
        WorkSession.count.should eq(2)    
        WorkSession.optimize_single_work_sessions(@user1)
+       WorkSession.optimize_single_work_sessions(@user2)
+
        @calendar_event1.reload
        @calendar_event2.reload
+      # puts "ce1.ws=#{@calendar_event1.work_session.id}"
+      # puts "ce2.ws=#{@calendar_event2.work_session.id}"
+
        WorkSession.count.should eq(1)
-       @calendar_event1.work_session.should_not eq(@calendar_event2.work_session)       
+       @calendar_event1.work_session.should eq(@calendar_event2.work_session)       
      end  
      
      it "assigns the work_session of a work buddy when they are befriended, but don't have the same time" do   
@@ -229,26 +234,26 @@ describe WorkSession do
        opt_work_session.should eq(nil) 
      end  
      
-     it "splits the work_session when work buddies are not friends anymore" do
-       new_user = FactoryGirl.create(:user_with_two_friends_and_same_events)      
-       friend1 = new_user.friendships[0].friend
-       friend2 = new_user.friendships[1].friend
-       new_user.calendar_events[0].work_session.should eq(friend1.calendar_events[0].work_session)     
-       new_user.calendar_events[0].work_session.should eq(friend2.calendar_events[0].work_session)
-       new_user.friendships[0].destroy
-       friend1.friendships.find_by_friend_id(new_user.id).destroy
-       WorkSession.split_work_session_when_not_friend(new_user)
-       WorkSession.split_work_session_when_not_friend(friend1)
-       new_user.calendar_events[0].reload
-       friend1.calendar_events[0].reload
-       friend2.calendar_events[0].reload    
- 
-       new_user.calendar_events[0].work_session.should_not eq(friend1.calendar_events[0].work_session)     
-       new_user.calendar_events[0].work_session.should eq(friend2.calendar_events[0].work_session)
-       
-     end    
-    
-     
+   #  it "splits the work_session when work buddies are not friends anymore" do
+   #    new_user = FactoryGirl.create(:user_with_two_friends_and_same_events)      
+   #    friend1 = new_user.friendships[0].friend
+   #    friend2 = new_user.friendships[1].friend
+   #    new_user.calendar_events[0].work_session.should eq(friend1.calendar_events[0].work_session)     
+   #    new_user.calendar_events[0].work_session.should eq(friend2.calendar_events[0].work_session)
+   #    new_user.friendships[0].destroy
+   #    friend1.friendships.find_by_friend_id(new_user.id).destroy
+   #    WorkSession.split_work_session_when_not_friend(new_user)
+   #    WorkSession.split_work_session_when_not_friend(friend1)
+   #    new_user.calendar_events[0].reload
+   #    friend1.calendar_events[0].reload
+   #    friend2.calendar_events[0].reload    
+   #
+   #    new_user.calendar_events[0].work_session.should_not eq(friend1.calendar_events[0].work_session)     
+   #    new_user.calendar_events[0].work_session.should eq(friend2.calendar_events[0].work_session)
+   #    
+   #  end    
+   # 
+   #  
    end
   
 end

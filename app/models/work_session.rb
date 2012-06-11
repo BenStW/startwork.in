@@ -109,26 +109,26 @@ class WorkSession < ActiveRecord::Base
      work_session     
    end
  
-   def self.split_work_session_when_not_friend(user)
-     events_with_foreigners = CalendarEvent.this_week.with_foreigners(user)
-     events_with_foreigners.each do |event|
-       if !user.friends.include?(event.room.user)
-         # foreign room
-         logger.info "event #{event.id} starting at #{event.start_time} must get a new WorkSession"
-         event.find_or_build_work_session
-         event.save
-       end
-     end
-   end
+ #  def self.split_work_session_when_not_friend(user)
+ #    events_with_foreigners = CalendarEvent.this_week.with_foreigners(user)
+ #    events_with_foreigners.each do |event|
+ #      if !user.friends.include?(event.room.user)
+ #        # foreign room
+ #        logger.info "event #{event.id} starting at #{event.start_time} must get a new WorkSession"
+ #        event.find_or_build_work_session
+ #        event.save
+ #      end
+ #    end
+ #  end
     
    def optimize_single_work_session(user)
      opt_work_session = WorkSession.find_work_session(user,start_time)
-     if !opt_work_session.nil?
-       puts "opt_work_session = #{opt_work_session.id}"
-     else
-       puts "opt_work_session = nil"
-     end
-     puts "self = #{self.id}"
+    # if !opt_work_session.nil?
+    #   puts "opt_work_session = #{opt_work_session.id}"
+    # else
+    #   puts "opt_work_session = nil"
+    # end
+    # puts "self = #{self.id}"
      if opt_work_session != self and !opt_work_session.nil?
        if self.calendar_events.count != 1
          raise "Error: single work_session has more events!"
