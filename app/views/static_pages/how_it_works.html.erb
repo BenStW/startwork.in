@@ -6,22 +6,24 @@
 		  <div class="span8">
 		<%= t(".text_current_user_html") %>
         </div></div>
+		     <h2>Erklärvideo</h2>
+		<iframe src="http://player.vimeo.com/video/43727435" width="600" height="400" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
 
  <% else %>
 
 
 	<h1><%= t '.title' %></h1><br>
-	<div class="row">
+<!--	<div class="row">
 	  <div class="span5">	
-	<%= t(".text_html") %>
+
 	</div>
 		<div class="span5">
-      <!--     <iframe src="http://player.vimeo.com/video/43476740" width="400" height="300"-->
-           <iframe src="http://player.vimeo.com/video/43658949" width="400" height="300"
-           frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
       </div>
 
-		</div>
+		</div>-->
+
+				<%= t(".text_html") %><br>
+		<iframe src="http://player.vimeo.com/video/43727435" width="600" height="400" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
 
 
 <% end %>
