@@ -54,7 +54,7 @@ class WorkSessionsController < ApplicationController
   end
   
   def get_time
-    render :json => DateTime.now
+    render :json => DateTime.current
   end
   
  #def time_sync

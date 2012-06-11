@@ -24,6 +24,7 @@ $(document).ready ->
       toggle = true
       publisher = null
       publisher_hidden = 0
+      is_work_session = null
      # $("#user_box_1").css("visibility", "hidden")
       
       timeout = null
@@ -31,31 +32,33 @@ $(document).ready ->
       
       start_break_minutes = 55
       start_work_minutes = 5
-      
+
       windowProps = 
         width: width
         height: height
+
+  
       
-      isWorkSession = ->
+      calcIsWorkSession = (time)->
        # time = new Date()
-        time = get_time()
+       # time = get_time()
         minutes = time.getMinutes()
         if minutes >= start_work_minutes and minutes < start_break_minutes
            true
         else
            false
-      
+        
       workSessionDuration = ->
         start_break_minutes - start_work_minutes
       
       
-      getCountDownTillNextEvent = ->
+      getCountDownTillNextEvent = (time)->
        # time = new Date()
-        time = get_time()
+       # time = get_time()
         minutes = time.getMinutes()
         seconds = time.getSeconds()
       
-        if isWorkSession()
+        if is_work_session
           countdown = start_break_minutes*60 - minutes*60 - seconds
         else
           if minutes < start_work_minutes
@@ -209,7 +212,7 @@ $(document).ready ->
       sessionConnectedHandler = (event) ->
         replaceElementId = "publisher_box_tmp"
       
-        publishAudio =  if isWorkSession() then false else true
+        publishAudio =  if is_work_session then false else true
       
         properties = 
           publishAudio: publishAudio
@@ -316,7 +319,7 @@ $(document).ready ->
          else
             number
       
-      doCount = (countdown, work_session_boolean) ->
+      doCount = (countdown) ->
         if (countdown > 0)
            
            countdown--
@@ -324,20 +327,24 @@ $(document).ready ->
            m = Math.floor((countdown - (h * 3600))/60)
            s = (countdown-(h*3600))%60
          #  console.log h+":"+m+":"+s+" work_session:"+work_session_boolean
-           prefix_html = if work_session_boolean then "Arbeitsphase:<br />" else "Pause:<br />"
-           if !work_session_boolean and m==5 and s==0
-              reload_if_room_change()
+           prefix_html = if is_work_session then "Arbeitsphase:<br />" else "Pause:<br />"
+          # prefix_html = "BEN"
+           if !is_work_session and m==5 and s==0
+             reload_if_room_change()
            m = m+1 # because no seconds are displayed, 40sec should be 1minute
            html = prefix_html + "noch " + m + " Min"
         	 # "+leadingzero(h) + ':' +
              # + ':' + leadingzero(s)
            $("#timer").html(html)
            f = -> 
-              doCount(countdown, work_session_boolean)
+              doCount(countdown)
            timeout = setTimeout(f,1000)
          else
+           console.log("xxxx stop time")
            stopTimer()
+           console.log("xxxx play gong")
            play_gong()
+           console.log("xxxx start time")
            startTimer()
       
       
@@ -351,7 +358,7 @@ $(document).ready ->
           console.log("publisher already defined")  	
           publisher.publishAudio(false)	
           f = ->
-            publishAudio =  if isWorkSession() then false else true
+            publishAudio =  if is_work_session then false else true
             publisher.publishAudio(publishAudio)
             clearTimeout(t)
           t = setTimeout(f,sec*1000)
@@ -364,11 +371,12 @@ $(document).ready ->
       
       
       startTimer = ->
-        is_work_session = isWorkSession() 
+        time = get_time()
+        is_work_session = calcIsWorkSession(time)
         if is_work_session then setSoundToWorkSession() else setSoundToBreak()
-        countdown = getCountDownTillNextEvent()
+        countdown = getCountDownTillNextEvent(time)
         timer_is_on=1
-        doCount(countdown,is_work_session )
+        doCount(countdown)
       
       if $("#timer").length>0   
         startTimer()

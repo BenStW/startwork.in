@@ -187,12 +187,12 @@ describe WorkSession do
        @calendar_event1.work_session.should eq(@calendar_event2.work_session)       
      end
      
-     it "does not assign the work_session of a work buddy when they are not befriended and have the same time" do   
+     it "does assign the work_session of a work buddy when they are not befriended and have the same time" do   
        WorkSession.count.should eq(2)    
        WorkSession.optimize_single_work_sessions(@user1)
        @calendar_event1.reload
        @calendar_event2.reload
-       WorkSession.count.should eq(2)
+       WorkSession.count.should eq(1)
        @calendar_event1.work_session.should_not eq(@calendar_event2.work_session)       
      end  
      
@@ -214,9 +214,9 @@ describe WorkSession do
        opt_work_session.should eq(@work_session2) 
      end
      
-     it "does not find a work_session if user has no friends" do 
+     it "does find a work_session even if user has no friends" do 
        opt_work_session = WorkSession.find_work_session(@user1,@calendar_event1.start_time)  
-       opt_work_session.should eq(nil) 
+       opt_work_session.should eq(@work_session1) 
      end 
      
      it "does not find the best work_session, if friend does not have the same start_time" do 

@@ -123,6 +123,12 @@ class WorkSession < ActiveRecord::Base
     
    def optimize_single_work_session(user)
      opt_work_session = WorkSession.find_work_session(user,start_time)
+     if !opt_work_session.nil?
+       puts "opt_work_session = #{opt_work_session.id}"
+     else
+       puts "opt_work_session = nil"
+     end
+     puts "self = #{self.id}"
      if opt_work_session != self and !opt_work_session.nil?
        if self.calendar_events.count != 1
          raise "Error: single work_session has more events!"
@@ -147,6 +153,10 @@ class WorkSession < ActiveRecord::Base
      # Currently find the work session with the maximum friends
      # it finds also work sessions with foreigners, connected over a friend
      work_session = WorkSession.start_time(start_time).with_friends(user).order_by_calendar_events_count.last
+     if work_session.nil?
+       work_session = WorkSession.start_time(start_time).order_by_calendar_events_count.last
+     end
+     work_session
    end
    
    def remove_users_from_worksession
