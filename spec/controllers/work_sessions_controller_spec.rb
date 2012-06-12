@@ -26,6 +26,8 @@ describe WorkSessionsController do
     end  
     
     it "should assign the tokbox variables" do
+      @user.room.tokbox_session_id = "tokbox_session_id"
+      @user.room.save
       get :show
       assigns[:tokbox_session_id].should_not be_nil
       assigns[:tokbox_token].should_not be_nil

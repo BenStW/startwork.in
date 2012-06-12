@@ -90,17 +90,6 @@ describe StaticPagesController do
     end  
   end
   
-  context "contact" do   
-    it "should be success" do      
-      get :contact
-      response.should be_success 
-    end   
-    it "should render contact" do   
-      get :contact
-      response.should render_template("contact")
-    end  
-  end
-  
   context "about us" do   
     it "should be success" do      
       get :about_us
@@ -114,11 +103,11 @@ describe StaticPagesController do
   
   context "welcome" do   
     before(:each) do 
-      @user = FactoryGirl.create(:user)
-      sign_in @user
+      @user = FactoryGirl.create(:user, :registered=>false)
+      sign_in @user   
     end   
    
-    it "should be success" do      
+    it "should be success" do
       get :welcome
       response.should be_success 
     end   
@@ -132,6 +121,12 @@ describe StaticPagesController do
       @user.reload
       @user.registered.should eq(true)
     end
+    it "should redirect to root if user is already registered" do
+       @user.registered = true
+       @user.save
+       get :welcome
+       response.should redirect_to(root_path)       
+    end
   end  
   
   
@@ -139,6 +134,8 @@ describe StaticPagesController do
     before(:each) do 
       @user = FactoryGirl.create(:user)
       sign_in @user
+      @work_session = FactoryGirl.create(:work_session)
+      DateTime.stub(:current).and_return(@work_session.start_time+10.minutes)
     end   
    
     it "should be success" do      
@@ -149,6 +146,11 @@ describe StaticPagesController do
       get :welcome_session
       response.should render_template("welcome_session")
     end  
+    it "should redirect to root if no guest work session available" do  
+      DateTime.stub(:current).and_return(@work_session.start_time+70.minutes)       
+      get :welcome_session
+      response.should redirect_to(root_path)
+    end    
   end  
   
   context "camera" do

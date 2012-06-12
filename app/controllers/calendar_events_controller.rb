@@ -64,7 +64,6 @@ class CalendarEventsController < ApplicationController
     
     users.each do |user|
         email = CalendarInvitationMailer.calendar_invitation_email(work_sessions, current_user, user)
-        puts "**** write email to #{user.first_name}"
         email.deliver
     end      
     render :json => "succussfully sent invitation"

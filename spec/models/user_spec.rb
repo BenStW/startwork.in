@@ -136,20 +136,20 @@ describe User do
       registered_friends.should be_empty
     end
     it "should return empty array if friend is not registered" do
-      new_user = FactoryGirl.create(:user)
+      new_user = FactoryGirl.create(:user, :registered=>false)
       Friendship.create_reciproke_friendship(@user,new_user)
       registered_friends = @user.registered_friends
       registered_friends.should be_empty            
     end
     it "should return array with friend if friend is registered" do
-      new_user = FactoryGirl.create(:user, :registered=>true)
+      new_user = FactoryGirl.create(:user)
       Friendship.create_reciproke_friendship(@user,new_user)
       new_user.registered.should eq(true)
       registered_friends = @user.registered_friends
      # registered_friends.should eq([new_user])       
     end     
     it "should return id, name and fb_ui if friend is registered" do
-      new_user = FactoryGirl.create(:user, :registered=>true)
+      new_user = FactoryGirl.create(:user)
       Friendship.create_reciproke_friendship(@user,new_user)
       registered_friend = @user.registered_friends[0]    
       registered_friend.id.should eq(new_user.id)      
@@ -257,6 +257,12 @@ describe User do
        User.any_instance.should_receive(:update_fb_friends).with(@access_token).exactly(1).times
        user = User.find_for_facebook_oauth(@access_token)
      end
+     
+     it "should populate the tokbox_session_id in its room" do
+       TokboxApi.stub_chain(:instance, :generate_session).and_return("tokbox_session_id")  
+       user = User.find_for_facebook_oauth(@access_token)
+       user.room.tokbox_session_id.should eq("tokbox_session_id")        
+     end
   end
   
    context "updates FB friends" do
@@ -305,10 +311,10 @@ describe User do
         @user.update_fb_friends(@access_token)
       end      
       
-      it "should call to optimize the single worksessions" do
-        WorkSession.should_receive(:optimize_single_work_sessions).exactly(1).times
-        @user.update_fb_friends(@access_token)
-      end
+    # it "should call to optimize the single worksessions" do
+    #   WorkSession.should_receive(:optimize_single_work_sessions).exactly(1).times
+    #   @user.update_fb_friends(@access_token)
+    # end
    end
    
    context "create FB friend" do

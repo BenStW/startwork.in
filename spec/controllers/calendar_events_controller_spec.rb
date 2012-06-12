@@ -77,11 +77,11 @@ describe CalendarEventsController do
      @user.calendar_events[0].work_session.should eq(calendar_event.work_session)
    end
    
-   it "should not find an existing work_session if only another user has a calendar_event at this time" do
+   it "should find an existing work_session if another user has a calendar_event at this time" do
      friend = FactoryGirl.create(:user)
      calendar_event = FactoryGirl.create(:calendar_event, :user=>friend, :start_time=>@start_time)
      get :new_event, start_time: @start_time, end_time: @start_time+1.hour
-     @user.calendar_events[0].work_session.should_not eq(calendar_event.work_session)
+     @user.calendar_events[0].work_session.should eq(calendar_event.work_session)
    end
    
    it "should not find an existing work_session if a friend has calendar_event at a different time" do
@@ -131,7 +131,6 @@ describe CalendarEventsController do
    
    before(:each) do
       @user = FactoryGirl.create(:user_with_two_friends_and_same_events)
-      @friend_ids = @user.friends.map(&:id).join(",")
       sign_in @user
       single_ws_start_time = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,10)+2.days   
       calendar_event = FactoryGirl.create(:calendar_event, :user=>@user, :start_time=>single_ws_start_time) 
@@ -141,32 +140,36 @@ describe CalendarEventsController do
    it "should render nothing when no user_ids given" do
      get :send_invitation
      response.should be_success
-     response.body.should eq(" ") 
+     response.body.should eq("succussfully sent invitation") 
    end
    
-   it "should create a CalendarInvitation when user is given" do     
-     get :send_invitation, :user_ids=>@friend_ids
-     CalendarInvitation.all.count.should eq(1)
-   end
-   
-   it "should not create a CalendarInvitation when no user is given" do     
+   it "should create a CalendarInvitation" do     
      get :send_invitation
-     CalendarInvitation.all.count.should eq(0)
+     CalendarInvitation.all.count.should eq(1)
    end
    
    it "should find the single worksessions of the user" do
      WorkSession.should_receive(:single_work_sessions_with_user_id).with(@user.id)
-     get :send_invitation, :user_ids=>@friend_ids          
+     get :send_invitation         
    end
    
-   it "should create and send a CalendarInvitationMailer for each selected friend" do
+   it "should create and send a CalendarInvitationMailer for each registered friend" do
      email = mock CalendarInvitationMailer
      CalendarInvitationMailer.stub(:calendar_invitation_email).and_return(email)
      email.stub(:deliver)
      email.should_receive(:deliver)     
      CalendarInvitationMailer.should_receive(:calendar_invitation_email).exactly(2).times 
-     get :send_invitation, :user_ids=>@friend_ids
+     get :send_invitation
    end
+   
+   it "should not create and send a CalendarInvitationMailer for not registered friend" do
+      @user.friends.each do |friend|
+        friend.registered = false
+        friend.save
+      end
+      CalendarInvitationMailer.should_receive(:calendar_invitation_email).exactly(0).times       
+      get :send_invitation
+   end   
   
  end
  

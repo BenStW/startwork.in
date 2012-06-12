@@ -116,9 +116,6 @@ class User < ActiveRecord::Base
   def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)    
     data = access_token.extra.raw_info
     user = nil
-  #  if user = self.find_by_email(data.email)
-  #    user
- #   puts "raw_info = #{data.to_yaml}"
     
     if user = User.find_by_fb_ui(data.id)
       user.update_attributes(
@@ -134,8 +131,14 @@ class User < ActiveRecord::Base
              :first_name => data.first_name,
              :last_name => data.last_name,
              :password => Devise.friendly_token[0,20]  
-       )                    
+       )
     end
+
+    if user.room.tokbox_session_id.nil?
+      user.room.tokbox_session_id = (TokboxApi.instance.generate_session user.current_sign_in_ip).to_s                    
+      user.room.save
+    end    
+
     user.update_fb_friends(access_token)
     user
   end
@@ -156,7 +159,7 @@ class User < ActiveRecord::Base
          Friendship.create_reciproke_friendship(self, friend)
       end
     end
-    WorkSession.optimize_single_work_sessions(self)
+  #  WorkSession.optimize_single_work_sessions(self)
   end
   
   # This method is only used for facebook friends

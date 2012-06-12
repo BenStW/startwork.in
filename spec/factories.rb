@@ -10,10 +10,11 @@ FactoryGirl.define do
     password_confirmation { |u| u.password }
     sequence(:fb_ui) { |n| n.to_s} 
     current_sign_in_ip "0.0.0.0"
+    registered true
 
-    after_build do |user|
-      TokboxApi.stub_chain(:instance, :generate_session).and_return("tokbox_session_id")  
-    end
+  #  after_build do |user|
+  #    TokboxApi.stub_chain(:instance, :generate_session).and_return("tokbox_session_id")  
+  #  end
     
     factory :user_with_two_friends_and_same_events do
       after_create do |user, evaluator|
@@ -63,10 +64,11 @@ FactoryGirl.define do
   end
   
   factory :room do  
-    user  
-    after_build do |user|
-      TokboxApi.stub_chain(:instance, :generate_session).and_return("tokbox_session_id")  
-    end
+    user
+    tokbox_session_id = "tokbox_session_id"
+#    after_build do |user|
+#      TokboxApi.stub_chain(:instance, :generate_session).and_return("tokbox_session_id")  
+#    end
   end
   
   factory :invitation do

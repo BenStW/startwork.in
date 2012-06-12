@@ -36,6 +36,8 @@ class WorkSession < ActiveRecord::Base
     friend_ids = user.friends.map(&:id)
     has_user_ids(friend_ids)
   end
+  
+  # EXAMPLE:   @users = User.all(:joins => :comments, :select => "users.*, count(comments.id) as comments_count", :group => "users.id")
    
   def self.order_by_calendar_events_count 
     joins(:calendar_events).

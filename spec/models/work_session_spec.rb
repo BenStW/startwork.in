@@ -141,7 +141,6 @@ describe WorkSession do
     it "selects work_session with friends" do
       WorkSession.count.should eq(2)
       Friendship.create_reciproke_friendship(@user1,@user2) 
-      WorkSession.count.should eq(1)
       WorkSession.with_friends(@user1).length.should eq(1)
       WorkSession.with_friends(@user2).length.should eq(1) 
     end   
@@ -219,9 +218,10 @@ describe WorkSession do
        opt_work_session.should eq(@work_session2) 
      end
      
-     it "does find a work_session even if user has no friends" do 
+     it "does find a work_session even if another user has a work session at the same time" do 
+       @work_session1.delete
        opt_work_session = WorkSession.find_work_session(@user1,@calendar_event1.start_time)  
-       opt_work_session.should eq(@work_session1) 
+       opt_work_session.should eq(@work_session2) 
      end 
      
      it "does not find the best work_session, if friend does not have the same start_time" do 
@@ -229,7 +229,8 @@ describe WorkSession do
        @calendar_event2.start_time += 1.hour    
        @work_session2.start_time += 1.hour  
        @calendar_event2.save
-       @work_session2.save          
+       @work_session2.save       
+       @work_session1.delete   
        opt_work_session = WorkSession.find_work_session(@user1,@calendar_event1.start_time)  
        opt_work_session.should eq(nil) 
      end  
