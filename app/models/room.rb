@@ -17,6 +17,10 @@ class Room < ActiveRecord::Base
 
   has_many :work_sessions, :dependent => :destroy
   
+  def self.tokbox_session_id_filled?
+    where("tokbox_session_id is not ?",nil)
+  end
+  
 # def tokbox_session_id    
 #  # puts "**** tokbox_session_id for user #{self.user.first_name}"
 #   if @tokbox_session_id.nil?

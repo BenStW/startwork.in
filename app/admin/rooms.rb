@@ -1,5 +1,7 @@
 ActiveAdmin.register Room do
     menu :priority => 12
+    
+  scope :tokbox_session_id_filled?
   filter :user
 
 
