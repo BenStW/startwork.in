@@ -37,6 +37,8 @@ StartWork::Application.routes.draw do
      match 'camera' => 'static_pages#camera', :as => :camera
      match 'audio' => 'static_pages#audio', :as => :audio
      match 'ben' => 'static_pages#ben', :as => :ben
+     match 'canvas' => 'static_pages#canvas', :as => :canvas
+
 #     match 'send_facebook_message' => 'static_pages#send_facebook_message', :as => :send_facebook_message
 
 
