@@ -32,7 +32,10 @@ $(document).ready ->
       
       start_break_minutes = 55
       start_work_minutes = 5
-
+    #
+    #  start_break_minutes = 27
+    #  start_work_minutes = 05
+    #
       windowProps = 
         width: width
         height: height
@@ -326,11 +329,14 @@ $(document).ready ->
            h = Math.floor(countdown/3600)
            m = Math.floor((countdown - (h * 3600))/60)
            s = (countdown-(h*3600))%60
-         #  console.log h+":"+m+":"+s+" work_session:"+work_session_boolean
+           console.log h+":"+m+":"+s+" work_session:"+is_work_session
            prefix_html = if is_work_session then "Arbeitsphase:<br />" else "Pause:<br />"
           # prefix_html = "BEN"
            if !is_work_session and m==5 and s==0
              reload_if_room_change()
+           if !is_work_session and m==9 and s==54
+             location.reload()
+
            m = m+1 # because no seconds are displayed, 40sec should be 1minute
            html = prefix_html + "noch " + m + " Min"
         	 # "+leadingzero(h) + ':' +
@@ -340,11 +346,8 @@ $(document).ready ->
               doCount(countdown)
            timeout = setTimeout(f,1000)
          else
-           console.log("xxxx stop time")
            stopTimer()
-           console.log("xxxx play gong")
            play_gong()
-           console.log("xxxx start time")
            startTimer()
       
       
