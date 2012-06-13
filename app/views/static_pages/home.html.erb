@@ -65,7 +65,7 @@
 
 <% if !@next_work_session.nil?%>
   <div class="span3">
-	<div id="join_work_session" class="btn" style="width:150px;height:50px" url_check=<%=work_session_can_we_start_url%> url="http://startwork.in/arbeitssitzung"<% work_session_url%>
+	<div id="join_work_session" class="btn" style="width:150px;height:50px" url_check=<%=work_session_can_we_start_url%> url=<%= work_session_url%>
 		  ><%= t(".next_room_html", :host=>@room_host)%></div>
   </div> <!-- span3 -->
 
