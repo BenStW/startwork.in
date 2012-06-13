@@ -329,7 +329,7 @@ $(document).ready ->
            h = Math.floor(countdown/3600)
            m = Math.floor((countdown - (h * 3600))/60)
            s = (countdown-(h*3600))%60
-           console.log h+":"+m+":"+s+" work_session:"+is_work_session
+         #  console.log h+":"+m+":"+s+" work_session:"+is_work_session
            prefix_html = if is_work_session then "Arbeitsphase:<br />" else "Pause:<br />"
           # prefix_html = "BEN"
            if !is_work_session and m==5 and s==0

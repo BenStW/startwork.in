@@ -2,6 +2,7 @@
 
 
 
+
 <% if !user_signed_in? %>
 
   <!-- Main hero unit for a primary marketing message or call to action -->
@@ -19,6 +20,10 @@
   </div><!-- end of main hero unit -->
                        
 <% else %>
+  <%- content_for(:head) do -%>
+  <%= javascript_include_tag "http://connect.facebook.net/en_US/all.js" -%>
+  <%- end -%>
+  
   <div class="hero-unit">
   <br>
   <h2> <%=t '.greet_username', :username => current_user.name %></h2><br>
@@ -75,7 +80,9 @@
 
 <div class="row">
 <div class="span6">
-  <%=   render :template => 'invitations/new' %>
+	<div id="fb-root" data-app="<%=@app%>"></div>
+	<div id="send_dialogue" class="btn" style="width:150px;height:50px"><b>Facebook-Dialog</b></div>
+  <%   render :template => 'invitations/new' %>
   </div> <!-- span6 -->
  </div>  <!-- row -->
   	

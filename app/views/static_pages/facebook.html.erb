@@ -2,12 +2,18 @@
 <%= javascript_include_tag "http://connect.facebook.net/en_US/all.js" -%>
 <%- end -%>
 
-<div id="pop_up_window" class="btn btn-primary">pop up window</div>
-
+<%= Devise.config.to_yaml %>
 
 <div id="fb-root"></div>
 <br><br>
-<div id="send_requests" class="btn btn-primary">Open facebook request dialogue</div>
-<br><br>
+<div id="request_dialogue" class="btn">Open facebook request dialogue</div>
 
-<iframe height="410" width="100%" frameBorder="0" src="http://www.benedikt-voigt.net/start_work_blog">your browser does not support IFRAMEs</iframe>
+<br><br>
+<div id="send_dialogue" class="btn">Open facebook send dialogue</div>
+
+<!--
+<iframe src="https://www.facebook.com/dialog/send?app_id=232041530243765&
+	name=People%20Argue%20Just%20to%20Win&
+	link=http://www.nytimes.com/2011/06/15/arts/people-argue-just-to-win-scholars-assert.html&
+	redirect_uri=http://localhost:3000"></iframe>
+-->

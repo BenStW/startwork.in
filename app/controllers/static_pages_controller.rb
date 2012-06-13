@@ -3,8 +3,9 @@
 class StaticPagesController < ApplicationController
   skip_before_filter :authenticate_user!,  :except => [:welcome, :camera, :audio, :ben]
   
-  def home  
+  def home      
     if current_user
+      @app = if Rails.env.production? then "330646523672055" else "232041530243765" end
       @friends = current_user.registered_friends
       next_calendar_event = current_user.calendar_events.next
       if next_calendar_event
@@ -62,11 +63,15 @@ class StaticPagesController < ApplicationController
     end
   end
   
-  def send_facebook_message
-    @marked = params[:friends]
-    @message = params[:message]
-    redirect_to welcome_url    
+  def facebook
+
   end
+  
+# def send_facebook_message
+#   @marked = params[:friends]
+#   @message = params[:message]
+#   redirect_to welcome_url    
+# end
   
   def camera
     if params[:success]
