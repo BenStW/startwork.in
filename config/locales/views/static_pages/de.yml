@@ -14,7 +14,7 @@ de:
       camera_test: Kamera und Audio Test
       work_groups: Arbeitsgruppen
       start: Start
-      maintain_work_sessions_html: "<b>ArbeitsSessions organisieren</b>"
+      maintain_work_sessions_html: "<b>ArbeitsSessions verabreden</b>"
       next_session: "Nächste Session"
       guest_work_session_html: "<b>Gast Session</b><br>(jetzt beitreten)"      
       with: "mit"
@@ -35,10 +35,7 @@ de:
          Startwork ist so gedacht, dass ihr eure gesamte Arbeitszeit zusammen verbringt.</li>
          <li>Sobald deckungsgleiche Termine zwischen Workbuddies bestehen, 
          wird auf der Startseite ein Link zum Betreten des Arbeitsraumes generiert.</li>
-         <li>Loggt euch pünktlich zum Beginn der Arbeitsession in den Arbeitsraum über die Startseite ein und 
-         erzählt euch gegenseitig kurz aber möglichst konkret, was ihr heute schaffen wollt. 
-         Am Ende des gemeinsamen Arbeitstages soll sich nochmal gegenseitig erzählt werden, 
-         was man davon geschafft hat.</li>
+         <li>Loggt euch pünktlich zum Beginn der Arbeitsession in den Arbeitsraum über die Startseite ein. </li>
          <li>Euer Video wird ausgeblendet, nachdem ihr Startwork den Zugriff auf Kamera und Mikrofon erlaubt habt.
           Ihr seid aber in der Arbeitsgruppe.
            Ihr könnt die Zugriffserlaubnis über den Button 'Kamera- und Audiotest' auch automatisieren.</li>
@@ -49,6 +46,13 @@ de:
           die Gruppenmitglieder sich ausschließlich mit Arbeitsinhalten befassen.</li>
          <li><b>Das Fenster mit den Videos bitte immer sichtbar halten, </b>
          die anderen Fenster entsprechend anpassen. Dann wirkt Startwork am stärksten.</li>
+         <li>(Optional: Erzählt euch zusätzlich nach dem Einloggen gegenseitig kurz aber möglichst konkret, 
+         was ihr heute schaffen wollt.
+          Am Ende des gemeinsamen Arbeitstages soll sich nochmal gegenseitig erzählt werden,
+           was man davon geschafft hat. 
+           Dieses zusätzliche wechselseitige „Commitment“ kann bei Bedarf 
+           zur Verstärkung des Effekts von StartWork genutzt werden).
+         </li>
          <li>Wir freuen uns über jegliche Nutzung des Feedback-Formulars rechts unten. 
          Ideen, Eindrücke, Bugs - alles kann und soll mitgeteilt werden.</li>
          </ul>
