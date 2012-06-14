@@ -206,6 +206,30 @@ describe User do
   
   end
   
+  context "it finds the current work session of this user" do
+  
+     before(:each) do 
+       @user = FactoryGirl.create(:user)
+       @calendar_event = FactoryGirl.create(:calendar_event, :user=>@user)
+#       DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,10)+1.day
+ #      DateTime.stub(:current).and_return(
+     end    
+     
+     it "finds the current work session 10 minutes afters start" do
+       current = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,10)+1.day+10.minutes
+       DateTime.stub(:current).and_return(current)
+       ws = @user.current_work_session
+       ws.should_not be_nil
+     end
+     it "does not find a work session when 10 minutes before start" do
+       current = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,10)+1.day-10.minutes
+       DateTime.stub(:current).and_return(current)
+       ws = @user.current_work_session
+       ws.should be_nil
+    end       
+    
+  end
+  
   context "it finds an user for facebook authentication" do
     before(:each) do
        @access_token = mock("access_token",

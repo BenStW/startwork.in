@@ -21,25 +21,6 @@ class StaticPagesController < ApplicationController
       end
     end
   end
-  
-  def canvas
-    if current_user
-      @app = if Rails.env.production? then "330646523672055" else "232041530243765" end
-      @friends = current_user.registered_friends
-      next_calendar_event = current_user.calendar_events.next
-      if next_calendar_event
-        @next_work_session = next_calendar_event.work_session
-        users = @next_work_session.users - [current_user]
-        @user_names = users.map(&:name).join(", ")
-        if @user_names.blank?
-          @user_names = t("static_pages.home.nobody")
-        else
-          @user_names = t("static_pages.home.with")+" "+@user_names
-        end
-        @room_host = @next_work_session.room.user.name
-      end
-    end    
-  end
 
   def how_it_works
   end
@@ -75,12 +56,18 @@ class StaticPagesController < ApplicationController
   end
   
   def welcome_session
-    work_session = WorkSession.assign_for_guest(current_user)
-    if work_session.nil?
-      redirect_to root_url, :alert=> "Aktuell ist keine WorkSession vorhanden, wo Du als Gast teilnehmen kannst."
-    else
-      @work_buddies = work_session.users
-    end
+    c = DateTime.current
+    this_hour = DateTime.new(c.year,c.month,c.day, c.hour)
+    calendar_event = current_user.calendar_events.build(start_time: this_hour)
+    calendar_event.find_or_build_work_session
+    calendar_event.save
+    work_session = calendar_event.work_session    
+#    work_session = WorkSession.assign_for_guest(current_user)
+ #   if work_session.nil?
+#      redirect_to root_url, :alert=> "Aktuell ist keine WorkSession vorhanden, wo Du als Gast teilnehmen kannst."
+#    else
+    @work_buddies = work_session.users
+#    end
   end
   
   def facebook

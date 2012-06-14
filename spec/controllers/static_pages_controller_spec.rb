@@ -146,11 +146,11 @@ describe StaticPagesController do
       get :welcome_session
       response.should render_template("welcome_session")
     end  
-    it "should redirect to root if no guest work session available" do  
-      DateTime.stub(:current).and_return(@work_session.start_time+70.minutes)       
-      get :welcome_session
-      response.should redirect_to(root_path)
-    end    
+   # it "should redirect to root if no guest work session available" do  
+   #   DateTime.stub(:current).and_return(@work_session.start_time+70.minutes)       
+   #   get :welcome_session
+   #   response.should redirect_to(root_path)
+   # end    
   end  
   
   context "camera" do

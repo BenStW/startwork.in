@@ -21,7 +21,8 @@ de:
       nobody: "Noch keine WorkBuddies"
       maintain_friends: Meine WorkBuddies      
       statistics: Statistik
-      my_settings: Organisatorisches     
+      my_settings: Organisatorisches  
+      spont_work_session_html: "<b>Spontane Session</b><br>(jetzt beitreten)"   
     how_it_works:
       title: "Wie es geht"
       text_current_user_html: 

@@ -113,6 +113,13 @@ class User < ActiveRecord::Base
     duration
   end
   
+  def current_work_session
+    calendar_event = self.calendar_events.current  
+    if !calendar_event.nil?
+      work_session = calendar_event.work_session
+    end      
+  end
+  
   def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)    
     data = access_token.extra.raw_info
     user = nil

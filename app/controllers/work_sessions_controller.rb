@@ -2,32 +2,37 @@ class WorkSessionsController < ApplicationController
   skip_before_filter :authenticate_user!,  :only => [:test_show]  
   layout "video_layout"
   
-  def show
-    
-    work_session = nil
-    if guest = params[:guest]
-      work_session = WorkSession.assign_for_guest(current_user)
-
-    else
-      work_session = next_work_session
-    end
   
+ # def guest_show    
+ #   work_session = WorkSession.assign_for_guest(current_user)
+ #   if work_session.nil?
+ #        render :text =>  t("work_sessions.show.no_guest_work_session")    
+ #   end
+ # end
+  
+  def spont_show
+    if current_user.current_work_session.nil?
+       c = DateTime.current
+       this_hour = DateTime.new(c.year,c.month,c.day, c.hour)
+       calendar_event = current_user.calendar_events.build(start_time: this_hour)
+       calendar_event.find_or_build_work_session
+       calendar_event.save
+    end
+    redirect_to work_session_path     
+  end
+  
+  def show  
+    work_session = current_user.current_work_session  
     if work_session.nil?
-      if guest
-         render :text =>  t("work_sessions.show.no_guest_work_session")
-      else
         render :text =>  t("work_sessions.show.no_work_session")
-      end
     else
         @tokbox_session_id = work_session.room.tokbox_session_id
         @room_name = "#{work_session.room.user.name}'s room"
-
-        #@work_buddies = work_session.users - [current_user] + [guest_work_buddy]
-             
-        @tokbox_token = TokboxApi.instance.generate_token @tokbox_session_id, current_user, guest
+        @tokbox_token = TokboxApi.instance.generate_token @tokbox_session_id, current_user #, guest
         @tokbox_api_key = TokboxApi.instance.api_key
-      end
-  end
+    end
+  end  
+    
   
   def test_show
     user = params[:user]
@@ -45,7 +50,7 @@ class WorkSessionsController < ApplicationController
   
   def room_change
      session = params[:session]
-     work_session = next_work_session
+     work_session = current_user.current_work_session
      if work_session and work_session.room.tokbox_session_id == session
         render :json => false
       else
@@ -58,23 +63,10 @@ class WorkSessionsController < ApplicationController
   end
   
   def can_we_start
-    render :json => next_work_session.nil? ? false : true
+    render :json => current_user.current_work_session.nil? ? false : true
   end
   
-  private 
 
-  def next_work_session
-    calendar_event = current_user.calendar_events.next    
-    if !calendar_event.nil?
-      work_session = calendar_event.work_session
-      min_diff = (DateTime.current - work_session.start_time.to_datetime()) * 24 * 60
-      
-      if min_diff >= -5 and min_diff<=55
-        work_session
-      else
-        nil
-      end
-    end 
-  end
+
   
 end

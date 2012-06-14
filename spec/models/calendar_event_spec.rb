@@ -79,6 +79,8 @@ describe CalendarEvent do
       CalendarEvent.next.should eq(event_at_9am)
     end
     
+
+    
     it "selects next event starting 5 minutes after now" do
       tomorrow_8am = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,8)+1.day
       DateTime.stub(:current).and_return(tomorrow_8am+5.minutes)
@@ -91,7 +93,36 @@ describe CalendarEvent do
       DateTime.stub(:current).and_return(tomorrow_8am+65.minutes)
       event_at_8am = FactoryGirl.create(:calendar_event,:start_time=>tomorrow_8am) 
       CalendarEvent.next.start_time.should > tomorrow_8am
-    end     
+    end 
+    
+    it "selects current event" do
+      tomorrow_at_9am = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,9)+1.day
+      event_at_9am = FactoryGirl.create(:calendar_event,:start_time=>tomorrow_at_9am) 
+      DateTime.stub(:current).and_return(tomorrow_at_9am + 5.minutes)
+      CalendarEvent.current.should_not be_nil
+    end
+    
+    it "selects current event 3 minutes before start" do
+      tomorrow_at_9am = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,9)+1.day
+      event_at_9am = FactoryGirl.create(:calendar_event,:start_time=>tomorrow_at_9am) 
+      DateTime.stub(:current).and_return(tomorrow_at_9am - 3.minutes)
+      CalendarEvent.current.should_not be_nil
+    end
+    
+    it "does not select current event 6 minutes before start" do
+      tomorrow_at_9am = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,9)+1.day
+      event_at_9am = FactoryGirl.create(:calendar_event,:start_time=>tomorrow_at_9am) 
+      DateTime.stub(:current).and_return(tomorrow_at_9am - 6.minutes)
+      CalendarEvent.current.should be_nil
+    end   
+    
+    it "does not select current event 56 minutes after start" do
+      tomorrow_at_9am = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,9)+1.day
+      event_at_9am = FactoryGirl.create(:calendar_event,:start_time=>tomorrow_at_9am) 
+      DateTime.stub(:current).and_return(tomorrow_at_9am +56.minutes)
+      CalendarEvent.current.should_not eq(event_at_9am)
+      CalendarEvent.current.should eq(@calendar_event) 
+    end            
     
     it "selects events with foreigners for a given user" do
       new_user = FactoryGirl.create(:user)

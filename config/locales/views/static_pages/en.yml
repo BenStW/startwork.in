@@ -26,6 +26,7 @@ en:
         <p>Please still have some patience.</p>
         <p>We will contact you when the study starts, which will probably be beginning of April.</p>
         <p>If you have any questions, please send <a href='mailto:robert@startwork.in'>Robert</a> an email.</p>"   
+      spont_work_session_html: "<b>Spontaneous Session</b><br>(join now)"           
     how_it_works:
       title: "How it works"
       text_html: "<p>You work with up to 5 friends for 50 minutes with a running webcam. 

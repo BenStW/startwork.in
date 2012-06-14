@@ -43,3 +43,7 @@ $(document).ready ->
   $('#join_guest_work_session').click (event)-> 
      url = $(this).attr("url")
      popup_work_session(url)
+
+  $('#join_spont_work_session').click (event)-> 
+     url = $(this).attr("url")
+     popup_work_session(url)

@@ -43,6 +43,15 @@ class CalendarEvent < ActiveRecord::Base
     order("calendar_events.start_time").limit(1)[0]   
   end
   
+  def self.current
+    c = DateTime.current
+    this_hour = DateTime.new(c.year,c.month,c.day, c.hour)
+    if c.minute>=55
+      this_hour+=1.hours
+    end
+    where("start_time = ?", this_hour).limit(1)[0]    
+  end  
+  
   def self.with_foreigners(user)
     friend_ids = user.friendships.map(&:friend).map(&:id)
     friend_and_own_ids = friend_ids + [user.id]
