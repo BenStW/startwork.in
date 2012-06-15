@@ -26,8 +26,8 @@ describe WorkSessionsController do
     end  
     
     it "should assign the tokbox variables" do
-      @user.room.tokbox_session_id = "tokbox_session_id"
-      @user.room.save
+   #   @user.room.tokbox_session_id = "tokbox_session_id"
+   #   @user.room.save
       get :show
       assigns[:tokbox_session_id].should_not be_nil
       assigns[:tokbox_token].should_not be_nil
@@ -66,6 +66,20 @@ describe WorkSessionsController do
       get :show
       response.body.should =~ /You currently do not have a work session planned./m
     end
+        
+    it "should store the login count of 1" do
+      get :show
+      @user.calendar_events.first.reload    
+      @user.calendar_events.first.login_count.should eq(1)     
+    end
+    it "should not store the login count if no work_session" do      
+      tomorrow_11_05am = DateTime.current+65.minutes
+      DateTime.stub(:current).and_return(tomorrow_11_05am)
+      get :show
+      @user.calendar_events.first.reload    
+      @user.calendar_events.first.login_count.should be_nil      
+    end    
+   
       
   end 
   

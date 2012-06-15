@@ -2,7 +2,7 @@ ActiveAdmin.register CalendarEvent do
     menu :priority => 10
     filter :user
     filter :start_time
-    filter :work_session 
+    filter :login_count
     scope :this_week
 
 
@@ -11,6 +11,8 @@ ActiveAdmin.register CalendarEvent do
         column :id
         column :user
         column :start_time
+        column :login_time
+        column :login_count        
         column :work_session do |calendar_event|
           link_to calendar_event.work_session_id, admin_work_session_path(calendar_event.work_session)  
           end

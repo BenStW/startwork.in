@@ -8,6 +8,8 @@
 #  created_at      :datetime        not null
 #  updated_at      :datetime        not null
 #  work_session_id :integer
+#  login_time      :datetime
+#  login_count     :integer
 #
 
 class CalendarEvent < ActiveRecord::Base
@@ -71,6 +73,15 @@ class CalendarEvent < ActiveRecord::Base
   def find_or_build_work_session
     self.work_session = WorkSession.find_work_session(self.user,self.start_time)  ||   
                         self.build_work_session(:start_time=>self.start_time, :room => self.user.room)
+  end
+  
+  def store_login
+    if !self.login_time
+      self.login_time=DateTime.current
+      self.login_count=0
+    end
+    self.login_count+=1
+    self.save
   end
  
 =begin

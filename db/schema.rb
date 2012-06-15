@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120530095339) do
+ActiveRecord::Schema.define(:version => 20120615084853) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -52,6 +52,8 @@ ActiveRecord::Schema.define(:version => 20120530095339) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
     t.integer  "work_session_id"
+    t.datetime "login_time"
+    t.integer  "login_count"
   end
 
   add_index "calendar_events", ["user_id"], :name => "index_calendar_events_on_user_id"
@@ -71,16 +73,6 @@ ActiveRecord::Schema.define(:version => 20120530095339) do
   end
 
   add_index "camera_audios", ["user_id"], :name => "index_camera_audios_on_user_id"
-
-  create_table "connections", :force => true do |t|
-    t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.datetime "start_time"
-    t.datetime "end_time"
-  end
-
-  add_index "connections", ["user_id"], :name => "index_connections_on_user_id"
 
   create_table "friendships", :force => true do |t|
     t.integer  "user_id"

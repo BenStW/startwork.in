@@ -11,6 +11,11 @@ FactoryGirl.define do
     sequence(:fb_ui) { |n| n.to_s} 
     current_sign_in_ip "0.0.0.0"
     registered true
+    
+    after_create do |user|
+      user.room.tokbox_session_id = "tokbox_session_id"
+      user.room.save
+    end
 
   #  after_build do |user|
   #    TokboxApi.stub_chain(:instance, :generate_session).and_return("tokbox_session_id")  
@@ -58,10 +63,7 @@ FactoryGirl.define do
     room 
   end
   
-  factory :connection do 
-    user
-    start_time DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,DateTime.current.hour)
-  end
+
   
   factory :room do  
     user

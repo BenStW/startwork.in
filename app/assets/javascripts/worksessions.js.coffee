@@ -21,11 +21,9 @@ $(document).ready ->
       api_key = $("#video_window").data("api_key")
       url = $("#video_window").data("url")
       session = TB.initSession session_id  
-      toggle = true
       publisher = null
       publisher_hidden = 0
       is_work_session = null
-     # $("#user_box_1").css("visibility", "hidden")
       
       timeout = null
       timer_is_on = 0
@@ -43,8 +41,6 @@ $(document).ready ->
   
       
       calcIsWorkSession = (time)->
-       # time = new Date()
-       # time = get_time()
         minutes = time.getMinutes()
         if minutes >= start_work_minutes and minutes < start_break_minutes
            true
@@ -56,8 +52,6 @@ $(document).ready ->
       
       
       getCountDownTillNextEvent = (time)->
-       # time = new Date()
-       # time = get_time()
         minutes = time.getMinutes()
         seconds = time.getSeconds()
       
@@ -70,8 +64,6 @@ $(document).ready ->
             countdown = 60*60 - minutes*60 - seconds + start_work_minutes*60
       
       hidePublisher = ->
-        #$("#publisher_box").css("visibility", "hidden")
-        #$("#publisher_box").removeClass("publisher_hidden")
         $("#publisher_box").css("width", "1px")
         $("#publisher_box").css("height", "1px")
         $("#publisher_box").css("top", "-10px")
@@ -79,8 +71,6 @@ $(document).ready ->
         publisher_hidden=1    
       
       showPublisher = ->
-        #$("#publisher_box").css("visibility", "visible")
-        #$("#publisher_box").addClass("publisher_hidden")
         $("#publisher_box").css("width", "150px")
         $("#publisher_box").css("height", "150px")
         $("#publisher_box").css("top", "50px")
@@ -177,37 +167,7 @@ $(document).ready ->
             console.log("replaceElementId = "+replaceElementId)
             session.subscribe stream, replaceElementId, windowProps
               
-      
-      postConnectionStart = (user_ids) ->   
-        data = 
-          user_ids: user_ids
-        console.log "connection created. Post to /connection/start: user_ids = "+user_ids
-        $.ajax
-           url: '/connections/start',
-           data: data,
-           type: 'POST',
-        #   beforeSend: (xhr) -> 
-        #     xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-           success: (data) ->
-               console.log data  
-      
-      
-      
-      postConnectionEnd = (user_ids) ->           
-        data = 
-          user_ids: user_ids
-        console.log "connection ended. Post to /connection/end: user_ids = "+user_ids
-        $.ajax
-           url: '/connections/end',
-           data: data,
-           type: 'POST',
-      #     beforeSend: (xhr) -> 
-      #         xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-           success: (data) ->
-               console.log data
-       
-      		
-      
+
       
       
       # The Session object dispatches SessionConnectEvent object when a session has successfully connected
@@ -222,19 +182,8 @@ $(document).ready ->
           width: width
           height: height
         console.log("**** publish now with audio="+publishAudio+" at the ID="+replaceElementId)
-        publisher = session.publish replaceElementId, properties
-
-              
-        # count the number of connections in hidden field
-        $("#connectionCountField").val(event.connections.length)
-
-        user_ids = (JSON.parse(connection.data).user_id for connection in event.connections)
+        publisher = session.publish replaceElementId, properties              
       
-        # if more then 1 person is in the work_session, then document the connections 
-        if $("#connectionCountField").val()>1        
-          postConnectionStart(user_ids)
-      
-        console.log("SessionConnectedHandler: number of connections: "+event.connections.length)
         # Subscribe to streams that were in the session when we connected
         subscribeToStreams event.streams 
              
@@ -259,44 +208,14 @@ $(document).ready ->
       
       connectionDestroyedHandler = (event) ->
         connectionsDestroyed = event.connections  
-        origConnectionsCount = parseInt($("#connectionCountField").val())
-        connectionsCount = origConnectionsCount - connectionsDestroyed.length
-        $("#connectionCountField").val(connectionsCount)
-      
         user_ids = (JSON.parse(connection.data).user_id for connection in connectionsDestroyed)  
-        console.log("The number of connections changed from "+origConnectionsCount+ " to "+connectionsCount+". Lost user ids: "+user_ids)
-      
-        # if user is left alone, also end his connection
-        if connectionsCount == 1
-           user_ids.push(my_user_id)
-        postConnectionEnd(user_ids)
-      
         for user_id in user_ids
            $("#user_box_"+user_id).remove()
-       #   # if no stream_box_tmp is given, then create a new one
-       #   if $("#stream_box_tmp_"+user_id).length==0	
-       #     html =  "<div id=stream_box_tmp_"+ user_id + " class=stream_box_tmp>
-       #            <img src='/assets/video_dummy.gif'>
-       # 	     </div><!-- stream_box -->"		
-       #     $("#stream_box_"+user_id).append(html)
-       #   else	
-       #     console.log("ERROR: stream_box_tmp exists already")	
+
       
       connectionCreatedHandler = (event) ->
         connectionsCreated = event.connections 
-      
-        origConnectionsCount = parseInt($("#connectionCountField").val())
-        connectionsCount = origConnectionsCount + connectionsCreated.length
-        $("#connectionCountField").val(connectionsCount)	
-       
-        user_ids = (JSON.parse(connection.data).user_id for connection in connectionsCreated)
-        console.log("The number of connections changed from "+origConnectionsCount+ " to "+connectionsCount+". New user ids: "+user_ids)
-      
-        # Add the own user_id , because the server tracks only video learning with 2 or more people
-        # When the 2nd person connects, all browsers will send the new connections including the own user_id  
-        user_ids.push(my_user_id)
-        postConnectionStart(user_ids)
-      
+        console.log(connectionsCreated.length + " connections created")
       
       
       

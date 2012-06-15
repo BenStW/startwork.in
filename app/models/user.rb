@@ -83,35 +83,6 @@ class User < ActiveRecord::Base
      self.friends.map(&:id).include?(user.id)
    end
   
-  def start_connection
-    if !open_connections?      
-      connection = connections.build(start_time: DateTime.current)
-      connection.save
-      logger.info "start connection with id #{connection.id} for user_id #{id}"
-      connection
-    end
-  end
-  
-  def open_connections?
-    connections.find_all_by_end_time(nil).count>0
-  end
-  
-  def end_connection
-    open_connections = connections.find_all_by_end_time(nil)
-    for connection in open_connections
-      connection.end_time = DateTime.current
-      connection.save
-      logger.info "Closed connection #{connection.id} of user_id #{id}"
-   end
-  end
-  
-  def duration_of_connections
-    duration=0
-    for connection in connections
-      duration+=connection.duration
-    end
-    duration
-  end
   
   def current_work_session
     calendar_event = self.calendar_events.current  
@@ -145,8 +116,9 @@ class User < ActiveRecord::Base
       user.room.tokbox_session_id = (TokboxApi.instance.generate_session user.current_sign_in_ip).to_s                    
       user.room.save
     end    
-
+    logger.info("** begin update_fb_friends")
     user.update_fb_friends(access_token)
+    logger.info("** end update_fb_friends")
     user
   end
   

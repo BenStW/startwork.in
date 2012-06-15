@@ -26,6 +26,7 @@ class WorkSessionsController < ApplicationController
     if work_session.nil?
         render :text =>  t("work_sessions.show.no_work_session")
     else
+        current_user.calendar_events.current.store_login 
         @tokbox_session_id = work_session.room.tokbox_session_id
         @room_name = "#{work_session.room.user.name}'s room"
         @tokbox_token = TokboxApi.instance.generate_token @tokbox_session_id, current_user #, guest

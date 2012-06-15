@@ -7,6 +7,7 @@
 #  updated_at :datetime        not null
 #  start_time :datetime
 #  room_id    :integer
+#  guest_id   :integer
 #
 
 procrastinators:

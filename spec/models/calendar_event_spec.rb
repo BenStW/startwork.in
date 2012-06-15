@@ -8,6 +8,8 @@
 #  created_at      :datetime        not null
 #  updated_at      :datetime        not null
 #  work_session_id :integer
+#  login_time      :datetime
+#  login_count     :integer
 #
 
 require 'spec_helper'
@@ -166,6 +168,29 @@ describe CalendarEvent do
      @calendar_event.should be_valid
      @calendar_event.work_session.should eq(new_work_session)
    end
+ end
+ 
+ context "when storing the logins" do
+   it "stores the current time when no time given" do
+     @calendar_event.store_login
+     @calendar_event.login_time.should_not be_nil
+   end
+   it "does not overwrite the time if its already populated" do
+     tomorrow_at_9am = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,9)+1.day     
+     DateTime.stub(:current).and_return(tomorrow_at_9am)
+     @calendar_event.store_login
+     tomorrow_at_9_15am = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,9)+1.day+15.minutes
+     @calendar_event.store_login
+     @calendar_event.login_time.should eq(tomorrow_at_9am)     
+   end
+   it "counts the logins" do
+     @calendar_event.login_count.should be_nil
+     @calendar_event.store_login
+     @calendar_event.login_count.should eq(1)
+     @calendar_event.store_login
+     @calendar_event.login_count.should eq(2)
+   end
+   
  end
    
  
