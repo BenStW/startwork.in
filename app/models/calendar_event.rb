@@ -56,7 +56,7 @@ class CalendarEvent < ActiveRecord::Base
   
   def self.after_logging_day
     change_date = DateTime.new(2012,6,15,14) #xxxx 16!!!
-    where("start_time > ?",change_date)    
+    where("start_time > ? and start_time< ?",change_date,DateTime.current)    
   end
   def self.logged_in
     where("login_count>0").after_logging_day
