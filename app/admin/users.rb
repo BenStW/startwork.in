@@ -19,11 +19,6 @@ ActiveAdmin.register User do
       column "Facebook ID", :fb_ui
       column :email
       column :referer        
-      column :connections do |user|
-        user.connections.count
-#        link_to user.connections.count, admin_connections_path
-       # link_to "Ruby on Rails search", :controller => "admin_connections", :query => "ruby on rails"
-      end
       column :registered
       column "created at", :created_at
       column "last sign in at", :last_sign_in_at
