@@ -15,7 +15,21 @@ ActiveAdmin::Dashboards.build do
          li "#{User.where(:registered=>:true).count} active users"
          li "#{User.where(:registered=>:false).count} facebook friends"
        end
+       table_for User.registered?.each do 
+         column 'id', :id
+         column 'name', :name
+         column 'calendar events' do |user| user.calendar_events.logged_in.count + user.calendar_events.not_logged_in.count  end       
+         column 'logged-in  events' do |user| user.calendar_events.logged_in.count end       
+         column 'missed  events' do |user| user.calendar_events.not_logged_in.count end       
+         column 'perc. of logged-in events' do  |user| 
+            "#{(user.calendar_events.logged_in.count * 100 /
+            (user.calendar_events.logged_in.count + user.calendar_events.not_logged_in.count))} %"
+         end 
+
+       end       
   end    
+  
+
   
                  
   
