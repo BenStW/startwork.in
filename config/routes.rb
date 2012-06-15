@@ -67,8 +67,6 @@ StartWork::Application.routes.draw do
      post 'connections/start', :to => 'connections#start'  
      post 'connections/end', :to => 'connections#end'
     
-     match 'statistics' => 'statistics#show', :as => :statistics
-     
 
  
     
