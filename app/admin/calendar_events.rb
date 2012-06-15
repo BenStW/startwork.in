@@ -4,6 +4,7 @@ ActiveAdmin.register CalendarEvent do
     filter :start_time
     filter :login_count
     scope :this_week
+    scope :after_logging_day
     scope :logged_in
     scope :not_logged_in
     scope :not_logged_in_this_week
