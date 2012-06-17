@@ -9,11 +9,20 @@
 $(document).ready -> 
 
    if $("#video_window").length > 0
+    #  OT_LayoutContainer.init("#video_container", 100, 300)
 
-      width = 200 
-      height = 200	   
-      padding = 20
-          
+      padding = 12	   
+      width = $(window).width()-2*padding #200 
+      height = $(window).width()-2*padding #200
+    #  console.log "window width = " + width
+    #  console.log "window height = " + height
+    #  console.log "publisher_box width = " + width-2*padding
+    #  console.log "publisher_box height = " + height-2*padding
+
+      $("#publisher_box").css("width",width)
+      $("#publisher_box").css("height",height)
+    
+  
       my_user_id = $('#video_window').data("user_id")
       TB.setLogLevel(TB.DEBUG) 
       session_id  = $("#video_window").data("session_id")
@@ -30,6 +39,8 @@ $(document).ready ->
       
       start_break_minutes = 55
       start_work_minutes = 5
+
+
     #
     #  start_break_minutes = 27
     #  start_work_minutes = 05
@@ -38,7 +49,9 @@ $(document).ready ->
         width: width
         height: height
 
-  
+      $(window).resize( ->
+          console.log "document.width = " + $(document).width()
+          console.log "window width = "+ $(window).width())
       
       calcIsWorkSession = (time)->
         minutes = time.getMinutes()
@@ -64,18 +77,17 @@ $(document).ready ->
             countdown = 60*60 - minutes*60 - seconds + start_work_minutes*60
       
       hidePublisher = ->
-        $("#publisher_box").css("width", "1px")
-        $("#publisher_box").css("height", "1px")
-        $("#publisher_box").css("top", "-10px")
-        $("#publisher_box").css("left", "-10px")
+        $("#publisher_box").css("width","1px")
+        $("#publisher_box").css("height","1px")
+        $("#publisher_box").addClass("publisher_hidden")
         publisher_hidden=1    
+
       
       showPublisher = ->
-        $("#publisher_box").css("width", "150px")
-        $("#publisher_box").css("height", "150px")
-        $("#publisher_box").css("top", "50px")
-        $("#publisher_box").css("left", "25px")
+        $("#publisher_box").removeClass("publisher_hidden")
         publisher_hidden=0
+        $("#publisher_box").css("width",width)
+        $("#publisher_box").css("height",height)
 
       
       $("#timer").click ->
@@ -116,15 +128,15 @@ $(document).ready ->
                         "+user_name+"<br>
                       </div><!-- text_box -->
                       <div  id='streambox_"+user_id+"' class='stream_box'>
-                        <div id='stream_box_tmp_"+user_id+"' class='stream_box_tmp'>
+                        <div id='stream_box_tmp_"+user_id+"'>
                           <img src='/assets/video_dummy.gif'>
                         </div><!-- stream_box -->
                      </div><!-- stream_box -->		
                   </div> <!-- user_box -->"
           $("#video_window").append(html)
+          $("#streambox_"+user_id).css("width",width)
+          $("#streambox_"+user_id).css("height",height)
 
-      $("#time_sync").click ->
-         time = get_time()
 
       get_time = ->
        # time = new Date()
@@ -155,7 +167,7 @@ $(document).ready ->
         for stream in streams
           if stream.connection.connectionId == session.connection.connectionId 
              console.log("   same connection. Set the visibility of the publisher to hidden.")
-             hidePublisher()
+           #  hidePublisher()  XXXXXXXXXXXXX
             # publishAudio =  if isWorkSession() then false else true
             # publisher.publishAudio(publishAudio)
           else
@@ -310,8 +322,8 @@ $(document).ready ->
       session.addEventListener 'connectionDestroyed', connectionDestroyedHandler
       TB.addEventListener 'exception', exceptionHandler
       session.connect api_key, tok_token
+         
       
-    
     
     
     

@@ -21,6 +21,7 @@
 //= require twitter/bootstrap-tooltip
 //= require twitter/bootstrap-popover
 //= require twitter/bootstrap-transition
+// require tokbox/OT_LayoutContainer
 //= require_tree . 
 // require jquery_plugins/jquery.popupWindow - not needed yet
 // require twitter/bootstrap - not needed
