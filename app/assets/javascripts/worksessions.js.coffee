@@ -167,7 +167,7 @@ $(document).ready ->
         for stream in streams
           if stream.connection.connectionId == session.connection.connectionId 
              console.log("   same connection. Set the visibility of the publisher to hidden.")
-           #  hidePublisher()  XXXXXXXXXXXXX
+             hidePublisher() 
             # publishAudio =  if isWorkSession() then false else true
             # publisher.publishAudio(publishAudio)
           else
