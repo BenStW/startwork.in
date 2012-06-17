@@ -9,13 +9,19 @@
   <div class="hero-unit">
 		   <img src="/assets/library_long.jpg">
 <br><br>
-	    <h1><%= t ".welcome" %></h1><br>
-	    <%= t ".welcome_text_html" %></p>
+		    <h1><%= t ".welcome" %></h1><br>
+	
+	
+	    <p><%= t ".welcome_text_html" %></p>
+
+	<center>
+		<iframe src="http://player.vimeo.com/video/44113034" width="600" height="450" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe><br><br>
+	
 		
 		<a id="facebook_link" href="<%=user_omniauth_authorize_path(:facebook)%>">
 		   <img src='/assets/facebook_anmelden.png'></a><br>
 		(Wir posten nichts auf deine Wall)
-
+		</center>
 	
   </div><!-- end of main hero unit -->
                        
