@@ -20,22 +20,25 @@
     <center>
     <%= t(".to_speak_hold_button")%><br>
 	<div id="voice_button" class="btn">Ton aus</div><br><br>
-	<div id="room_name"><%= @room_name %></div>
 	</center>	
   </div>
 
 
 
 
-  <div id ="publisher_box" class="stream_box">
+  <div id='publisher_box' class="stream_box">
+	
+	
     <div id="publisher_box_tmp">
 	    <img src="/assets/video_dummy.gif" width="100%">
     </div>
   </div>
 
 
+
 </div> <!-- video_window-->
 
+<div style="visibility:hidden" id="room_name"><%= @room_name %></div>
 
 
 

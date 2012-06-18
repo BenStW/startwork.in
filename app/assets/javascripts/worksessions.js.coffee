@@ -70,17 +70,19 @@ $(document).ready ->
             countdown = 60*60 - minutes*60 - seconds + start_work_minutes*60
       
       hidePublisher = ->
-        $("#publisher_box").css("width","1px")
-        $("#publisher_box").css("height","1px")
-        $("#publisher_box").addClass("publisher_hidden")
+        $("#hidden_publisher_box").css("width","1px")
+        $("#hidden_publisher_box").css("height","1px")
+        $("#hidden_publisher_box").addClass("publisher_hidden")
+        $("#hidden_stuff").css("display","none")
         publisher_hidden=1    
 
       
       showPublisher = ->
-        $("#publisher_box").removeClass("publisher_hidden")
+        $("#hidden_publisher_box").removeClass("publisher_hidden")
+        $("#hidden_stuff").css("display","inline")
         publisher_hidden=0
-        $("#publisher_box").css("width",width)
-        $("#publisher_box").css("height",height)
+        $("#hidden_publisher_box").css("width",width)
+        $("#hidden_publisher_box").css("height",height)
 
       
       $("#timer").click ->

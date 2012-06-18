@@ -8,7 +8,7 @@ $width: 200px;
 $height: 200px;
 $padding: 12px; 
 
-div.upper_box {font-size: 16px;text-align:center;border-style:solid;border-color:white;border-width:$padding/2;background-color1:red;outline:0px solid gray;}
+div.upper_box {font-size: 16px;margin:4px 0px;text-align:center;border-style:solid;border-color:white;border-width:$padding/2;background-color1:red;outline:0px solid gray;}
 
 
 div.upper_box_old {font-size: 20px;line-height:$height/8;text-align:center;width:$width+$padding;border-style:solid;border-color:white;border-width:$padding/2;background-color:red;outline:0px solid gray;}

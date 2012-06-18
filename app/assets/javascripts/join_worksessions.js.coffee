@@ -11,7 +11,7 @@ $(document).ready ->
     reduced_screenY = screenY - taskbar - browser_row - feedback
 
     timer = 48
-    to_speak = 82
+    to_speak = 64
     name = 12
     video_border =  12
 
