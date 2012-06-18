@@ -13,12 +13,12 @@ $(document).ready ->
     timer = 48
     to_speak = 82
     name = 30
-    video_border = 24
+    video_border =  12
 
     console.log "screenY = " + screenY
     console.log "reduced_sreenY = " + reduced_screenY
    
-    window_width = ((reduced_screenY - to_speak - timer) / 4) - name - video_border
+    window_width = ((reduced_screenY - to_speak - timer) / 3) - name - video_border
     console.log "window_width = " + window_width
 
    # window_width = screenX * 15 / 100 
@@ -26,7 +26,7 @@ $(document).ready ->
   #  if (window_width <= min_width)
   #     window_width = min_width
     popup_start = screenX - window_width
-  #  window.location = info_url
+    window.location = info_url
     window.open(video_url,
        'StartWork',
        'width='+window_width+',height='+screenY+',location=no,menubar=no,toolbar=no,scrollbars=yes,resizable=yes,left='+popup_start+',top=0')

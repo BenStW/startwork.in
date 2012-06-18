@@ -316,7 +316,7 @@ $(document).ready ->
       TB.addEventListener 'exception', exceptionHandler
       session.connect api_key, tok_token
 
-      addVideoBox(user_id, "Username "+user_id) for user_id in [1..4]
+     # addVideoBox(user_id, "Username "+user_id) for user_id in [1..4]
          
       
     

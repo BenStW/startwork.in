@@ -26,9 +26,11 @@ div.video_window
 div.user_box_old {      }
 
 
-div.text_box { height:20; padding:0px; padding-left:$padding;padding-top:$padding;border:0px; margin:0px; font-weight:bold; outline:0px solid gray; background-color1:green }
+div.text_box { height:$padding; padding:0px; padding-left:$padding;border:0px; margin:0px; font-weight:bold; outline:0px solid gray; background-color1:green }
+div.text_box_old { height:$padding; padding:0px; padding-left:$padding;padding-top:$padding;border:0px; margin:0px; font-weight:bold; outline:0px solid gray; background-color1:green }
 
-div.stream_box { border-style:solid;border-width:$padding/2; margin:$padding/2;outline:0px solid gray;background-color11:red}
+
+div.stream_box { border-style:solid;border-width:$padding/4; margin:$padding/4;outline:0px solid gray;background-color11:red}
 
 .publisher_hidden {
     height: 1px;
