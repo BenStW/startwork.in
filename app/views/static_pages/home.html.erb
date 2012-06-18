@@ -74,14 +74,14 @@
 
 <% if !@next_work_session.nil?%>
   <div class="span3">
-	<div id="join_work_session" class="btn" style="width:150px;height:50px" url_check=<%=work_session_can_we_start_url%> url=<%= work_session_url%>
+	<div id="join_work_session" class="btn" style="width:150px;height:50px" url_check=<%=work_session_can_we_start_url%> info_url=<%= info_for_work_session_url%> video_url=<%= work_session_url%>
 		  ><%= t(".next_room_html", :host=>@room_host)%></div>
   </div> <!-- span3 -->
 
 <% end %>
 
 <div class="span3">
-	<div id="join_spont_work_session" class="btn" style="width:150px;height:50px" url=<%= spont_work_session_url %>
+	<div id="join_spont_work_session" class="btn" style="width:150px;height:50px"  info_url=<%= info_for_work_session_url%>  video_url=<%= spont_work_session_url %>
 		  ><%= t(".spont_work_session_html")%></div>
 </div> <!-- span3 -->
 

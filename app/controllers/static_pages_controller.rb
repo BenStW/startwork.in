@@ -43,6 +43,10 @@ class StaticPagesController < ApplicationController
   def blog
   end
   
+  def info_for_work_session
+    
+  end
+  
   
   def welcome
   if current_user.registered

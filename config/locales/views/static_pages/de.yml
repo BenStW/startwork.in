@@ -112,4 +112,24 @@ de:
         message_title: "Die Nachricht an deine Freunde:"    
         message: "Hallo, benutze doch StartWork, um mit mir gemeinsam zu lernen und arbeiten."   
         select_all: "Alle selektieren"
-        unselect_all: "Selektion aufheben"                 
+        unselect_all: "Selektion aufheben"  
+    info_for_work_session:
+      title: "Wie funktioniert das jetzt?"
+      text_html: "<p>
+      Der automatische Timer beginnt jeweils 5 Minuten nach der vollen Stunde 
+       mit einer 50-minütigen Arbeitsphase, an die sich eine 10-minütige Pause anschließt,
+        in der man sich unterhalten kann und der Arbeitsplatz verlassen werden darf. 
+        Während der Arbeitsphasen soll die Regel gelten, dass der Arbeitsplatz nicht verlassen wird und 
+        die Gruppenmitglieder sich ausschließlich mit Arbeitsinhalten befassen.</p><br>
+
+       <p><b>Das Fenster mit den Videos bitte immer sichtbar halten, </b>
+       die anderen Fenster entsprechend anpassen. Dann wirkt Startwork am stärksten.</p><br>
+
+       <p>(Optional: Erzählt euch zusätzlich nach dem Einloggen gegenseitig kurz aber möglichst konkret, 
+       was ihr heute schaffen wollt.
+        Am Ende des gemeinsamen Arbeitstages soll sich nochmal gegenseitig erzählt werden,
+         was man davon geschafft hat. 
+         Dieses zusätzliche wechselseitige „Commitment“ kann bei Bedarf 
+         zur Verstärkung des Effekts von StartWork genutzt werden).
+       </p>"         
+              

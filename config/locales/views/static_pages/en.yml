@@ -67,7 +67,9 @@ en:
       message_title: "The message to your friends:"    
       message: "Hi, please join StartWork to learn and work with me." 
       select_all: "Select all"
-      unselect_all: "Unselect all"         
+      unselect_all: "Unselect all"
+    info_for_work_session:
+      title: "How does it work now?"
 
           
     

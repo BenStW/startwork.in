@@ -38,6 +38,7 @@ StartWork::Application.routes.draw do
      match 'audio' => 'static_pages#audio', :as => :audio
      match 'ben' => 'static_pages#ben', :as => :ben
      match 'canvas' => 'static_pages#canvas', :as => :canvas
+     match 'info_for_work_session' => 'static_pages#info_for_work_session', :as => :info_for_work_session
 
 #     match 'send_facebook_message' => 'static_pages#send_facebook_message', :as => :send_facebook_message
 
