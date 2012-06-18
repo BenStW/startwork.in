@@ -14,10 +14,6 @@ $(document).ready ->
       padding = 12	   
       width = $(window).width()-2*padding #200 
       height = $(window).width()-2*padding #200
-    #  console.log "window width = " + width
-    #  console.log "window height = " + height
-    #  console.log "publisher_box width = " + width-2*padding
-    #  console.log "publisher_box height = " + height-2*padding
 
       $("#publisher_box").css("width",width)
       $("#publisher_box").css("height",height)
@@ -49,9 +45,6 @@ $(document).ready ->
         width: width
         height: height
 
-      $(window).resize( ->
-          console.log "document.width = " + $(document).width()
-          console.log "window width = "+ $(window).width())
       
       calcIsWorkSession = (time)->
         minutes = time.getMinutes()
@@ -322,6 +315,8 @@ $(document).ready ->
       session.addEventListener 'connectionDestroyed', connectionDestroyedHandler
       TB.addEventListener 'exception', exceptionHandler
       session.connect api_key, tok_token
+
+      addVideoBox(user_id, "Username "+user_id) for user_id in [1..4]
          
       
     
