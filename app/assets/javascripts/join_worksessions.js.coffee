@@ -12,7 +12,7 @@ $(document).ready ->
 
     timer = 48
     to_speak = 82
-    name = 30
+    name = 12
     video_border =  12
 
     console.log "screenY = " + screenY

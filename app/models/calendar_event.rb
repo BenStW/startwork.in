@@ -48,10 +48,13 @@ class CalendarEvent < ActiveRecord::Base
   def self.current
     c = DateTime.current
     this_hour = DateTime.new(c.year,c.month,c.day, c.hour)
-    if c.minute>=55
+    work_session = where("start_time = ?", this_hour).limit(1)[0]
+    if c.minute>=55 and work_session.nil?
       this_hour+=1.hours
+      where("start_time = ?", this_hour).limit(1)[0]
+    else
+      work_session 
     end
-    where("start_time = ?", this_hour).limit(1)[0]    
   end  
   
   def self.after_logging_day

@@ -4,9 +4,15 @@ When /^the user goes to "([^"]*)"$/ do |path|
 end
 
 When /^the user hits "([^"]*)"$/ do |link|
-    puts page.html
-    click_link link
+     click_link link
  #   sleep 10  
+end
+
+When /^the user hits ID "([^"]*)"$/ do |link|
+#    puts page.html
+    click_link link
+#    page.find(link).click
+
 end
 
 When /^the user sleeps for "([^"]*)" seconds $/ do |seconds|
