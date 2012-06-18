@@ -73,13 +73,11 @@ $(document).ready ->
         $("#hidden_publisher_box").css("width","1px")
         $("#hidden_publisher_box").css("height","1px")
         $("#hidden_publisher_box").addClass("publisher_hidden")
-        $("#hidden_stuff").css("display","none")
         publisher_hidden=1    
 
       
       showPublisher = ->
         $("#hidden_publisher_box").removeClass("publisher_hidden")
-        $("#hidden_stuff").css("display","inline")
         publisher_hidden=0
         $("#hidden_publisher_box").css("width",width)
         $("#hidden_publisher_box").css("height",height)
