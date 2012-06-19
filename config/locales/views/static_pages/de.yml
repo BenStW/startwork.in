@@ -1,9 +1,14 @@
 de:
   static_pages:
     home:
-      welcome: "Willkommen"
+      welcome: "Erlebe den StartWork-Effekt"
       greet_username: "Willkommen, %{username}!"    
-      welcome_text_html: "<p>Neugierde ist der natürliche Lerntrieb.</p>
+      welcome_text_html: "
+        <p>Du hältst dich an deine Pläne – nie wieder Klausurstress!</p>
+        <p>Die Gruppe reißt dich mit – das Arbeiten ist weniger anstrengend!</p>
+        <p>Du verbringst Zeit mit deinen Freunden und lernst neue Leute kennen!</p><br>
+        <p>Kostenfrei.</p>"
+      welcome_text_html1: "<p>Neugierde ist der natürliche Lerntrieb.</p>
          <p>Aber manchmal braucht man ganz einfach Disziplin, um eine längere Lern- und Arbeitsphase erfolgreich zu absolvieren.</p>
          <p>Für diese Aufgaben helfen wir dir: mit unserer Seite kannst du mit Freunden gemeinsam lernen und arbeiten,
          und dabei neue Leute kennenlernen. 

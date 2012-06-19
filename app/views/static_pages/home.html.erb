@@ -11,12 +11,16 @@
 <br><br>
 		    <h1><%= t ".welcome" %></h1><br>
 	
-	
+		  <div class="row">
+		  <div class="span5">	
 	    <p><%= t ".welcome_text_html" %></p>
-
+	    </div>
+		  <div class="span5">	
+         <img src="/assets/promotion_video.png" id="video_modal_button">
+        </div>
+       </div>
 	<center>
-
-<iframe src="http://player.vimeo.com/video/44113034?title=0&amp;byline=0&amp;portrait=0&amp;color=005580" width="600" height="450" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>		
+		
 		
 		<br><br>
 	
@@ -27,6 +31,24 @@
 		</center>
 	
   </div><!-- end of main hero unit -->
+<div class="modal hide fade" id="video_modal">
+  <div class="modal-header">
+     <button class="close" data-dismiss="modal">×</button>
+     <h3>Promotion Video</h3>
+  </div>
+  <div class="modal-body">
+	<center>
+<iframe src="http://player.vimeo.com/video/44113034?title=0&amp;byline=0&amp;portrait=0&amp;color=005580" width="500" height="400" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+</center>
+  </div>
+</div>
+
+
+
+
+
+
+
                        
 <% else %>
   <%- content_for(:head) do -%>

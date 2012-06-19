@@ -81,7 +81,6 @@ $(document).ready ->
         publisher_hidden=0
         $("#publisher_box").css("width",width)
         $("#publisher_box").css("height",height)
-
       
       $("#timer").click ->
         if publisher_hidden
