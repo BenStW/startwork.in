@@ -39,6 +39,7 @@ StartWork::Application.routes.draw do
      match 'ben' => 'static_pages#ben', :as => :ben
      match 'canvas' => 'static_pages#canvas', :as => :canvas
      match 'info_for_work_session' => 'static_pages#info_for_work_session', :as => :info_for_work_session
+     
 
 #     match 'send_facebook_message' => 'static_pages#send_facebook_message', :as => :send_facebook_message
 
@@ -56,7 +57,6 @@ StartWork::Application.routes.draw do
      match 'work_session/can_we_start' => 'work_sessions#can_we_start', :as => :work_session_can_we_start   
      match 'work_session/room_change(/:session)' => 'work_sessions#room_change', :as => :work_session_room_change
      match 'work_session/get_time' => 'work_sessions#get_time', :as => :work_session_get_time
-
 
      match 'work_session' => 'work_sessions#show', :as => :work_session
      match 'spont_work_session' => 'work_sessions#spont_show', :as => :spont_work_session

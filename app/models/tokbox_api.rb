@@ -21,7 +21,7 @@ class TokboxApi
    # session_properties = {OpenTok::SessionPropertyConstants::P2P_PREFERENCE => "enabled"}
     @tokbox_api_obj.create_session remote_addr  #, session_properties
   end
-  
+
   # the identification for each user within the chat
   def generate_token(tokbox_session_id, user, guest=false)
     if guest=="test"

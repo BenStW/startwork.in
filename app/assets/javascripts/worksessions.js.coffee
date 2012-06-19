@@ -45,6 +45,7 @@ $(document).ready ->
         width: width
         height: height
 
+
       
       calcIsWorkSession = (time)->
         minutes = time.getMinutes()

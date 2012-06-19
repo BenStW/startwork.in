@@ -62,6 +62,7 @@ class WorkSessionsController < ApplicationController
   def get_time
     render :json => DateTime.current
   end
+
   
   def can_we_start
     render :json => current_user.current_work_session.nil? ? false : true
