@@ -1,32 +1,12 @@
 de:
   static_pages:
-    home:
-      welcome: "Erlebe den StartWork-Effekt"
+    home_logged_in:
       greet_username: "Willkommen, %{username}!"    
-      welcome_text_html: "
-        <p>Du hältst dich an deine Pläne – nie wieder Klausurstress!</p>
-        <p>Die Gruppe reißt dich mit – das Arbeiten ist weniger anstrengend!</p>
-        <p>Du verbringst Zeit mit deinen Freunden und lernst neue Leute kennen!</p><br>
-        <p>Kostenfrei.</p>"
-      welcome_text_html1: "<p>Neugierde ist der natürliche Lerntrieb.</p>
-         <p>Aber manchmal braucht man ganz einfach Disziplin, um eine längere Lern- und Arbeitsphase erfolgreich zu absolvieren.</p>
-         <p>Für diese Aufgaben helfen wir dir: mit unserer Seite kannst du mit Freunden gemeinsam lernen und arbeiten,
-         und dabei neue Leute kennenlernen. 
-         </p>" 
-      join_now: "Ich will mitmachen"   
-      learn_more: "Erfahre mehr"
       next_room_html: "<b>%{host}'s room</b><br>(jetzt beitreten)"      
-      camera_test: Kamera und Audio Test
-      work_groups: Arbeitsgruppen
-      start: Start
       maintain_work_sessions_html: "<b>ArbeitsSessions verabreden</b>"
       next_session: "Nächste Session"
-      guest_work_session_html: "<b>Gast Session</b><br>(jetzt beitreten)"      
       with: "mit"
       nobody: "Noch keine WorkBuddies"
-      maintain_friends: Meine WorkBuddies      
-      statistics: Statistik
-      my_settings: Organisatorisches  
       spont_work_session_html: "<b>Spontane Session</b><br>(jetzt beitreten)"   
     how_it_works:
       title: "Wie es geht"

@@ -16,7 +16,7 @@
       <img src="/assets/frontpage_icon2.png">
    </div>
    <div class="span4">
-    <p> Die Gruppe reißt dich mit, das Arbeiten ist weniger anstrengend!</p>
+    <br><p> Die Gruppe reißt dich mit, das Arbeiten ist weniger anstrengend!</p>
    </div>
 </div><!-- end row -->
 
@@ -34,9 +34,10 @@
    </div><!-- end left column -->
 
    <div class="span4"> <!-- right column -->
+	
 		<center>
          <img src="/assets/promotion_video.png" id="video_modal_button">
- 		<br><br>	<br><br>
+ 		<br><br>	<br><br><br>
 		<a id="facebook_link" href="<%=user_omniauth_authorize_path(:facebook)%>">
 		   <img src='/assets/frontpage_facebook.png'></a><br>
 		(Wir posten nichts auf deine Wall)
@@ -49,6 +50,24 @@
    <div class="span4">	
 	<img src="/assets/frontpage_call_to_action.png">
 	</div>
-</div><!-- end row -->		
+</div><!-- end row -->	
+
+
+
+<!-- MODAL FOR VIDEO -->
+<div class="modal hide fade" id="video_modal">
+  <div class="modal-header">
+     <button class="close" data-dismiss="modal">×</button>
+     <h3>Promotion Video</h3>
+  </div>
+  <div class="modal-body">
+	<center>
+<iframe src="http://player.vimeo.com/video/44113034?title=0&amp;byline=0&amp;portrait=0&amp;color=005580" width="500" height="400" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+</center>
+  </div>
+</div>
+<!-- ENDO OF MODAL FOR VIDEO -->
+
+	
 	
 

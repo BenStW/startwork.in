@@ -1,31 +1,12 @@
 en:
   static_pages:
-    home:
-      welcome: "Welcome"
+    home_logged_in:
       greet_username: "Welcome, %{username}!"
-      welcome_text_html: 
-        "<p>Curiosity is the driver of learning.</p>
-        <p>But sometimes you need just plain discipline to get through a long and exhausting task.</p>
-        <p>For these tasks we help you: join our website to work in learning groups together.</p>"  
-      join_now: "I want to join"   
-      learn_more: "Learn more" 
-      sign_up: "To sign up for the research study please click here"
       next_room_html: "<b>%{host}'s room</b><br>(join now)"         
-      camera_test: Camera and audio test
-      work_groups: Work groups 
-      start: Start
       maintain_work_sessions_html: "<b>Maintain work sessions</b>"
       next_session: "Next Session"  
-      guest_work_session_html: "<b>Guest work session</b><br>(join now)"
       nobody: "No WorkBuddies yet"      
       with: "with"    
-      maintain_friends: My work buddies     
-      statistics: Statistics 
-      my_settings: My settings         
-      not_activated_html: "<h2>Your account is not activated yet.</h2><br>
-        <p>Please still have some patience.</p>
-        <p>We will contact you when the study starts, which will probably be beginning of April.</p>
-        <p>If you have any questions, please send <a href='mailto:robert@startwork.in'>Robert</a> an email.</p>"   
       spont_work_session_html: "<b>Spontaneous Session</b><br>(join now)"           
     how_it_works:
       title: "How it works"

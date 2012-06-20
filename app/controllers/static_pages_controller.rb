@@ -3,8 +3,16 @@
 class StaticPagesController < ApplicationController
   skip_before_filter :authenticate_user!,  :except => [:welcome, :camera, :audio, :ben]
   
-  def home      
-    if current_user
+  def home
+    if user_signed_in?
+       home_logged_in
+       render :action=>'home_logged_in'
+    else
+       render 'home_not_logged_in',:layout => 'homepage_layout'
+    end    
+  end
+    
+  def home_logged_in    
       @app = if Rails.env.production? then "330646523672055" else "232041530243765" end
       @friends = current_user.registered_friends
       next_calendar_event = current_user.calendar_events.next
@@ -19,7 +27,9 @@ class StaticPagesController < ApplicationController
         end
         @room_host = @next_work_session.room.user.name
       end
-    end
+  end
+  
+  def home_not_logged_in
   end
 
   def how_it_works
@@ -111,7 +121,5 @@ class StaticPagesController < ApplicationController
       redirect_to root_url, :notice => notice
    end
  end
- def homepage
-   render :layout => 'homepage_layout'
- end
+
 end
