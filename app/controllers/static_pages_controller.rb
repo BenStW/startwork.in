@@ -21,9 +21,9 @@ class StaticPagesController < ApplicationController
         users = @next_work_session.users - [current_user]
         @user_names = users.map(&:name).join(", ")
         if @user_names.blank?
-          @user_names = t("static_pages.home.nobody")
+          @user_names = t("static_pages.home_logged_in.nobody")
         else
-          @user_names = t("static_pages.home.with")+" "+@user_names
+          @user_names = t("static_pages.home_logged_in.with")+" "+@user_names
         end
         @room_host = @next_work_session.room.user.name
       end
