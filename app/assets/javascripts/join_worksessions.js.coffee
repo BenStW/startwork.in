@@ -1,6 +1,5 @@
 # document needs to be loaded, as parameters are passed from DOM to JS
 $(document).ready -> 
-
   popup_work_session = (video_url, info_url)->
     screenX = screen.availWidth
 

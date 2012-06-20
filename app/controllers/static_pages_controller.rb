@@ -111,4 +111,7 @@ class StaticPagesController < ApplicationController
       redirect_to root_url, :notice => notice
    end
  end
+ def homepage
+   render :layout => 'homepage_layout'
+ end
 end

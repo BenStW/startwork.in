@@ -68,6 +68,10 @@ class WorkSessionsController < ApplicationController
     render :json => current_user.current_work_session.nil? ? false : true
   end
   
+  def homepage
+    render :layout => 'homepage_layout'
+  end
+  
 
 
   

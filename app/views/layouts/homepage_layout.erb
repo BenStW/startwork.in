@@ -62,33 +62,20 @@ und dabei neue Leute kennenlernen. Eine Studie hat gezeigt, dass es die Prokrast
 </head>
  
 <body  style="height:100%">
-	
 <%= render :partial => "layouts/nav" %>
-	
-    <br>
+	<img src="/assets/frontpage_bigpicture.jpg" style="width:100%">
 
-
-	
-	
-<br><br>
-    <div class="container">
-	<% if notice %>
-	<div class="alert alert-success"><%= notice %></div>
-	<% end %>
-	<% if alert %>	
- 	<div class="alert alert-error"> <%= alert %></div>
-     <% end %>
-
-
-	
+	<div class='container'>	
+  <div class="hero-unit">
 	<%= yield %>
+	</div><!-- end hero unit -->
       <hr>
       <footer>
         <p>&copy; StartWork 2012<br><%= link_to "Impressum", impressum_path%></p>
 
       </footer>
 
-    </div> <!-- /container -->   
+</div><!-- end container -->
 
 </body>
 </html>

@@ -1,6 +1,6 @@
 en: 
   layouts:
-    application:
+    nav:
       how_it_works: How it works
       effect: Effect
       blog: Blog
@@ -10,5 +10,6 @@ en:
       sign_in: Sign in
       edit: Edit
       camera_test: Camera and audio test     
-      logout: Log out
+      logout: Log out      
+
             
