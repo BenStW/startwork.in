@@ -41,7 +41,6 @@ class User < ActiveRecord::Base
   # The room is created by the registrations_controller, when the user is created.
  # validates :room, presence: true#, uniqueness: true  
   
-  has_many :connections,  :dependent => :destroy
   has_many :calendar_events, :dependent => :destroy
   
   has_one :room, :dependent => :destroy

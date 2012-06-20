@@ -40,7 +40,7 @@ class CalendarEventsController < ApplicationController
    def remove_event
    calendar_event = current_user.calendar_events.find_by_id(params[:event])
    if calendar_event.nil?
-     raise "Calendar event #{params[:event]} does not belong to user #{current_user.name}"
+     raise "Calendar event #{params[:event]} does not belong to user #{current_user.name}. Dump of the event: #{CalendarEvent.find(params[:event]).to_yaml}"
    end
    work_session = calendar_event.work_session
    calendar_event.delete
