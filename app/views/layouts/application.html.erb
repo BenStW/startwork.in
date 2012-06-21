@@ -6,39 +6,13 @@
 
   <title>StartWork, Plattform für gemeinsames Lernen und Arbeiten</title>
 
-<meta name="Description" content="Mit StartWork kannst du mit Freunden gemeinsam lernen und arbeiten, 
-und dabei neue Leute kennenlernen. Eine Studie hat gezeigt, dass es die Prokrastination ('Aufschieberitis') um 73% senkt.">
+   <meta name="Description" content="Mit StartWork kannst du mit Freunden
+    gemeinsam lernen und arbeiten, 
+   und dabei neue Leute kennenlernen. Eine Studie hat gezeigt, 
+    dass es die Prokrastination ('Aufschieberitis') um 73% senkt.">
+   
 
-<!--  Google Analytics -->
-<script type="text/javascript">
-
-	var _gaq = _gaq || [];
-	_gaq.push(['_setAccount', 'UA-29880523-1']);
-	_gaq.push(['_setCampSourceKey', 'utm_source']);
-	_gaq.push(['_setCampMediumKey', 'utm_medium']);
-	_gaq.push(['_setCampContentKey', 'utm_keyword']);
-	_gaq.push(['_setCampTermKey', 'utm_keyword']);
-	_gaq.push(['_setCampNameKey', 'utm_campaign']);
-	_gaq.push(['_trackPageview']);
-
-	(function() {
-		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	})();
-	
-</script>
-<!-- end  Google Analytics -->
-
-
-
-
-
-
-<!--[if lt IE 9]>
-<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
-
+  <%= render :partial => "layouts/google_analytics" %>
 
 
   <%= stylesheet_link_tag    "application", :media => "all" %>
@@ -46,32 +20,24 @@ und dabei neue Leute kennenlernen. Eine Studie hat gezeigt, dass es die Prokrast
   <%= javascript_include_tag "application" %>
   <%= yield(:head) %>
 
-
-
-<!--  UserVoice -->
-<script type="text/javascript">
-  var uvOptions = {};
-  (function() {
-    var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
-    uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/gjIDGAhQ0Eu106FjusqjA.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
-  })();
-</script>
-<!--  end UserVoice -->
+  <%= render :partial => "layouts/user_voice" %>
 
 </head>
+
+
+
  
 <body  style="height:100%">
 	
 <%= render :partial => "layouts/nav" %>
+
+<%= yield(:below_nav) %>	
+  
 	
-    <br>
+<br><br><br>
 
 
-	
-	
-<br><br>
-    <div class="container">
+    <div class="container"  style="height:100%;">
 	<% if notice %>
 	<div class="alert alert-success"><%= notice %></div>
 	<% end %>
@@ -79,9 +45,9 @@ und dabei neue Leute kennenlernen. Eine Studie hat gezeigt, dass es die Prokrast
  	<div class="alert alert-error"> <%= alert %></div>
      <% end %>
 
-
-	
 	<%= yield %>
+
+
       <hr>
       <footer>
         <p>&copy; StartWork 2012<br><%= link_to "Impressum", impressum_path%></p>

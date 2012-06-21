@@ -6,58 +6,22 @@
 
   <title>StartWork</title>
 
-<!--  Google Analytics -->
-<script type="text/javascript">
+<%= render :partial => "layouts/google_analytics" %>
 
-	var _gaq = _gaq || [];
-	_gaq.push(['_setAccount', 'UA-29880523-1']);
-	_gaq.push(['_setCampSourceKey', 'utm_source']);
-	_gaq.push(['_setCampMediumKey', 'utm_medium']);
-	_gaq.push(['_setCampContentKey', 'utm_keyword']);
-	_gaq.push(['_setCampTermKey', 'utm_keyword']);
-	_gaq.push(['_setCampNameKey', 'utm_campaign']);
-	_gaq.push(['_trackPageview']);
-
-	(function() {
-		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	})();
-	
-</script>
-<!-- end  Google Analytics -->
-
-
-
-
-
-<!--[if lt IE 9]>
-<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
 
   <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= csrf_meta_tags %>
-  <script src="http://static.opentok.com/v0.91/js/TB.min.js"></script>
+  <%= csrf_meta_tags %> 
   <%= javascript_include_tag "application" %>
+  <%= yield(:head) %>
 
-<!--  UserVoice -->
-<script type="text/javascript">
-  var uvOptions = {};
-  (function() {
-    var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
-    uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/gjIDGAhQ0Eu106FjusqjA.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
-  })();
-</script>
+<%= render :partial => "layouts/user_voice" %>
+
 
 </head>
  
 <body>
 	
-
-	
 	<%= yield %>
-
 
 </body>
 </html>

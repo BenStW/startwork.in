@@ -8,7 +8,7 @@ class StaticPagesController < ApplicationController
        home_logged_in
        render :action=>'home_logged_in'
     else
-       render 'home_not_logged_in',:layout => 'homepage_layout'
+       render 'home_not_logged_in'
     end    
   end
     
