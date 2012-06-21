@@ -34,7 +34,8 @@ $(document).ready ->
            start: start_time
            end: end_time
            userId: column_id
-           name: backend_event.user.first_name + " " + backend_event.user.last_name
+           name: "<tr><td>"+backend_event.user.first_name + " " + backend_event.user.last_name+"</td><td><img src='http://graph.facebook.com/"+backend_event.user.fb_ui+"/picture'></td></tr>"
+
        
        merge_events_of_same_time = (frontend_events) ->
          own_events = []
@@ -64,9 +65,7 @@ $(document).ready ->
        backendEventsToFrontendEvents = (backend_events) ->
          user2column_hash = []
          frontend_events = (backendEventToFrontendEvent(backend_event) for backend_event in backend_events)
-       #  console.log frontend_events
          frontend_events = merge_events_of_same_time(frontend_events)
-       #  console.log frontend_events
          calendar_events = 
            options: 
              "showAsSeparateUser":true
@@ -139,11 +138,10 @@ $(document).ready ->
           eventMouseover: (event,element,domEvent) ->
              console.log("EVENT")
              if event.userId>0
-              # console.log(event)
-              # console.log(element)
-               console.log(domEvent)
                $(domEvent.target).attr("rel","popover")
-               title = event.start.getHours()+":00 <br>"+event.name
+               title = "<center>"+event.start.getHours()+":00 </center><br><table class='table'>"+event.name+"</table>"
+               
+               console.log title
                $(domEvent.target).attr("data-title",title)
                $(domEvent.target).popover("show")
 
