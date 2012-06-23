@@ -48,17 +48,17 @@ class CalendarEvent < ActiveRecord::Base
   def self.current
     c = DateTime.current
     this_hour = DateTime.new(c.year,c.month,c.day, c.hour)
-    work_session = where("start_time = ?", this_hour).limit(1)[0]
-    if c.minute>=55 and work_session.nil?
+    calendar_event = where("start_time = ?", this_hour).limit(1)[0]
+    if c.minute>=55 and calendar_event.nil?
       this_hour+=1.hours
       where("start_time = ?", this_hour).limit(1)[0]
     else
-      work_session 
+      calendar_event 
     end
   end  
   
   def self.after_logging_day
-    change_date = DateTime.new(2012,6,16) 
+    change_date = DateTime.new(2012,6,23)  #(2012,6,16) 
     where("start_time > ? and start_time< ?",change_date,DateTime.current)    
   end
   def self.logged_in
@@ -99,6 +99,15 @@ class CalendarEvent < ActiveRecord::Base
     end
     self.login_count+=1
     self.save
+  end
+  
+  def test_method
+    @login_count
+  end
+  
+  def as_json1(options)
+    options = {  :only=>[:id,:start_time,:user_id], :include => {:user => {:only=>[:id,:fb_ui,:first_name,:last_name], :methods => :is_friend_of_current_user?}} }.merge(options)
+    super(options)
   end
  
 =begin

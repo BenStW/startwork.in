@@ -71,7 +71,7 @@ gem 'rails-translate-routes'
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
 # To use Jbuilder templates for JSON
-# gem 'jbuilder'
+gem 'jbuilder'
 
 # Use unicorn as the web server
 # gem 'unicorn'

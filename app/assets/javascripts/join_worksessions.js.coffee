@@ -1,5 +1,6 @@
 # document needs to be loaded, as parameters are passed from DOM to JS
-$(document).ready -> 
+$(document).ready -> 	
+  
   popup_work_session = (video_url, info_url)->
     screenX = screen.availWidth
 
@@ -44,15 +45,16 @@ $(document).ready ->
     url_check = $("#urls").data("url_check_url")
     video_url = $("#urls").data("video_url")
     info_url = $("#urls").data("info_url")
+    popup_work_session(video_url,info_url)
 
-    $.ajax
-       url: url_check,
-       type: 'GET',
-       success: (data) ->
-         if data
-           popup_work_session(video_url,info_url)
-         else
-           alert "Du kannst erst 5 Minuten vor Beginn der WorkSession beitreten."
+   # $.ajax
+   #    url: url_check,
+   #    type: 'GET',
+   #    success: (data) ->
+   #      if data
+   #        popup_work_session(video_url,info_url)
+   #      else
+   #        alert "Du kannst erst 5 Minuten vor Beginn der WorkSession beitreten."
 
   $('#join_guest_work_session').click (event)-> 
      video_url = $("#urls").data("video_url")

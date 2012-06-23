@@ -57,6 +57,8 @@ class User < ActiveRecord::Base
   after_initialize :init
   after_create :create_room #user must be first created with stored IP-address 
   before_destroy :remove_guest_from_work_session
+  
+ # attr_accessor :current_user
 
   def init
     self.registered ||= false
@@ -80,7 +82,12 @@ class User < ActiveRecord::Base
   
   def is_friend?(user)
      self.friends.map(&:id).include?(user.id)
-   end
+  end
+  def is_friend_of_current_user?
+   #  puts "****** current_user = #{current_user.name}"
+   #  is_friend?(current_user)
+   "not implemented yet"
+  end
   
   
   def current_work_session

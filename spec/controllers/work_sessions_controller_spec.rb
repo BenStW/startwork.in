@@ -126,19 +126,33 @@ describe WorkSessionsController do
       response.body.should eq("false")         
     end    
      
-    it "should render 'true' when WorkSession starts in 10 minutes" do     
+    it "should render 'false' when WorkSession starts in 10 minutes" do     
       tomorrow_9_50am = DateTime.current-10.minutes
       DateTime.stub(:current).and_return(tomorrow_9_50am)
       get :room_change, :session=>@work_session.room.tokbox_session_id
-      response.body.should eq("true")   
+      response.body.should eq("false")         
     end
     
-    it "should render 'true' when WorkSession has ended 5 minutes ago" do 
+    it "should raise error when no session is passed" do     
+      get :room_change
+      response.body.should eq("false")         
+    end    
+    
+    it "should render 'false' when WorkSession has ended 5 minutes ago and the same room" do 
       tomorrow_11_05am = DateTime.current+65.minutes
       DateTime.stub(:current).and_return(tomorrow_11_05am)
       get :room_change, :session=>@work_session.room.tokbox_session_id
+      response.body.should eq("false")   
+    end   
+    it "should render 'true' when WorkSession is in a new room" do       
+      get :room_change, :session=>"old_tokbox_session_id"    
       response.body.should eq("true")   
-    end     
+    end  
+    it "should store the login when current WorkSession is given" do
+      CalendarEvent.any_instance.should_receive(:store_login).exactly(1).times
+      get :room_change, :session=>@work_session.room.tokbox_session_id
+      
+    end    
   end  
   
   context "get_time" do

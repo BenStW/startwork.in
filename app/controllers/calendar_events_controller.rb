@@ -26,9 +26,9 @@ class CalendarEventsController < ApplicationController
     # friend_ids = current_user.friends.map(&:id)
     # user_ids = friend_ids.push(current_user.id)
     #  render :json => CalendarEvent.this_week.has_user_ids(user_ids).to_json(
-      render :json => CalendarEvent.this_week.to_json(
-      :only=>[:id,:start_time,:user_id],:include => {:user => {:only=>[:id,:fb_ui,:first_name,:last_name]}} )
-
+    render :json => CalendarEvent.this_week.to_json(
+     :only=>[:id,:start_time,:user_id],:methods=>:test_method, :include => {:user => {:only=>[:id,:fb_ui,:first_name,:last_name], :methods => :is_friend_of_current_user?}} )
+    # render :json => CalendarEvent.this_week.to_json
    # end
   end
 
