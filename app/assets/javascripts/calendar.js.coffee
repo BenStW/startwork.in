@@ -65,7 +65,7 @@ $(document).ready ->
             else if event.userId==1
               friend_column.push event
             else
-              other_column.push(event)
+              other_column.push event
 
          friend_column = merge_events_of_same_time_and_column(friend_column)
          merged_other_column = merge_events_of_same_time_and_column(other_column)
@@ -75,7 +75,7 @@ $(document).ready ->
 
        backendEventsToFrontendEvents = (backend_events) ->
          frontend_events = (backendEventToFrontendEvent(backend_event) for backend_event in backend_events)
-         frontend_events = merge_events_of_same_time(frontend_events)
+       #  frontend_events = merge_events_of_same_time(frontend_events)
          calendar_events = 
            options: 
              "showAsSeparateUser":true
