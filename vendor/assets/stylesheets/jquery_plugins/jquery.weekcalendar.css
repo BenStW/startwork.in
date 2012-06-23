@@ -157,7 +157,8 @@ table.wc-time-slots {
 
 
 .wc-time-header-cell {
-	padding: 5px;	
+	padding: 5px;
+	display: inline; /* added by Benedikt */	
 	height: 80px; /* reference height */
 }
 
@@ -172,6 +173,7 @@ table.wc-time-slots {
 .wc-hour-header.ui-state-active,
 .wc-hour-header.ui-state-default{
   border-width:0 0 1px 0;
+  height: 19px; /* added by Benedikt */
 }
 
 .wc-hour-end, .wc-hour-header {
