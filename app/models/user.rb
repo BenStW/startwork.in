@@ -20,6 +20,7 @@
 #  last_name              :string(255)
 #  fb_ui                  :string(255)
 #  registered             :boolean
+#  comment                :string(255)
 #
 
 class User < ActiveRecord::Base
@@ -30,7 +31,7 @@ class User < ActiveRecord::Base
 
 
   # Specifies a white list of model attributes that can be set via mass-assignment.
-  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me,  :referer, :fb_ui, :room, :registered
+  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me,  :referer, :fb_ui, :room, :registered, :comment
 
   validates :fb_ui, presence: true, uniqueness: true  
   validates :first_name, presence: true, length: { maximum: 50 }

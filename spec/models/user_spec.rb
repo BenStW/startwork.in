@@ -20,6 +20,7 @@
 #  last_name              :string(255)
 #  fb_ui                  :string(255)
 #  registered             :boolean
+#  comment                :string(255)
 #
 
 require 'spec_helper'

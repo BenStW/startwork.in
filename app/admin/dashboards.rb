@@ -18,6 +18,7 @@ ActiveAdmin::Dashboards.build do
        table_for User.registered?.each do 
          column 'id', :id
          column 'name', :name
+         column 'comment', :comment
          column 'calendar events'  do |user| user.calendar_events.after_logging_day.count  end       
          column 'logged-in  events' do |user| user.calendar_events.logged_in.count end       
          column 'missed  events' do |user| user.calendar_events.not_logged_in.count end       

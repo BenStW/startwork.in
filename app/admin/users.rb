@@ -14,6 +14,7 @@ ActiveAdmin.register User do
       column :first_name
       column :last_name            
       column :name
+      column :comment
       column "room" do |user| user.room.id end 
       column "tokbox" do |user| user.room.tokbox_session_id end 
       column "Facebook ID", :fb_ui
@@ -36,7 +37,8 @@ ActiveAdmin.register User do
         f.input :id
         f.input :first_name
         f.input :last_name        
-        f.input :email
+       # f.input :email
+        f.input :comment
       end
       f.buttons
     end
