@@ -45,7 +45,7 @@ ActiveAdmin.register User do
     
     show do 
       h3 user.name
-      attributes_table :id, :email
+      attributes_table :id, :first_name, :last_name, :comment
       h2 link_to "CalendarEvents", admin_calendar_events_path
     end
     
