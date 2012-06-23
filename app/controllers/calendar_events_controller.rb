@@ -22,14 +22,25 @@ class CalendarEventsController < ApplicationController
     render :json => "succussfully created event"
   end
   
+  
   def events
     # friend_ids = current_user.friends.map(&:id)
     # user_ids = friend_ids.push(current_user.id)
     #  render :json => CalendarEvent.this_week.has_user_ids(user_ids).to_json(
-    render :json => CalendarEvent.this_week.to_json(
-     :only=>[:id,:start_time,:user_id],:methods=>:test_method, :include => {:user => {:only=>[:id,:fb_ui,:first_name,:last_name], :methods => :is_friend_of_current_user?}} )
-    # render :json => CalendarEvent.this_week.to_json
+    
+  # render :json => CalendarEvent.this_week.to_json(
+  #   :only=>[:id,:start_time,:user_id],:methods=>:test_method, :include => {:user => {:only=>[:id,:fb_ui,:first_name,:last_name], :methods => :is_friend_of_current_user?}} )
+
+  # render :json => CalendarEvent.this_week.to_json
    # end
+   
+#  @calendar_event  = CalendarEvent.first
+ # render json: @calendar_event
+   @calendar_events = CalendarEvent.this_week
+  # respond_to do |format|
+  #   format.html
+  #   format.json { render json: @calendar_event }
+  # end
   end
 
    def remove_event

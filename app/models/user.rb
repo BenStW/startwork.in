@@ -84,12 +84,6 @@ class User < ActiveRecord::Base
   def is_friend?(user)
      self.friends.map(&:id).include?(user.id)
   end
-  def is_friend_of_current_user?
-   #  puts "****** current_user = #{current_user.name}"
-   #  is_friend?(current_user)
-   "not implemented yet"
-  end
-  
   
   def current_work_session
     calendar_event = self.calendar_events.current  

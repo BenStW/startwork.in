@@ -106,7 +106,7 @@ class CalendarEvent < ActiveRecord::Base
   end
   
   def as_json1(options)
-    options = {  :only=>[:id,:start_time,:user_id], :include => {:user => {:only=>[:id,:fb_ui,:first_name,:last_name], :methods => :is_friend_of_current_user?}} }.merge(options)
+    options = {  :only=>[:id,:start_time,:user_id], :include => {:user => {:only=>[:id,:fb_ui,:first_name,:last_name]}} }.merge(options)
     super(options)
   end
  
