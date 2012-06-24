@@ -8,8 +8,6 @@ $(document).ready ->
        start_day = new Date()
        base_url = $("#data").data("base_url")
 
-    #   $("[rel=popover]").popover()
-
        $("#send_invitation").click ->
             $('#send_invitation_modal').modal("show")
        
@@ -25,7 +23,6 @@ $(document).ready ->
          start_time = new Date(backend_event.start_time)
          end_time = new Date(backend_event.start_time)
          end_time.setHours(start_time.getHours()+1)
-        # if backend_event.user.id==$("#data").data("my_user_id")
          if backend_event.current_user
              column_id = 0
          else if backend_event.friend
@@ -40,6 +37,8 @@ $(document).ready ->
            name: "<tr><td>"+backend_event.first_name + " " + backend_event.last_name+"</td><td><img src='http://graph.facebook.com/"+backend_event.fb_ui+"/picture'></td></tr>"
 
        merge_events_of_same_time_and_column = (events) ->
+          if events.length < 2
+             return events
           events = events.sort(
               (a,b) ->  a.start-b.start)
           return_events = []
@@ -66,16 +65,15 @@ $(document).ready ->
               friend_column.push event
             else
               other_column.push event
-
          friend_column = merge_events_of_same_time_and_column(friend_column)
-         merged_other_column = merge_events_of_same_time_and_column(other_column)
-         events = [].concat.apply own_column,friend_column,other_column 
+         other_column = merge_events_of_same_time_and_column(other_column)
+         events = own_column.concat(friend_column,other_column)
          console.log events
          events
 
        backendEventsToFrontendEvents = (backend_events) ->
          frontend_events = (backendEventToFrontendEvent(backend_event) for backend_event in backend_events)
-       #  frontend_events = merge_events_of_same_time(frontend_events)
+         frontend_events = merge_events_of_same_time(frontend_events)
          calendar_events = 
            options: 
              "showAsSeparateUser":true
@@ -146,12 +144,9 @@ $(document).ready ->
                       $("#calendar").weekCalendar("refresh")
 
           eventMouseover: (event,element,domEvent) ->
-             console.log("EVENT")
              if event.userId>0
                $(domEvent.target).attr("rel","popover")
                title = "<center>"+event.start.getHours()+":00 </center><br><table class='table'>"+event.name+"</table>"
-               
-           #    console.log title
                $(domEvent.target).attr("data-title",title)
                $(domEvent.target).popover("show")
 
