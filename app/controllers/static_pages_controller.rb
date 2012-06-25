@@ -14,7 +14,7 @@ class StaticPagesController < ApplicationController
     
   def home_logged_in    
       @app = if Rails.env.production? then "330646523672055" else "232041530243765" end
-      @friends = current_user.registered_friends
+      @friends = current_user.friends
       next_calendar_event = current_user.calendar_events.next
       if next_calendar_event
         @next_work_session = next_calendar_event.work_session
@@ -65,7 +65,7 @@ class StaticPagesController < ApplicationController
      current_user.registered=true
      current_user.save 
      @name = current_user.first_name
-     @friends = current_user.registered_friends
+     @friends = current_user.friends
    end    
   end
   

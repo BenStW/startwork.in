@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
 
 
   # Specifies a white list of model attributes that can be set via mass-assignment.
-  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me,  :referer, :fb_ui, :room, :comment
+  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :registered,  :referer, :fb_ui, :room, :comment
 
   validates :fb_ui, presence: true, uniqueness: true  
   validates :first_name, presence: true, length: { maximum: 50 }
@@ -54,7 +54,8 @@ class User < ActiveRecord::Base
   
   has_many :sent_invitations, :class_name => 'Invitation', :foreign_key => 'sender_id', :dependent => :destroy
 #  belongs_to :work_session, :foreign_key => 'guest_id'
-  
+
+  after_initialize :init  
   after_create :create_room #user must be first created with stored IP-address 
   before_destroy :remove_guest_from_work_session
   
@@ -63,7 +64,12 @@ class User < ActiveRecord::Base
   def name
     "#{first_name or ''} #{last_name or ''}"
   end
-  
+  def init
+    self.registered ||= false
+  end
+  def self.registered?
+    where("registered = ?", true)
+  end  
   
   def is_friend?(user)
      self.friends.map(&:id).include?(user.id)
