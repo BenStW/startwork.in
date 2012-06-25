@@ -53,13 +53,17 @@ class CalendarEventsController < ApplicationController
     calendar_invitation.save      
     
     work_sessions = WorkSession.single_work_sessions_with_user_id(current_user.id)
-    users = current_user.registered_friends
-    
-    users.each do |user|
-        email = CalendarInvitationMailer.calendar_invitation_email(work_sessions, current_user, user)
-        email.deliver
-    end      
+    if !work_sessions.empty?    
+       User.all.each do |user|
+         if current_user != user
+           email = CalendarInvitationMailer.calendar_invitation_email(work_sessions, current_user, user)
+           email.deliver
+         end
+       end  
     render :json => "succussfully sent invitation"
+  else
+    render :json => "no single worksessions"
+  end
   end  
   
 
