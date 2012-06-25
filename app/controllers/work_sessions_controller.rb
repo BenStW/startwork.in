@@ -13,10 +13,7 @@ class WorkSessionsController < ApplicationController
     @tokbox_token = TokboxApi.instance.generate_token @tokbox_session_id, current_user
     @tokbox_api_key = TokboxApi.instance.api_key
   end  
-  
-  def show_tmp
-    redirect_to work_session_url
-  end    
+ 
   
   def room_change
      calendar_event = current_user.calendar_events.current 

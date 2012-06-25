@@ -41,28 +41,8 @@ $(document).ready ->
        alert "Das Video-Fenster konnte nicht geöffnet werden. Für StartWork musst du Popups erlauben."
 
   $('#join_work_session').click (event)-> 
-  #  event.preventDefault()
     work_session_url = $("#urls").data("work_session_url")
     info_url = $("#urls").data("info_url")
     popup_work_session(work_session_url,info_url)
 
-   # $.ajax
-   #    url: url_check,
-   #    type: 'GET',
-   #    success: (data) ->
-   #      if data
-   #        popup_work_session(video_url,info_url)
-   #      else
-   #        alert "Du kannst erst 5 Minuten vor Beginn der WorkSession beitreten."
-
-  $('#join_work_session_tmp').click (event)-> 
-     work_session_tmp_url = $("#urls").data("work_session_tmp_url")
-     info_url = $("#urls").data("info_url")
-     popup_work_session(work_session_tmp_url,info_url)
-
-#
-#  $('#join_spont_work_session').click (event)-> 
-#     video_url = $("#urls").data("spont_video_url")
-#     info_url = $("#urls").data("info_url")
-#     popup_work_session(video_url,info_url)
 
