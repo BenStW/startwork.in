@@ -131,36 +131,6 @@ describe User do
     end
   end    
   
-  context "registered_friends" do
-    it "should return empty array if no friends" do
-      registered_friends = @user.registered_friends
-      registered_friends.should be_empty
-    end
-    it "should return empty array if friend is not registered" do
-      new_user = FactoryGirl.create(:user, :registered=>false)
-      Friendship.create_reciproke_friendship(@user,new_user)
-      registered_friends = @user.registered_friends
-      registered_friends.should be_empty            
-    end
-    it "should return array with friend if friend is registered" do
-      new_user = FactoryGirl.create(:user)
-      Friendship.create_reciproke_friendship(@user,new_user)
-      new_user.registered.should eq(true)
-      registered_friends = @user.registered_friends
-     # registered_friends.should eq([new_user])       
-    end     
-    it "should return id, name and fb_ui if friend is registered" do
-      new_user = FactoryGirl.create(:user)
-      Friendship.create_reciproke_friendship(@user,new_user)
-      registered_friend = @user.registered_friends[0]    
-      registered_friend.id.should eq(new_user.id)      
-      registered_friend.first_name.should eq(new_user.first_name)      
-      registered_friend.fb_ui.should eq(new_user.fb_ui)         
-      registered_friend.registered.should eq(new_user.registered)         
-    end
-  end
-  
-
   
   context "it finds the current work session of this user" do
   
@@ -254,7 +224,7 @@ describe User do
        @fb_robert = mock("FbGraph::User", :name => "Robert Sarrazin", :identifier => "Robert")
        @fb_miro = mock("FbGraph::User", :name => "Miro Wilms", :identifier => "Miro")
        FbGraph::User.stub_chain(:new, :fetch, :friends).and_return([@fb_robert,@fb_miro])   
-       User.any_instance.stub(:create_fb_friend)
+#       User.any_instance.stub(:create_fb_friend)
        Friendship.stub(:create_reciproke_friendship)
        WorkSession.stub(:optimize_single_work_sessions)
       end
@@ -263,65 +233,38 @@ describe User do
          @access_token.credentials.should_receive(:token).exactly(1).times
          FbGraph::User.should_receive(:new).exactly(1).times
          @user.update_fb_friends(@access_token)
-      end  
-      
-      it "should call create_fb_friend for each not stored friend" do
-        User.stub(:find_by_fb_ui).and_return(nil)
-        User.any_instance.should_receive(:create_fb_friend).with(@fb_robert).exactly(1).times
-        User.any_instance.should_receive(:create_fb_friend).with(@fb_miro).exactly(1).times
-        @user.update_fb_friends(@access_token)
-      end
-      
-      it "should not call create_fb_friend for each stored friend" do
-        User.stub(:find_by_fb_ui).and_return(mock("FB Friend", :id=>"xxx"))
-        User.any_instance.should_not_receive(:create_fb_friend)
-        @user.update_fb_friends(@access_token)
-      end  
-      
-      it "should create a reciproke friendship with a not stored friend" do
-        User.stub(:find_by_fb_ui).and_return(nil)
-        User.any_instance.stub(:create_fb_friend).and_return(mock("friend")) #, :id=>"xxx"))
-        Friendship.should_receive(:create_reciproke_friendship).exactly(2).times
-        @user.update_fb_friends(@access_token)
-      end 
+      end        
       
       it "should create a reciproke friendship with a stored friend" do
         User.stub(:find_by_fb_ui).and_return(mock("friend", :id=>"xxx"))
         Friendship.should_receive(:create_reciproke_friendship).exactly(2).times
         @user.update_fb_friends(@access_token)
       end      
-      
-    # it "should call to optimize the single worksessions" do
-    #   WorkSession.should_receive(:optimize_single_work_sessions).exactly(1).times
-    #   @user.update_fb_friends(@access_token)
-    # end
+
    end
    
-   context "create FB friend" do
-     before(:each) do
-       @fb_robert = mock("FbGraph::User", :name => "Robert Sarrazin", :identifier => "Robert")
-     end
-     
-     it "creates a FB friend" do
-       expect {
-         user = @user.create_fb_friend(@fb_robert)
-       }.to change(User,:count).by(1)       
-     end
-     
-     it "stores the name of the FB friend" do
-       user = @user.create_fb_friend(@fb_robert)
-       user.first_name.should eq("Robert Sarrazin")
-     end
-
-     it "stores the fb id of the FB friend" do
-       user = @user.create_fb_friend(@fb_robert)
-       user.fb_ui.should eq("Robert")
-     end     
-    # it "creates "
-     
-     
-     
-   end
+  # context "create FB friend" do
+  #   before(:each) do
+  #     @fb_robert = mock("FbGraph::User", :name => "Robert Sarrazin", :identifier => "Robert")
+  #   end
+  #   
+  #   it "creates a FB friend" do
+  #     expect {
+  #       user = @user.create_fb_friend(@fb_robert)
+  #     }.to change(User,:count).by(1)       
+  #   end
+  #   
+  #   it "stores the name of the FB friend" do
+  #     user = @user.create_fb_friend(@fb_robert)
+  #     user.first_name.should eq("Robert Sarrazin")
+  #   end
+  #
+  #   it "stores the fb id of the FB friend" do
+  #     user = @user.create_fb_friend(@fb_robert)
+  #     user.fb_ui.should eq("Robert")
+  #   end     
+  #
+  # end
      
      
   #   it "should create an user based on the friend hash" do

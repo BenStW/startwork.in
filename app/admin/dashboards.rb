@@ -11,14 +11,13 @@ ActiveAdmin::Dashboards.build do
     div do
       "#{User.all.count} users"    
     end    
-    ul do
-         li "#{User.where(:registered=>:true).count} active users"
-         li "#{User.where(:registered=>:false).count} facebook friends"
-       end
-       table_for User.registered?.each do 
+       table_for User.all.each do 
          column 'id', :id
          column 'name', :name
          column 'comment', :comment
+         column 'friends' do |user|
+            user.friends.count
+         end
          column 'calendar events'  do |user| user.calendar_events.after_logging_day.count  end       
          column 'logged-in  events' do |user| user.calendar_events.logged_in.count end       
          column 'missed  events' do |user| user.calendar_events.not_logged_in.count end       

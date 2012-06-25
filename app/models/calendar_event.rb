@@ -101,14 +101,14 @@ class CalendarEvent < ActiveRecord::Base
     self.save
   end
   
-  def test_method
-    @login_count
-  end
-  
-  def as_json1(options)
-    options = {  :only=>[:id,:start_time,:user_id], :include => {:user => {:only=>[:id,:fb_ui,:first_name,:last_name]}} }.merge(options)
-    super(options)
-  end
+#  def test_method
+#    @login_count
+#  end
+#  
+##  def as_json1(options)
+#    options = {  :only=>[:id,:start_time,:user_id], :include => {:user => {:only=>[:id,:fb_ui,:first_name,:last_name]}} }.merge(options)
+#    super(options)
+#  end
  
 =begin
   scope :this_week_scope,( lambda do 

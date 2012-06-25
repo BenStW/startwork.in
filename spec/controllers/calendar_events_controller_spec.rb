@@ -2,7 +2,6 @@ require 'spec_helper'
 #require 'ruby-debug19'
 
 describe CalendarEventsController do
-  #render_views  
   
  context "show" do
    before(:each) do
@@ -95,6 +94,7 @@ describe CalendarEventsController do
  end
  
  context "events" do
+   render_views  #needed to return the proper JSON view
    
    before(:each) do
      @user = FactoryGirl.create(:user_with_two_friends_and_same_events)
@@ -102,26 +102,41 @@ describe CalendarEventsController do
    end
    
    it "should be success" do      
-     get :events
+     get :events, :format => :json
      response.should be_success 
    end   
    
    it "should show my calendar event and of my friends" do   
-     data = get :events
-     body = data.body
+     response = get :events, :format => :json
+     body = response.body
      obj = ActiveSupport::JSON.decode(body)
      obj.count.should eq(3)
    end    
    
-   it "should show my calendar event with 3 fields (id, user_id and start_time)" do  
+   it "should show my calendar event with 8 fields (id,user_id,fb_ui,start_time, current_user,first_name,last_name,friend)" do  
      calendar_event = @user.calendar_events[0] 
-     data = get :events
+     data = get :events, :format => :json
      body = data.body
      obj = ActiveSupport::JSON.decode(body)
      json_calendar_event = obj[0]
+     @expected = { 
+               "id" => calendar_event.id,
+               "start_time" => calendar_event.start_time,
+               "user_id" => @user.id,
+               "fb_ui" => @user.fb_ui,
+               "first_name" => @user.first_name,
+               "last_name" => @user.last_name,
+               "current_user" => true,
+               "friend" => false             
+     }
      json_calendar_event["id"].should eq(calendar_event.id)
-     json_calendar_event["user_id"].should eq(@user.id)      
-     DateTime.parse(json_calendar_event["start_time"]).should eq(calendar_event.start_time)
+     json_calendar_event["start_time"].should_not eq(nil)  # eq(calendar_event.start_time)
+     json_calendar_event["user_id"].should eq(@user.id)
+     json_calendar_event["fb_ui"].should eq( @user.fb_ui)
+     json_calendar_event["first_name"].should eq(@user.first_name)
+     json_calendar_event["last_name"].should eq(@user.last_name)
+     json_calendar_event["current_user"].should eq(true)
+     json_calendar_event["friend"].should eq(false)
    end   
        
  end

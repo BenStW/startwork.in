@@ -1,8 +1,6 @@
 ActiveAdmin.register User do
   menu :priority => 1 , :parent => "User Administration"
   
-  scope :registered?
-  
   filter :first_name
   filter :last_name
   
@@ -20,7 +18,6 @@ ActiveAdmin.register User do
       column "Facebook ID", :fb_ui
       column :email
       column :referer        
-      column :registered
       column "created at", :created_at
       column "last sign in at", :last_sign_in_at
       column "sign in count", :sign_in_count  

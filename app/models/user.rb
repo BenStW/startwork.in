@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
 
 
   # Specifies a white list of model attributes that can be set via mass-assignment.
-  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me,  :referer, :fb_ui, :room, :registered, :comment
+  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me,  :referer, :fb_ui, :room, :comment
 
   validates :fb_ui, presence: true, uniqueness: true  
   validates :first_name, presence: true, length: { maximum: 50 }
@@ -55,31 +55,15 @@ class User < ActiveRecord::Base
   has_many :sent_invitations, :class_name => 'Invitation', :foreign_key => 'sender_id', :dependent => :destroy
 #  belongs_to :work_session, :foreign_key => 'guest_id'
   
-  after_initialize :init
   after_create :create_room #user must be first created with stored IP-address 
   before_destroy :remove_guest_from_work_session
   
  # attr_accessor :current_user
-
-  def init
-    self.registered ||= false
-  end
     
   def name
     "#{first_name or ''} #{last_name or ''}"
   end
   
-  def self.registered?
-    where("registered = ?", true)
-  end  
-  
-  def registered_friends
-     User.find_by_sql(
-       ["select users.id, users.first_name, users.fb_ui,users.registered,users.email from users inner join friendships
-         on users.id=friendships.friend_id
-         where friendships.user_id = ?
-         and registered=true",self.id])
-  end  
   
   def is_friend?(user)
      self.friends.map(&:id).include?(user.id)
@@ -133,25 +117,12 @@ class User < ActiveRecord::Base
         if !self.is_friend?(friend)
           Friendship.create_reciproke_friendship(self, friend)
           #optimize work session with this user
-        end        
-      else
-         friend = create_fb_friend(fb_friend)
-         Friendship.create_reciproke_friendship(self, friend)
+        end
       end
     end
   #  WorkSession.optimize_single_work_sessions(self)
   end
-  
-  # This method is only used for facebook friends
-  def create_fb_friend(facebook_user)
-    friend = User.create!(
-           :email =>  "#{facebook_user.identifier}@startwork.in", 
-           :fb_ui => facebook_user.identifier,
-           :first_name => facebook_user.name,
-           :referer => "FB-friend made to WorkBuddy by #{self.name}",
-           :password => Devise.friendly_token[0,20],
-     )           
-  end
+
   
   def remove_guest_from_work_session
      WorkSession.where(:guest_id=>self.id) do |work_session|

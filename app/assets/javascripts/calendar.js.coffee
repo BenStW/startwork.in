@@ -101,7 +101,7 @@ $(document).ready ->
             $.getJSON(url 
                 # the anonymous function to be called after the JSON-request
                 (frontend_events) -> 
-                  frontend_events=backendEventsToFrontendEvents(frontend_events.calendar_events)            
+                  frontend_events=backendEventsToFrontendEvents(frontend_events)            
                   callback(frontend_events)
                 )
           
@@ -164,4 +164,17 @@ $(document).ready ->
                 statusCode:
                   200: ->
                     $("#calendar").weekCalendar("refresh"))
+
+
+					
+                    
+					
+					
+                    
+					
+					
+                    
+					
+					
+                    
       
