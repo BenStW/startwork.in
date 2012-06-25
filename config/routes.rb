@@ -4,8 +4,8 @@ StartWork::Application.routes.draw do
 
   resources :invitations
 
-  match 'friendships/create_all_fb_friends' => "friendships#create_all_fb_friends", :as => :create_friendship_all_fb_friends  
-  resources :friendships
+#  match 'friendships/create_all_fb_friends' => "friendships#create_all_fb_friends", :as => :create_friendship_all_fb_friends  
+#  resources :friendships
 #  match 'friendships/create_with_fb_friend/(:fb_ui)' => "friendships#create_with_fb_friend", :as => :create_friendship_with_fb_friend
 
   ActiveAdmin.routes(self)
@@ -54,19 +54,20 @@ StartWork::Application.routes.draw do
 
      #devise_for :users, :controllers => {:sessions => "devise_sessions"}
      
-     match 'work_session/can_we_start' => 'work_sessions#can_we_start', :as => :work_session_can_we_start   
      match 'work_session/room_change(/:session)' => 'work_sessions#room_change', :as => :work_session_room_change
      match 'work_session/get_time' => 'work_sessions#get_time', :as => :work_session_get_time
 
      match 'work_session' => 'work_sessions#show', :as => :work_session
-     match 'spont_work_session' => 'work_sessions#spont_show', :as => :spont_work_session
+     match 'work_session_tmp' => 'work_sessions#show_tmp', :as => :work_session_tmp
+
+ #    match 'spont_work_session' => 'work_sessions#spont_show', :as => :spont_work_session
      match 'test_work_session/:user' => 'work_sessions#test_show', :as => :test_work_session
 
    #  match 'guest_work_session' => 'work_sessions#show_for_guest', :as => :guest_work_session
 
     
-     post 'connections/start', :to => 'connections#start'  
-     post 'connections/end', :to => 'connections#end'
+ #    post 'connections/start', :to => 'connections#start'  
+ #    post 'connections/end', :to => 'connections#end'
     
 
  

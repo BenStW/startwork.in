@@ -42,29 +42,25 @@
 
 
 
-<% if !@next_work_session.nil?%>
-
   <div class="span3">
 	<div id="join_work_session" class="btn" style="width:150px;height:50px">
-	<%= t(".next_room_html", :host=>@room_host)%>
+	<b>ArbeitSession</b><br>(jetzt beitreten)
 	</div>
   </div> <!-- span3 -->
 
-<% end %>
-
-<div class="span3">
-	<div id="join_spont_work_session" class="btn" style="width:150px;height:50px"> 
-	<%= t(".spont_work_session_html")%>
+  <div class="span3">
+	<div id="join_work_session_tmp" class="btn" style="width:150px;height:50px">
+	<b>ArbeitSession</b><br>(jetzt beitreten)<br>- mit redirect -
 	</div>
-</div> <!-- span3 -->
+  </div> <!-- span3 -->
+
+
 
 <div id="urls" 
-data-url_check=<%=work_session_can_we_start_url%>
-data-video_url=<%= work_session_url%>
+data-work_session_url=<%= work_session_url%>
+data-work_session_tmp_url=<%= work_session_tmp_url%>
 data-info_url=<%= info_for_work_session_url%>
-data-spont_video_url=<%= spont_work_session_url%>
 ></div>
-
 
 
 
