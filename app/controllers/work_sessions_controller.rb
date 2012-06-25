@@ -53,7 +53,7 @@ class WorkSessionsController < ApplicationController
      session = params[:session]
      work_session = current_user.current_work_session
      if work_session.nil? or session.nil?
-       render :json => false
+       render :json => true
      else
        current_user.calendar_events.current.store_login 
        if work_session.room.tokbox_session_id == session

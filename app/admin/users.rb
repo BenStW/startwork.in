@@ -17,7 +17,8 @@ ActiveAdmin.register User do
       column "tokbox" do |user| user.room.tokbox_session_id end 
       column "Facebook ID", :fb_ui
       column :email
-      column :referer        
+      column :referer  
+      column :registered      
       column "created at", :created_at
       column "last sign in at", :last_sign_in_at
       column "sign in count", :sign_in_count  

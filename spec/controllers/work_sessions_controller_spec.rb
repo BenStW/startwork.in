@@ -126,19 +126,21 @@ describe WorkSessionsController do
       response.body.should eq("false")         
     end    
      
-    it "should render 'false' when WorkSession starts in 10 minutes" do     
+    it "should render 'true' when WorkSession starts in 10 minutes" do     
       tomorrow_9_50am = DateTime.current-10.minutes
       DateTime.stub(:current).and_return(tomorrow_9_50am)
       get :room_change, :session=>@work_session.room.tokbox_session_id
-      response.body.should eq("false")         
+      response.body.should eq("true")         
     end
     
-    it "should raise error when no session is passed" do     
+    it "should  render 'true'  when no session is passed" do     
       get :room_change
-      response.body.should eq("false")         
+      response.body.should eq("true")         
     end    
     
     it "should render 'false' when WorkSession has ended 5 minutes ago and the same room" do 
+      tomorrow_11_00am = DateTime.current+1.hour
+      FactoryGirl.create(:calendar_event, :user=>@user, :start_time=>tomorrow_11_00am)
       tomorrow_11_05am = DateTime.current+65.minutes
       DateTime.stub(:current).and_return(tomorrow_11_05am)
       get :room_change, :session=>@work_session.room.tokbox_session_id
