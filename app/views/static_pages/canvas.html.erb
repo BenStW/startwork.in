@@ -6,7 +6,7 @@
 <% if !user_signed_in? %>
 
   <!-- Main hero unit for a primary marketing message or call to action -->
-  <div class="hero-unit">
+  <div>
 		   <img src="/assets/library_long.jpg">
 <br><br>
 	    <h1><%= t "static_pages.home.welcome" %></h1><br>
@@ -24,7 +24,7 @@
   <%= javascript_include_tag "http://connect.facebook.net/en_US/all.js" -%>
   <%- end -%>
   
-  <div class="hero-unit">
+  <div>
   <br>
   <h2> <%=t 'static_pages.home.greet_username', :username => current_user.name %></h2><br>
 <br>
