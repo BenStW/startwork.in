@@ -18,7 +18,62 @@ $(document).ready ->
              type: 'GET'
              success: (data) -> 
                 console.log data
-        
+
+       toGermanDate = (date) ->
+          date
+     #     date.getDay()+"."+date.getMonth()+"."+date.getYear()+" "+date.getHours()+":"+date.getMinutes()
+
+       get_appointment_token = (data) ->
+         console.log "get token for appointment from "+data.start_time + " till "+data.end_time
+         $.ajax
+          url: $("#urls").data("appointment_get_token_url")
+          data: data
+          type: "POST"
+          statusCode:
+            200: (data)->
+                $("#appointment_modal").data("token", data.responseText)
+                $("#calendar_new_event").css("display","inline")
+                console.log $("#appointment_modal").data("token")
+
+       popup_facebook = ->
+         start_time =  $("#start_time").html()
+         end_time =  $("#end_time").html()
+         name =  "Einladung zum gemeinsamen Lernen von "+start_time+" bis "+end_time+" Uhr"          
+         console.log "name="+name
+         token = $("#appointment_modal").data("token")
+         link = $("#urls").data("appointment_url")+"?token="+token
+         console.log "link="+link
+         FB.ui(
+            {method: 'send',
+            name: name,
+            message: "message",
+            link: link
+              })
+
+       save_event = ->
+         data = 
+            start_time: $("#start_time").html()
+            end_time: $("#end_time").html()
+            token: $("#appointment_modal").data("token")
+         console.log data
+         $.ajax
+           url: $("#urls").data("calendar_new_event_url"),
+           data: data,
+           type: 'POST',
+           statusCode:
+             200: ->
+               $("#calendar").weekCalendar("refresh")
+
+       $("#calendar_new_event").click ->
+          console.log("save_event_and_popup_facebook")
+          save_event()
+          popup_facebook()
+          
+       $("#calendar_cancel_new_event").click ->
+          $("#calendar").weekCalendar("refresh")
+          
+         
+          
        backendEventToFrontendEvent = (backend_event) ->
          start_time = new Date(backend_event.start_time)
          end_time = new Date(backend_event.start_time)
@@ -68,7 +123,6 @@ $(document).ready ->
          friend_column = merge_events_of_same_time_and_column(friend_column)
          other_column = merge_events_of_same_time_and_column(other_column)
          events = own_column.concat(friend_column,other_column)
-         console.log events
          events
 
        backendEventsToFrontendEvents = (backend_events) ->
@@ -129,19 +183,14 @@ $(document).ready ->
               end_time = calEvent.end.toString() 
               if start_time > end_time
                 $(calendar).weekCalendar('removeEvent',calEvent.id)
-              else	      
+              else
                 data = 
                   start_time:start_time
                   end_time:end_time
-                $.ajax
-                  url: base_url+'/new_event',
-                  data: data,
-                  type: 'POST',
-              #    beforeSend: (xhr) -> 
-               #     xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-                  statusCode:
-                    200: ->
-                      $("#calendar").weekCalendar("refresh")
+                get_appointment_token(data)
+                $("#start_time").html(toGermanDate(start_time))
+                $("#end_time").html(toGermanDate(end_time))
+                m = $('#appointment_modal').modal("show")
 
           eventMouseover: (event,element,domEvent) ->
              if event.userId>0

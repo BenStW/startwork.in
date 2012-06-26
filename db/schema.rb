@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120623125111) do
+ActiveRecord::Schema.define(:version => 20120626122240) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -45,6 +45,17 @@ ActiveRecord::Schema.define(:version => 20120623125111) do
 
   add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
   add_index "admin_users", ["reset_password_token"], :name => "index_admin_users_on_reset_password_token", :unique => true
+
+  create_table "appointments", :force => true do |t|
+    t.integer  "sender_id"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.string   "token"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "send_count"
+    t.integer  "receive_count"
+  end
 
   create_table "calendar_events", :force => true do |t|
     t.integer  "user_id"

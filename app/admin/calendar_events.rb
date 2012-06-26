@@ -14,8 +14,8 @@ ActiveAdmin.register CalendarEvent do
          h2 "'Calendar Events' sind die Kalender-Eintraege der Benutzer"
         column :id
         column :user
-        column :start_time
-        column :login_time
+        column "start_time" do |event | I18n.localize(event.start_time.in_time_zone("Berlin")) end
+        column "login_time" do |event | I18n.localize(event.login_time.in_time_zone("Berlin")) if event.login_time end
         column :login_count        
         column :work_session do |calendar_event|
           link_to calendar_event.work_session_id, admin_work_session_path(calendar_event.work_session)  

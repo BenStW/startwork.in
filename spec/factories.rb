@@ -82,6 +82,14 @@ FactoryGirl.define do
     user
   end
   
+  
+  factory :appointment do
+    association :sender, factory: :user
+    start_time DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,10)+1.day
+    end_time DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,12)+1.day
+  end
+  
+  
   factory :calendar_invitation do
     association :sender, factory: :user
   end

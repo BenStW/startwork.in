@@ -1,3 +1,8 @@
+
+<%- content_for(:head) do -%>
+<%= javascript_include_tag "http://connect.facebook.net/en_US/all.js" -%>
+<%- end -%>
+
 <div class="row">
   <div class="span3">
     <div id="back" class="btn btn-info" style="height:35px;width:150px" onclick="location.href='<%=root_url%>'">
@@ -27,6 +32,13 @@
   data-my_user_name="<%=current_user.name%>"
   data-users="<%=@users %>"
 ></span>
+
+<span id="urls"
+  data-appointment_get_token_url="<%= appointment_get_token_url %>"
+  data-calendar_new_event_url="<%= calendar_new_event_url %>"
+  data-appointment_url="<%= appointment_url %>"
+></span>
+
 
 <div id='calendar'></div>
 <br>
@@ -92,5 +104,30 @@
 
 
 
+<div id="fb-root" data-app="<%=@app%>"></div>
 
 
+
+
+
+
+
+<div class="modal hide" id="appointment_modal" token="">
+  <div class="modal-header">
+     <button class="close" data-dismiss="modal">×</button>
+     <h3>Neue Lern- und Arbeits-Session</h3>
+  </div> <!-- modal-header -->
+  <div class="modal-body">
+     <label for="start_time">Beginn:</label>
+      <div id="start_time"></div>
+<br>
+     <label for="start_time">Ende:</label>
+      <div id="end_time"></div>
+
+		
+</div> <!-- modal-body -->
+  <div class="modal-footer">
+       <a href="#" id="calendar_new_event" class="btn" style="display:none" data-dismiss="modal">Speichern</a>
+       <a href="#" id="calendar_cancel_new_event"  class="btn" data-dismiss="modal">Abbrechen</a>
+</div><!-- modal-footer -->
+</div><!-- modal -->

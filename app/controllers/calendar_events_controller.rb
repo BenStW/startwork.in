@@ -2,13 +2,16 @@ class CalendarEventsController < ApplicationController
   
   def show
      @friends = current_user.friends #current_user.friendships.map(&:friend)
-     @work_sessions = current_user.calendar_events.this_week.map(&:work_session).sort_by!{|w| w[:start_time]}     
+     @work_sessions = current_user.calendar_events.this_week.map(&:work_session).sort_by!{|w| w[:start_time]}    
+     #TODO this is hack
+     @app = if Rails.env.production? then "330646523672055" else "232041530243765" end
+      
   end
   
   # creates a calendar event and
   # finds or creates a work_session
   def new_event
-    hourly_start_times = split_to_hourly_start_times(DateTime.parse(params[:start_time]),DateTime.parse(params[:end_time]))
+    hourly_start_times = CalendarEvent.split_to_hourly_start_times(DateTime.parse(params[:start_time]),DateTime.parse(params[:end_time]))
     hourly_start_times.each do |start_time|
       if current_user.calendar_events.find_by_start_time(start_time)
         logger.error("ERROR: calendar event for user #{current_user.name} at #{start_time} does already exist.")
@@ -67,30 +70,6 @@ class CalendarEventsController < ApplicationController
   end  
   
 
-  
-  private 
-  def split_to_hourly_start_times(start_time, end_time)
-    start_times = []
-    if start_time>end_time
-      logger.error "New event had start_time=#{start_time} > end_time=#{end_time}"
-      start_time, end_time = end_time, start_time
-    end
-    
-    if start_time.minute!=0 or end_time.minute!=0
-      raise "Error: for creating a calendar event the minutes must be 0"
-    end
-    hours = (end_time - start_time)*24-1
-    (0..hours).each do |hour|
-        hourly_start_time = start_time+hour.hours      
-        if hourly_start_time.hour == 23
-          # FIXME: fix the JS frontend
-          logger.error "Workaround: don't accept working hours of 21UTC (23Uhr)."
-        else
-          start_times << start_time+hour.hours
-        end
-    end
-    start_times
-  end
   
 end
 
