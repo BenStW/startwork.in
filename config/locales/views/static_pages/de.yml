@@ -9,7 +9,14 @@ de:
       nobody: "Noch keine WorkBuddies"
       spont_work_session_html: "<b>Spontane Session</b><br>(jetzt beitreten)"   
     how_it_works:
-      title: "Wie es geht"
+      title: "Features"
+      text_slide_1_html: "<p>Während der Arbeit wird die StartWork Session auf der rechten Seite eingeblendet und du siehst deine Freunde beim arbeiten.</p>"
+      text_slide_2_html:
+          "<p>Deine Arbeitszeit wird automatisch untergliedert in 50min Arbeitsphase und 10min Pause.</p>
+          <p>Die Arbeitsphasen sollen ausschließlich zum Arbeiten genutzt und der Arbeitsplatz sollte nicht verlassen werden.</p>
+          <p>In den Pausen kannst du dich mit deinen Freunden austauschen oder neue Leute aus deiner Worksession kennenlernen</p>"
+      text_slide_3_html: "<p>Mit der praktischen Kalenderfunktion kannst du deine Woche planen und dich zum Arbeiten auf StartWork verabreden. Hier siehst du auf einen Blick, wann du mit wem zusammen arbeiten wirst!</p>"
+      text_slide_4_html: "<p>Eure Privatsphäre liegt uns am Herzen! Bei uns sind eure Daten sicher und ihr habt stets die Kontrolle. Unsere Server sind verschlüsselt entsprechen den höchsten Sicherheitsstandards in Deutschland.</p>"
       text_current_user_html: 
           "<p>Nach der Anmeldung solltest du folgende Schritte als Nächstes ausführen: </p>
             <ul>
@@ -50,7 +57,7 @@ de:
         <p>Die soziale Kontrolle wirkt disziplinierend und gleichzeitig erlebst du eine angenehme und intensive Zeit mit deinen Freunden.</p>
         <p>Du gibst  einfach im Kalendar deine gewünschten Arbeitszeiten der nächsten 7 Tage ein 
         und wir erstellen die Arbeitsgruppe basierend auf den Arbeitszeiten deiner Freunde oder ordnen dich einer neuen Lerngruppe zu.</p>"
-      title_current_user: "Wie es geht"
+      title_current_user: "Features"
       sign_up: "Weiter zur Registrierung"         
     about_us:
       title: "Über uns" 

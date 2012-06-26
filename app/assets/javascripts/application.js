@@ -26,3 +26,5 @@
 // require jquery_plugins/jquery.popupWindow - not needed yet
 // require twitter/bootstrap - not needed
 // require twitter/bootstrap.min - not needed
+//= require woothemes-flexslider/jquery.flexslider
+//= require woothemes-flexslider/jquery.flexslider-min
