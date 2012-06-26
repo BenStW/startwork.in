@@ -18,40 +18,21 @@ de:
       text_slide_3_html: "<p>Mit der praktischen Kalenderfunktion kannst du deine Woche planen und dich zum Arbeiten auf StartWork verabreden. Hier siehst du auf einen Blick, wann du mit wem zusammen arbeiten wirst!</p>"
       text_slide_4_html: "<p>Eure Privatsphäre liegt uns am Herzen! Bei uns sind eure Daten sicher und ihr habt stets die Kontrolle. Unsere Server sind verschlüsselt entsprechen den höchsten Sicherheitsstandards in Deutschland.</p>"
       text_current_user_html: 
-          "<p>Nach der Anmeldung solltest du folgende Schritte als Nächstes ausführen: </p>
-            <ul>
-            <li>Lade deine Facebook-Freunde zu StartWork ein.
-         <li>Unter 'Mein Kalender' kannst du deine Arbeitszeiten eintragen und 
+         "<div><div style='float:right;'><img src='/assets/dummy300.png'/></div><div>Lade deine Facebook-Freunde zu StartWork ein.<br/>Startwork ist so gedacht, dass ihr eure gesamte Arbeitszeit zusammen verbringt.</div></div>
+         <div><div style='float:left;'><img src='/assets/dummy300.png'/></div><div>Unter 'Mein Kalender' kannst du deine Arbeitszeiten eintragen und 
          die Arbeitszeiten deiner Facebook-Freunde ('Workbuddies') sehen. 
-         Hier könnt ihr unkompliziert eure Zeiten aufeinander abstimmen. 
-         Startwork ist so gedacht, dass ihr eure gesamte Arbeitszeit zusammen verbringt.</li>
-         <li>Sobald deckungsgleiche Termine zwischen Workbuddies bestehen, 
-         wird auf der Startseite ein Link zum Betreten des Arbeitsraumes generiert.</li>
-         <li>Loggt euch pünktlich zum Beginn der Arbeitsession in den Arbeitsraum über die Startseite ein. </li>
-         <li>Euer Video wird ausgeblendet, nachdem ihr Startwork den Zugriff auf Kamera und Mikrofon erlaubt habt.
-          Ihr seid aber in der Arbeitsgruppe.
-           Ihr könnt die Zugriffserlaubnis über den Button 'Kamera- und Audiotest' auch automatisieren.</li>
-         <li>Der automatische Timer beginnt jeweils 5 Minuten nach der vollen Stunde 
+         Hier könnt ihr unkompliziert eure Zeiten aufeinander abstimmen.</div></div>
+         <div><div style='float:right;'><img src='/assets/dummy300.png'/></div><div>Sobald deckungsgleiche Termine zwischen Workbuddies bestehen, 
+         wird auf der Startseite ein Link zum Betreten des Arbeitsraumes generiert.<br/>Loggt euch pünktlich zum Beginn der Arbeitsession in den Arbeitsraum über die Startseite ein.</div></div>
+         <div><div style='float:right;'><img src='/assets/dummy300.png'/></div><div>Euer Video wird ausgeblendet, nachdem ihr Startwork den Zugriff auf Kamera und Mikrofon erlaubt habt.
+         Ihr seid aber in der Arbeitsgruppe. Ihr könnt die Zugriffserlaubnis über den Button 'Kamera- und Audiotest' auch automatisieren.</div></div>
+         <div><div style='float:right;'><img src='/assets/dummy300.png'/></div><div>Der automatische Timer beginnt jeweils 5 Minuten nach der vollen Stunde 
          mit einer 50-minütigen Arbeitsphase, an die sich eine 10-minütige Pause anschließt,
-          in der man sich unterhalten kann und der Arbeitsplatz verlassen werden darf. 
-          Während der Arbeitsphasen soll die Regel gelten, dass der Arbeitsplatz nicht verlassen wird und 
-          die Gruppenmitglieder sich ausschließlich mit Arbeitsinhalten befassen.</li>
-         <li><b>Das Fenster mit den Videos bitte immer sichtbar halten, </b>
-         die anderen Fenster entsprechend anpassen. Dann wirkt Startwork am stärksten.</li>
-         <li>(Optional: Erzählt euch zusätzlich nach dem Einloggen gegenseitig kurz aber möglichst konkret, 
-         was ihr heute schaffen wollt.
-          Am Ende des gemeinsamen Arbeitstages soll sich nochmal gegenseitig erzählt werden,
-           was man davon geschafft hat. 
-           Dieses zusätzliche wechselseitige „Commitment“ kann bei Bedarf 
-           zur Verstärkung des Effekts von StartWork genutzt werden).
-         </li>
-         <li>Neues Feature „spontane Session“: Wenn ihr auf diesen Button klickt, 
-         werdet ihr sofort einer laufenden Arbeitsgruppe zugeordnet, bei der noch ein Platz frei ist.
-          Ihr könnt dann auch spontan mit der Arbeit auf StartWork beginnen.</li>
-         <li>Wir freuen uns über jegliche Nutzung des Feedback-Formulars rechts unten. 
-         Ideen, Eindrücke, Bugs - alles kann und soll mitgeteilt werden.</li>
-         </ul>
-         <p>Diese Anleitung wird regelmäßig entsprechend der technischen Weiterentwicklung aktualisiert.</p>"      
+         in der man sich unterhalten kann und der Arbeitsplatz verlassen werden darf. 
+         Während der Arbeitsphasen soll die Regel gelten, dass der Arbeitsplatz nicht verlassen wird und 
+         die Gruppenmitglieder sich ausschließlich mit Arbeitsinhalten befassen.</div></div>
+         <div><div style='float:right;'><img src='/assets/dummy300.png'/></div><div>Das Fenster mit den Videos bitte immer sichtbar halten,
+         die anderen Fenster entsprechend anpassen. Dann wirkt Startwork am stärksten.</div></div>"
       text_html: "<p>Bei eingeschalteter Webcam arbeitest du in einer Arbeitsgruppe 
         von bis zu 4 Freunden (oder neuen Leuten) 50 Minuten lang und anschließend macht ihr 10 Minuten Pause.</p>      
         <p>Die soziale Kontrolle wirkt disziplinierend und gleichzeitig erlebst du eine angenehme und intensive Zeit mit deinen Freunden.</p>
