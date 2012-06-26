@@ -1,35 +1,42 @@
-  <div class="hero-unit">
-     <%if current_user %>
+<div style="margin: 40px auto;width: 786px;">
+	<img src="/assets/werde_produktiv.png" alt="Werde endlich produktiv - mit StartWork">
+</div>
+
+<div style="width: 315px;margin: 0 auto;">
+	<a id="facebook_link" href="<%=user_omniauth_authorize_path(:facebook)%>">
+		<img src='/assets/frontpage_facebook.png'>
+	</a>
+	<br/>
+	<center>(Wir posten nichts auf deine Wall)</center>
+</div>
+<div style="width: 301px;position: relative;margin: 0 auto;right: 200px;bottom: 30px;">	
+		<img src="/assets/frontpage_call_to_action.png">
+</div>
+		<div class="flexslider" style="margin-bottom: 50px;">
+			  <ul class="slides">
+				<li>
+				  <div class="slidepic"><img src="/assets/session_screen.jpg" width="400px"></div><div><%= t(".text_slide_1_html") %></div>
+				</li>
+				<li>
+				  <div class="slidepic"><img src="/assets/session_screen2.jpg" width="400px"></div><div><%= t(".text_slide_2_html") %></div>
+				</li>
+				<li>
+				  <div class="slidepic"><img src="/assets/kalender.jpg" width="400px"></div><div><%= t(".text_slide_3_html") %></div>
+				</li>
+				<li>
+				  <div class="slidepic"><img src="/assets/trust.jpg" width="400px"></div><div><%= t(".text_slide_4_html") %></div>
+				</li>
+				<li>
+				  <div class="slidepic"><iframe src="http://player.vimeo.com/video/44444224?title=0&amp;byline=0&amp;portrait=0&amp;color=005580" width="600" height="400" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div><div><h2>Erklärvideo</h2></div>
+				</li>
+			  </ul>
+			</div>
+
+  <!--<div class="hero-unit">
 		<h1><%= t '.title_current_user' %></h1>
 		 <br>
 		<div class="row">
-		  <div class="span8">
+		 <div class="span8">
 		<%= t(".text_current_user_html") %>
         </div></div>
-		     <h2>Erklärvideo</h2>
-<iframe src="http://player.vimeo.com/video/44444224?title=0&amp;byline=0&amp;portrait=0&amp;color=005580" width="600" height="400" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>		
-		
-
-		
-	
-		
-
- <% else %>
-
-
-	<h1><%= t '.title' %></h1><br>
-<!--	<div class="row">
-	  <div class="span5">	
-
-	</div>
-		<div class="span5">
-      </div>
-
-		</div>-->
-
-				<%= t(".text_html") %><br>
-<iframe src="http://player.vimeo.com/video/44444224?title=0&amp;byline=0&amp;portrait=0&amp;color=005580" width="600" height="400" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>	
-
-
-<% end %>
- </div>
+ </div>-->

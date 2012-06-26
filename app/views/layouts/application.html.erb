@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 <!DOCTYPE html>
 <html lang="en" style="height:100%">
@@ -61,3 +62,68 @@
 
 
 
+=======
+
+<!DOCTYPE html>
+<html lang="en" style="height:100%">
+  <head>
+    <meta charset="utf-8">
+
+  <title>StartWork, Plattform für gemeinsames Lernen und Arbeiten</title>
+
+   <meta name="Description" content="Mit StartWork kannst du mit Freunden
+    gemeinsam lernen und arbeiten, 
+   und dabei neue Leute kennenlernen. Eine Studie hat gezeigt, 
+    dass es die Prokrastination ('Aufschieberitis') um 73% senkt.">
+   
+
+  <%= render :partial => "layouts/google_analytics" %>
+
+
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= csrf_meta_tags %>
+  <%= javascript_include_tag "application" %>
+  <%= yield(:head) %>
+
+  <%= render :partial => "layouts/user_voice" %>
+
+</head>
+
+
+
+ 
+<body  style="height:100%;background-image: url('/assets/grain.jpg');">
+	
+<%= render :partial => "layouts/nav" %>
+
+<%= yield(:below_nav) %>	
+  
+	
+<br><br><br>
+
+
+    <div class="container"  style="height:100%;">
+	<% if notice %>
+	<div class="alert alert-success"><%= notice %></div>
+	<% end %>
+	<% if alert %>	
+ 	<div class="alert alert-error"> <%= alert %></div>
+     <% end %>
+
+	<%= yield %>
+
+
+      <hr>
+      <footer>
+        <p>&copy; StartWork 2012<br><%= link_to "Impressum", impressum_path%></p>
+
+      </footer>
+
+    </div> <!-- /container -->   
+
+</body>
+</html>
+
+
+
+>>>>>>> 65f0ebd5ab50017c1f64efc0886e2ea02664101e
