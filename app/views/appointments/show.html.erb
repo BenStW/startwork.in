@@ -1,0 +1,26 @@
+<br><br><br>
+
+		
+		
+<div class="row">
+<div class="span8 offset2">
+		<div class="well">
+
+	<h1>Verabredung mit <%=@appointment.sender.name %></h1>
+	<h2>am 
+	<%= I18n.localize(@appointment.start_time.to_date) %>	
+	 von 
+	<%= I18n.localize(@appointment.start_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %>
+	bis
+	<%= I18n.localize(@appointment.end_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %>
+	</h2><br><br>
+	
+	<div class="row">
+	<div class="span8 offset2">
+		<%= link_to "Ablehnen", appointment_reject_url, :class=>"btn btn-large"%>
+		<%= link_to "Annehmen", appointment_accept_without_authentication_url(:token=> @appointment.token), :class=>"btn btn-large btn-success"%>
+
+	</div></div>
+
+
+</div>	</div></div>

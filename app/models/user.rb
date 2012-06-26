@@ -53,6 +53,7 @@ class User < ActiveRecord::Base
   has_many :inverse_friends, :through => :inverse_friendships, :source => :user , :dependent => :destroy 
   
   has_many :sent_invitations, :class_name => 'Invitation', :foreign_key => 'sender_id', :dependent => :destroy
+  has_many :appointments, :foreign_key => 'sender_id', :dependent => :destroy
 #  belongs_to :work_session, :foreign_key => 'guest_id'
 
   after_initialize :init  

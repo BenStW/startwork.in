@@ -18,6 +18,7 @@ ActiveAdmin::Dashboards.build do
          column 'friends' do |user|
             user.friends.count
          end
+         column 'appointments'  do |user| user.appointments.count  end       
          column 'calendar events'  do |user| user.calendar_events.after_logging_day.count  end       
          column 'logged-in  events' do |user| user.calendar_events.logged_in.count end       
          column 'missed  events' do |user| user.calendar_events.not_logged_in.count end       

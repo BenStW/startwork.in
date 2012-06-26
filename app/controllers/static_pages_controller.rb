@@ -5,14 +5,19 @@ class StaticPagesController < ApplicationController
   
   def home
     if user_signed_in?
-       home_logged_in
-       render :action=>'home_logged_in'
+      if session[:appointment_token]
+        redirect_to appointment_accept_url
+      else
+        home_logged_in
+        render :action=>'home_logged_in'
+      end
     else
        render 'home_not_logged_in'
     end    
   end
     
   def home_logged_in    
+    #TODO this is hack
       @app = if Rails.env.production? then "330646523672055" else "232041530243765" end
       @friends = current_user.friends
       next_calendar_event = current_user.calendar_events.next
