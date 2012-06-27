@@ -59,8 +59,8 @@ $(document).ready ->
        get_appointment_token = (start_time, end_time) ->
          console.log "get token for appointment from "+start_time + " till "+end_time
          data = 
-             start_time:start_time
-             end_time:end_time	
+             start_time:start_time.toString()
+             end_time:end_time.toString()
          $.ajax
           url: $("#urls").data("appointment_get_token_url")
           data: data
