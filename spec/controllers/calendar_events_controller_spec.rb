@@ -91,6 +91,27 @@ describe CalendarEventsController do
      get :new_event, start_time: @start_time+1, end_time: @start_time+2.hour
      @user.calendar_events[0].work_session.should_not eq(calendar_event.work_session)
    end
+   
+   it "should update the dates of the appointment" do     
+     appointment = FactoryGirl.create(
+       :appointment,
+       :sender=>@user,
+       :start_time=>@start_time,
+       :end_time=>@start_time+2.hours)
+     get :new_event, token: appointment.token, start_time: @start_time, end_time: @start_time+3.hours
+     appointment.reload()
+     appointment.end_time.should eq(@start_time+3.hours)     
+   end
+   it "should update the send_count in the appointment" do 
+     appointment = FactoryGirl.create(
+       :appointment,
+       :sender=>@user,
+       :start_time=>@start_time,
+       :end_time=>@start_time+2.hours)
+     get :new_event, token: appointment.token, start_time: @start_time, end_time: @start_time+3.hours
+     appointment.reload()
+     appointment.send_count.should eq(1)   
+   end
  end
  
  context "events" do
@@ -168,7 +189,7 @@ describe CalendarEventsController do
      get :send_invitation         
    end
    
-   it "should create and send a CalendarInvitationMailer for each registered friend" do
+   it "should create and send a CalendarInvitationMailer for each friend" do
      email = mock CalendarInvitationMailer
      CalendarInvitationMailer.stub(:calendar_invitation_email).and_return(email)
      email.stub(:deliver)
@@ -177,14 +198,22 @@ describe CalendarEventsController do
      get :send_invitation
    end
    
-   it "should not create and send a CalendarInvitationMailer for not registered friend" do
-      @user.friends.each do |friend|
-        friend.registered = false
-        friend.save
-      end
-      CalendarInvitationMailer.should_receive(:calendar_invitation_email).exactly(0).times       
-      get :send_invitation
+   it "should create and send a CalendarInvitationMailer for each other user" do
+     Friendship.delete_all
+     email = mock CalendarInvitationMailer
+     CalendarInvitationMailer.stub(:calendar_invitation_email).and_return(email)
+     email.stub(:deliver)
+     email.should_receive(:deliver)     
+     CalendarInvitationMailer.should_receive(:calendar_invitation_email).exactly(2).times 
+     get :send_invitation
    end   
+   
+   it "should  not send an email when no single work_session found" do
+     WorkSession.stub(:single_work_sessions_with_user_id).and_return([])    
+     CalendarInvitationMailer.should_receive(:calendar_invitation_email).exactly(0).times             
+     get :send_invitation         
+   end   
+ 
   
  end
  

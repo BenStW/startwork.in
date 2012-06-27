@@ -18,7 +18,96 @@ $(document).ready ->
              type: 'GET'
              success: (data) -> 
                 console.log data
-        
+
+       leading_zero = (hour) ->
+          if hour < 10
+              "0"+hour
+          else
+             hour
+
+       fill_modal_with_dates = (start_time,end_time) ->
+          $('#date_begin option').removeAttr('selected')
+          $("#date_begin option[value='"+leading_zero(start_time.getHours())+"']").attr('selected',true)
+          $("#start_time").html(start_time.toString())
+          $('#date_end option').removeAttr('selected')
+          $("#date_end option[value='"+leading_zero(end_time.getHours())+"']").attr('selected',true)
+          $("#end_time").html(end_time.toString() )
+          appointment_time = toAppointmentTime(start_time,end_time)
+          $("#appointment_time").html(appointment_time)
+
+       $("#date_begin").change ->
+          update_modal_after_change("#date_begin","#start_time")
+       $("#date_end").change ->
+          update_modal_after_change("#date_end","#end_time")
+
+       update_modal_after_change = (form_id, hidden_time_field)->
+         time = new Date($(hidden_time_field).html())
+         time.setHours($(form_id).val())
+         $(hidden_time_field).html(time.toString())
+         appointment_time = toAppointmentTime($("#start_time").html(),$("#end_time").html())
+         $("#appointment_time").html(appointment_time)
+
+       toAppointmentTime = (start_time,end_time) ->
+          start_time = new Date(start_time)
+          end_time = new Date(end_time)
+          day = $.datepicker.formatDate('DD, dd.mm.yy', new Date(start_time), {dayNames: $.datepicker.regional['de'].dayNames})
+          begin_hour = leading_zero(start_time.getHours())+":00"
+          end_hour = leading_zero(end_time.getHours())+":00"
+          str = "Am "+day+" von "+begin_hour+" bis "+end_hour
+
+
+       get_appointment_token = (start_time, end_time) ->
+         console.log "get token for appointment from "+start_time + " till "+end_time
+         data = 
+             start_time:start_time.toString()
+             end_time:end_time.toString()
+         $.ajax
+          url: $("#urls").data("appointment_get_token_url")
+          data: data
+          type: "POST"
+          statusCode:
+            200: (data)->
+                $("#appointment_modal").data("token", data.responseText)
+                $("#calendar_new_event").css("display","inline")
+                console.log $("#appointment_modal").data("token")
+
+       popup_facebook = ->
+         start_time =  $("#start_time").html()
+         end_time =  $("#end_time").html()
+         name =  "Einladung zum gemeinsamen Lernen: " + $("#appointment_time").html()     
+         token = $("#appointment_modal").data("token")
+         link = $("#urls").data("appointment_url")+"?token="+token
+         console.log "link="+link
+         FB.ui(
+            {method: 'send',
+            name: name,
+            message: "message",
+            link: link
+              })
+
+       $('#appointment_modal').bind('hidden', ->
+           $("#calendar").weekCalendar("refresh"))
+
+       save_event = ->
+         data = 
+            start_time: $("#start_time").html()
+            end_time: $("#end_time").html()
+            token: $("#appointment_modal").data("token")
+         console.log data
+         $.ajax
+           url: $("#urls").data("calendar_new_event_url"),
+           data: data,
+           type: 'POST',
+           statusCode:
+             200: ->
+               $("#calendar").weekCalendar("refresh")
+
+       $("#calendar_new_event").click ->
+          console.log("save_event and popup_facebook")
+          save_event()
+          popup_facebook()
+         
+          
        backendEventToFrontendEvent = (backend_event) ->
          start_time = new Date(backend_event.start_time)
          end_time = new Date(backend_event.start_time)
@@ -68,7 +157,6 @@ $(document).ready ->
          friend_column = merge_events_of_same_time_and_column(friend_column)
          other_column = merge_events_of_same_time_and_column(other_column)
          events = own_column.concat(friend_column,other_column)
-         console.log events
          events
 
        backendEventsToFrontendEvents = (backend_events) ->
@@ -125,23 +213,14 @@ $(document).ready ->
             if calEvent.userId>0
                $(calendar).weekCalendar('removeEvent',calEvent.id)
             else
-              start_time = calEvent.start.toString() 
-              end_time = calEvent.end.toString() 
+              start_time = calEvent.start
+              end_time = calEvent.end 
               if start_time > end_time
                 $(calendar).weekCalendar('removeEvent',calEvent.id)
-              else	      
-                data = 
-                  start_time:start_time
-                  end_time:end_time
-                $.ajax
-                  url: base_url+'/new_event',
-                  data: data,
-                  type: 'POST',
-              #    beforeSend: (xhr) -> 
-               #     xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-                  statusCode:
-                    200: ->
-                      $("#calendar").weekCalendar("refresh")
+              else
+                get_appointment_token(start_time,end_time)
+                fill_modal_with_dates(start_time,end_time)
+                $('#appointment_modal').modal("show")
 
           eventMouseover: (event,element,domEvent) ->
              if event.userId>0

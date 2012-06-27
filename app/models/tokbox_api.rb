@@ -26,8 +26,6 @@ class TokboxApi
   def generate_token(tokbox_session_id, user, guest=false)
     if guest=="test"
         connection_data = { :user_id => user, :user_name => "User #{user}"} 
-    elsif guest==true
-      connection_data = { :user_id => "#{user.id}", :user_name => "Gast: #{user.name}"} 
     else       
       connection_data = { :user_id => "#{user.id}", :user_name => "#{user.name}"} 
     end

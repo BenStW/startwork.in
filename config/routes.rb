@@ -4,8 +4,8 @@ StartWork::Application.routes.draw do
 
   resources :invitations
 
-  match 'friendships/create_all_fb_friends' => "friendships#create_all_fb_friends", :as => :create_friendship_all_fb_friends  
-  resources :friendships
+#  match 'friendships/create_all_fb_friends' => "friendships#create_all_fb_friends", :as => :create_friendship_all_fb_friends  
+#  resources :friendships
 #  match 'friendships/create_with_fb_friend/(:fb_ui)' => "friendships#create_with_fb_friend", :as => :create_friendship_with_fb_friend
 
   ActiveAdmin.routes(self)
@@ -13,11 +13,16 @@ StartWork::Application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
 
   match 'calendar' => 'calendar_events#show', :as => :calendar
-  match 'calendar/new_event' => 'calendar_events#new_event'
+  match 'calendar/new_event' => 'calendar_events#new_event', :as => :calendar_new_event
   match 'calendar/events' => 'calendar_events#events'  
-#  match 'calendar/events/(:user_ids)' => 'calendar_events#events'  
   match 'calendar/remove_event' => 'calendar_events#remove_event'
   match 'calendar/send_invitation' => 'calendar_events#send_invitation', :as => :calendar_send_invitation
+
+  match 'appointment' => 'appointments#show', :as => :appointment
+  match 'appointment/get_token' => 'appointments#get_token', :as => :appointment_get_token
+  match 'appointment/reject' => 'appointments#reject', :as => :appointment_reject
+  match 'appointment/accept_without_authentication' => 'appointments#accept_without_authentication', :as => :appointment_accept_without_authentication
+  match 'appointment/accept' => 'appointments#accept', :as => :appointment_accept
 
 
  # scope "(:locale)", :locale => /en|de/  do
@@ -54,19 +59,19 @@ StartWork::Application.routes.draw do
 
      #devise_for :users, :controllers => {:sessions => "devise_sessions"}
      
-     match 'work_session/can_we_start' => 'work_sessions#can_we_start', :as => :work_session_can_we_start   
      match 'work_session/room_change(/:session)' => 'work_sessions#room_change', :as => :work_session_room_change
      match 'work_session/get_time' => 'work_sessions#get_time', :as => :work_session_get_time
 
      match 'work_session' => 'work_sessions#show', :as => :work_session
-     match 'spont_work_session' => 'work_sessions#spont_show', :as => :spont_work_session
+
+ #    match 'spont_work_session' => 'work_sessions#spont_show', :as => :spont_work_session
      match 'test_work_session/:user' => 'work_sessions#test_show', :as => :test_work_session
 
    #  match 'guest_work_session' => 'work_sessions#show_for_guest', :as => :guest_work_session
 
     
-     post 'connections/start', :to => 'connections#start'  
-     post 'connections/end', :to => 'connections#end'
+ #    post 'connections/start', :to => 'connections#start'  
+ #    post 'connections/end', :to => 'connections#end'
     
 
  

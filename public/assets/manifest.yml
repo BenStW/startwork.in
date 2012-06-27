@@ -2,6 +2,7 @@
 9010.jpg: 9010-1f50f1166c0da8f2cf598a24c13b0c71.jpg
 bg_control_nav.png: bg_control_nav-c00649d616fe4d8805380a2bf1ca918d.png
 bg_direction_nav.png: bg_direction_nav-df301887047a48df3f14f974033b43e2.png
+dummy300.png: dummy300-bc03875ba3a295f714c8cac8287b3b49.png
 erklaer_video.png: erklaer_video-f7cbc1056659072e94235ec434e4c4cf.png
 facebook_anmelden.png: facebook_anmelden-826e71fa627b08756e65ae2d3a9ddf7c.png
 facebook_button.png: facebook_button-5f8bd6464e401c8101390d68fe6bbdb8.png
@@ -22,8 +23,8 @@ prokrastination_in_probandengruppe.png: prokrastination_in_probandengruppe-eda30
 prokrastination_nach_probanden.png: prokrastination_nach_probanden-b0c051bcada41b6c4bdc7818f6567187.png
 promotion_video.png: promotion_video-0a11ea382bf0c47dedd54710dedb7e8a.png
 robert_at_river.jpg: robert_at_river-6a5aabb25717e3cb32f73f5812343c88.jpg
-separator-bottom-940.png: separator-bottom-940-f726e3c8639362c27667809d522add35.png
-seperator-bottom-980.png: seperator-bottom-980-79fec8832e7a6e241e94ae4ae1e8f7ea.png
+separator-bottom-940.png: separator-bottom-940-0d5b3726e84cc882beda37611717764a.png
+separator-top-940.png: separator-top-940-3a8002d9c0b84238589512c0509927ef.png
 session_screen.jpg: session_screen-38a1e068995372e23b9cdba7c1c87545.jpg
 session_screen2.jpg: session_screen2-a44ff7aefcd89b455d69358e3bedc052.jpg
 startwork_at_river.jpg: startwork_at_river-284e77724182729735984936efb15eb3.jpg
@@ -33,8 +34,8 @@ trust.jpg: trust-a1bae7ac5c4bcbfbf604aebc0b18e290.jpg
 video_dummy.gif: video_dummy-2c26c629c5276b8fec60f80892ba30ae.gif
 werde_produktiv.png: werde_produktiv-562996f2a168adf6c85d91407c71e752.png
 wirkung_gegen_prokrastination.png: wirkung_gegen_prokrastination-a880abb48a65a4e1b5af0044218beaec.png
-active_admin.js: active_admin-658e6bb12ea5ab9fe006ed47e46fd5ea.js
-application.js: application-43b8dbebda07843ae39e6d9b6dff1a76.js
+active_admin.js: active_admin-e3e52e72b70b1b200ef3ffd3b47b3f3e.js
+application.js: application-731d0636b3e7b19414448c956364e26e.js
 active_admin.css: active_admin-a5418d5663115f44cea78dde0e67048d.css
 application.css: application-80d4e0c73f46abd4ce8bad503258b2f5.css
 active_admin/admin_notes_icon.png: active_admin/admin_notes_icon-6eb45caa96d965a96dd65eba4ba136df.png

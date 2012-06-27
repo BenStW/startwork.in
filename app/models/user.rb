@@ -53,6 +53,7 @@ class User < ActiveRecord::Base
   has_many :inverse_friends, :through => :inverse_friendships, :source => :user , :dependent => :destroy 
   
   has_many :sent_invitations, :class_name => 'Invitation', :foreign_key => 'sender_id', :dependent => :destroy
+  has_many :appointments, :foreign_key => 'sender_id', :dependent => :destroy
 #  belongs_to :work_session, :foreign_key => 'guest_id'
 
   after_initialize :init  
@@ -75,13 +76,23 @@ class User < ActiveRecord::Base
      self.friends.map(&:id).include?(user.id)
   end
   
-  def current_work_session
-    calendar_event = self.calendar_events.current  
-    if !calendar_event.nil?
-      work_session = calendar_event.work_session
-    end      
+  def create_calendar_event_now
+    c = DateTime.current
+    this_hour = DateTime.new(c.year,c.month,c.day, c.hour)
+    calendar_event = self.calendar_events.build(start_time: this_hour)
+    calendar_event.find_or_build_work_session
+    calendar_event.save
+    calendar_event.work_session.reload    #needed, as when an existing work_session is found, it has not loaded the room 
+    calendar_event  
   end
   
+ # def current_work_session
+ #   calendar_event = self.calendar_events.current  
+ #   if !calendar_event.nil?
+ #     work_session = calendar_event.work_session
+ #   end      
+ # end
+ # 
   def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)    
     data = access_token.extra.raw_info
     user = nil

@@ -11,7 +11,7 @@ ActiveAdmin.register WorkSession do
        h3 "- mit bestimmten Benutzern"
        h3 "- in einem bestimmten Raum"
       column :id
-      column :start_time
+      column "start_time" do |work_session | I18n.localize(work_session.start_time.in_time_zone("Berlin")) end
       column :users do |work_session|
           #names = work_session.users.map(&:name).join(" - ")
           names = ""

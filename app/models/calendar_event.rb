@@ -101,6 +101,29 @@ class CalendarEvent < ActiveRecord::Base
     self.save
   end
   
+  def self.split_to_hourly_start_times(start_time, end_time)
+     
+      start_times = []
+      if start_time>end_time
+        logger.error "New event had start_time=#{start_time} > end_time=#{end_time}"
+        start_time, end_time = end_time, start_time
+      end
+      if start_time.minute!=0 or end_time.minute!=0
+        raise "Error: for creating a calendar event the minutes must be 0"
+      end
+      hours = (end_time - start_time)*24-1
+      (0..hours).each do |hour|
+          hourly_start_time = start_time+hour.hours      
+          if hourly_start_time.hour == 23
+            # FIXME: fix the JS frontend
+            logger.error "Workaround: don't accept working hours of 21UTC (23Uhr)."
+          else
+            start_times << start_time+hour.hours
+          end
+      end
+      start_times
+  end    
+  
 #  def test_method
 #    @login_count
 #  end

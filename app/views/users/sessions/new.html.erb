@@ -1,21 +1,9 @@
-<h2><%= t '.sign_in' %> </h2>
+<br><br><br><br><br><br>
 
-<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+<center>
+<a id="facebook_link" href="<%=user_omniauth_authorize_path(:facebook)%>">
+   <img src='/assets/frontpage_facebook.png'></a><br>
+(Wir posten nichts auf deine Wall)
+</center>
 
-  <div><%= f.label t(".email") %>
-  <%= f.email_field :email %></div><br />
-
-  <div><%= f.label t(".password") %>
-  <%= f.password_field :password %></div><br />
-
-  <% if devise_mapping.rememberable? -%>
-    <div><%= f.check_box :remember_me %> <%= f.label t(".remember_me") %></div>
-  <% end -%>
-<br />
-  <div>
-<%= f.submit t(".sign_in")%> 
-	</div>
-<% end %>
-
-<%= render("users/links") %>
-
+<br><br><br><br><br><br>

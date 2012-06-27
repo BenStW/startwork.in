@@ -21,10 +21,11 @@
 //= require twitter/bootstrap-tooltip
 //= require twitter/bootstrap-popover
 //= require twitter/bootstrap-transition
-// require tokbox/OT_LayoutContainer
+// require tokbox/OT_LayoutContainer - not needed
 //= require_tree . 
 // require jquery_plugins/jquery.popupWindow - not needed yet
 // require twitter/bootstrap - not needed
 // require twitter/bootstrap.min - not needed
 //= require woothemes-flexslider/jquery.flexslider
 //= require woothemes-flexslider/jquery.flexslider-min
+

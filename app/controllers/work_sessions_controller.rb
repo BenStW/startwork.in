@@ -1,40 +1,37 @@
 class WorkSessionsController < ApplicationController
   skip_before_filter :authenticate_user!,  :only => [:test_show]  
   layout "video_layout"
-  
-  
- # def guest_show    
- #   work_session = WorkSession.assign_for_guest(current_user)
- #   if work_session.nil?
- #        render :text =>  t("work_sessions.show.no_guest_work_session")    
- #   end
- # end
-  
-  def spont_show
-    if current_user.current_work_session.nil?
-       c = DateTime.current
-       this_hour = DateTime.new(c.year,c.month,c.day, c.hour)
-       calendar_event = current_user.calendar_events.build(start_time: this_hour)
-       calendar_event.find_or_build_work_session
-       calendar_event.save
+
+  def show  
+    calendar_event = current_user.calendar_events.current 
+    if calendar_event.nil?
+      calendar_event = current_user.create_calendar_event_now
     end
-    redirect_to work_session_path     
+    calendar_event.store_login 
+    @tokbox_session_id = calendar_event.work_session.room.tokbox_session_id
+    @room_name = "#{calendar_event.work_session.room.user.name}'s room"
+    @tokbox_token = TokboxApi.instance.generate_token @tokbox_session_id, current_user
+    @tokbox_api_key = TokboxApi.instance.api_key
+  end  
+ 
+  
+  def room_change
+     calendar_event = current_user.calendar_events.current 
+     if calendar_event.nil?
+         calendar_event = current_user.create_calendar_event_now
+     end
+     calendar_event.store_login
+     if calendar_event.work_session.room.tokbox_session_id == params[:session]
+        render :json => false
+      else
+        render :json => true
+      end
   end
   
-  def show  
-    work_session = current_user.current_work_session  
-    if work_session.nil?
-        render :text =>  t("work_sessions.show.no_work_session")
-    else
-        current_user.calendar_events.current.store_login 
-        @tokbox_session_id = work_session.room.tokbox_session_id
-        @room_name = "#{work_session.room.user.name}'s room"
-        @tokbox_token = TokboxApi.instance.generate_token @tokbox_session_id, current_user #, guest
-        @tokbox_api_key = TokboxApi.instance.api_key
-    end
-  end  
-    
-  
+  def get_time
+    render :json => DateTime.current
+  end
+
   def test_show
     user = params[:user]
    # if ![1,2].include?(user_id)
@@ -48,36 +45,5 @@ class WorkSessionsController < ApplicationController
     @tokbox_token = TokboxApi.instance.generate_token @tokbox_session_id, user, "test"
     @tokbox_api_key = TokboxApi.instance.api_key    
   end
-  
-  def room_change
-     session = params[:session]
-     work_session = current_user.current_work_session
-     if work_session.nil? or session.nil?
-       render :json => true
-     else
-       current_user.calendar_events.current.store_login 
-       if work_session.room.tokbox_session_id == session
-          render :json => false
-        else
-          render :json => true
-        end
-      end
-  end
-  
-  def get_time
-    render :json => DateTime.current
-  end
-
-  
-  def can_we_start
-    render :json => current_user.current_work_session.nil? ? false : true
-  end
-  
-  def homepage
-    render :layout => 'homepage_layout'
-  end
-  
-
-
   
 end

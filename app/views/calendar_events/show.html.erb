@@ -1,3 +1,9 @@
+
+<%- content_for(:head) do -%>
+<%= javascript_include_tag "http://connect.facebook.net/en_US/all.js" -%>
+<%- end -%>
+
+
 <div class="row">
   <div class="span3">
     <div id="back" class="btn btn-info" style="height:35px;width:150px" onclick="location.href='<%=root_url%>'">
@@ -27,6 +33,13 @@
   data-my_user_name="<%=current_user.name%>"
   data-users="<%=@users %>"
 ></span>
+
+<span id="urls"
+  data-appointment_get_token_url="<%= appointment_get_token_url %>"
+  data-calendar_new_event_url="<%= calendar_new_event_url %>"
+  data-appointment_url="<%= appointment_url %>"
+></span>
+
 
 <div id='calendar'></div>
 <br>
@@ -92,5 +105,34 @@
 
 
 
+<div id="fb-root" data-app="<%=@app%>"></div>
 
 
+
+
+
+
+
+<div class="modal hide" id="appointment_modal" token="">
+  <div class="modal-header">
+     <button class="close" data-dismiss="modal">×</button>
+     <h3>Neue Lern- und Arbeits-Session</h3>
+  </div> <!-- modal-header -->
+  <div class="modal-body">
+	      <div id="start_time" style="display:none"></div>
+	<br>
+	      <div id="end_time" style="display:none"></div>
+	
+		Beginn:	<%= select_hour(13, {:field_name => 'begin'}, {:style => "width:50px"}) %> &nbsp;&nbsp;
+		Ende:	<%= select_hour(14, {:field_name => 'end'}, {:style => "width:50px"}) %> <br><br>
+      <h3 id="appointment_time"></h3>
+<br>
+Dieser Termin ist verbindlich. Logge dich bitte kurz vorher ein und freu dich schon jetzt auf das produktive Arbeiten mit deinen Freunden und/oder neuen Leuten.
+		
+</div> <!-- modal-body -->
+  <div class="modal-footer">
+       <a href="#" id="calendar_new_event" class="btn" style="display:none" data-dismiss="modal">
+	Speichern (und Freunde einladen)</a>
+       <a href="#" id="calendar_cancel_new_event"  class="btn" data-dismiss="modal">Abbrechen</a>
+</div><!-- modal-footer -->
+</div><!-- modal -->
