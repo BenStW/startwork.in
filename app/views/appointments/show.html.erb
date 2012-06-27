@@ -8,7 +8,7 @@
 
 	<h1>Verabredung mit <%=@appointment.sender.name %></h1>
 	<h2>am 
-	<%= I18n.localize(@appointment.start_time.to_date) %>	
+	<%= I18n.localize(@appointment.start_time.to_date, :format => "%d.%m.%Y") %>	
 	 von 
 	<%= I18n.localize(@appointment.start_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %>
 	bis

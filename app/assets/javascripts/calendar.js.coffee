@@ -20,8 +20,16 @@ $(document).ready ->
                 console.log data
 
        toGermanDate = (date) ->
-          date
-     #     date.getDay()+"."+date.getMonth()+"."+date.getYear()+" "+date.getHours()+":"+date.getMinutes()
+          date = new Date(date)
+          date.getDate()+"."+date.getMonth()+"."+date.getFullYear()+" "+date.getHours()+":00"
+       toAppointmentTime = (start_time,end_time) ->
+          start_time = new Date(start_time)
+          end_time = new Date(end_time)
+          day = $.datepicker.formatDate('DD, dd.mm.yy', new Date(start_time), {dayNames: $.datepicker.regional['de'].dayNames})
+          begin_hour = ( start_time.getHours() < 10 ? "0" : "" ) + start_time.getHours()+":00"
+          end_hour = ( end_time.getHours() < 10 ? "0" : "" ) + end_time.getHours()+":00"
+          str = "Am "+day+" von "+begin_hour+" bis "+end_hour
+
 
        get_appointment_token = (data) ->
          console.log "get token for appointment from "+data.start_time + " till "+data.end_time
@@ -38,8 +46,7 @@ $(document).ready ->
        popup_facebook = ->
          start_time =  $("#start_time").html()
          end_time =  $("#end_time").html()
-         name =  "Einladung zum gemeinsamen Lernen von "+start_time+" bis "+end_time+" Uhr"          
-         console.log "name="+name
+         name =  "Einladung zum gemeinsamen Lernen: " + $("#appointment_time").html()     
          token = $("#appointment_modal").data("token")
          link = $("#urls").data("appointment_url")+"?token="+token
          console.log "link="+link
@@ -49,6 +56,9 @@ $(document).ready ->
             message: "message",
             link: link
               })
+
+       $('#appointment_modal').bind('hidden', ->
+           $("#calendar").weekCalendar("refresh"))
 
        save_event = ->
          data = 
@@ -65,13 +75,9 @@ $(document).ready ->
                $("#calendar").weekCalendar("refresh")
 
        $("#calendar_new_event").click ->
-          console.log("save_event_and_popup_facebook")
+          console.log("save_event and popup_facebook")
           save_event()
           popup_facebook()
-          
-       $("#calendar_cancel_new_event").click ->
-          $("#calendar").weekCalendar("refresh")
-          
          
           
        backendEventToFrontendEvent = (backend_event) ->
@@ -188,8 +194,11 @@ $(document).ready ->
                   start_time:start_time
                   end_time:end_time
                 get_appointment_token(data)
-                $("#start_time").html(toGermanDate(start_time))
-                $("#end_time").html(toGermanDate(end_time))
+                $("#start_time").html(start_time)
+                $("#end_time").html(end_time)
+                appointment_time = toAppointmentTime(start_time,end_time)
+                $("#appointment_time").html(appointment_time)
+
                 m = $('#appointment_modal').modal("show")
 
           eventMouseover: (event,element,domEvent) ->
