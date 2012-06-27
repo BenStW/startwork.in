@@ -3,7 +3,7 @@ de:
     home_logged_in:
       greet_username: "Willkommen, %{username}!"    
       next_room_html: "<b>%{host}'s room</b><br>(jetzt beitreten)"      
-      maintain_work_sessions_html: "<b>ArbeitsSessions verabreden</b>"
+      maintain_work_sessions_html: "<b>Mein Kalender</b>"
       next_session: "Nächste Session"
       with: "mit"
       nobody: "Noch keine WorkBuddies"
@@ -19,11 +19,10 @@ de:
       text_slide_4_html: "<p>Eure Privatsphäre liegt uns am Herzen! Bei uns sind eure Daten sicher und ihr habt stets die Kontrolle. Unsere Server sind verschlüsselt entsprechen den höchsten Sicherheitsstandards in Deutschland.</p>"
       text_current_user_html: 
          "<div class='clr_fix'><div class='right'><img src='/assets/friends_button.png' width='200' height='200'></div><div><h3>Mit Freunden arbeiten</h3><p>Lade deine Facebook-Freunde zu StartWork ein! Gemeinsames Arbeiten macht die Sache wesentlich angenehmer und die Zeit vergeht wie im Flug.</p></div></div>
-         <div class='clr_fix'><div class='left'><img src='/assets/kalender_button.png' width='200' height='200'></div><div><h3>Gemeinsamer Kalender</h3><p>Unter 'Mein Kalender' kannst du deine Arbeitszeiten eintragen und die Arbeitszeiten deiner Facebook-Freunde ('Workbuddies') sehen.
-         Hier könnt ihr unkompliziert eure Zeiten aufeinander abstimmen.</p></div></div>
-         <div class='clr_fix'><div class='right'><img src='/assets/screen_button.png' width='200' height='200'></div><div><h3>Die Worksession starten</h3><p>Sobald eure geplante Arbeitszeit beginnt, könnt ihr eine Arbeitssession starten.<br/>Loggt euch pünktlich zum Beginn in den Arbeitsraum über die Startseite ein.<p></div></div>
-         <div class='clr_fix'><div class='left'><img src='/assets/kamera_button.png' width='200' height='200'></div><div><h3>Die Webcam einrichten</h3><p>Ihr habt stehts die Kontrolle über eure Daten und den Zugriff auf eure Kamera. Ihr könnt diesen dauerhaft gewähren und jederzeit wieder entziehen.</p></div></div>
+         <div class='clr_fix'><div class='left'><img src='/assets/kalender_button.png' width='200' height='200'></div><div><h3>Gemeinsamer Kalender</h3><p>Unter 'Mein Kalender' kannst du deine Arbeitszeiten eintragen und die Arbeitszeiten deiner Facebook-Freunde ('Workbuddies') sehen. Hier könnt ihr unkompliziert eure Zeiten aufeinander abstimmen.</p></div></div>
          <div class='clr_fix'><div class='right'><img src='/assets/wecker_button.png' width='200' height='200'></div><div><h3>Arbeitszeit und Freizeit klar getrennt</h3><p>Ein Timer strukturiert die Arbeit:</p><ul><li>50 Minuten Arbeitszeit</li><li>10 Minuten Pause</li></ul><p>In den Pausen könnt ihr euch unterhalten, euch einen Kaffee holen, usw. In der Arbeitszeit solltet ihr bei der Sache bleiben und nur in Notfällen aufstehen, telefonieren, usw.</p></div></div>
+         <div class='clr_fix'><div class='left'><img src='/assets/kamera_button.png' width='200' height='200'></div><div><h3>Die Webcam einrichten</h3><p>Ihr habt stehts die Kontrolle über eure Daten und den Zugriff auf eure Kamera. Ihr könnt diesen dauerhaft gewähren und jederzeit wieder entziehen.</p></div></div>
+         <div class='clr_fix'><div class='right'><img src='/assets/screen_button.png' width='200' height='200'></div><div><h3>Die Worksession starten</h3><p>Sobald eure geplante Arbeitszeit beginnt, könnt ihr eine Arbeitssession starten.<br/>Loggt euch pünktlich zum Beginn in den Arbeitsraum über die Startseite ein.<p></div></div>
          <div class='clr_fix'><div class='left'><img src='/assets/9010_button.png' width='200' height='200'></div><div><h3>Die Fenster anordnen</h3><p><b>Ganz wichtig!</b> Das StartWork Fenster müsst ihr immer sichtbar am Bildschirmrand halten. Wenn ihr ein neues Fenster aufmacht, passt auf, dass ihr es nicht verdeckt!</p></div></div>
          <div class='clr_fix'></div>"
       text_html: "<p>Bei eingeschalteter Webcam arbeitest du in einer Arbeitsgruppe 
@@ -96,4 +95,3 @@ de:
        </p><br>
        <p><b>Das Fenster mit den Videos bitte immer sichtbar halten, </b>
        die anderen Fenster entsprechend anpassen. Dann wirkt Startwork am stärksten.</p><br><p><b>Beispiel:</b></p>"         
-              
