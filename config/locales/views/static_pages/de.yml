@@ -18,21 +18,13 @@ de:
       text_slide_3_html: "<p>Mit der praktischen Kalenderfunktion kannst du deine Woche planen und dich zum Arbeiten auf StartWork verabreden. Hier siehst du auf einen Blick, wann du mit wem zusammen arbeiten wirst!</p>"
       text_slide_4_html: "<p>Eure Privatsphäre liegt uns am Herzen! Bei uns sind eure Daten sicher und ihr habt stets die Kontrolle. Unsere Server sind verschlüsselt entsprechen den höchsten Sicherheitsstandards in Deutschland.</p>"
       text_current_user_html: 
-         "<div class='clr_fix'><div class='right'><img src='/assets/dummy300.png' width='200' height='200'></div><div><h3>Mit Freunden arbeiten</h3><p>Lade deine Facebook-Freunde zu StartWork ein. Startwork ist so gedacht, dass ihr eure gesamte Arbeitszeit zusammen verbringt.</p></div></div>
-         <div class='clr_fix'><div class='left'><img src='/assets/dummy300.png' width='200' height='200'></div><div><h3>Gemeinsamer Kalender</h3><p>Unter 'Mein Kalender' kannst du deine Arbeitszeiten eintragen und 
-         die Arbeitszeiten deiner Facebook-Freunde ('Workbuddies') sehen. 
+         "<div class='clr_fix'><div class='right'><img src='/assets/friends_button.png' width='200' height='200'></div><div><h3>Mit Freunden arbeiten</h3><p>Lade deine Facebook-Freunde zu StartWork ein! Gemeinsames Arbeiten macht die Sache wesentlich angenehmer und die Zeit vergeht wie im Flug.</p></div></div>
+         <div class='clr_fix'><div class='left'><img src='/assets/kalender_button.png' width='200' height='200'></div><div><h3>Gemeinsamer Kalender</h3><p>Unter 'Mein Kalender' kannst du deine Arbeitszeiten eintragen und die Arbeitszeiten deiner Facebook-Freunde ('Workbuddies') sehen.
          Hier könnt ihr unkompliziert eure Zeiten aufeinander abstimmen.</p></div></div>
-         <div class='clr_fix'><div class='right'><img src='/assets/dummy300.png' width='200' height='200'></div><div><h3>Die Worksession starten</h3><p>Sobald deckungsgleiche Termine zwischen Workbuddies bestehen, 
-         wird auf der Startseite ein Link zum Betreten des Arbeitsraumes generiert.<br/>Loggt euch pünktlich zum Beginn der Arbeitsession in den Arbeitsraum über die Startseite ein.<p></div></div>
-         <div class='clr_fix'><div class='left'><img src='/assets/dummy300.png' width='200' height='200'></div><div><h3>Die Webcam einrichten</h3><p>Euer Video wird ausgeblendet, nachdem ihr Startwork den Zugriff auf Kamera und Mikrofon erlaubt habt.
-         Ihr seid aber in der Arbeitsgruppe. Ihr könnt die Zugriffserlaubnis über den Button 'Kamera- und Audiotest' auch automatisieren.</p></div></div>
-         <div class='clr_fix'><div class='right'><img src='/assets/dummy300.png' width='200' height='200'></div><div><h3>Arbeitszeit und Freizeit klar getrennt</h3><p>Der automatische Timer beginnt jeweils 5 Minuten nach der vollen Stunde 
-         mit einer 50-minütigen Arbeitsphase, an die sich eine 10-minütige Pause anschließt,
-         in der man sich unterhalten kann und der Arbeitsplatz verlassen werden darf. 
-         Während der Arbeitsphasen soll die Regel gelten, dass der Arbeitsplatz nicht verlassen wird und 
-         die Gruppenmitglieder sich ausschließlich mit Arbeitsinhalten befassen.</p></div></div>
-         <div class='clr_fix'><div class='left'><img src='/assets/dummy300.png' width='200' height='200'></div><div><h3>Die Fenster anordnen</h3><p>Das Fenster mit den Videos bitte immer sichtbar halten,
-         die anderen Fenster entsprechend anpassen. Dann wirkt Startwork am stärksten.</p></div></div>
+         <div class='clr_fix'><div class='right'><img src='/assets/screen_button.png' width='200' height='200'></div><div><h3>Die Worksession starten</h3><p>Sobald eure geplante Arbeitszeit beginnt, könnt ihr eine Arbeitssession starten.<br/>Loggt euch pünktlich zum Beginn in den Arbeitsraum über die Startseite ein.<p></div></div>
+         <div class='clr_fix'><div class='left'><img src='/assets/kamera_button.png' width='200' height='200'></div><div><h3>Die Webcam einrichten</h3><p>Ihr habt stehts die Kontrolle über eure Daten und den Zugriff auf eure Kamera. Ihr könnt diesen dauerhaft gewähren und jederzeit wieder entziehen.</p></div></div>
+         <div class='clr_fix'><div class='right'><img src='/assets/wecker_button.png' width='200' height='200'></div><div><h3>Arbeitszeit und Freizeit klar getrennt</h3><p>Ein Timer strukturiert die Arbeit:</p><ul><li>50 Minuten Arbeitszeit</li><li>10 Minuten Pause</li></ul><p>In den Pausen könnt ihr euch unterhalten, euch einen Kaffee holen, usw. In der Arbeitszeit solltet ihr bei der Sache bleiben und nur in Notfällen aufstehen, telefonieren, usw.</p></div></div>
+         <div class='clr_fix'><div class='left'><img src='/assets/9010_button.png' width='200' height='200'></div><div><h3>Die Fenster anordnen</h3><p><b>Ganz wichtig!</b> Das StartWork Fenster müsst ihr immer sichtbar am Bildschirmrand halten. Wenn ihr ein neues Fenster aufmacht, passt auf, dass ihr es nicht verdeckt!</p></div></div>
          <div class='clr_fix'></div>"
       text_html: "<p>Bei eingeschalteter Webcam arbeitest du in einer Arbeitsgruppe 
         von bis zu 4 Freunden (oder neuen Leuten) 50 Minuten lang und anschließend macht ihr 10 Minuten Pause.</p>      
