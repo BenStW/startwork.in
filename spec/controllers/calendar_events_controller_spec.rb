@@ -91,6 +91,27 @@ describe CalendarEventsController do
      get :new_event, start_time: @start_time+1, end_time: @start_time+2.hour
      @user.calendar_events[0].work_session.should_not eq(calendar_event.work_session)
    end
+   
+   it "should update the dates of the appointment" do     
+     appointment = FactoryGirl.create(
+       :appointment,
+       :sender=>@user,
+       :start_time=>@start_time,
+       :end_time=>@start_time+2.hours)
+     get :new_event, token: appointment.token, start_time: @start_time, end_time: @start_time+3.hours
+     appointment.reload()
+     appointment.end_time.should eq(@start_time+3.hours)     
+   end
+   it "should update the send_count in the appointment" do 
+     appointment = FactoryGirl.create(
+       :appointment,
+       :sender=>@user,
+       :start_time=>@start_time,
+       :end_time=>@start_time+2.hours)
+     get :new_event, token: appointment.token, start_time: @start_time, end_time: @start_time+3.hours
+     appointment.reload()
+     appointment.send_count.should eq(1)   
+   end
  end
  
  context "events" do

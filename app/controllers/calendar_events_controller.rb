@@ -11,6 +11,14 @@ class CalendarEventsController < ApplicationController
   # creates a calendar event and
   # finds or creates a work_session
   def new_event
+
+    if appointment = Appointment.find_by_token(params["token"])
+       appointment.start_time = params[:start_time]
+       appointment.end_time = params[:end_time]
+       appointment.send_count=+1
+       appointment.save
+     end
+
     hourly_start_times = CalendarEvent.split_to_hourly_start_times(DateTime.parse(params[:start_time]),DateTime.parse(params[:end_time]))
     hourly_start_times.each do |start_time|
       if current_user.calendar_events.find_by_start_time(start_time)

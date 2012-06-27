@@ -19,20 +19,48 @@ $(document).ready ->
              success: (data) -> 
                 console.log data
 
-       toGermanDate = (date) ->
-          date = new Date(date)
-          date.getDate()+"."+date.getMonth()+"."+date.getFullYear()+" "+date.getHours()+":00"
+       leading_zero = (hour) ->
+          if hour < 10
+              "0"+hour
+          else
+             hour
+
+       fill_modal_with_dates = (start_time,end_time) ->
+          $('#date_begin option').removeAttr('selected')
+          $("#date_begin option[value='"+leading_zero(start_time.getHours())+"']").attr('selected',true)
+          $("#start_time").html(start_time.toString())
+          $('#date_end option').removeAttr('selected')
+          $("#date_end option[value='"+leading_zero(end_time.getHours())+"']").attr('selected',true)
+          $("#end_time").html(end_time.toString() )
+          appointment_time = toAppointmentTime(start_time,end_time)
+          $("#appointment_time").html(appointment_time)
+
+       $("#date_begin").change ->
+          update_modal_after_change("#date_begin","#start_time")
+       $("#date_end").change ->
+          update_modal_after_change("#date_end","#end_time")
+
+       update_modal_after_change = (form_id, hidden_time_field)->
+         time = new Date($(hidden_time_field).html())
+         time.setHours($(form_id).val())
+         $(hidden_time_field).html(time.toString())
+         appointment_time = toAppointmentTime($("#start_time").html(),$("#end_time").html())
+         $("#appointment_time").html(appointment_time)
+
        toAppointmentTime = (start_time,end_time) ->
           start_time = new Date(start_time)
           end_time = new Date(end_time)
           day = $.datepicker.formatDate('DD, dd.mm.yy', new Date(start_time), {dayNames: $.datepicker.regional['de'].dayNames})
-          begin_hour = ( start_time.getHours() < 10 ? "0" : "" ) + start_time.getHours()+":00"
-          end_hour = ( end_time.getHours() < 10 ? "0" : "" ) + end_time.getHours()+":00"
+          begin_hour = leading_zero(start_time.getHours())+":00"
+          end_hour = leading_zero(end_time.getHours())+":00"
           str = "Am "+day+" von "+begin_hour+" bis "+end_hour
 
 
-       get_appointment_token = (data) ->
-         console.log "get token for appointment from "+data.start_time + " till "+data.end_time
+       get_appointment_token = (start_time, end_time) ->
+         console.log "get token for appointment from "+start_time + " till "+end_time
+         data = 
+             start_time:start_time
+             end_time:end_time	
          $.ajax
           url: $("#urls").data("appointment_get_token_url")
           data: data
@@ -185,21 +213,14 @@ $(document).ready ->
             if calEvent.userId>0
                $(calendar).weekCalendar('removeEvent',calEvent.id)
             else
-              start_time = calEvent.start.toString() 
-              end_time = calEvent.end.toString() 
+              start_time = calEvent.start
+              end_time = calEvent.end 
               if start_time > end_time
                 $(calendar).weekCalendar('removeEvent',calEvent.id)
               else
-                data = 
-                  start_time:start_time
-                  end_time:end_time
-                get_appointment_token(data)
-                $("#start_time").html(start_time)
-                $("#end_time").html(end_time)
-                appointment_time = toAppointmentTime(start_time,end_time)
-                $("#appointment_time").html(appointment_time)
-
-                m = $('#appointment_modal').modal("show")
+                get_appointment_token(start_time,end_time)
+                fill_modal_with_dates(start_time,end_time)
+                $('#appointment_modal').modal("show")
 
           eventMouseover: (event,element,domEvent) ->
              if event.userId>0
