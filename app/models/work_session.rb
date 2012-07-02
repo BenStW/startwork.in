@@ -165,8 +165,20 @@ class WorkSession < ActiveRecord::Base
    def remove_users_from_worksession
      #TODO
    end
-    
    
+   def equal_friends(work_session, user)
+     self.users.each do |u|
+       if u.is_friend?(user) and !work_session.users.map(&:id).include?(u.id)
+         return false
+        end
+      end
+      work_session.users.each do |u|
+        if u.is_friend?(user) and !self.users.map(&:id).include?(u.id)
+          return false
+         end
+      end
+      true       
+   end
 
   
   

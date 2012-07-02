@@ -43,6 +43,9 @@ class User < ActiveRecord::Base
  # validates :room, presence: true#, uniqueness: true  
   
   has_many :calendar_events, :dependent => :destroy
+  has_many :merged_work_sessions, :through => :users_of_merged_work_sessions
+  has_many :users_of_merged_work_sessions
+  
   
   has_one :room, :dependent => :destroy
   has_one :camera_audio, :dependent => :destroy 
@@ -76,6 +79,17 @@ class User < ActiveRecord::Base
      self.friends.map(&:id).include?(user.id)
   end
   
+#  def only_friends(user_array)
+#    return_array = Array.new
+#    user_array.each do |u|
+#      if self.is_friend?(u)
+#        return_array.push u
+#      end
+#    end
+#    return_array    
+#  end
+
+ 
   def create_calendar_event_now
     c = DateTime.current
     this_hour = DateTime.new(c.year,c.month,c.day, c.hour)

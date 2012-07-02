@@ -191,7 +191,14 @@ describe CalendarEvent do
    end
    
  end
-   
+ 
+#context "merges calendar events to display on main page" do
+#  it "shows the end_time" do
+#    @calendar_event
+#    puts @calendar_event.to_yaml
+#    puts @calendar_event.end_time
+#  end
+# end 
  
  end
 

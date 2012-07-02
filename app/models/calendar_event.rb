@@ -39,6 +39,12 @@ class CalendarEvent < ActiveRecord::Base
     where("calendar_events.user_id in (?)",user_ids)
   end
   
+  def self.friends_of(user)
+    #TODO: write test case
+     friends = user.friends.map(&:id)
+     self.has_user_ids(friends)
+  end
+  
   def self.next
     # end_time (=start_time+1.hour) should be less then current time
     where("calendar_events.start_time >= (?)", DateTime.current-55.minutes).
@@ -122,50 +128,7 @@ class CalendarEvent < ActiveRecord::Base
           end
       end
       start_times
-  end    
-  
-#  def test_method
-#    @login_count
-#  end
-#  
-##  def as_json1(options)
-#    options = {  :only=>[:id,:start_time,:user_id], :include => {:user => {:only=>[:id,:fb_ui,:first_name,:last_name]}} }.merge(options)
-#    super(options)
-#  end
- 
-=begin
-  scope :this_week_scope,( lambda do 
-    c = DateTime.current
-    today = DateTime.new(c.year,c.month,c.day)
-    where("calendar_events.start_time >= ?", today)
-  end)
-  
-  scope :next_scope, (lambda do 
-    where("calendar_events.start_time >= (?)", DateTime.current).
-    order("calendar_events.start_time").limit(1) 
-  end)
-  
-  scope :order_by_start_time_scope, order("calendar_events.start_time ASC")
-  
-  scope :has_user_ids_scope,( lambda do |user_ids|
-    where("calendar_events.user_id in (?)",user_ids)
-  end)
-  
-  scope :with_foreigners_scope,( lambda do |user|
-     friend_ids = user.friendships.map(&:friend).map(&:id)
-     friend_and_own_ids = friend_ids + [user.id]
-     select("calendar_events.id, calendar_events.start_time,calendar_events.user_id,calendar_events.work_session_id").
-     joins("inner join calendar_events as foreigner_calendar_events on calendar_events.work_session_id=foreigner_calendar_events.work_session_id").
-     where("calendar_events.user_id=? and foreigner_calendar_events.user_id not in (?)",user.id, friend_and_own_ids)
-  end)
-    
-  scope :foreign_events_scope,( lambda do |user|
-     friend_ids = user.friendships.map(&:friend).map(&:id)
-     friend_and_own_ids = friend_ids + [user.id]
-     joins("inner join calendar_events as own_calendar_events on calendar_events.work_session_id=own_calendar_events.work_session_id").
-     where("own_calendar_events.user_id=? and calendar_events.user_id not in (?)",user.id, friend_and_own_ids)
-  end)
-=end
+  end  
   
 
   

@@ -19,8 +19,11 @@ class StaticPagesController < ApplicationController
   def home_logged_in    
     #TODO this is hack
       @app = if Rails.env.production? then "330646523672055" else "232041530243765" end
-      @my_work_sessions = nil
-      @friends_work_sessions = nil
+      my_work_sessions = current_user.calendar_events.this_week.map(&:work_session)
+      @my_calendar_events = MergedWorkSession.merge_continuing_work_sessions(my_work_sessions,current_user)
+      
+      friends_work_sessions = CalendarEvent.this_week.friends_of(current_user).map(&:work_session) 
+      @friends_calendar_events = MergedWorkSession.merge_continuing_work_sessions(friends_work_sessions,current_user)
       
       @friends = current_user.friends
       next_calendar_event = current_user.calendar_events.next

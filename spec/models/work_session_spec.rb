@@ -235,136 +235,23 @@ describe WorkSession do
        opt_work_session = WorkSession.find_work_session(@user1,@calendar_event1.start_time)  
        opt_work_session.should eq(nil) 
      end  
+
+   end
+   
+   context "equal_friends" do
      
-   #  it "splits the work_session when work buddies are not friends anymore" do
-   #    new_user = FactoryGirl.create(:user_with_two_friends_and_same_events)      
-   #    friend1 = new_user.friendships[0].friend
-   #    friend2 = new_user.friendships[1].friend
-   #    new_user.calendar_events[0].work_session.should eq(friend1.calendar_events[0].work_session)     
-   #    new_user.calendar_events[0].work_session.should eq(friend2.calendar_events[0].work_session)
-   #    new_user.friendships[0].destroy
-   #    friend1.friendships.find_by_friend_id(new_user.id).destroy
-   #    WorkSession.split_work_session_when_not_friend(new_user)
-   #    WorkSession.split_work_session_when_not_friend(friend1)
-   #    new_user.calendar_events[0].reload
-   #    friend1.calendar_events[0].reload
-   #    friend2.calendar_events[0].reload    
-   #
-   #    new_user.calendar_events[0].work_session.should_not eq(friend1.calendar_events[0].work_session)     
-   #    new_user.calendar_events[0].work_session.should eq(friend2.calendar_events[0].work_session)
-   #    
-   #  end    
-   # 
-   #  
+     before(:each) do 
+       # the work_session stores the stored through calenar_events.
+       # Therefore the calendar_events must be first created      
+       @user1 = FactoryGirl.create(:user)
+       @user2 = FactoryGirl.create(:user)
+       @calendar_event1 = FactoryGirl.create(:calendar_event, :user=>@user1)
+       @calendar_event2 = FactoryGirl.create(:calendar_event, :user=>@user2)
+       @work_session1 = @calendar_event1.work_session
+       @work_session2 = @calendar_event2.work_session
+     end
    end
   
 end
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-   
-
-#  
-#  it "selects by user_ids" do
-#    new_user = FactoryGirl.create(:user)
-#    new_calendar_event = FactoryGirl.create(:calendar_event,:user=>new_user)
-#    CalendarEvent.count.should eq(2)
-#    CalendarEvent.has_user_ids(new_user.id).count.should eq(1)
-#  end
-#  
-#  it "selects next event" do
-#    tomorrow_at_9am = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,9)+1.day
-#    event_at_9am = FactoryGirl.create(:calendar_event,:start_time=>tomorrow_at_9am) 
-#    tomorrow_at_11am = tomorrow_at_9am+2.hours
-#    event_at_11am = FactoryGirl.create(:calendar_event,:start_time=>tomorrow_at_11am)           
-#    CalendarEvent.next.should eq(event_at_9am)
-#  end
-#  
-#  it "selects events with foreigners for a given user" do
-#    new_user = FactoryGirl.create(:user)
-#    #create a calendar event for the new_user with the same work_session
-#    new_calendar_event = FactoryGirl.create(:calendar_event,:user=>new_user, :work_session=>@calendar_event.work_session)
-#    CalendarEvent.count.should eq(2)
-#    CalendarEvent.with_foreigners(new_user).count.should eq(1)   
-#    CalendarEvent.with_foreigners(@calendar_event.user).count.should eq(1)           
-#  end
-# 
-#  it "does not selects events with friends for a given user" do
-#    new_user = FactoryGirl.create(:user)
-#    #create a calendar event for the new_user with the same work_session
-#    new_calendar_event = FactoryGirl.create(:calendar_event,:user=>new_user, :work_session=>@calendar_event.work_session)
-#    Friendship.create_reciproke_friendship(@calendar_event.user,new_user)
-#    CalendarEvent.count.should eq(2)
-#    CalendarEvent.with_foreigners(new_user  ).count.should eq(0)   
-#    CalendarEvent.with_foreigners(@calendar_event.user).count.should eq(0)           
-#  end
-#end
-#
-#
-#escribe "attributes" do
-#  before(:each) do
-#    @work_session = FactoryGirl.create(:work_session) 
-#  end
-#  
-#  it "is valid with attributes start_time and room" do
-#    @work_session.should be_valid
-#  end
-# 
-#  it "is not valid without start_time" do
-#    @work_session.start_time = nil
-#    @work_session.should_not be_valid
-#  end
-#  
-#  it "is not valid without a room " do
-#    @work_session.room_id = nil
-#    @work_session.should_not be_valid
-#  end  
-  
-
-#  describe "finding of the right work session" do
-#
-#    # create two users: user1 and user2,
-#    # create a calendar event and a work session for the user1
-#    before(:each) do
-#     @user1 = FactoryGirl.create(:user)
-#     @user2 = FactoryGirl.create(:user)     
-#
-#     @user1_room = FactoryGirl.create(:room, :user=>@user1)    
-#     @user1_time = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,10)+1.day
-#     @user1_work_session = FactoryGirl.create(:work_session, :start_time=>@user1_time, :room=>@user1_room)
-#     @user1_calendar_event = FactoryGirl.create(:calendar_event, 
-#       :work_session=>@user1_work_session, :user=>@user1, :start_time=>@user1_time)
-#    end
-#    
-#    it "finds the work session of a friend at the same time" do
-#      Friendship.any_instance.stub(:update_work_sessions_after_create).and_return(nil)  
-#      f1 = @user2.friendships.create(:friend => @user1)
-#      f2 = @user2.inverse_friendships.create(:user_id => @user1)
-#                
-#      work_session = WorkSession.find_work_session(@user2, @user1_time)
-#      work_session.should == @user1_work_session
-#    end
-#    it "finds no work session if user at the same time is no friend" do
-#       work_session = WorkSession.find_work_session(@user2, @user1_time)
-#       work_session.should be_nil
-#    end
-#    it "finds no work session if the time is different to friends work session" do
-#      Friendship.any_instance.stub(:update_work_sessions_after_create).and_return(nil)  
-#      f1 = @user2.friendships.create(:friend => @user1)
-#      f2 = @user2.inverse_friendships.create(:user_id => @user1)
-#                
-#      work_session = WorkSession.find_work_session(@user2, @user1_time+1.hour)
-#      work_session.should be_nil
-#    end
-#   
-#  end
 
 

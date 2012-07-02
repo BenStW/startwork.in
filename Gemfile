@@ -30,10 +30,10 @@ group :development do
 end
 
 
-group :development,:test do
+group :test do
   gem 'rspec-rails'
   # gem 'webrat' #use only capybara
-  gem 'cucumber-rails' # The cucumber-rails gem comes with Capybara support built-in.
+   gem 'cucumber-rails' # The cucumber-rails gem comes with Capybara support built-in.
   # The cucumber-rails gem uses Selenium 2.0 (Webdriver), not Selenium RC
  # gem "selenium-webdriver", "~> 2.20.0"
 end

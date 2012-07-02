@@ -131,7 +131,6 @@ describe User do
     end
   end    
   
-  
     context "it creates a calendar event now" do
 
        before(:each) do 
