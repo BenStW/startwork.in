@@ -6,107 +6,114 @@
   <h2> <%=t '.greet_username', :username => current_user.name %></h2><br>
 <br>
 
+<div class="row" style="height:100%;">
 
-<!-- Eigene Sessions --> 
-<% if !@my_calendar_events.nil?%>
-   <% @my_calendar_events.each do |calendar_event|%>
-   Beginn: <%= calendar_event.start_time %>
-   Ende: <%= calendar_event.end_time %>
-   Freunde:
-      <%= calendar_event.friends do |friend|%>
-        <img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture">
+
+<!-- LINKER BLOCK -->
+<div class="hero-unit span4" style="background:white;padding:0;height:100%;">
+  <div style="margin:20px;">
+  <h2>Verabreden</h2>
+  <center><%= link_to "jetzt verabreden", calendar_path, :class => "btn btn-primary btn-large"%></center>
+  <!-- Eigene Sessions -->
+  <div style="margin-top:20px;">
+  <hr>
+  <p>Deine nächsten Arbeitssessions:</p> 
+  <% if !@my_calendar_events.nil?%>
+     <% @my_calendar_events.each do |calendar_event|%>
+       <p class="small">Beginn: <%= calendar_event.start_time %></p> 
+       <p class="small">Ende: <%= calendar_event.end_time %></p> 
+       Freunde:
+          <%= calendar_event.friends do |friend|%>
+            <img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture">
+          <% end %>
+     <% end %>
+
+     <% else %>
+        <p class="small">Du hast noch keine Verabredungen!</p>
+  <% end %> 
+  </div>
+
+  <!-- Ende eigene Sessions --> 
+<hr>
+  <!-- Sessions von Freunden --> 
+  <% if !@friends_calendar_events.nil?%>
+    <div style="margin-top:20px;">
+      
+      <p>Die nächsten Arbeitssessions deiner Freunde:</p> 
+      <% @friends_calendar_events.each do |calendar_event|%>
+      <p class="small">Beginn: <%= calendar_event.start_time %></p>
+      <p class="small">Ende: <%= calendar_event.end_time %></p>
+      Freunde:
+        <%= calendar_event.friends do |friend|%>
+           <img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture">
+        <% end %>
       <% end %>
-   <% end %>
-<% end %>
-<!-- Ende eigene Sessions --> 
-
-<!-- Sessions von Freunden --> 
-<% if !@friends_calendar_events.nil?%>
-   <% @friends_calendar_events.each do |calendar_event|%>
-   Beginn: <%= calendar_event.start_time %>
-   Ende: <%= calendar_event.end_time %>
-   Freunde:
-      <%= calendar_event.friends do |friend|%>
-         <img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture">
-      <% end %>
-   <% end %>
-<% end %>
-<!-- Ende von Sessions von Freunden --> 
+    </div>
+  <% end %>
+  <!-- Ende von Sessions von Freunden --> 
+</div>
+</div>
 
 
+<!-- MITTLERER BLOCK -->
+<div class="hero-unit span4" style="background:#08c;color:white;padding:0;height:100%;">
+  <div style="margin:20px;">
+  <h2 style="color:white;">Erledigen</h2>
+    <center><div id="join_work_session" href="#" class="btn btn-large">Jetzt starten!</div></center>
+    <% if !@next_work_session.nil?%>
+      <hr>
+      <div style="margin-top:20px;">
+          <b> <%= t(".next_session")%>:</b><br>
+          <%= I18n.localize(@next_work_session.start_time.in_time_zone("Berlin")) %> <br> <%= @user_names %><br>
+      </div>
+    <% end %>
+  </div>
 
-<% if !@friends.nil?%>
+<!--
+    <hr>
+    <div style="margin-top:20px;">
+    < if !@Active_Users.nil?%>
+      <p>Nutzer, die gerade produktiv sind</p>
+      <div class="row">
+         < @Active_Users.each do |Active_User| %>
+           <div class="span1">
+           <img src="http://graph.facebook.com/<=Active_User.fb_ui%>/picture"><br>
+           <= Active_User.first_name%>
+         </div>
+         < end %>
+      </div> 
+    < else >
+      <p>Du hast noch keine angemeldeten Freunde</p>
+    < end %>
+-->
 
-    <p>Deine Freunde, die bereits schon bei StartWork sind:</p>
-           
-    <div class="row">
-       <% @friends.each do |friend| %>
-         <div class="span1">
-         <img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture"><br>
-         <%= friend.first_name%>
-       </div>
-       <% end %>
-    </div> <!-- row --><br><br>
-<% end %>
-
-
-
-
-
-<% if !@next_work_session.nil?%>
-  <div class="row">
-  <div class="span3 offset3">
-<b>	<%= t(".next_session")%>:</b><br>
-<%= I18n.localize(@next_work_session.start_time.in_time_zone("Berlin")) %> <br> <%= @user_names %><br>
-	</div></div>
-<% end %>
-	
-
-
-	
-  <div class="row">
-  <div class="span3">		
-		<%= link_to t(".maintain_work_sessions_html"), calendar_path, :class => "btn", :style=>"width:150px;height:50px"%><br><br>
-  </div> <!-- span3 -->
-
+</div>
 
 
-
-  <div class="span3">
-	<div id="join_work_session" class="btn" style="width:150px;height:50px">
-	<b>ArbeitSession</b><br>(jetzt beitreten)
-	</div>
-  </div> <!-- span3 -->
-
-
-
-
-<div id="urls" 
-data-work_session_url=<%= work_session_url%>
-data-info_url=<%= info_for_work_session_url%>
-></div>
-
-
-
-
-  </div>  <!-- row -->
-<br><br>
-
-<div class="row">
-<div class="span6">
-	<div id="fb-root" data-app="<%=@app%>"></div>
-	
-	<div id="send_dialogue" class="btn" style="width:150px;height:50px">
-		
-		<img src="/assets/facebook_button.png" width="30px"><br>			
-		<b>Freunde einladen</b>
-
-	<!--	<b>Facebook-Freunde einladen/Nachricht senden</b>-->
-		<!--<b>Nachricht senden</b>-->
-		</div> 
-  <%   render :template => 'invitations/new' %>
-  </div> <!-- span6 -->
- </div>  <!-- row -->
-  	
- 
-
+<!-- RECHTER BLOCK -->
+<div class="hero-unit span4" style="background:white;padding:0;height:100%;">
+  <div style="margin:20px;">
+    <h2>Freunde treffen</h2>
+    <div id="fb-root" data-app="<%=@app%>"></div>
+    <center><div id="send_dialogue" class="btn btn-primary btn-large"><img src="/assets/facebook_button.png" width="20px" style="position: absolute;"><span style="margin-left:25px;">Freunde einladen</span></div></center>
+    <%   render :template => 'invitations/new' %>
+    <hr>
+    <div style="margin-top:20px;">
+    <% if !@friends.nil?%>
+      <p>Deine Freunde bei StartWork:</p>
+      <div class="row">
+         <% @friends.each do |friend| %>
+           <div class="span1">
+           <img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture"><br>
+           <%= friend.first_name%>
+         </div>
+         <% end %>
+      </div> <!-- row -->
+    <% else %>
+      <p>Du hast noch keine angemeldeten Freunde</p>
+    <% end %>
+    <hr>
+    </div>
+</div>	
+</div>
+</div>
