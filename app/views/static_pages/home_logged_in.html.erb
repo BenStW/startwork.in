@@ -58,14 +58,6 @@
 
   <% if !@my_calendar_events.nil?%>
      <% @my_calendar_events.each do |calendar_event|%>
-<<<<<<< HEAD
-       <p class="small">Beginn: <%= calendar_event.start_time %></p> 
-       <p class="small">Ende: <%= calendar_event.end_time %></p> 
-       Freunde:
-          <% calendar_event.friends.each do |friend|%>
-            <img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture">
-          <% end %>
-=======
        <div class="row">
           <div class="left">heute</div>
           <div><%= calendar_event.start_time %> - <%= calendar_event.end_time %></div>
@@ -74,7 +66,6 @@
               <img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture">
             <% end %>
           </div> 
->>>>>>> style upcoming sessions
      <% end %>
 
      <% else %>
@@ -93,11 +84,7 @@
       <p class="small">Beginn: <%= calendar_event.start_time %></p>
       <p class="small">Ende: <%= calendar_event.end_time %></p>
       Freunde:
-<<<<<<< HEAD
-      <% calendar_event.friends.each do |friend|%>
-=======
         <% calendar_event.friends.each do |friend|%>
->>>>>>> style upcoming sessions
            <img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture">
         <% end %>
       <% end %>
