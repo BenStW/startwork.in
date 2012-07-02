@@ -19,6 +19,9 @@ class StaticPagesController < ApplicationController
   def home_logged_in    
     #TODO this is hack
       @app = if Rails.env.production? then "330646523672055" else "232041530243765" end
+      @my_work_sessions = nil
+      @friends_work_sessions = nil
+      
       @friends = current_user.friends
       next_calendar_event = current_user.calendar_events.next
       if next_calendar_event

@@ -6,6 +6,35 @@
   <h2> <%=t '.greet_username', :username => current_user.name %></h2><br>
 <br>
 
+
+<!-- Eigene Sessions --> 
+<% if !@my_calendar_events.nil?%>
+   <% @my_calendar_events.each do |calendar_event|%>
+   Beginn: <%= calendar_event.start_time %>
+   Ende: <%= calendar_event.end_time %>
+   Freunde:
+      <%= calendar_event.friends do |friend|%>
+        <img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture">
+      <% end %>
+   <% end %>
+<% end %>
+<!-- Ende eigene Sessions --> 
+
+<!-- Sessions von Freunden --> 
+<% if !@friends_calendar_events.nil?%>
+   <% @friends_calendar_events.each do |calendar_event|%>
+   Beginn: <%= calendar_event.start_time %>
+   Ende: <%= calendar_event.end_time %>
+   Freunde:
+      <%= calendar_event.friends do |friend|%>
+         <img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture">
+      <% end %>
+   <% end %>
+<% end %>
+<!-- Ende von Sessions von Freunden --> 
+
+
+
 <% if !@friends.nil?%>
 
     <p>Deine Freunde, die bereits schon bei StartWork sind:</p>
@@ -19,6 +48,9 @@
        <% end %>
     </div> <!-- row --><br><br>
 <% end %>
+
+
+
 
 
 <% if !@next_work_session.nil?%>
