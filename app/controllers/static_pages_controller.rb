@@ -23,7 +23,7 @@ class StaticPagesController < ApplicationController
       @my_calendar_events = MergedWorkSession.merge_continuing_work_sessions(my_work_sessions,current_user)
       
       friends_work_sessions = CalendarEvent.this_week.friends_of(current_user).map(&:work_session) 
-      @friends_calendar_events = MergedWorkSession.merge_continuing_work_sessions(friends_work_sessions,current_user)
+      @friends_calendar_events = MergedWorkSession.merge_continuing_work_sessions(friends_work_sessions,current_user,true)
       
       @friends = current_user.friends
       next_calendar_event = current_user.calendar_events.next
