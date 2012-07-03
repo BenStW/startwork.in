@@ -126,3 +126,20 @@ h1, h2, h3 h4 {
 	z-index: 1020;
 
 }
+
+.modal-arrow {
+
+	position: absolute;
+	background: url('/assets/modal-arrow.png');
+	width: 20px;
+	height: 75px;
+	left: -20px;
+	z-index: 999999;
+
+}
+
+#main_page_modal {
+
+	overflow: visible;
+
+}

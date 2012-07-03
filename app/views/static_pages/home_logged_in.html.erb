@@ -9,9 +9,9 @@
           background-image:url('/assets/paper_bg.jpg')
   <%- end -%>
 
-
+<div style="background:url('/assets/coffee.png');width: 751px;height: 836px;position: absolute;left: 0;top: 0;z-index: 0;"></div>
   <center>
-  <h2 class="parisienne" id="greet_username"> <%=t '.greet_username', :username => current_user.name %></h2></center><br>
+  <h2 class="parisienne" id="greet_username" style="margin-left: 50px;"> <%=t '.greet_username', :username => current_user.name %></h2></center><br>
 <br>
 
 <div class="row" style="min-height:100%;">
@@ -165,8 +165,10 @@
     <center><%= link_to "Wochenüberblick", calendar_path, :class => "btn btn-primary btn-large"%></center>
   </div>
 </div>
+
 <!-- modal start-->
 <div class="modal hide main-modal" id="main_page_modal">
+  <div class="modal-arrow"></div>
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
     <h3>Modal header</h3>
@@ -180,11 +182,12 @@
   </div>
 </div>
 <!-- modal end-->
+
 </div>
 
 
 <!-- MITTLERER BLOCK -->
-<div class="hero-unit span4 column_same_height" style="background:white;padding:0;height:100%;">
+<div class="hero-unit span4 column_same_height" style="background:white;padding:0;height:100%;position:relative;">
   <div style="margin:20px;">
   <h2>Start Work'in</h2>
     <center><div id="join_work_session" href="#" class="btn btn-primary btn-large" style="margin-top:20px;">Jetzt starten!</div></center>
@@ -219,7 +222,7 @@
 
 
 <!-- RECHTER BLOCK -->
-<div class="hero-unit span4 column_same_height" style="background:white;padding:0;height:100%;">
+<div class="hero-unit span4 column_same_height" style="background:white;padding:0;height:100%;position:relative;">
   <div style="margin:20px;">
     <h2>Freunde treffen</h2>
     <div id="fb-root" data-app="<%=@app%>"></div>

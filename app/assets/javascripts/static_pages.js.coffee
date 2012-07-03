@@ -14,6 +14,7 @@ $(document).ready ->
         $('#main_page_modal').modal("show")
         $('.modal-backdrop').height(0)
         $('#main_page_modal').height(max)
+        $('.modal-arrow').css("top",(max - 75) / 2)
         console.log(max)
     
    $("#video_modal_button").click ->
