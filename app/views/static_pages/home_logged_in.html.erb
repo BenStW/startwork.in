@@ -1,6 +1,7 @@
 
   <%- content_for(:head) do -%>
-  <%= javascript_include_tag "http://connect.facebook.net/en_US/all.js" -%>
+    <%= javascript_include_tag "http://connect.facebook.net/en_US/all.js" -%>
+    <link href='http://fonts.googleapis.com/css?family=Parisienne' rel='stylesheet' type='text/css'>
   <%- end -%>
 
 
@@ -9,8 +10,8 @@
   <%- end -%>
 
 
-  
-  <h2 id="greet_username"> <%=t '.greet_username', :username => current_user.name %></h2><br>
+  <center>
+  <h2 class="parisienne" id="greet_username"> <%=t '.greet_username', :username => current_user.name %></h2></center><br>
 <br>
 
 <div class="row" style="min-height:100%;">
