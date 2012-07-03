@@ -92,6 +92,17 @@ class CalendarEvent < ActiveRecord::Base
    joins("inner join calendar_events as foreigner_calendar_events on calendar_events.work_session_id=foreigner_calendar_events.work_session_id").
    where("calendar_events.user_id=? and foreigner_calendar_events.user_id not in (?)",user.id, friend_and_own_ids)    
  end
+ 
+ def self.work_session_with(user)
+
+ end
+  
+ def self.no_work_session_with(user)
+   #TODO write test case
+   where("NOT EXISTS(select * from calendar_events as other_calendar_events 
+      where calendar_events.work_session_id=other_calendar_events.work_session_id and
+     other_calendar_events.user_id=?)",user.id)
+ end
   
   def find_or_build_work_session
     self.work_session = WorkSession.find_work_session(self.user,self.start_time)  ||   
