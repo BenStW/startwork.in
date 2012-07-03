@@ -2,8 +2,15 @@
   <%- content_for(:head) do -%>
   <%= javascript_include_tag "http://connect.facebook.net/en_US/all.js" -%>
   <%- end -%>
+
+
+  <%- content_for(:background_image) do -%>
+          background-image:url('/assets/paper_bg.jpg')
+  <%- end -%>
+
+
   
-  <h2> <%=t '.greet_username', :username => current_user.name %></h2><br>
+  <h2 id="greet_username"> <%=t '.greet_username', :username => current_user.name %></h2><br>
 <br>
 
 <% if !@friends.nil?%>
