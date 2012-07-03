@@ -73,6 +73,27 @@
 	
 }
 
+.btn-join {
+
+	background:url("/assets/check-icon.png") no-repeat;
+	background-size: 18px 18px;
+	width:18px;
+	height: 18px;
+	padding:0;
+}
+
+.btn-join:hover {
+
+	background-position: 0 0;
+	
+}
+
+.btn-join:hover {
+
+	background:url("/assets/check-icon.png");
+	
+}
+
 .rst {
 
 	margin:0;
