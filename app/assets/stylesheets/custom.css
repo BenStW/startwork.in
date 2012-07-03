@@ -143,3 +143,20 @@ h1, h2, h3 h4 {
 	overflow: visible;
 
 }
+
+.modal.frontpage, .frontpage .modal-body {
+
+	background: transparent;
+	padding: 0;
+	border: 0;
+	box-shadow: 0 0 0;
+
+}
+
+.frontpage .modal-body{
+
+	width: 500px;
+	height: 405px;
+
+
+}
