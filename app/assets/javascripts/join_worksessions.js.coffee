@@ -45,8 +45,6 @@ $(document).ready ->
     info_url = $("#urls").data("info_url")
     popup_work_session(work_session_url,info_url)
 
-  $(".add_work_session").click (event)->
-     console.log $(this).data("start_time")
-     console.log $(this).data("end_time")
+
 
 
