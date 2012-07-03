@@ -51,3 +51,32 @@
 	font-size: 12px !important; 
 
 }
+
+.btn-edit {
+
+	background:url("/assets/edit.png") no-repeat;
+	background-size: 18px 18px;
+	width:18px;
+	height: 18px;
+	padding:0;
+}
+
+.btn-edit:hover {
+
+	background-position: 0 0;
+	
+}
+
+.btn-edit:hover {
+
+	background:url("/assets/edit.png");
+	
+}
+
+.rst {
+
+	margin:0;
+	padding: 0;
+	border:0;
+
+}
