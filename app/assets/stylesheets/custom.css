@@ -44,7 +44,6 @@ h1, h2, h3 h4 {
 
 }
 
-<<<<<<< HEAD
 .small {
 
 	font-size: 12px !important; 
@@ -98,13 +97,14 @@ h1, h2, h3 h4 {
 	margin:0;
 	padding: 0;
 	border:0;
-=======
+
+}
+
 .vr {
 
 	width: 1px;
 	background: #e7e7e7;
 	border-left: #fdfdfd 1px solid;
 	height: 100%;
->>>>>>> master
 
 }
