@@ -20,7 +20,7 @@
 <div class="hero-unit span4 column_same_height" style="background:white;padding:0;height:100%;">
   <div style="margin:20px;">
   <h2>Verabreden</h2>
-  <center><%= link_to "jetzt verabreden", calendar_path, :class => "btn btn-primary btn-large"%></center>
+  <center><div class="btn btn-primary btn-large" id="launch_modal_button">Jetzt verabreden</div></center>
   <!-- Eigene Sessions -->
   <div style="margin-top:20px;">
   <hr>
@@ -167,6 +167,8 @@
   <% end %>
   <!-- Ende von Sessions von Freunden --> 
 </div>
+<center><%= link_to "Wochenüberblick", calendar_path, :class => "btn btn-primary btn-large"%></center>
+
 </div>
 
 
@@ -231,4 +233,20 @@
     </div>
 </div>  
 </div>
+</div>
+
+
+
+<div class="modal hide" id="main_page_modal">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Modal header</h3>
+  </div>
+  <div class="modal-body">
+    <p>One fine body…</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Close</a>
+    <a href="#" class="btn btn-primary">Save changes</a>
+  </div>
 </div>

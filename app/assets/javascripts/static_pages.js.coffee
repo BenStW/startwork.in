@@ -14,3 +14,7 @@ $(document).ready ->
     
    $("#video_modal_button").click ->
        $('#video_modal').modal("show")
+
+   $("#launch_modal_button").click ->
+	       $('#main_page_modal').modal("show")
+
