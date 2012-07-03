@@ -1,3 +1,4 @@
+<% if !user_signed_in? %>    
 <div style="margin: 40px auto;width: 786px;">
 	<img src="/assets/werde_produktiv.png" alt="Werde endlich produktiv - mit StartWork">
 </div>
@@ -9,9 +10,17 @@
 	<br/>
 	<center>(Wir posten nichts auf deine Wall)</center>
 </div>
+
 <div style="width: 301px;position: relative;margin: 0 auto;right: 200px;bottom: 30px;">	
 		<img src="/assets/frontpage_call_to_action.png">
 </div>
+
+<% end %>
+
+
+
+
+
 <img src="/assets/separator-top-940.png" alt="line" style="margin-top:-20px;margin-bottom:20px;">
 		<div class="flexslider" style="margin-bottom: 50px;">
 			  <ul class="slides">
