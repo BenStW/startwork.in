@@ -155,7 +155,10 @@
             <img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture"style="width:20px;">
           <% end %>
         </div>
-        <a href="#" class="btn btn-small btn-join"><i class="icon-wrench"></i></a> 
+        <a href="#" class="btn btn-small btn-join add_work_session"
+             data-start_time='<%=calendar_event.start_time %>'
+             data-end_time='<%=calendar_event.end_time %>'>
+	       <i class="icon-wrench"></i></a> 
        </div>
       <% end %>
     </div>
@@ -248,3 +251,6 @@
 </div>  
 </div>
 </div>
+
+
+<%= render 'appointments/appointment_modal' %>
