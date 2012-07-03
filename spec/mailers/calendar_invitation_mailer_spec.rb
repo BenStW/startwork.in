@@ -15,7 +15,7 @@ describe CalendarInvitationMailer do
       CalendarInvitationMailer.calendar_invitation_email(work_sessions,user,user.friends.first).deliver
       
       mail = ActionMailer::Base.deliveries.first
-      mail.subject.should =~ /Invitation of #{user.name} to StartWork/ 
+      mail.subject.should =~ /Einladung von #{user.name}/ 
       day_str = "#{I18n.localize(single_calendar_event.start_time.to_date,:format => "%A, %d. %b %Y")}"
       mail.body.should =~ /#{day_str}/ 
       hour_str = "#{I18n.localize(single_calendar_event.start_time.in_time_zone("Berlin"), :format =>"%H:%M" )}"

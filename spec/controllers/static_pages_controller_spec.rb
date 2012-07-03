@@ -63,18 +63,18 @@ describe StaticPagesController do
       assigns(:room_host).should eq(@user.name)      
     end
     
-    it "should assign user_names 'no WorkBuddies yet' when no work buddies " do
+    it "should assign user_names 'Noch keine WorkBuddies' when no work buddies " do
       sign_in @user
       calendar_event = Factory.create(:calendar_event,:user=>@user)
       get :home
-      assigns(:user_names).should eq("No WorkBuddies yet")      
+      assigns(:user_names).should eq("Noch keine WorkBuddies")      
     end
     
     it "should assign the comma separated user_names when work buddies " do
       user = Factory.create(:user_with_two_friends_and_same_events)
       sign_in user
       get :home
-      user_names = "with " + user.friends.map(&:name).join(", ")
+      user_names = "mit " + user.friends.map(&:name).join(", ")
       assigns(:user_names).should eq(user_names)      
     end
   end
