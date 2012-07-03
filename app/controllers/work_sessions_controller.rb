@@ -31,6 +31,10 @@ class WorkSessionsController < ApplicationController
   def get_time
     render :json => DateTime.current
   end
+  
+  def work_sessions
+     @work_sessions = WorkSession.this_week
+  end  
 
   def test_show
     user = params[:user]

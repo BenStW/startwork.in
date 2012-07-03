@@ -9,7 +9,7 @@
 
 .whitebox {
 
-	padding: 60px;
+	padding: 40px;
 	margin-bottom: 30px;
 	border: #d9d9d9 1px solid;
 	background-color: #fff;
@@ -22,11 +22,9 @@
 
 }
 
-.whitebox h1, h2, h3 {
+h1, h2, h3 h4 {
 
 	font-family: "Gotham", "Helvetica Neue", "Helvetica", "Arial", Sans-Serif;
-	font-size: 20px;
-	margin-bottom: 27px;
 
 }
 
@@ -46,6 +44,7 @@
 
 }
 
+<<<<<<< HEAD
 .small {
 
 	font-size: 12px !important; 
@@ -99,5 +98,13 @@
 	margin:0;
 	padding: 0;
 	border:0;
+=======
+.vr {
+
+	width: 1px;
+	background: #e7e7e7;
+	border-left: #fdfdfd 1px solid;
+	height: 100%;
+>>>>>>> master
 
 }

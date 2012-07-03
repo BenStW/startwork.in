@@ -12,5 +12,5 @@ $(document).ready ->
       $('.column_same_height').height(max)
       console.log $('.column_same_height')
     
-  $("#video_modal_button").click ->
-      $('#video_modal').modal("show")
+   $("#video_modal_button").click ->
+       $('#video_modal').modal("show")
