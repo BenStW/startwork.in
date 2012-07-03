@@ -2,7 +2,7 @@
 $(document).ready ->
    if $('.column_same_height').length>0
       heights= $(".column_same_height").map(->
-          return $(this).height()).get()
+          return $(this).outerHeight(true)).get()
       console.log "Heights="+heights
       Array.max = (array) ->
         return Math.max.apply(Math, array)
