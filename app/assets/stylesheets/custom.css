@@ -114,3 +114,14 @@ h1, h2, h3 h4 {
 	font-size: 40px; 	
 }
 
+#main_page_modal {
+
+	left: 320px;
+	top: 0px;
+	width: 620px;
+	position: absolute;
+	margin:0;
+	max-height: 9999px;
+	border:0;
+
+}

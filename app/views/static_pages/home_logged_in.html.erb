@@ -17,7 +17,7 @@
 <div class="row" style="min-height:100%;">
 
 <!-- LINKER BLOCK -->
-<div class="hero-unit span4 column_same_height" style="background:white;padding:0;height:100%;">
+<div class="hero-unit span4 column_same_height" style="background:white;padding:0;height:100%;position:relative;">
   <div style="margin:20px;">
   <h2>Verabreden</h2>
   <center><div class="btn btn-primary btn-large" id="launch_modal_button">Jetzt verabreden</div></center>
@@ -166,16 +166,30 @@
     </div>
   <% end %>
   <!-- Ende von Sessions von Freunden --> 
+  <center><%= link_to "Wochenüberblick", calendar_path, :class => "btn btn-primary btn-large"%></center>
 </div>
-<center><%= link_to "Wochenüberblick", calendar_path, :class => "btn btn-primary btn-large"%></center>
-
+<!-- modal start-->
+<div class="modal hide main-modal" id="main_page_modal">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Modal header</h3>
+  </div>
+  <div class="modal-body">
+    <p>One fine body…</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Close</a>
+    <a href="#" class="btn btn-primary">Save changes</a>
+  </div>
+</div>
+<!-- modal end-->
 </div>
 
 
 <!-- MITTLERER BLOCK -->
 <div class="hero-unit span4 column_same_height" style="background:white;padding:0;height:100%;">
   <div style="margin:20px;">
-  <h2>Erledigen</h2>
+  <h2>Start Work'in</h2>
     <center><div id="join_work_session" href="#" class="btn btn-primary btn-large">Jetzt starten!</div></center>
     <% if !@next_work_session.nil?%>
       <hr>
@@ -233,20 +247,4 @@
     </div>
 </div>  
 </div>
-</div>
-
-
-
-<div class="modal hide" id="main_page_modal">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3>Modal header</h3>
-  </div>
-  <div class="modal-body">
-    <p>One fine body…</p>
-  </div>
-  <div class="modal-footer">
-    <a href="#" class="btn" data-dismiss="modal">Close</a>
-    <a href="#" class="btn btn-primary">Save changes</a>
-  </div>
 </div>
