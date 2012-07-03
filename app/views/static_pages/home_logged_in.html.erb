@@ -20,7 +20,7 @@
 <div class="hero-unit span4 column_same_height" style="background:white;padding:0;height:100%;position:relative;">
   <div style="margin:20px;">
   <h2>Verabreden</h2>
-  <center><div class="btn btn-primary btn-large" id="launch_modal_button">Jetzt verabreden</div></center>
+  <center><div class="btn btn-primary btn-large" id="launch_modal_button" style="margin-top:20px;">Jetzt verabreden</div></center>
   <!-- Eigene Sessions -->
   <div style="margin-top:20px;">
   <hr>
@@ -93,51 +93,46 @@
   <!-- Ende eigene Sessions --> 
 <hr>
   <!-- Sessions von Freunden -->
-  <!-- START DUMMY Sessions von Freunden -->
-    <div style="margin-top:20px;">
-      <p>Die nächsten Arbeitssessions deiner Freunde:</p> 
-
-       <div class="row" style="margin:0;">
-          <div class="left rst" style="width:43px;margin-right:5px;">heute</div>
-          <div class="left rst" style="margin-right:5px;">15:00 - 18:00</div>
-          <div class="left rst" style="margin-right:10px;">
-              <img src="http://graph.facebook.com/100004003535498/picture" style="width:20px">
-              <img src="http://graph.facebook.com/100004003535498/picture" style="width:20px">
-              <img src="http://graph.facebook.com/100004003535498/picture" style="width:20px">
-              <img src="http://graph.facebook.com/100004003535498/picture" style="width:20px">
-          </div>
-          <a href="#" class="btn btn-small btn-join"><i class="icon-wrench"></i></a> 
-        </div>
-
-       <div class="row" style="margin:0;">
-          <div class="left rst" style="width:43px;margin-right:5px;">heute</div>
-          <div class="left rst" style="margin-right:5px;">15:00 - 18:00</div>
-          <div class="left rst" style="margin-right:10px;">
-              <img src="http://graph.facebook.com/100004003535498/picture" style="width:20px">
-              <img src="http://graph.facebook.com/100004003535498/picture" style="width:20px">
-              <img src="http://graph.facebook.com/100004003535498/picture" style="width:20px">
-              <img src="http://graph.facebook.com/100004003535498/picture" style="width:20px">
-          </div>
-          <a href="#" class="btn btn-small btn-join"><i class="icon-wrench"></i></a> 
-        </div>
-
-       <div class="row" style="margin:0;">
-          <div class="left rst" style="width:43px;margin-right:5px;">heute</div>
-          <div class="left rst" style="margin-right:5px;">15:00 - 18:00</div>
-          <div class="left rst" style="margin-right:10px;">
-              <img src="http://graph.facebook.com/100004003535498/picture" style="width:20px">
-              <img src="http://graph.facebook.com/100004003535498/picture" style="width:20px">
-              <img src="http://graph.facebook.com/100004003535498/picture" style="width:20px">
-              <img src="http://graph.facebook.com/100004003535498/picture" style="width:20px">
-          </div>
-          <a href="#" class="btn btn-small btn-join"><i class="icon-wrench"></i></a> 
-        </div>
-    </div>
-  <!-- ENDE DUMMY Sessions von Freunden -->
-
   <% if !@friends_calendar_events.nil?%>
     <div style="margin-top:20px;">
-      <p>Die nächsten Arbeitssessions deiner Freunde:</p> 
+      <p>Die nächsten Arbeitssessions deiner Freunde:</p>
+  <!-- START DUMMY Sessions von Freunden -->
+       <div class="row" style="margin:0;">
+          <div class="left rst" style="width:43px;margin-right:5px;">heute</div>
+          <div class="left rst" style="margin-right:5px;">15:00 - 18:00</div>
+          <div class="left rst" style="margin-right:10px;">
+              <img src="http://graph.facebook.com/100004003535498/picture" style="width:20px">
+              <img src="http://graph.facebook.com/100004003535498/picture" style="width:20px">
+              <img src="http://graph.facebook.com/100004003535498/picture" style="width:20px">
+              <img src="http://graph.facebook.com/100004003535498/picture" style="width:20px">
+          </div>
+          <a href="#" class="btn btn-small btn-join"><i class="icon-wrench"></i></a> 
+        </div>
+
+       <div class="row" style="margin:0;">
+          <div class="left rst" style="width:43px;margin-right:5px;">heute</div>
+          <div class="left rst" style="margin-right:5px;">15:00 - 18:00</div>
+          <div class="left rst" style="margin-right:10px;">
+              <img src="http://graph.facebook.com/100004003535498/picture" style="width:20px">
+              <img src="http://graph.facebook.com/100004003535498/picture" style="width:20px">
+              <img src="http://graph.facebook.com/100004003535498/picture" style="width:20px">
+              <img src="http://graph.facebook.com/100004003535498/picture" style="width:20px">
+          </div>
+          <a href="#" class="btn btn-small btn-join"><i class="icon-wrench"></i></a> 
+        </div>
+
+       <div class="row" style="margin:0;">
+          <div class="left rst" style="width:43px;margin-right:5px;">heute</div>
+          <div class="left rst" style="margin-right:5px;">15:00 - 18:00</div>
+          <div class="left rst" style="margin-right:10px;">
+              <img src="http://graph.facebook.com/100004003535498/picture" style="width:20px">
+              <img src="http://graph.facebook.com/100004003535498/picture" style="width:20px">
+              <img src="http://graph.facebook.com/100004003535498/picture" style="width:20px">
+              <img src="http://graph.facebook.com/100004003535498/picture" style="width:20px">
+          </div>
+          <a href="#" class="btn btn-small btn-join"><i class="icon-wrench"></i></a> 
+        </div>
+  <!-- ENDE DUMMY Sessions von Freunden -->
       <% @friends_calendar_events.each do |calendar_event|%>
        <div class="row" style="margin:0;">
 
@@ -166,7 +161,9 @@
     </div>
   <% end %>
   <!-- Ende von Sessions von Freunden --> 
-  <center><%= link_to "Wochenüberblick", calendar_path, :class => "btn btn-primary btn-large"%></center>
+  <div style="margin-top:20px;">
+    <center><%= link_to "Wochenüberblick", calendar_path, :class => "btn btn-primary btn-large"%></center>
+  </div>
 </div>
 <!-- modal start-->
 <div class="modal hide main-modal" id="main_page_modal">
@@ -190,7 +187,7 @@
 <div class="hero-unit span4 column_same_height" style="background:white;padding:0;height:100%;">
   <div style="margin:20px;">
   <h2>Start Work'in</h2>
-    <center><div id="join_work_session" href="#" class="btn btn-primary btn-large">Jetzt starten!</div></center>
+    <center><div id="join_work_session" href="#" class="btn btn-primary btn-large" style="margin-top:20px;">Jetzt starten!</div></center>
     <% if !@next_work_session.nil?%>
       <hr>
       <div style="margin-top:20px;">
@@ -226,7 +223,7 @@
   <div style="margin:20px;">
     <h2>Freunde treffen</h2>
     <div id="fb-root" data-app="<%=@app%>"></div>
-    <center><div id="send_dialogue" class="btn btn-primary btn-large"><img src="/assets/facebook_button.png" width="20px" style="position: absolute;"><span style="margin-left:25px;">Freunde einladen</span></div></center>
+    <center><div id="send_dialogue" class="btn btn-primary btn-large" style="margin-top:20px;"><img src="/assets/facebook_button.png" width="20px" style="position: absolute;"><span style="margin-left:25px;">Freunde einladen</span></div></center>
     <%   render :template => 'invitations/new' %>
     <hr>
     <div style="margin-top:20px;">
