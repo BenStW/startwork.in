@@ -10,7 +10,11 @@
           background-image:url('/assets/paper_bg.jpg')
   <%- end -%>
 
+  <%- content_for(:first_in_container) do -%>
 <div style="background:url('/assets/coffee.png') no-repeat;width: 751px;height: 836px;position: absolute;left: 0;top: 0;z-index: 0;"></div>
+<%- end -%>
+
+
   <center>
   <h2 class="parisienne" id="greet_username" style="margin-left: 50px;"> <%=t '.greet_username', :username => current_user.name %></h2></center><br>
 <br>
@@ -78,23 +82,6 @@
     <% end %>
   </div>
 
-<!--
-    <hr>
-    <div style="margin-top:20px;">
-    < if !@Active_Users.nil?%>
-      <p>Nutzer, die gerade produktiv sind</p>
-      <div class="row">
-         < @Active_Users.each do |Active_User| %>
-           <div class="span1">
-           <img src="http://graph.facebook.com/<=Active_User.fb_ui%>/picture"><br>
-           <= Active_User.first_name%>
-         </div>
-         < end %>
-      </div> 
-    < else >
-      <p>Du hast noch keine angemeldeten Freunde</p>
-    < end %>
--->
 
 </div>
 

@@ -34,6 +34,14 @@ class WorkSessionsController < ApplicationController
   
   def work_sessions
      @work_sessions = WorkSession.this_week
+  end
+  
+  def my_work_sessions
+    my_work_sessions = current_user.calendar_events.this_week.map(&:work_session)
+    @my_work_sessions = MergedWorkSession.merge_continuing_work_sessions(my_work_sessions,current_user)    
+    my_or_friends = "my"
+    render :partial => "work_sessions", 
+        :locals => { :work_sessions => @my_work_sessions, :my_or_friends => my_or_friends } 
   end  
 
   def test_show

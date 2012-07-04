@@ -161,10 +161,16 @@ $(document).ready ->
        statusCode:
          200: ->
            txt = "Die Verabredung wurde gespeichert. Achte bitte darauf, dich pünktlich zur WorkSession anzumelden."
-           html = "<div  class='alert alert-success'>"+txt+"</div>"
-           $("#main_container").prepend(html)
+           notice_html = "<div  class='alert alert-success'>"+txt+"</div>"
+           $("#notice").html(notice_html)
+           console.log "get my_work_sessions from " +$("#urls").data("my_work_sessions_url")
+           $.ajax
+             url: $("#urls").data("my_work_sessions_url")
+             statusCode:
+               200: (my_work_sessions_data) ->
+                 $("#my_work_sessions").html(my_work_sessions_data)
            if callback?
-             callback() 
+              callback() 
    
 
    

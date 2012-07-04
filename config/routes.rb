@@ -63,8 +63,7 @@ StartWork::Application.routes.draw do
      match 'work_session/room_change(/:session)' => 'work_sessions#room_change', :as => :work_session_room_change
      match 'work_session/get_time' => 'work_sessions#get_time', :as => :work_session_get_time
      match 'work_session/work_sessions' => 'work_sessions#work_sessions'  
-     
-
+     match 'work_session/my_work_sessions' => 'work_sessions#my_work_sessions', :as => :my_work_sessions
      match 'work_session' => 'work_sessions#show', :as => :work_session
 
  #    match 'spont_work_session' => 'work_sessions#spont_show', :as => :spont_work_session
