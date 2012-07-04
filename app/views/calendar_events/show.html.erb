@@ -32,45 +32,7 @@
 
 
 <div id='calendar'></div>
-<br>
 
-
-
-
-
-<div class="row">
-<div class="span8 offset2">
-		<h2><%= t(".work_sessions")%></h2><br>
-<table class="table table-striped table-bordered table-condensed">
-	<thead>
-	<tr>
-	<th><%= t(".start_time")%></th>
-	<th><%= t(".room_name")%></th>
-	<th><%= t(".work_buddies")%></th>
-	</tr>
-	</thead>	
-
-
-<% @work_sessions.each do |work_session| %>
-<tr><td>
-	<%= I18n.localize(work_session.start_time.in_time_zone("Berlin")) %> 
-	</td>
-	<td>
-<%= work_session.room.user.name %>'s room
-	</td>
-	
-	<td>	
-	<% work_session.users.each do |user| %>
-	<%=	user.name %><br>
-	<%	end %>
-	
-		</td>
-		</tr>
-<% end%>	
-</table>
-
-</div><!-- span4 -->
-</div><!-- row -->
 
 
 <% link_to t(".back"), root_path, :class => "btn-large btn-primary"%>

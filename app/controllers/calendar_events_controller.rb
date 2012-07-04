@@ -2,7 +2,6 @@ class CalendarEventsController < ApplicationController
   
   def show
      @friends = current_user.friends #current_user.friendships.map(&:friend)
-     @work_sessions = current_user.calendar_events.this_week.map(&:work_session).sort_by!{|w| w[:start_time]}    
      #TODO this is hack
      @app = if Rails.env.production? then "330646523672055" else "232041530243765" end
       

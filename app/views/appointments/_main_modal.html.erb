@@ -23,16 +23,16 @@
             class="main_model_day btn " 
             <% end %>
            
-            style="width:55px" 
+             
             data-day="<%=(DateTime.current+ day.day).to_date%>"
             id="main_modal_day<%=day%>">
       
             <% if day==0 %>
               <%= l (DateTime.current+ day.day).to_date, :format =>  '%A' %>
-               (heute)
+               <br>(heute)
             <% elsif  day==1 %>
               <%= l (DateTime.current+ day.day).to_date, :format =>  '%A' %>
-              (morgen)
+              <br>(morgen)
             <% else %>
               <%= l (DateTime.current+ day.day).to_date, :format =>  '%A' %><br>&nbsp;
             <% end %>

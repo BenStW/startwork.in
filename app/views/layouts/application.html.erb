@@ -42,12 +42,18 @@ background-image:url('/assets/grain.jpg')
 
     <div id="main_container" class="container"  style="height:100%;">
 	
+	<% if content_for?(:first_in_container) then %>
+	   <%= yield(:first_in_container) %>
+	<% end %>
+	
+	<div id="notice" style="position:relative">
 	<% if notice %>
 	<div  class="alert alert-success"><%= notice %></div>
 	<% end %>
 	<% if alert %>	
  	<div class="alert alert-error"> <%= alert %></div>
      <% end %>
+    </div>
 
 	<%= yield %>
 
