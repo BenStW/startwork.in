@@ -40,9 +40,10 @@ background-image:url('/assets/grain.jpg')
 <br><br><br>
 
 
-    <div class="container"  style="height:100%;">
+    <div id="main_container" class="container"  style="height:100%;">
+	
 	<% if notice %>
-	<div class="alert alert-success"><%= notice %></div>
+	<div  class="alert alert-success"><%= notice %></div>
 	<% end %>
 	<% if alert %>	
  	<div class="alert alert-error"> <%= alert %></div>

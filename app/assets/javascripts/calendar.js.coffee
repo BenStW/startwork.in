@@ -162,6 +162,9 @@ $(document).ready ->
        type: 'POST',
        statusCode:
          200: ->
+           txt = "Die Verabredung wurde gespeichert. Achte bitte darauf, dich pünktlich zur WorkSession anzumelden."
+           html = "<div  class='alert alert-success'>"+txt+"</div>"
+           $("#main_container").prepend(html)
            if callback?
              callback() 
    
