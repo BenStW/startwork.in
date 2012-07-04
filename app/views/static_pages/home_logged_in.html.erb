@@ -9,7 +9,7 @@
           background-image:url('/assets/paper_bg.jpg')
   <%- end -%>
 
-<div style="background:url('/assets/coffee.png');width: 751px;height: 836px;position: absolute;left: 0;top: 0;z-index: 0;"></div>
+<div style="background:url('/assets/coffee.png') no-repeat;width: 751px;height: 836px;position: absolute;left: 0;top: 0;z-index: 0;"></div>
   <center>
   <h2 class="parisienne" id="greet_username" style="margin-left: 50px;"> <%=t '.greet_username', :username => current_user.name %></h2></center><br>
 <br>
@@ -17,8 +17,8 @@
 <div class="row" style="min-height:100%;">
 
 <!-- LINKER BLOCK -->
-<div class="hero-unit span4 column_same_height" style="background:white;padding:0;height:100%;position:relative;">
-	
+<div class="hero-unit span4 column_same_height">
+
   <div style="margin:20px;">
   <h2>Verabreden</h2>
 
@@ -192,8 +192,9 @@
 
 
 <!-- MITTLERER BLOCK -->
-<div class="hero-unit span4 column_same_height" style="background:white;padding:0;height:100%;position:relative;">
-	
+
+<div class="hero-unit span4 column_same_height">
+
   <div style="margin:20px;">
   <h2>Start Work'in</h2>
     <center><div id="join_work_session" href="#" class="btn btn-primary btn-large" style="margin-top:20px;">Jetzt starten!</div></center>
@@ -228,7 +229,7 @@
 
 
 <!-- RECHTER BLOCK -->
-<div class="hero-unit span4 column_same_height" style="background:white;padding:0;height:100%;position:relative;">
+<div class="hero-unit span4 column_same_height">
   <div style="margin:20px;">
     <h2>Freunde treffen</h2>
     <center><div id="send_dialogue" class="btn btn-primary btn-large" style="margin-top:20px;"><img src="/assets/facebook_button.png" width="20px" style="position: absolute;"><span style="margin-left:25px;">Freunde einladen</span></div></center>
