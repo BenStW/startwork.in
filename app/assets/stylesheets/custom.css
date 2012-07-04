@@ -16,7 +16,6 @@
 	-webkit-border-radius: 6px;
 	-moz-border-radius: 6px;
 	border-radius: 6px;
-	width: 640px;
 	margin: 0 auto;
 	line-height: 25px;
 
@@ -169,10 +168,66 @@ h1, h2, h3 h4 {
    text-align:center;
 }
 
-.slides p {
+.emphasize p {
 
 	font-size: 18px;
 	font-weight: 200;
 	line-height: 27px;
+
+}
+
+.line-top {
+
+	background: url('/assets/separator-top-940.png');
+	margin: 20px 0;
+	height: 67px;
+
+}
+
+.line-bottom {
+
+	background: url('/assets/separator-bottom-940.png');
+	margin: 20px 0;
+	height: 67px;
+
+}
+
+.span8 .line-top {
+
+	background: url('/assets/separator-top-940.png');
+	background-size: 620px 44px;
+	width: 620px;
+	margin: 20px 0;
+	height: 44px;
+
+}
+
+.span8 .line-bottom {
+
+	background: url('/assets/separator-bottom-940.png');
+	background-size: 620px 44px;
+	width:620px;
+	margin: 20px 0;
+	height: 44px;
+
+}
+
+.span6 .line-top {
+
+	background: url('/assets/separator-top-940.png');
+	background-size: 480px 34px;
+	width: 480px;
+	margin: 20px 0;
+	height: 34px;
+
+}
+
+.span6 .line-bottom {
+
+	background: url('/assets/separator-bottom-940.png');
+	background-size: 720px 34px;
+	width:480px;
+	margin: 20px 0;
+	height: 34px;
 
 }

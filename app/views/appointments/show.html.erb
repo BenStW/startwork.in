@@ -8,7 +8,7 @@
 		<div class="left"><img src="http://graph.facebook.com/<%=@appointment.sender.fb_ui%>/picture"></div>
 		<div>
 			<h1>Verabredung mit <%=@appointment.sender.name %></h1>
-			<p>
+			<br/>
 			<h2>am 
 			<%= I18n.localize(@appointment.start_time.to_date, :format => "%d.%m.%Y") %>	
 			 von 

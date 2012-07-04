@@ -81,6 +81,18 @@ class StaticPagesController < ApplicationController
    end    
   end
   
+  def welcome_with_appointment 
+     current_user.registered=true
+     current_user.save 
+     @name = current_user.first_name
+     @friends = current_user.friends
+     token = params["token"]
+     @appointment = Appointment.find_by_token(token)
+     if @appointment.nil?
+       render :json => "keine Verabredung gefunden"
+     end    
+  end
+
   def welcome_session
     c = DateTime.current
     this_hour = DateTime.new(c.year,c.month,c.day, c.hour)

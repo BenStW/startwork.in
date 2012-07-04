@@ -1,0 +1,83 @@
+<div class="row">
+<div class="emphasize span8" style="margin:30px auto 0 auto;float:none;">
+
+  <h2 class="parisienne" style="margin-bottom:15px;">Hallo <%= @name %>!</h2>
+  <p>schön, dass du bei uns mitmachst!</p>
+  <br/>
+  <p>Wir haben eine Verabredung in deinen StartWork Kalender eingetragen:</p>
+  <div class="whitebox" style="padding:20px 40px;margin-bottom:40px;">
+    <h2 style="margin-bottom:20px;">Verabredung mit <%=@appointment.sender.name %></h2>
+    <div style="margin-bottom:20px;">
+      <div class="left" style="margin:0;"><img src="http://graph.facebook.com/<%=@appointment.sender.fb_ui%>/picture"></div>
+      <div style="margin: 0 0 0 70px;">
+          Datum: <%= I18n.localize(@appointment.start_time.to_date, :format => "%d.%m.%Y") %><br/>
+          Uhrzeit: <%= I18n.localize(@appointment.start_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %> Uhr bis <%= I18n.localize(@appointment.end_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %> Uhr
+          <a href="#" class="btn btn-small btn-edit" style="position: relative;top: 6px;"></a>
+       </div>
+       <span class="clr_fix"></span>
+    </div>
+    <div class="alert alert-info">
+      <b>Achtung!</b><br/>
+      Termine auf StartWork sind verbindlich! Falls etwas dazwischenkommen sollte, sag bitte frühzeitig ab, dein Gegenüber rechnet fest mit dir!
+    </div>
+  </div> <!-- end column left -->
+
+  <div class="line-top"></div>
+
+  <div>
+    <% if !@friends.empty?%>
+      <p>Wusstest du schon? Es sind noch mehr deiner Freunde registriert: [NUR ANZEIGEN, WENN FREUNDE AUSSER DER EINLADENDEN PERSON REGISTRIERT SIND]</p>
+      <div class="whitebox" style="padding:20px;width:480px;margin:0 auto;">
+        <% @friends.each do |friend| %>
+          <div>
+            <img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture"><br>
+            <%= friend.first_name%>
+          </div>
+        <% end %>
+      </div>
+      <br><p>Warum verabredest du dich nicht mit ihnen zum Arbeiten?</p>
+    <% end %>
+  </div>
+
+ <div class="line-bottom"></div>
+
+ <div class="row">
+   <div class="span4">
+      <h2>Wie funktioniert das jetzt?</h2><br>
+      <ol style=" font-weight: 200; line-height: 27px;
+">
+        <li>Du wirst mit deinen Freunden per Webcam verbunden.</li>
+        <li>Ein Timer zählt abwechselnd 50min Arbeitszeit und 10min Pause.</li>
+        <li>In der Arbeitszeit arbeitet jeder für sich und bleibt am Arbeitsplatz.</p>
+        <li>In der Pause wird das Mirko aktiviert und man kann den Kaffeevorrat auffüllen :-)</li>
+      </ol>
+      <br>
+      <a href='<%= welcome_session_path %>' class="btn btn-primary">Weiter</a>
+    </div>
+
+    <div class="vr" style="height:"></div>
+
+    <div class="span4">
+      <center>
+        <a href="#">
+          <img src="/assets/promotion_video.jpg" id="video_modal_button">
+        </a>
+      </center>
+    </div> <!-- end column span -->
+  </div>
+
+</div>
+</div>
+
+<!-- MODAL FOR VIDEO -->
+<div class="modal frontpage hide fade" id="video_modal" style="width: 600px;">
+  <div>
+     <button class="close" data-dismiss="modal">×</button>
+  </div>
+  <div class="modal-body">
+  <center>
+<iframe src="http://player.vimeo.com/video/44444224?title=0&amp;byline=0&amp;portrait=0&amp;color=005580" width="600" height="400" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+</center>
+  </div>
+</div>
+<!-- END OF MODAL FOR VIDEO -->
