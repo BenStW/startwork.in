@@ -10,8 +10,8 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
+
 //= require jquery
-// require jquery_ujs - needed?
 //= require jquery-ui
 //= require jquery_plugins/jquery-ui-i18n
 //= require jquery_plugins/jquery.jplayer.min
@@ -21,11 +21,13 @@
 //= require twitter/bootstrap-tooltip
 //= require twitter/bootstrap-popover
 //= require twitter/bootstrap-transition
-// require tokbox/OT_LayoutContainer - not needed
 //= require_tree . 
-// require jquery_plugins/jquery.popupWindow - not needed yet
-// require twitter/bootstrap - not needed
-// require twitter/bootstrap.min - not needed
 //= require woothemes-flexslider/jquery.flexslider
 //= require woothemes-flexslider/jquery.flexslider-min
 
+
+// require jquery_ujs - not needed
+// require tokbox/OT_LayoutContainer - not needed
+// require jquery_plugins/jquery.popupWindow - not needed yet
+// require twitter/bootstrap - not needed
+// require twitter/bootstrap.min - not needed

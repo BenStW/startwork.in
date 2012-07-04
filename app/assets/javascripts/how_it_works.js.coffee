@@ -3,4 +3,5 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 $(document).ready -> 
-   $('.flexslider').flexslider()
+   if $('.flexslider').length>0
+      $('.flexslider').flexslider()

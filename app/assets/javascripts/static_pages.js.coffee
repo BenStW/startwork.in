@@ -1,4 +1,5 @@
 
+
 $(document).ready ->
    if $('.column_same_height').length>0
       heights= $(".column_same_height").map(->
@@ -16,3 +17,4 @@ $(document).ready ->
 
    $("#video_modal_button").click ->
        $('#video_modal').modal("show")
+

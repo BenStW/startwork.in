@@ -12,13 +12,7 @@
 
 	
    </div>
-   <div class="span3">
 
-     <div id="send_invitation" class="btn btn-info" style="height:35px;width:150px">
-        <%= t(".send_invitation")%>
-     </div>
-
-   </div> <!-- end span2 -->
 
 </div><!-- end row -->
 <br>
@@ -82,21 +76,6 @@
 <% link_to t(".back"), root_path, :class => "btn-large btn-primary"%>
 <div id="back" class="btn btn-info" style="height:35px;width:150px" onclick="location.href='<%=root_url%>'">
    <%= t(".back")%>
-</div>
-
-<div class="modal hide fade" id="send_invitation_modal">
-  <div class="modal-header">
-     <button class="close" data-dismiss="modal">×</button>
-     <h3>Einladung an Work-Buddies senden</h3>
-  </div>
-  <div class="modal-body">
-     <p>Möchtest du jetzt eine Einladung an Work-Buddies auf StartWork senden?</p>
-     <p>Die Work-Buddies erhalten dann die Liste deiner Arbeitsstunden, für die noch kein WorkBuddy gefunden wurde.</p>
-  </div>
-  <div class="modal-footer">
-       <a href="#" url="<%=calendar_send_invitation_url%>" id="send_invitation_confirmation" class="btn" data-dismiss="modal">Senden</a>
-       <a href="#" class="btn" data-dismiss="modal">Abbrechen</a>
-  </div>
 </div>
 
 
