@@ -86,8 +86,16 @@ $(document).ready ->
         {method: 'send',
         name: name,
         message: "message",
-        link: link
-          })
+        link: link},
+        (response) -> 
+          console.log "classback was called!"
+          console.log response
+          if (response != null)
+            console.log('Request was passed along!')
+          else if (not response?)
+            console.log('Not passed along. User closed the window')
+          else
+            console.log('Not passed along. User clicked cancel'))
    
    $('#appointment_modal').bind('hidden', ->
        $("#calendar").weekCalendar("refresh"))
