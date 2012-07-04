@@ -173,17 +173,28 @@
 
 <!-- modal start-->
 <div class="modal hide main-modal" id="main_page_modal">
+
   <div class="modal-arrow"></div>
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3>Modal header</h3>
+    <h3>Deine Verabredung</h3>
   </div>
   <div class="modal-body">
-    <p>One fine body…</p>
+    <p><img src="/assets/App_Request_Mockup.jpg"></p>
+    <div id="datepicker"></div>
+        <div id="start_time" style="display:none"></div>
+  <br>
+        <div id="end_time" style="display:none"></div>
+  
+    Beginn: <%= select_hour(13, {:field_name => 'begin'}, {:style => "width:50px"}) %> &nbsp;&nbsp;
+    Ende: <%= select_hour(14, {:field_name => 'end'}, {:style => "width:50px"}) %> <br><br>
+      <h3 id="appointment_time"></h3>
+<br>
+Dieser Termin ist verbindlich. Logge dich bitte kurz vorher ein und freu dich schon jetzt auf das produktive Arbeiten mit deinen Freunden und/oder neuen Leuten!
   </div>
   <div class="modal-footer">
-    <a href="#" class="btn" data-dismiss="modal">Close</a>
-    <a href="#" class="btn btn-primary">Save changes</a>
+    <a href="#" class="btn" data-dismiss="modal">Abbrechen</a>
+    <a href="#" class="btn btn-primary">Speichern</a>
   </div>
 </div>
 <!-- modal end-->
