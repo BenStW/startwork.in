@@ -23,16 +23,16 @@
             class="main_model_day btn " 
             <% end %>
            
-            style="width:55px" 
+            
             data-day="<%=(DateTime.current+ day.day).to_date%>"
             id="main_modal_day<%=day%>">
       
             <% if day==0 %>
               <%= l (DateTime.current+ day.day).to_date, :format =>  '%A' %>
-               (heute)
+               <br>(heute)
             <% elsif  day==1 %>
               <%= l (DateTime.current+ day.day).to_date, :format =>  '%A' %>
-              (morgen)
+              <br>(morgen)
             <% else %>
               <%= l (DateTime.current+ day.day).to_date, :format =>  '%A' %><br>&nbsp;
             <% end %>
@@ -46,12 +46,13 @@
       Ende:	<%= select_hour(14, {:field_name => 'main_modal_end'}, {:style => "width:50px"}) %>
       </p>
       
-      <div style="height:30px"></div>
+      <div div class="alert" style="margin-top:30px;">
       <p>Dieser Termin ist verbindlich. Logge dich bitte kurz vorher ein und 
-      freu dich schon jetzt auf das produktive Arbeiten mit deinen Freunden und/oder neuen Leuten.</p>
+      freu dich schon jetzt auf das produktive Arbeiten mit deinen Freunden und neuen Leuten.</p>
+      </div>
       </div> <!-- end modal-body -->
 
-	  <div class="modal-footer">
+	  <div class="modal-footer" style="position: absolute;bottom: 0;right: 0;width: 590px;height: 150px;">
 	       <a href="#" id="main_modal_save" class="btn btn-primary" data-dismiss="modal">
 		Speichern</a>
 	</div><!-- modal-footer -->

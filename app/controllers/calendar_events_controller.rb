@@ -11,7 +11,6 @@ class CalendarEventsController < ApplicationController
   # creates a calendar event and
   # finds or creates a work_session
   def new_event
-
     if appointment = Appointment.find_by_token(params["token"])
        appointment.start_time = params[:start_time]
        appointment.end_time = params[:end_time]

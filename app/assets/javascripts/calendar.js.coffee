@@ -151,10 +151,9 @@ $(document).ready ->
    
    save_appointment = (token, start_time, end_time, callback)->
      data = 
-        start_time: start_time
-        end_time: end_time
+        start_time: start_time.toString()
+        end_time: end_time.toString()
         token: token
-     console.log data
      $.ajax
        url: $("#urls").data("save_appointment_url"),
        data: data,
