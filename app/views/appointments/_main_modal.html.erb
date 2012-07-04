@@ -1,0 +1,60 @@
+<!-- modal start-->
+<div class="modal hide main-modal" id="main_page_modal">
+  <div class="modal-arrow"></div>
+  <div id="main_page_modal_when_empty">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+  </div>
+
+  <div id="main_page_modal_when_filled" style="display:none">
+	  <div class="modal-header">
+	     <button class="close" data-dismiss="modal">×</button>
+	     <h2>Termin für die Verabredung festlegen</h2>
+  </div>
+	
+	
+ <div class="modal-body">
+
+      
+      <% (0..6).each do |day| %>
+         <div 
+            <% if day==1 %>
+            class="main_model_day btn btn-primary" 
+            <% else %>
+            class="main_model_day btn " 
+            <% end %>
+           
+            style="width:55px" 
+            data-day="<%=(DateTime.current+ day.day).to_date%>"
+            id="main_modal_day<%=day%>">
+      
+            <% if day==0 %>
+              <%= l (DateTime.current+ day.day).to_date, :format =>  '%A' %>
+               (heute)
+            <% elsif  day==1 %>
+              <%= l (DateTime.current+ day.day).to_date, :format =>  '%A' %>
+              (morgen)
+            <% else %>
+              <%= l (DateTime.current+ day.day).to_date, :format =>  '%A' %><br>&nbsp;
+            <% end %>
+          </div>
+      <% end %>
+      <div style="height:30px"></div>
+      
+      <p>		
+      Beginn:	<%= select_hour(13, {:field_name => 'main_modal_start'}, {:style => "width:50px"}) %>
+      &nbsp;&nbsp;
+      Ende:	<%= select_hour(14, {:field_name => 'main_modal_end'}, {:style => "width:50px"}) %>
+      </p>
+      
+      <div style="height:30px"></div>
+      <p>Dieser Termin ist verbindlich. Logge dich bitte kurz vorher ein und 
+      freu dich schon jetzt auf das produktive Arbeiten mit deinen Freunden und/oder neuen Leuten.</p>
+      </div> <!-- end modal-body -->
+
+	  <div class="modal-footer">
+	       <a href="#" id="main_modal_save" class="btn btn-primary" data-dismiss="modal">
+		Speichern</a>
+	</div><!-- modal-footer -->
+   </div>	
+</div>
+<!-- modal end-->
