@@ -11,12 +11,12 @@ $(document).ready ->
          hour
    
    from_day_and_hours_to_dates = (day,start_hour,end_hour)->
+      day = $.datepicker.parseDate('yy-mm-dd',day)	
+      console.log "day="+day
       start_time = new Date(day)   
       end_time = new Date(day)   
       start_time.setHours(start_hour)    
-      end_time.setHours(end_hour)  
-      console.log "start_time="+start_time
-      console.log "end_time="+end_time        
+      end_time.setHours(end_hour) 
       [start_time,end_time]
 
    to_appointment_string = (day, start_hour, end_hour)->
@@ -87,7 +87,7 @@ $(document).ready ->
       show_empty_main_modal()
       get_appointment_token(null,null, (token)->
           $("#main_page_modal").data("token",token)
-          name =  "Einladung zum gemeinsamen Lernen: "    
+          name =  "Einladung zum gemeinsamen Lernen "    
           message =  "message"          
           link = $("#urls").data("appointment_url")+"?token="+token
           fb_popup(name,message,link, (response)->
@@ -100,10 +100,22 @@ $(document).ready ->
       show_filled_main_modal("add")
    
    $(".edit_work_session").click (event) ->
+#      d = $(this).data("start_time")
+#      console.log d
+#      d =  getDateFromFormat("2012-07-06", "yy-mm-dd")
+#2012-07-06 11:00:00 UT
+#$(this).data("start_time")
+ #     console.log d
+    # console.log Date.parse(d)
+    # console.log new Date(d)
+    # console.log new Date(Date.parse(d))
+    #
+
       start_time = new Date($(this).data("start_time"))
       end_time = new Date($(this).data("end_time"))
-      fill_main_modal_with_dates(start_time,end_time)
-      show_filled_main_modal("edit")
+
+     # fill_main_modal_with_dates(start_time,end_time)
+     # show_filled_main_modal("edit")
    
 
    show_filled_main_modal = (action)->
@@ -126,7 +138,7 @@ $(document).ready ->
           )
 
    show_appointment_string = ->
-      day = new Date(Date.parse($(".main_modal_day.btn-primary").data("day")))
+      day = $.datepicker.parseDate('yy-mm-dd', $(".main_modal_day.btn-primary").data("day"))
       appointment_str = to_appointment_string(
         day, 
         $("#date_main_modal_start").val(),
@@ -171,7 +183,6 @@ $(document).ready ->
      fb_popup(name, message, link)	
 
    $("#main_modal_delete").click (event) ->
-      console.log $("#urls").data("calendar_remove_events_by_time_url")
       [start_time, end_time] = from_day_and_hours_to_dates(
          $(".main_modal_day.btn-primary").data("day"), 
          $("#date_main_modal_start").val(),

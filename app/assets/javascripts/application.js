@@ -24,6 +24,7 @@
 //= require_tree . 
 //= require woothemes-flexslider/jquery.flexslider
 //= require woothemes-flexslider/jquery.flexslider-min
+//= require matt_kruse/date
 
 
 // require jquery_ujs - not needed
