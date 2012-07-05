@@ -53,6 +53,12 @@ $(document).ready ->
             if callback
               callback(response))
 
+   reload_my_work_sessions = ->
+     $.ajax
+       url: $("#urls").data("my_work_sessions_url")
+       statusCode:
+         200: (my_work_sessions_data) ->
+           $("#my_work_sessions").html(my_work_sessions_data)
 
    save_appointment = (token, start_time, end_time, callback)->
      data = 
@@ -60,7 +66,7 @@ $(document).ready ->
         end_time: end_time.toString()
         token: token
      $.ajax
-       url: $("#urls").data("save_appointment_url"),
+       url: $("#urls").data("calendar_new_event_url"),
        data: data,
        type: 'POST',
        statusCode:
@@ -69,12 +75,7 @@ $(document).ready ->
            txt = "Die Verabredung wurde gespeichert. Achte bitte darauf, dich pünktlich zur WorkSession anzumelden."
            notice_html = "<div  class='alert alert-success'>"+txt+"</div>"
            $("#notice").html(notice_html)
-           console.log "get my_work_sessions from " +$("#urls").data("my_work_sessions_url")
-           $.ajax
-             url: $("#urls").data("my_work_sessions_url")
-             statusCode:
-               200: (my_work_sessions_data) ->
-                 $("#my_work_sessions").html(my_work_sessions_data)
+           reload_my_work_sessions()
            if callback?
               callback()
    
@@ -125,8 +126,9 @@ $(document).ready ->
           )
 
    show_appointment_string = ->
+      day = new Date(Date.parse($(".main_modal_day.btn-primary").data("day")))
       appointment_str = to_appointment_string(
-        new Date($(".main_modal_day.btn-primary").data("day")), 
+        day, 
         $("#date_main_modal_start").val(),
         $("#date_main_modal_end").val())
       $("#appointment_str").html(appointment_str)
@@ -169,7 +171,25 @@ $(document).ready ->
      fb_popup(name, message, link)	
 
    $("#main_modal_delete").click (event) ->
-      console.log "delete"
+      console.log $("#urls").data("calendar_remove_events_by_time_url")
+      [start_time, end_time] = from_day_and_hours_to_dates(
+         $(".main_modal_day.btn-primary").data("day"), 
+         $("#date_main_modal_start").val(),
+         $("#date_main_modal_end").val())
+      data = 
+        start_time: start_time
+        end_time: end_time
+      $.ajax
+        url: $("#urls").data("calendar_remove_events_by_time_url"),
+        data: data,
+        type: 'POST',
+        statusCode:
+          200: (x)->
+            console.log x.responseText
+            txt = "Der Termin wurde gelöscht."
+            notice_html = "<div  class='alert alert-success'>"+txt+"</div>"
+            $("#notice").html(notice_html)
+            reload_my_work_sessions()
    
    $("#main_modal_save").click ->
       console.log $(".main_modal_day.btn-primary")
