@@ -10,9 +10,26 @@
 <!-- modal start-->
 <div class="modal hide main-modal" id="main_page_modal" style="background:whitesmoke;">
   <div class="modal-arrow"></div>
+
+
+
   <div id="main_page_modal_when_empty">
-    <button type="button" class="close" data-dismiss="modal">×</button>
+		  <div class="modal-header">
+		     <button class="close" data-dismiss="modal">×</button>
+		     <h2>Verabredung an Freunde verschicken</h2>
+	  </div>
+	
+	
+	 <div class="modal-body" style="background:white;">
+	<p>1. Gib zuerst deinen Freunden Bescheid</p>
+	<p>2. Im nächsten Fenster legst du die Zeiten für die Verabredung fest</p>
+		</div>
+	
   </div>
+
+
+
+
 
   <div id="main_page_modal_when_filled" style="display:none">
 	  <div class="modal-header">
@@ -49,9 +66,9 @@
       <div style="height:30px"></div>
       
       <p>		
-      Beginn:	<%= select_hour(13, {:field_name => 'main_modal_start'}, {:style => "width:50px"}) %>
+      Beginn:	<%= select_hour(9, {:field_name => 'main_modal_start'}, {:style => "width:50px"}) %>
       &nbsp;&nbsp;
-      Ende:	<%= select_hour(14, {:field_name => 'main_modal_end'}, {:style => "width:50px"}) %>
+      Ende:	<%= select_hour(12, {:field_name => 'main_modal_end'}, {:style => "width:50px"}) %>
       </p>
       <h3 id="appointment_str"></h3>
       <div div class="alert" style="margin-top:30px;">
@@ -61,8 +78,8 @@
       </div> <!-- end modal-body -->
 
 	  <div class="modal-footer">
-	       <a href="#" id="main_modal_invite" style="display:none" class="btn btn-success" data-dismiss="modal">
-		Freunde dazuholen</a>
+	       <a href="#" id="main_modal_invite" style="display:none" class="btn btn-success">
+		Weitere Freunde dazuholen</a>
 	       <a href="#" id="main_modal_delete" style="display:none"class="btn btn-danger" data-dismiss="modal">
 		Termin löschen</a>
 	       <a href="#" id="main_modal_save" style="display:none" class="btn btn-primary" data-dismiss="modal">
