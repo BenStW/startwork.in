@@ -10,6 +10,13 @@ $(document).ready ->
       $('.column_same_height').height(max)
 
       $("#launch_modal_button").click ->
+         launch_main_modal()
+      $(".add_work_session").click ->
+         launch_main_modal()
+      $(".edit_work_session").click ->
+         launch_main_modal()
+
+      launch_main_modal = ->
         $('#main_page_modal').modal("show")
         $('.modal-backdrop').height(0)
         $('#main_page_modal').height(max)

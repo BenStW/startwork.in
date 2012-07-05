@@ -19,7 +19,10 @@
       </div>
 
    <% if my_or_friends=="my"%>
-      <a href="#" class="btn btn-small btn-edit"><i class="icon-wrench"></i></a> 
+      <a href="#" class="btn btn-small btn-edit edit_work_session"
+           data-start_time='<%=work_session.start_time %>'
+           data-end_time='<%=work_session.end_time %>'>
+         <i class="icon-wrench"></i></a> 
    <% else %>
       <a href="#" class="btn btn-small btn-join add_work_session"
            data-start_time='<%=work_session.start_time %>'

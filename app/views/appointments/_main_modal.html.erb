@@ -18,9 +18,9 @@
       <% (0..6).each do |day| %>
          <div 
             <% if day==1 %>
-            class="main_model_day btn btn-primary" 
+            class="main_modal_day btn btn-primary" 
             <% else %>
-            class="main_model_day btn " 
+            class="main_modal_day btn " 
             <% end %>
            
             data-day="<%=(DateTime.current+ day.day).to_date%>"
@@ -44,7 +44,6 @@
       &nbsp;&nbsp;
       Ende:	<%= select_hour(14, {:field_name => 'main_modal_end'}, {:style => "width:50px"}) %>
       </p>
-      
       <div div class="alert" style="margin-top:30px;">
       <p>Dieser Termin ist verbindlich. Logge dich bitte kurz vorher ein und 
       freu dich schon jetzt auf das produktive Arbeiten mit deinen Freunden und neuen Leuten.</p>
@@ -52,8 +51,12 @@
       </div> <!-- end modal-body -->
 
 	  <div class="modal-footer" style="position: absolute;bottom: 0;right: 0;width: 590px;height: 150px;">
-	       <a href="#" id="main_modal_save" class="btn btn-primary" data-dismiss="modal">
-		Speichern</a>
+	       <a href="#" id="main_modal_invite" style="display:none" class="btn btn-primary" data-dismiss="modal">
+		Mit Freunden zu diesem Termin verabreden</a>
+	       <a href="#" id="main_modal_delete" style="display:none"class="btn btn-primary" data-dismiss="modal">
+		Termin löschen</a>
+	       <a href="#" id="main_modal_save" style="display:none" class="btn btn-primary" data-dismiss="modal">
+		Speichern</a>				
 	</div><!-- modal-footer -->
    </div>	
 </div>
