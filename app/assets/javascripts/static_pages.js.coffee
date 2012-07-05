@@ -1,26 +1,7 @@
 
 
 $(document).ready ->
-   if $('.column_same_height').length>0
-      heights= $(".column_same_height").map(->
-          return $(this).outerHeight(true)).get()
-      Array.max = (array) ->
-        return Math.max.apply(Math, array)
-      max = Array.max(heights)
-      $('.column_same_height').height(max)
 
-      $("#launch_modal_button").click ->
-         launch_main_modal()
-      $(".add_work_session").click ->
-         launch_main_modal()
-      $(".edit_work_session").click ->
-         launch_main_modal()
-
-      launch_main_modal = ->
-        $('#main_page_modal').modal("show")
-        $('.modal-backdrop').height(0)
-        $('#main_page_modal').height(max)
-        $('.modal-arrow').css("top",(max - 75) / 2)
 
    $("#video_modal_button").click ->
        $('#video_modal').modal("show")

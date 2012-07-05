@@ -1,6 +1,21 @@
 
 
 $(document).ready ->
+	
+   if $('.column_same_height').length>0
+      heights= $(".column_same_height").map(->
+          return $(this).outerHeight(true)).get()
+      Array.max = (array) ->
+        return Math.max.apply(Math, array)
+      max = Array.max(heights)
+      $('.column_same_height').height(max)
+
+      launch_main_modal = ->
+        $('#main_page_modal').modal("show")
+        $('.modal-backdrop').height(0)
+        $('#main_page_modal').height(max)
+        $('.modal-arrow').css("top",(max - 75) / 2)
+    
     
    # ------------- functions for main and appointment modal --------- #
    
@@ -59,6 +74,9 @@ $(document).ready ->
        statusCode:
          200: (my_work_sessions_data) ->
            $("#my_work_sessions").html(my_work_sessions_data)
+           $(".edit_work_session").bind('click', ->
+               launch_main_modal()
+               edit_work_session($(this)))
 
    save_appointment = (token, start_time, end_time, callback)->
      data = 
@@ -84,6 +102,7 @@ $(document).ready ->
    # ------------- functions specific for main modal --------- #
 
    $("#launch_modal_button").click ->
+      launch_main_modal()
       show_empty_main_modal()
       get_appointment_token(null,null, (token)->
           $("#main_page_modal").data("token",token)
@@ -94,12 +113,20 @@ $(document).ready ->
              show_filled_main_modal("new")))
 
    $(".add_work_session").click (event) ->
+      launch_main_modal()
       start_time = new Date($(this).data("start_time"))
       end_time = new Date($(this).data("end_time"))
       fill_main_modal_with_dates(start_time,end_time)
       show_filled_main_modal("add")
    
-   $(".edit_work_session").click (event) ->
+   $(".edit_work_session").click ->
+     launch_main_modal()     
+     edit_work_session($(this))
+     
+
+
+
+
 #      d = $(this).data("start_time")
 #      console.log d
 #      d =  getDateFromFormat("2012-07-06", "yy-mm-dd")
@@ -110,9 +137,10 @@ $(document).ready ->
     # console.log new Date(d)
     # console.log new Date(Date.parse(d))
     #
-
-      start_time = new Date($(this).data("start_time"))
-      end_time = new Date($(this).data("end_time"))
+   edit_work_session = (element)->
+      start_time = new Date(element.data("start_time"))
+      console.log "start_time = "+ start_time
+      end_time = new Date(element.data("end_time"))
 
       fill_main_modal_with_dates(start_time,end_time)
       show_filled_main_modal("edit")
