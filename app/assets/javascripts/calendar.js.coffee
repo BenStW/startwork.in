@@ -54,17 +54,18 @@ $(document).ready ->
            callback(data.responseText)
    
    fb_popup = (name,message,link, callback)->
+      console.log link
       FB.ui(
          {method: 'send',
          name: name,
          message: message,
          link: link},
          (response) ->
-            console.log "facebook popup response:"
-            if response?
-              console.log "The User has sent the appointment to FB friends"
-            else
-              console.log "The User has cancelled the FB popup window"
+          #  console.log "facebook popup response:"
+          #  if response?
+          #    console.log "The User has sent the appointment to FB friends"
+          #  else
+          #    console.log "The User has cancelled the FB popup window"
             if callback
               callback(response))
 
