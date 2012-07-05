@@ -8,6 +8,7 @@ class AppointmentsController < ApplicationController
      render :json => appointment.token
    end
    
+   
   def show
      token = params["token"]
      @appointment = Appointment.find_by_token(token)
