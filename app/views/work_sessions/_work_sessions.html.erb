@@ -1,17 +1,20 @@
 <% if !work_sessions.empty?%>
+    <div style="margin-top:20px;">
 
-    <% if my_or_friends=="friends" %>
-       <div style="margin-top:20px;"></div>
-       <p>Die nächsten Arbeitssessions deiner Freunde:</p>
-    <% end %>
-    
-        <% work_sessions.each do |work_session|%>
-             <%= render :partial => "work_sessions/work_session", 
-                 :locals => { :work_session => work_session, :my_or_friends => my_or_friends } %>
-         <% end %>
-       
-     <% else %>
-        <% if my_or_friends=="my" %>
-         <p class="small">Du hast noch keine Verabredungen!</p>
+        <% if my_or_friends=="friends" %>
+            <hr>
+            <p>Die nächsten Arbeitssessions deiner Freunde:</p>
         <% end %>
+        
+            <% work_sessions.each do |work_session|%>
+                 <%= render :partial => "work_sessions/work_session", 
+                     :locals => { :work_session => work_session, :my_or_friends => my_or_friends } %>
+             <% end %>
+           
+        <% else %>
+            <% if my_or_friends=="my" %>
+             <p class="small">Du hast noch keine Verabredungen!</p>
+            <% end %>
+        
+    </div>
  <% end %>
