@@ -40,21 +40,26 @@ class CalendarEventsController < ApplicationController
   end
 
    def remove_event
-   calendar_event = current_user.calendar_events.find_by_id(params[:event])
-   if calendar_event.nil?
-     raise "Calendar event #{params[:event]} does not belong to user #{current_user.name}. Dump of the event: #{CalendarEvent.find(params[:event]).to_yaml}"
+     calendar_event = current_user.calendar_events.find_by_id(params[:event])
+     remove_one_event(calendar_event)
+     render :json => "succussfully removed time"
    end
-   work_session = calendar_event.work_session
-   calendar_event.delete
-   if work_session.calendar_events.count == 0 
-     work_session.delete
-   elsif work_session.room.user == current_user     
-     first_user = work_session.users.first
-     work_session.room = first_user.room
-     work_session.save
-   end   
-   render :json => "succussfully removed time"
-  end  
+   
+   def remove_events_by_time
+     hourly_start_times = CalendarEvent.split_to_hourly_start_times(DateTime.parse(params[:start_time]),DateTime.parse(params[:end_time]))
+     event_number=0
+     hourly_start_times.each do |start_time|
+       calendar_event = current_user.calendar_events.find_by_start_time(start_time)
+       if !calendar_event.nil?
+         remove_one_event(calendar_event)
+         event_number+=1
+       end
+     end
+     render :json => "removed #{event_number} events"
+     
+   end
+
+
   
   
   def send_invitation
@@ -75,6 +80,23 @@ class CalendarEventsController < ApplicationController
   end
   end  
   
+  private 
+   def remove_one_event(calendar_event) 
+     #FIXME move method to model calendar_event
+      if calendar_event.nil?
+        raise "Calendar event #{params[:event]} does not belong to user #{current_user.name}. Dump of the event: #{CalendarEvent.find(params[:event]).to_yaml}"
+      end
+      work_session = calendar_event.work_session
+      calendar_event.delete
+      if work_session.calendar_events.count == 0 
+        work_session.delete
+      elsif work_session.room.user == current_user     
+        first_user = work_session.users.first
+        work_session.room = first_user.room
+        work_session.save
+      end   
+
+  end
 
   
 end
