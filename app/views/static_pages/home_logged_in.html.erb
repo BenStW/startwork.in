@@ -35,7 +35,7 @@
   <div style="margin-top:20px;">
   <hr>
   <p>Deine nächsten Arbeitssessions:</p>
-  <div id="my_work_sessions">
+  <div id="my_work_sessions" style="text-align: left;">
       <% my_or_friends = "my"%>
       <%= render :partial => "work_sessions/work_sessions", 
           :locals => { :work_sessions => @my_work_sessions, :my_or_friends => my_or_friends } %>	
@@ -45,7 +45,7 @@
 
 
   <!-- Sessions von Freunden -->
-  <div id="friends_work_sessions">
+  <div id="friends_work_sessions" style="text-align: left;">
       <% my_or_friends = "friends"%>
       <%= render :partial => "work_sessions/work_sessions", 
           :locals => { :work_sessions => @friends_work_sessions, :my_or_friends => my_or_friends } %>	
