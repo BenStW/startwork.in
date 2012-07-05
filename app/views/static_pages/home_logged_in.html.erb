@@ -29,14 +29,11 @@
 
   <center><div class="btn btn-primary btn-large" id="launch_modal_button" style="margin-top:20px;">1. Jetzt verabreden</div></center>
 
+ <div style="margin-top:20px;">
 
 
   <!-- Eigene Sessions -->
-  <div style="margin-top:20px;">
-  <hr>
-  <p>Hier kannst du dich mit Freunden zum Arbeiten verabreden.</p>
-<hr>
-  <p>Deine Verabredungen</p>
+ 
   <div id="my_work_sessions" style="text-align: left;">
       <% my_or_friends = "my"%>
       <%= render :partial => "work_sessions/work_sessions", 

@@ -1,10 +1,23 @@
+<% if my_or_friends=="my"%>
+   <% if work_sessions.empty?  %>
+   <hr>
+   <p>Hier kannst du dich mit Freunden zum Arbeiten verabreden.</p>
+  <% end %>
+   <hr>
+  <p>Deine Verabredungen</p>
+<% end %>
+
+
+
+
 <% if !work_sessions.empty?%>
     <div style="margin-top:20px;">
 
         <% if my_or_friends=="friends" %>
             <hr>
             <p>Die nächsten Arbeitssessions deiner Freunde</p>
-        <% end %>
+
+		<% end %>
         
         <% work_sessions.each do |work_session|%>
              <%= render :partial => "work_sessions/work_session", 
@@ -15,7 +28,14 @@
  <% else %>
 
         <% if my_or_friends=="my" %>
+
+		
             <p class="small">Du hast noch keine Verabredungen!</p>
         <% end %>
 
 <% end %>
+
+
+
+
+

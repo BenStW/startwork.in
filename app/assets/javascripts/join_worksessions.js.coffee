@@ -42,7 +42,7 @@ $(document).ready ->
 
   $('#join_work_session').click (event)-> 
     work_session_url = $("#urls").data("work_session_url")
-    info_url = $("#urls").data("info_url")
+    info_url = $("#urls").data("info_for_work_session_url")
     popup_work_session(work_session_url,info_url)
 
 

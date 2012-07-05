@@ -114,8 +114,8 @@ $(document).ready ->
       start_time = new Date($(this).data("start_time"))
       end_time = new Date($(this).data("end_time"))
 
-     # fill_main_modal_with_dates(start_time,end_time)
-     # show_filled_main_modal("edit")
+      fill_main_modal_with_dates(start_time,end_time)
+      show_filled_main_modal("edit")
    
 
    show_filled_main_modal = (action)->
