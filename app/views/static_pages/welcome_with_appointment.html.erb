@@ -26,7 +26,7 @@
 
   <div>
     <% if !@friends.empty?%>
-      <p>Wusstest du schon? Es sind noch mehr deiner Freunde registriert: [NUR ANZEIGEN, WENN FREUNDE AUSSER DER EINLADENDEN PERSON REGISTRIERT SIND]</p>
+      <p>Wusstest du schon? Es sind noch mehr deiner Freunde registriert:</p>
       <div class="whitebox" style="padding:20px;width:480px;margin:0 auto;">
         <% @friends.each do |friend| %>
           <div>
@@ -35,7 +35,7 @@
           </div>
         <% end %>
       </div>
-      <br><p>Warum verabredest du dich nicht mit ihnen zum Arbeiten?</p>
+      <br><p>Warum verabredest du dich nicht mit ihnen zum Arbeiten? Das kannst du gleich in deinem Dashboard machen!</p>
     <% end %>
   </div>
 

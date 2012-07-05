@@ -1,61 +1,76 @@
-
-
-<div>
-   <div class="row">
-      <div class="span8">
-    
-         <h2>Hallo <%= @name %>!</h2><br>
-         <p>schön, dass du bei uns mitmachst!</p>
-
-         <% if !@friends.empty?%>
-
-             <p>Wir haben gesehen, dass schon ein paar deiner Freunde dabei sind:</p><br>
-                    
-             <div class="row">
-                <% @friends.each do |friend| %>
-                  <div class="span1">
-                  <img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture"><br>
-                  <%= friend.first_name%>
-                </div>
-                <% end %>
-             </div> <!-- row --><br>
-         <% end %>
-   </div> <!-- end column span -->
-    </div> <!-- row --><br>
-
-
-
-
 <div class="row">
-   <div class="span8">
-         <br>
-         <h2>Wie funktioniert es?</h2><br>
-         <p>Du hast gleich die Möglichkeit StartWork live auszuprobieren. 
-         Hier nochmal die Kurzfassung von StartWork:</p>
-         <p>
-         1) du kommst in eine Webcam-Gruppe mit max. 4 weiteren Nutzern<br>
-         2) Zur vollen Stunde startet die Session mit 5min Vorstellungsrunde<br>
-         3) Dann arbeitet jeder 50min für sich konzentriert an seinem Projekt<br>
-         4) Schließlich gibt es vor der nächsten Session nochmal 5min Kaffeepause<br>
-         </p><br>
-        <a href='<%= root_path %>' class="btn btn-primary">Weiter</a>
-      </div> <!-- span8 -->
+<div class="emphasize span8" style="margin:30px auto 0 auto;float:none;">
 
-  </div> <!-- general row -->
+  <h2 class="parisienne" style="margin-bottom:15px;">Hallo <%= @name %>!</h2>
+  <p>schön, dass du bei uns mitmachst!</p>
+  <br/>
 
-<br><br>
-   <div class="row">
-   <div class="span3">
-		     <h2>Erklärvideo</h2>
-		<iframe src="http://player.vimeo.com/video/44444224" width="600" height="400" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-	    	 <!-- <img src="/assets/erklaer_video.png">-->
-   </div> <!-- end column span -->
-  </div> <!-- row span -->
+  <div class="whitebox">
+    <h2>Was als nächstes passiert</h2>
+    <p>Du hast gleich die Möglichkeit, StartWork direkt auszuprobieren und einer Arbeitssession beizutreten.</p>
 
-</div><!-- hero-unit -->
+    <% if !@friends.empty?%>
+      <p>Wusstest du schon? Es sind noch mehr deiner Freunde registriert:</p>
+      <div>
+        <% @friends.each do |friend| %>
+          <div>
+            <img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture"><br>
+            <%= friend.first_name%>
+          </div>
+        <% end %>
+      </div>
+      <br><p>Warum verabredest du dich nicht mit ihnen zum Arbeiten? Das kannst du gleich in deinem Dashboard machen!</p>
+    <% else %>
+    <div class="row" style="margin-top:20px;">
+      <div class="span3">
+        <img src="/assets/friends_button.png" width="200" height="200">
+      </div>
+      <div class="span4" style="width:299px;">
+        <p>StartWork funktioniert am besten zusammen mit Freunden. Du hast gleich in deinem Dashboard die Gelegenheit, sie zum gemeinsamen Arbeiten einzuladen!</p>
+        <a href='<%= welcome_session_path %>' class="btn btn-primary">Weiter</a>
+      </div>
+    </div>
+    
 
+    <% end %>
+  </div>
 
+ <div class="line-top"></div>
+ <div class="row">
+   <div class="span4">
+      <h2>Wie funktioniert das jetzt?</h2><br>
+      <ol style=" font-weight: 200; line-height: 27px;
+">
+        <li>Du wirst mit deinen Freunden per Webcam verbunden.</li>
+        <li>Ein Timer zählt abwechselnd 50min Arbeitszeit und 10min Pause.</li>
+        <li>In der Arbeitszeit arbeitet jeder für sich und bleibt am Arbeitsplatz.</p>
+        <li>In der Pause wird das Mirko aktiviert und man kann den Kaffeevorrat auffüllen :-)</li>
+      </ol>
+    </div>
 
-	
+    <div class="vr" style="height:"></div>
 
+    <div class="span4">
+      <center>
+        <a href="#">
+          <img src="/assets/promotion_video.jpg" id="video_modal_button">
+        </a>
+      </center>
+    </div> <!-- end column span -->
+  </div>
 
+</div>
+</div>
+
+<!-- MODAL FOR VIDEO -->
+<div class="modal frontpage hide fade" id="video_modal" style="width: 600px;">
+  <div>
+     <button class="close" data-dismiss="modal">×</button>
+  </div>
+  <div class="modal-body">
+  <center>
+<iframe src="http://player.vimeo.com/video/44444224?title=0&amp;byline=0&amp;portrait=0&amp;color=005580" width="600" height="400" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+</center>
+  </div>
+</div>
+<!-- END OF MODAL FOR VIDEO -->

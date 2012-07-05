@@ -72,10 +72,10 @@ class StaticPagesController < ApplicationController
   
   def welcome
     if current_user.registered
-      redirect_to root_url
-    else
-     current_user.registered=true
-     current_user.save 
+  #    redirect_to root_url
+  #  else
+  #  current_user.registered=true
+  #   current_user.save 
      @name = current_user.first_name
      @friends = current_user.friends
    end    
