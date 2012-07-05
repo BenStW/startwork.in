@@ -46,7 +46,7 @@ class AppointmentsController < ApplicationController
            calendar_event.save
          end
        end
-       redirect_to calendar_url
+       redirect_to root_url
      end
   end  
    

@@ -1,2 +1,116 @@
-<h1>appointment</h1>
-<%= @appointment.inspect  %>
+<%= content_for :below_nav do %>
+	<img src="/assets/frontpage_bigpicture.jpg" style="width:100%;position:relative;
+	margin-top:40px;margin-bottom1:+50px">
+<% end %>
+<div class="row">
+<div class="span8" style="margin:0 auto;width=620px;float:none;">
+	<div class="whitebox clr_fix" style="padding: 20px;width: 500px;">
+		<div class="left"><img src="http://graph.facebook.com/<%=@appointment.sender.fb_ui%>/picture"></div>
+		<div>
+			<h1>Verabredung mit <%=@appointment.sender.name %></h1>
+			<br/>
+			<% if !@appointment.start_time.nil? and !@appointment.end_time.nil? %>
+			
+			<h2>am 
+			<%= I18n.localize(@appointment.start_time.to_date, :format => "%d.%m.%Y") %>	
+			 von 
+			<%= I18n.localize(@appointment.start_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %>
+			bis
+			<%= I18n.localize(@appointment.end_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %>
+			</h2><br><br>
+			
+			<div class="row">
+			<div class="span8 offset2">
+				<%= link_to "Ablehnen", appointment_reject_url, :class=>"btn btn-large"%>
+				<%= link_to "Annehmen", appointment_accept_without_authentication_url(:token=> @appointment.token), :class=>"btn btn-large btn-success"%>
+			</div>
+			</div>
+			<% else %>
+			Noch keine Zeiten angegeben
+			<% end %>			
+			
+		</div>
+	</div>
+</div>
+<img src="/assets/separator-top-940.png" alt="line" style="margin-top:50px;margin-bottom:20px;">
+ <!-- left column -->
+
+<div>
+<div class="row" style="margin:0 auto;width:642px;">
+   <div class="span4" style="margin:10px 0 0 0;height:250px;">
+		<h1 style="margin-bottom:10px;">Worum geht es?</h1>
+
+		<p style="line-height: 25px;">Du wurdest von <b><%=@appointment.sender.name %></b> zu StartWork eingeladen! StartWork ist eine Plattform für gemeinsames Lernen und Arbeiten.</p>
+
+		<p style="line-height: 25px;">Auf StartWork kannst du mit <%=@appointment.sender.first_name %>  und anderen Freunden gemeinsam produktiver werden - und nebenbei noch neue Leute kennenlernen.</p>
+   </div><!-- end left column -->
+
+<div class="vr left" style="margin:0 10px;height:250px">&nbsp;</div>
+
+   <div class="span4" style="height:250px;margin-top:10px;"> <!-- right column -->
+	
+		<center>
+			<a href="#">
+         		<img src="/assets/promotion_video.jpg" id="video_modal_button">
+			</a>
+		</center>
+	</div><!-- end right column -->
+   </div>
+</div><!-- end row -->
+<img src="/assets/separator-bottom-940.png" alt="line" style="margin-bottom:20px;">
+		<div class="whitebox">
+		 	<h1 style="margin-bottom:20px;">Features</h1>
+			<%= t("static_pages.how_it_works.text_current_user_html") %>
+		</div>
+
+<img src="/assets/separator-top-940.png" alt="line" style="margin-top:30px;margin-bottom:20px;">
+
+<div class="span8" style="margin:0 auto;width=620px;float:none;">
+	<div class="well clr_fix">
+		<div class="left"><img src="http://graph.facebook.com/<%=@appointment.sender.fb_ui%>/picture"></div>
+		<div>
+			<h1>Verabredung mit <%=@appointment.sender.name %></h1>
+		
+			<% if !@appointment.start_time.nil? and !@appointment.end_time.nil? %>
+
+
+			<p>
+			<h2>am 
+			<%= I18n.localize(@appointment.start_time.to_date, :format => "%d.%m.%Y") %>	
+			 von 
+			<%= I18n.localize(@appointment.start_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %>
+			bis
+			<%= I18n.localize(@appointment.end_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %>
+			
+			
+			</h2><br><br>
+			
+			<div class="row">
+			<div class="span8 offset2">
+				<%= link_to "Ablehnen", appointment_reject_url, :class=>"btn btn-large"%>
+				<%= link_to "Annehmen", appointment_accept_without_authentication_url(:token=> @appointment.token), :class=>"btn btn-large btn-success"%>
+			</div>
+			</div>
+			
+	<% else %>
+	Noch keine Zeiten angegeben
+	<% end %>		
+			
+		</div>
+	</div>
+</div>
+</div>
+
+<!-- MODAL FOR VIDEO -->
+<div class="modal frontpage hide fade" id="video_modal">
+  <div>
+     <button class="close" data-dismiss="modal">×</button>
+  </div>
+  <div class="modal-body">
+	<center>
+<iframe src="http://player.vimeo.com/video/44113034?title=0&amp;byline=0&amp;portrait=0&amp;color=005580" width="500" height="400" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+</center>
+  </div>
+</div>
+<!-- END OF MODAL FOR VIDEO -->
+
