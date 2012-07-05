@@ -95,9 +95,11 @@
     <center><div id="send_dialogue" class="btn btn-primary btn-large" style="margin-top:20px;"><img src="/assets/facebook_button.png" width="20px" style="position: absolute;"><span style="margin-left:25px;">Freunde einladen</span></div></center>
     <%   render :template => 'invitations/new' %>
     <hr>
+    <p>StartWork funktioniert am besten mit Freunden. Lade sie jetzt ein!</p>
+    <hr>
     <div style="margin-top:20px;">
+    <p>Deine Freunde bei StartWork:</p>
     <% if !@friends.empty?%>
-      <p>Deine Freunde bei StartWork:</p>
       <div class="row">
          <% @friends.each do |friend| %>
            <div class="span1">
@@ -107,9 +109,7 @@
          <% end %>
       </div> <!-- row -->
     <% else %>
-      <p>Du hast noch keine angemeldeten Freunde.</p>
-      <p>StartWork funktioniert am besten mit Freunden. Lade sie jetzt ein!</p>
-
+      <p class="small" style="text-align:left;">Du hast noch keine angemeldeten Freunde.</p>
     <% end %>
     <hr>
     </div>
