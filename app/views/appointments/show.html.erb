@@ -4,8 +4,10 @@
 <% end %>
 <div class="row emphasize">
 <div class="span8" style="margin:0 auto;width=620px;float:none;">
-	<div class="whitebox clr_fix" style="padding: 20px;width: 500px;">
-		<div class="left"><img src="http://graph.facebook.com/<%=@appointment.sender.fb_ui%>/picture"></div>
+	<div class="whitebox clr_fix" style="padding: 20px;width: 500px;position:absolute;top:120px;">
+	</div>
+	<div style="padding: 20px;width: 500px;position:absolute;top:120px;">
+			<div class="left"><img src="http://graph.facebook.com/<%=@appointment.sender.fb_ui%>/picture"></div>
 		<div>
 			<h1>Verabredung mit <%=@appointment.sender.name %></h1>
 			<br/>
@@ -31,6 +33,13 @@
 			
 		</div>
 	</div>
+</div>
+</div>
+
+
+
+<div class="row emphasize">
+<div class="span8" style="margin:0 auto;width=620px;float:none;">
 </div>
 <img src="/assets/separator-top-940.png" alt="line" style="margin-top:50px;margin-bottom:20px;">
  <!-- left column -->
