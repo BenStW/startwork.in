@@ -25,6 +25,8 @@
 //= require woothemes-flexslider/jquery.flexslider
 //= require woothemes-flexslider/jquery.flexslider-min
 //= require matt_kruse/date
+//= require twitter/bootstrap-carousel
+//= require twitter/bootstrap-collapse
 
 
 // require jquery_ujs - not needed

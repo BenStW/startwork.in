@@ -1,3 +1,51 @@
+<div class="whitebox emphasize" style="width: 500px;height:300px;">
+<div id="appointment_carousel" class="carousel slide">
+  <!-- Carousel items -->
+  <div class="carousel-inner" style="margin-top:40px;overflow:visible;">
+    <div class="active item" style="vertical-align:middle;width:">
+	    <!-- Carousel nav -->
+	    <a class="btn btn-primary btn-large" style="position:absolute;top:-60px;right:-20px;" href="#appointment_carousel" data-slide="next">Weiter</a>
+    	<center><p>Geht es dir auch so, dass du das Anfangen mit einer Arbeit ewig lange aufschiebst?</p></center>
+    </div>
+    <div class="item" style="vertical-align:middle;">	  <!-- Carousel nav -->
+  	    <a class="btn btn-primary btn-large" style="position:absolute;top:-60px;right:-20px;" href="#appointment_carousel" data-slide="next">Weiter</a>
+    	<center><p>Auf StartWork verabredest du mit Freunden gemeinsame Arbeitszeiten über Webcam. </p></center>
+    </div>
+    <div class="item" style="vertical-align:middle;">
+	    <!-- Carousel nav -->
+	    <a class="btn btn-primary btn-large" style="position:absolute;top:-60px;right:-20px;" href="#appointment_carousel" data-slide="next">Weiter</a>
+    	<center><p>Es geht dabei um das pünktliche Anfangen mit der Arbeit, nicht um die inhaltliche Kollaboration.</p></center>
+    </div>
+    <div class="item">
+    	<div style="position:absolute;top:-60px;right:-20px;">
+			<%= link_to "Ablehnen", appointment_reject_url, :class=>"btn btn-large"%>
+			<%= link_to "Annehmen", appointment_accept_without_authentication_url(:token=> @appointment.token), :class=>"btn btn-large btn-success"%>
+		</div>
+		<p>Du hast gerade eine solche Einladung erhalten:</p>
+		<h2>Verabredung mit <%=@appointment.sender.name %></h2>
+		<br/>
+		<% if !@appointment.start_time.nil? and !@appointment.end_time.nil? %>
+		
+		<h3>am 
+		<%= I18n.localize(@appointment.start_time.to_date, :format => "%d.%m.%Y") %>	
+		 von 
+		<%= I18n.localize(@appointment.start_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %>
+		bis
+		<%= I18n.localize(@appointment.end_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %>
+		</h3>
+		<% else %>
+		Noch keine Zeiten angegeben
+		<% end %>			
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+
+<div style="height:500px"></div>
+
 <%= content_for :below_nav do %>
 	<img src="/assets/frontpage_bigpicture.jpg" style="width:100%;position:relative;
 	margin-top:40px;margin-bottom1:+50px">
