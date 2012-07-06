@@ -9,6 +9,8 @@
 		<div>
 			<h1>Verabredung mit <%=@appointment.sender.name %></h1>
 			<br/>
+			<% if !@appointment.start_time.nil? and !@appointment.end_time.nil? %>
+			
 			<h2>am 
 			<%= I18n.localize(@appointment.start_time.to_date, :format => "%d.%m.%Y") %>	
 			 von 
@@ -23,6 +25,10 @@
 				<%= link_to "Annehmen", appointment_accept_without_authentication_url(:token=> @appointment.token), :class=>"btn btn-large btn-success"%>
 			</div>
 			</div>
+			<% else %>
+			Noch keine Zeiten angegeben
+			<% end %>			
+			
 		</div>
 	</div>
 </div>
@@ -64,6 +70,10 @@
 		<div class="left"><img src="http://graph.facebook.com/<%=@appointment.sender.fb_ui%>/picture"></div>
 		<div>
 			<h1>Verabredung mit <%=@appointment.sender.name %></h1>
+		
+			<% if !@appointment.start_time.nil? and !@appointment.end_time.nil? %>
+
+
 			<p>
 			<h2>am 
 			<%= I18n.localize(@appointment.start_time.to_date, :format => "%d.%m.%Y") %>	
@@ -71,6 +81,8 @@
 			<%= I18n.localize(@appointment.start_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %>
 			bis
 			<%= I18n.localize(@appointment.end_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %>
+			
+			
 			</h2><br><br>
 			
 			<div class="row">
@@ -79,6 +91,11 @@
 				<%= link_to "Annehmen", appointment_accept_without_authentication_url(:token=> @appointment.token), :class=>"btn btn-large btn-success"%>
 			</div>
 			</div>
+			
+	<% else %>
+	Noch keine Zeiten angegeben
+	<% end %>		
+			
 		</div>
 	</div>
 </div>

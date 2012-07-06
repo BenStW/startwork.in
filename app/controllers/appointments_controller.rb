@@ -8,12 +8,17 @@ class AppointmentsController < ApplicationController
      render :json => appointment.token
    end
    
+   
   def show
      token = params["token"]
      @appointment = Appointment.find_by_token(token)
      if @appointment.nil?
        render :json => "keine Verabredung gefunden"
-     end    
+     end
+     
+     # Shows the user two links:
+     # reject appointment: --> appointment_reject_url
+     # accept appointment: --> appointment_accept_without_authentication_url(:token=> @appointment.token)
   end
   
   def reject
@@ -22,6 +27,10 @@ class AppointmentsController < ApplicationController
   
   def accept_without_authentication
     session[:appointment_token] = params["token"]
+
+    # the following redirect does not work because of FB login.
+    # The user is redirected to root_url. 
+    # Therefore root_url must redirect to appointment_accept_url
     redirect_to appointment_accept_url
   end
   
@@ -45,7 +54,7 @@ class AppointmentsController < ApplicationController
            calendar_event.save
          end
        end
-       redirect_to calendar_url
+       redirect_to welcome_with_appointment_url
      end
   end  
    

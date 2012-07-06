@@ -63,18 +63,18 @@ class CalendarEvent < ActiveRecord::Base
     end
   end  
   
-  def self.after_logging_day
-    change_date = DateTime.new(2012,6,24)  #(2012,6,16) 
-    where("start_time > ? and start_time< ?",change_date,DateTime.current)    
-  end
+# def self.after_logging_day
+#   change_date = DateTime.new(2012,6,24)  #(2012,6,16) 
+#   where("start_time > ? and start_time< ?",change_date,DateTime.current)    
+# end
   def self.logged_in
-    where("login_count>0").after_logging_day
+    where("login_count>0") #.after_logging_day
   end
   def self.not_logged_in
-    where("login_count is ?",nil).after_logging_day
+    where("login_count is ?",nil) #.after_logging_day
   end
   def self.not_logged_in_this_week
-    this_week.not_logged_in.after_logging_day
+    this_week.not_logged_in #.after_logging_day
   end
   
   def self.with_foreigners(user)
