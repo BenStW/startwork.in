@@ -9,10 +9,18 @@ class MergedWorkSession < Tableless
 
       
   def self.merge_continuing_work_sessions(work_sessions,  own_user = nil, equal_friends_boolean = false)
-    puts "length=#{work_sessions.length}"
+      #FIXME: quick fix
+    puts " ***** length of worksessions array without clean_up=#{work_sessions.length}"
+    a = Array.new
+    work_sessions.each do |work_session|
+      a = a.push work_session unless work_session.nil?
+    end
+    work_sessions = a    
+    puts " ***** length of worksessions array without clean_up=#{work_sessions.length}"
+    
     if work_sessions.length==0
       []
-    else
+    else      
        work_sessions.sort! { |a,b| a.start_time <=> b.start_time }
        merge_continuing_sorted_work_sessions(work_sessions,own_user,equal_friends_boolean)
     end
