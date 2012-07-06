@@ -19,9 +19,7 @@ class CalendarEvent < ActiveRecord::Base
   has_one :room, :through => :work_session
 
   def self.this_week
-    c = DateTime.current
-    today = DateTime.new(c.year,c.month,c.day)
-    where("calendar_events.start_time >= ?", today)
+    where("calendar_events.start_time >= ?", DateTime.current-1.hour)
   end 
   
   def self.today
