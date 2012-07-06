@@ -17,7 +17,7 @@ ActiveAdmin.register CalendarEvent do
         column "login_time" do |event | I18n.localize(event.login_time.in_time_zone("Berlin")) if event.login_time end
         column :login_count        
         column :work_session do |calendar_event|
-          link_to calendar_event.work_session_id, admin_work_session_path(calendar_event.work_session)  
+           calendar_event.work_session_id# link_to calendar_event.work_session_id, admin_work_session_path(calendar_event.work_session)  
           end
         column :users do |calendar_event|
           #          names = calendar_event.work_session.users.map(&:name).join(" - ")
