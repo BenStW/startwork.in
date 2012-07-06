@@ -9,6 +9,7 @@ class MergedWorkSession < Tableless
 
       
   def self.merge_continuing_work_sessions(work_sessions,  own_user = nil, equal_friends_boolean = false)
+    puts "length=#{work_sessions.length}"
     if work_sessions.length==0
       []
     else

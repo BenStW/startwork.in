@@ -4,9 +4,11 @@ class StaticPagesController < ApplicationController
   skip_before_filter :authenticate_user!,  :except => [:welcome, :camera, :audio, :ben]
   
   def home
+    session[:appointment_token] = nil
     if user_signed_in?
-      if session[:appointment_token]
-        redirect_to appointment_accept_url
+      if token = session[:appointment_token]
+        session[:appointment_token] = nil
+        redirect_to accept_url(:token=>token)
       else
         home_logged_in
         render :action=>'home_logged_in'
@@ -24,6 +26,8 @@ class StaticPagesController < ApplicationController
       @my_work_sessions = MergedWorkSession.merge_continuing_work_sessions(my_work_sessions,current_user)
       
       friends_work_sessions = CalendarEvent.this_week.friends_of(current_user).no_work_session_with(current_user).map(&:work_session) 
+      
+      puts "--------- #{friends_work_sessions.to_yaml}"
       @friends_work_sessions = MergedWorkSession.merge_continuing_work_sessions(friends_work_sessions,current_user,true)
       
       @friends = current_user.friends
@@ -69,44 +73,48 @@ class StaticPagesController < ApplicationController
     
   end
   
-  
+  # called by *omniauth_callbacks_controller.rb*
   def welcome
     if current_user.registered
-  #    redirect_to root_url
-  #  else
-  #  current_user.registered=true
-  #   current_user.save 
-     @name = current_user.first_name
-     @friends = current_user.friends
+      redirect_to root_url
+    else
+      current_user.registered=true
+      current_user.save      
+      if token = session[:appointment_token]
+        session[:appointment_token] = nil
+        redirect_to appointment_accept_url(:token=>token)
+      else
+        @name = current_user.first_name
+        @friends = current_user.friends
+      end
    end    
   end
   
   def welcome_with_appointment 
-     current_user.registered=true
-     current_user.save 
      @name = current_user.first_name
      @friends = current_user.friends
      token = params["token"]
      @appointment = Appointment.find_by_token(token)
      if @appointment.nil?
-       render :json => "keine Verabredung gefunden"
+       session[:appointment_token] = nil
+       render :json => "welcome_with_appointment: keine Verabredung gefunden"
      end    
   end
 
-  def welcome_session
-    c = DateTime.current
-    this_hour = DateTime.new(c.year,c.month,c.day, c.hour)
-    calendar_event = current_user.calendar_events.build(start_time: this_hour)
-    calendar_event.find_or_build_work_session
-    calendar_event.save
-    work_session = calendar_event.work_session    
-#    work_session = WorkSession.assign_for_guest(current_user)
- #   if work_session.nil?
-#      redirect_to root_url, :alert=> "Aktuell ist keine WorkSession vorhanden, wo Du als Gast teilnehmen kannst."
-#    else
-    @work_buddies = work_session.users
-#    end
-  end
+ # def welcome_session
+ #   c = DateTime.current
+ #   this_hour = DateTime.new(c.year,c.month,c.day, c.hour)
+ #   calendar_event = current_user.calendar_events.build(start_time: this_hour)
+ #   calendar_event.find_or_build_work_session
+ #   calendar_event.save
+ #   work_session = calendar_event.work_session    
+ #      #    work_session = WorkSession.assign_for_guest(current_user)
+ #       #   if work_session.nil?
+ #      #      redirect_to root_url, :alert=> "Aktuell ist keine WorkSession vorhanden, wo Du als Gast teilnehmen kannst."
+ #      #    else
+ #   @work_buddies = work_session.users
+ #
+ # end
   
   def facebook
 

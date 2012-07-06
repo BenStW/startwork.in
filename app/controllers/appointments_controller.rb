@@ -31,15 +31,14 @@ class AppointmentsController < ApplicationController
     # the following redirect does not work because of FB login.
     # The user is redirected to root_url. 
     # Therefore root_url must redirect to appointment_accept_url
-    redirect_to appointment_accept_url
+     redirect_to appointment_accept_url
   end
   
   def accept
-    token = session[:appointment_token]
-    session[:appointment_token]= nil  
+    token = params["token"]
     appointment = Appointment.find_by_token(token)    
     if appointment.nil?
-      render :json => "keine Verabredung gefunden"
+      render :json => "keine Verabredung gefunden."
     else
        appointment.receive_count+=1
        appointment.save
@@ -54,7 +53,7 @@ class AppointmentsController < ApplicationController
            calendar_event.save
          end
        end
-       redirect_to welcome_with_appointment_url
+       redirect_to welcome_with_appointment_url(:token => token)
      end
   end  
    
