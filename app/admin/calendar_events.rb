@@ -17,13 +17,15 @@ ActiveAdmin.register CalendarEvent do
         column "login_time" do |event | I18n.localize(event.login_time.in_time_zone("Berlin")) if event.login_time end
         column :login_count        
         column :work_session do |calendar_event|
-           calendar_event.work_session_id# link_to calendar_event.work_session_id, admin_work_session_path(calendar_event.work_session)  
+           link_to calendar_event.work_session_id, admin_work_session_path(calendar_event.work_session)  unless calendar_event.work_session.nil?
           end
         column :users do |calendar_event|
           #          names = calendar_event.work_session.users.map(&:name).join(" - ")
           names = ""
-          calendar_event.work_session.users.each do |user|
-            names += raw(link_to user.name, admin_user_path(user.id)) + " "
+          if !calendar_event.work_session.nil?
+            calendar_event.work_session.users.each do |user|
+              names += raw(link_to user.name, admin_user_path(user.id)) + " "
+            end
           end
            raw(names)
           end                
