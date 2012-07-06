@@ -21,7 +21,7 @@
 
 </head>
 
-<body  style="height:100%;
+<body  style="height:100%;min-width: 940px;
 <% if params["bg_image"] then %>
      <%= "background-image:url('/assets/#{params['bg_image']}')" %>
 <% elsif content_for?(:background_image) then %>
