@@ -19,13 +19,13 @@ ActiveAdmin::Dashboards.build do
             user.friends.count
          end
          column 'appointments'  do |user| user.appointments.count  end       
-         column 'calendar events'  do |user| user.calendar_events.after_logging_day.count  end       
+         column 'calendar events'  do |user| user.calendar_events.count  end       
          column 'logged-in  events' do |user| user.calendar_events.logged_in.count end       
          column 'missed  events' do |user| user.calendar_events.not_logged_in.count end       
          column 'perc. of logged-in events' do  |user| 
-            if user.calendar_events.after_logging_day.count>0
+            if user.calendar_events.count>0
               "#{(user.calendar_events.logged_in.count * 100 /
-              (user.calendar_events.after_logging_day.count))} %" 
+              (user.calendar_events.count))} %" 
               else "-"
             end
          end 
