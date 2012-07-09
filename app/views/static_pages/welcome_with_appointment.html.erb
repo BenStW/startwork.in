@@ -1,12 +1,33 @@
-<div class="row">
-<div class="emphasize span8" style="margin:30px auto 0 auto;float:none;">
+<%- content_for(:head) do -%>
+  <%= javascript_include_tag "http://connect.facebook.net/en_US/all.js" -%>
+  <link href='http://fonts.googleapis.com/css?family=Parisienne' rel='stylesheet' type='text/css'>
+<%- end -%>
 
-  <h2 class="parisienne" style="margin-bottom:15px;">Hallo <%= @name %>!</h2>
+<%- content_for(:background_image) do -%>
+         background-image:url('/assets/paper_bg.jpg')
+<%- end -%>
+
+<%- content_for(:first_in_container) do -%>
+<div style="background:url('/assets/coffee.png') no-repeat;width: 751px;height: 836px;position: absolute;left: 0;top: 0;z-index: 0;"></div>
+<%- end -%>
+
+<center>
+  <h2 class="parisienne" id="greet_username" style="margin-left: 50px;">
+    Willkommen <%=@current_user.name %>
+  </h2>
+</center>
+
+<div class="row emphasize" style="position:relative;margin-top:30px;">
+<div class="span8 column_same_height">
+
+<div class="whitebox" style="width: 539px; position: absolute; bottom: 0; top: 0;">
+
+  <h2 style="margin-bottom:15px;">Hallo <%= @name %>!</h2>
   <p>schön, dass du bei uns mitmachst!</p>
   <br/>
   <p>Wir haben eine Verabredung in deinen StartWork Kalender eingetragen:</p>
-  <div class="whitebox" style="padding:20px 40px;margin-bottom:40px;">
-    <h2 style="margin-bottom:20px;">Verabredung mit <%=@appointment.sender.name %></h2>
+  <div class="well">
+    <h2 style="margin-bottom:20px;">Deine Verabredung mit <%=@appointment.sender.name %></h2>
     <div style="margin-bottom:20px;">
       <div class="left" style="margin:0;"><img src="http://graph.facebook.com/<%=@appointment.sender.fb_ui%>/picture"></div>
       <div style="margin: 0 0 0 70px;">
@@ -20,64 +41,48 @@
       <b>Achtung!</b><br/>
       Termine auf StartWork sind verbindlich! Falls etwas dazwischenkommen sollte, sag bitte frühzeitig ab, dein Gegenüber rechnet fest mit dir!
     </div>
+  </div>
   </div> <!-- end column left -->
 
-  <div class="line-top"></div>
+</div>
 
-  <div>
+<div class="span4 column_same_height">
+<div class="whitebox">
+
     <% if !@friends.empty?%>
-      <p>Wusstest du schon? Es sind noch mehr deiner Freunde registriert:</p>
-      <div class="whitebox" style="padding:20px;width:480px;margin:0 auto;">
+      <h3>Wusstest du schon?</h3><br>
+      <p>Es sind noch mehr deiner Freunde registriert:</p>
+      <div class="well" style="padding:20px;margin:0 auto;">
         <% @friends.each do |friend| %>
           <div>
             <img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture"><br>
-            <%= friend.first_name%>
+            <%= friend.first_name %>
           </div>
         <% end %>
       </div>
-      <br><p>Warum verabredest du dich nicht mit ihnen zum Arbeiten? Das kannst du gleich in deinem Dashboard machen!</p>
+      <br><p>Warum verabredest du dich nicht mit ihnen zum Arbeiten?<br>Das kannst du gleich in deinem Dashboard machen:</p>
+      <%= link_to "Zum Dashboard", root_path, :class => "btn btn-danger btn-large"%>
+    <% else %>
+
+    <h3>Freunde einladen</h3><br>
+    <p>StartWork funktioniert am besten mit Freunden! Lade sie jetzt ein:</p>
+    <center><div id="send_dialogue" class="btn btn-primary btn-large" style="margin-top:20px;"><img src="/assets/facebook_button.png" width="20px" style="position: absolute;"><span style="margin-left:25px;">Freunde einladen</span></div></center>
+    <%   render :template => 'invitations/new' %>
+
     <% end %>
-  </div>
-
- <div class="line-bottom"></div>
-
- <div class="row">
-   <div class="span4">
-      <h2>Wie funktioniert das jetzt?</h2><br>
-      <ol style=" font-weight: 200; line-height: 27px;
-">
-        <li>Du wirst mit deinen Freunden per Webcam verbunden.</li>
-        <li>Ein Timer zählt abwechselnd 50min Arbeitszeit und 10min Pause.</li>
-        <li>In der Arbeitszeit arbeitet jeder für sich und bleibt am Arbeitsplatz.</p>
-        <li>In der Pause wird das Mirko aktiviert und man kann den Kaffeevorrat auffüllen :-)</li>
-      </ol>
-      <br>
-      <a href='<%= root_path %>' class="btn btn-primary">Weiter</a>
-    </div>
-
-    <div class="vr" style="height:"></div>
-
-    <div class="span4">
-      <center>
-        <a href="#">
-          <img src="/assets/promotion_video.jpg" id="video_modal_button">
-        </a>
-      </center>
-    </div> <!-- end column span -->
-  </div>
 
 </div>
-</div>
 
-<!-- MODAL FOR VIDEO -->
-<div class="modal frontpage hide fade" id="video_modal" style="width: 600px;">
-  <div>
-     <button class="close" data-dismiss="modal">×</button>
-  </div>
-  <div class="modal-body">
+<div class="whitebox" style="margin-top:20px;">
+
+  <p>Im Dashboard kannst du deine Verabredungen verwalten, dich Worksessions beitreten, und vieles mehr:</p>
   <center>
-<iframe src="http://player.vimeo.com/video/44444224?title=0&amp;byline=0&amp;portrait=0&amp;color=005580" width="600" height="400" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-</center>
-  </div>
+    <%= link_to "Zum Dashboard", root_path, :class => "btn btn-danger btn-large"%>
+  </center>
 </div>
-<!-- END OF MODAL FOR VIDEO -->
+</div>
+
+
+</div>
+
+<div id="fb-root" data-app="<%=@app%>" style="position: absolute;left: 150px;top: 40px;"></div>

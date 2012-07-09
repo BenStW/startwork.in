@@ -31,6 +31,7 @@ StartWork::Application.routes.draw do
 
      match 'welcome' => 'static_pages#welcome', :as => :welcome
      match 'welcome_with_appointment' => 'static_pages#welcome_with_appointment', :as => :welcome_with_appointment
+     match 'accept_appointment' => 'static_pages#accept_appointment', :as => :accept_appointment
    #  match 'welcome_session' => 'static_pages#welcome_session', :as => :welcome_session
      match 'facebook' => 'static_pages#facebook', :as => :facebook
      match 'blog' => 'static_pages#blog', :as => :blog
