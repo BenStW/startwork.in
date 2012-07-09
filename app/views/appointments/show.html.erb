@@ -5,16 +5,16 @@
     <div class="active item" style="vertical-align:middle;width:">
 	    <!-- Carousel nav -->
 	    <a class="btn btn-primary btn-large" style="position:absolute;top:-60px;right:-20px;" href="#appointment_carousel" data-slide="next">Weiter</a>
-    	<center><p>Geht es dir auch so, dass du das Anfangen mit einer Arbeit ewig lange aufschiebst?</p></center>
+    	<center><p class="parisienne">Geht es dir auch so, dass du das Anfangen mit einer Arbeit ewig lange aufschiebst?</p></center>
     </div>
     <div class="item" style="vertical-align:middle;">	  <!-- Carousel nav -->
   	    <a class="btn btn-primary btn-large" style="position:absolute;top:-60px;right:-20px;" href="#appointment_carousel" data-slide="next">Weiter</a>
-    	<center><p>Auf StartWork verabredest du mit Freunden gemeinsame Arbeitszeiten über Webcam. </p></center>
+    	<center><p class="parisienne">Auf StartWork verabredest du mit Freunden gemeinsame Arbeitszeiten über Webcam. </p></center>
     </div>
     <div class="item" style="vertical-align:middle;">
 	    <!-- Carousel nav -->
 	    <a class="btn btn-primary btn-large" style="position:absolute;top:-60px;right:-20px;" href="#appointment_carousel" data-slide="next">Weiter</a>
-    	<center><p>Es geht dabei um das pünktliche Anfangen mit der Arbeit, nicht um die inhaltliche Kollaboration.</p></center>
+    	<center><p class="parisienne">Es geht dabei um das pünktliche Anfangen mit der Arbeit, nicht um die inhaltliche Kollaboration.</p></center>
     </div>
     <div class="item">
     	<div style="position:absolute;top:-60px;right:-20px;">
@@ -22,20 +22,23 @@
 			<%= link_to "Annehmen", appointment_accept_without_authentication_url(:token=> @appointment.token), :class=>"btn btn-large btn-success"%>
 		</div>
 		<p>Du hast gerade eine solche Einladung erhalten:</p>
-		<h2>Verabredung mit <%=@appointment.sender.name %></h2>
-		<br/>
-		<% if !@appointment.start_time.nil? and !@appointment.end_time.nil? %>
-		
-		<h3>am 
-		<%= I18n.localize(@appointment.start_time.to_date, :format => "%d.%m.%Y") %>	
-		 von 
-		<%= I18n.localize(@appointment.start_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %>
-		bis
-		<%= I18n.localize(@appointment.end_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %>
-		</h3>
-		<% else %>
-		Noch keine Zeiten angegeben
-		<% end %>			
+		<div class="well">
+			<div class="left"><img src="http://graph.facebook.com/<%=@appointment.sender.fb_ui%>/picture"></div>
+			<h2>Verabredung mit <%=@appointment.sender.name %></h2>
+			<br/>
+			<% if !@appointment.start_time.nil? and !@appointment.end_time.nil? %>
+			
+			<h3>am 
+			<%= I18n.localize(@appointment.start_time.to_date, :format => "%d.%m.%Y") %>	
+			 von 
+			<%= I18n.localize(@appointment.start_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %>
+			bis
+			<%= I18n.localize(@appointment.end_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %>
+			</h3>
+			<% else %>
+			Noch keine Zeiten angegeben
+			<% end %>
+		</div>			
     </div>
   </div>
 </div>
