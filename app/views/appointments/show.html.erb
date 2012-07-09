@@ -1,27 +1,45 @@
-<div class="whitebox emphasize" style="width: 500px;height:300px;">
+<%- content_for(:nav_bar) do -%>
+	<span></span>
+<%- end -%>
+
+<%- content_for(:user_voice) do -%>
+	<span></span>
+<%- end -%>
+
+<%- content_for(:background_image) do -%>
+	background:url('/assets/paper_bg.jpg');
+<%- end -%>
+
+<%= content_for :below_nav do %>
+	<img src="/assets/frontpage_bigpicture.jpg" style="width:100%;position:relative;display:block;">
+<% end %>
+
+<div style="margin:0 auto; width:696px;position:relative;">
+<div class="whitebox" style="position:absolute;top: -168px;height:270px;width: 100%;padding: 0;opacity:0.8;"></div>
+<div class="emphasize" style="position:absolute;top: -168px;height:270px;padding: 40px;">
 <div id="appointment_carousel" class="carousel slide">
   <!-- Carousel items -->
-  <div class="carousel-inner" style="margin-top:40px;overflow:visible;">
+  <div class="carousel-inner" style="margin-top:40px;overflow:visible;width:614px;">
     <div class="active item" style="vertical-align:middle;width:">
 	    <!-- Carousel nav -->
-	    <a class="btn btn-primary btn-large" style="position:absolute;top:-60px;right:-20px;" href="#appointment_carousel" data-slide="next">Weiter</a>
-    	<center><p class="parisienne">Geht es dir auch so, dass du das Anfangen mit einer Arbeit ewig lange aufschiebst?</p></center>
+	    <a class="btn btn-danger btn-large" style="position:absolute;top:-60px;right:-20px;" href="#appointment_carousel" data-slide="next">Weiter</a>
+    	<center><p style="font-size:26px;line-height:47px;">Geht es dir auch so, dass du das Anfangen mit einer Arbeit ewig lange aufschiebst?</p></center>
     </div>
     <div class="item" style="vertical-align:middle;">	  <!-- Carousel nav -->
-  	    <a class="btn btn-primary btn-large" style="position:absolute;top:-60px;right:-20px;" href="#appointment_carousel" data-slide="next">Weiter</a>
-    	<center><p class="parisienne">Auf StartWork verabredest du mit Freunden gemeinsame Arbeitszeiten über Webcam. </p></center>
+  	    <a class="btn btn-danger btn-large" style="position:absolute;top:-60px;right:-20px;" href="#appointment_carousel" data-slide="next">Weiter</a>
+    	<center><p style="font-size:26px;line-height:47px;">Auf StartWork verabredest du mit Freunden gemeinsame Arbeitszeiten über Webcam. </p></center>
     </div>
     <div class="item" style="vertical-align:middle;">
 	    <!-- Carousel nav -->
-	    <a class="btn btn-primary btn-large" style="position:absolute;top:-60px;right:-20px;" href="#appointment_carousel" data-slide="next">Weiter</a>
-    	<center><p class="parisienne">Es geht dabei um das pünktliche Anfangen mit der Arbeit, nicht um die inhaltliche Kollaboration.</p></center>
+	    <a class="btn btn-danger btn-large" style="position:absolute;top:-60px;right:-20px;" href="#appointment_carousel" data-slide="next">Weiter</a>
+    	<center><p style="font-size:26px;line-height:47px;">Es geht dabei um das pünktliche Anfangen mit der Arbeit, nicht um die inhaltliche Kollaboration.</p></center>
     </div>
     <div class="item">
     	<div style="position:absolute;top:-60px;right:-20px;">
 			<%= link_to "Ablehnen", appointment_reject_url, :class=>"btn btn-large"%>
 			<%= link_to "Annehmen", appointment_accept_without_authentication_url(:token=> @appointment.token), :class=>"btn btn-large btn-success"%>
 		</div>
-		<p>Du hast gerade eine solche Einladung erhalten:</p>
+		<p style="font-size:26px;line-height:47px;margin-bottom:20px;">Du hast gerade eine solche Einladung erhalten:</p>
 		<div class="well">
 			<div class="left"><img src="http://graph.facebook.com/<%=@appointment.sender.fb_ui%>/picture"></div>
 			<h2>Verabredung mit <%=@appointment.sender.name %></h2>
@@ -43,16 +61,13 @@
   </div>
 </div>
 </div>
-
+</div>
 
 
 
 <div style="height:500px"></div>
 
-<%= content_for :below_nav do %>
-	<img src="/assets/frontpage_bigpicture.jpg" style="width:100%;position:relative;
-	margin-top:40px;margin-bottom1:+50px">
-<% end %>
+
 <div class="row emphasize">
 <div class="span8" style="margin:0 auto;width=620px;float:none;">
 	<div class="whitebox clr_fix" style="padding: 20px;width: 500px;">
