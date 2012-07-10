@@ -238,6 +238,28 @@ h1, h2, h3 h4 {
 
 }
 
+.active_element {
+
+	z-index: 2000;
+	position: relative;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	background:white;
+
+}
+
+.wizard_modal {
+
+	display: none;
+	
+}
+
+.active_modal {
+
+	display: block;
+	
+}
 
 .carousel .item {-webkit-transition: opacity 1s; -moz-transition: opacity 1s; -ms-transition: opacity 1s; -o-transition: opacity 1s; transition: opacity 1s;}
 .carousel .active.left {left:0;opacity:0;z-index:2;}

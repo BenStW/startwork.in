@@ -1,25 +1,24 @@
+<%- content_for(:head) do -%>
+  <%= javascript_include_tag "http://connect.facebook.net/en_US/all.js" -%>
+  <link href='http://fonts.googleapis.com/css?family=Parisienne' rel='stylesheet' type='text/css'>
+<%- end -%>
 
 
-  <%- content_for(:head) do -%>
-    <%= javascript_include_tag "http://connect.facebook.net/en_US/all.js" -%>
-    <link href='http://fonts.googleapis.com/css?family=Parisienne' rel='stylesheet' type='text/css'>
-  <%- end -%>
+<%- content_for(:background_image) do -%>
+        background-image:url('/assets/paper_bg.jpg')
+<%- end -%>
 
+<%- content_for(:first_in_container) do -%>
 
-  <%- content_for(:background_image) do -%>
-          background-image:url('/assets/paper_bg.jpg')
-  <%- end -%>
-
-  <%- content_for(:first_in_container) do -%>
 <div style="background:url('/assets/coffee.png') no-repeat;width: 751px;height: 836px;position: absolute;left: 0;top: 0;z-index: 0;"></div>
 <%- end -%>
 
 
-  <center>
-    <h2 class="parisienne" id="greet_username" style="margin-left: 50px;">
-      <%=t '.greet_username', :username => current_user.name %>
-    </h2>
-  </center>
+<center>
+  <h2 class="parisienne" id="greet_username" style="margin-left: 50px;">
+    <%=t '.greet_username', :username => current_user.name %>
+  </h2>
+</center>
 
 <div class="row" style="min-height:500px;margin-top:32px;">
 
@@ -27,30 +26,37 @@
 <div class="white_col span4 column_same_height">
 
   <div style="margin:20px;">
-  <h2>Verabreden</h2>
+  <div id="explain1">
+    <h2>Verabreden</h2>
 
-  <center><div class="btn btn-primary btn-large" id="launch_modal_button" style="margin-top:20px;">1. Jetzt verabreden</div></center>
+    <center>
+      <div class="btn btn-primary btn-large" id="launch_modal_button" style="margin-top:20px;">1. Jetzt verabreden</div>
+    </center>
+  </div>
 
  <div style="margin-top:20px;">
 
 
   <!-- Eigene Sessions -->
- 
+ <div id="explain2">
   <div id="my_work_sessions" style="text-align: left;">
       <% my_or_friends = "my"%>
       <%= render :partial => "work_sessions/work_sessions", 
           :locals => { :work_sessions => @my_work_sessions, :my_or_friends => my_or_friends } %>	
   </div>
 </div>
+</div>
   <!-- Ende eigene Sessions --> 
 
 
   <!-- Sessions von Freunden -->
+<div id="explain3">
   <div id="friends_work_sessions" style="text-align: left;">
       <% my_or_friends = "friends"%>
       <%= render :partial => "work_sessions/work_sessions", 
           :locals => { :work_sessions => @friends_work_sessions, :my_or_friends => my_or_friends } %>	
   </div>
+</div>
   <!-- Ende von Sessions von Freunden --> 
 
 
@@ -61,7 +67,6 @@
 </div>
 
 <%= render 'appointments/main_modal' %>
-
 
 </div>
 
@@ -123,3 +128,61 @@
 <div id="fb-root" data-app="<%=@app%>" style="position: absolute;left: 150px;top: 40px;"></div>
 
 <%= render 'appointments/appointment_modal' %>
+
+<!-- main explainer modal start-->
+<div class="modal hide main-modal wizard_modal active_modal" id="wizard0" style="background:whitesmoke;">
+  <div class="modal-header">
+    <button class="close" data-dismiss="modal">×</button>
+    <h2>Willkommen in deinem Dashboard</h2>
+  </div>
+
+  <div class="modal-body" style="background:white;">
+    <p>wizard0<br>
+      </p>
+  </div>
+
+  <div class="modal-footer">
+       <button class="continue_button btn btn-large btn-primary" data-activate_modal="#wizard1" data-activate_element="#explain1">Weiter</button>
+       <button class="continue_button btn btn-large">Tour abbrechen</button>
+  </div><!-- modal-footer -->
+</div>
+<!-- main explainer modal end-->
+
+<!-- explainer modal 1 start-->
+<div class="modal hide main-modal wizard_modal" id="wizard1" style="background:whitesmoke;position: absolute;
+top: 400px;
+left: 800px;">
+  <div class="modal-header">
+    <button class="close" data-dismiss="modal">×</button>
+    <h2>Willkommen in deinem Dashboard</h2>
+  </div>
+
+  <div class="modal-body" style="background:white;">
+    <p>wizard1<br>
+      </p>
+  </div>
+
+  <div class="modal-footer">
+       <button class="continue_button btn btn-large btn-primary" data-activate_modal="#wizardx">Weiter</button>
+       <button class="continue_button btn btn-large">Tour abbrechen</button>
+  </div><!-- modal-footer -->
+</div>
+<!-- explainer modal 1 end-->
+
+<!-- explainer modal last start-->
+<div class="modal hide main-modal wizard_modal" id="wizardx" style="background:whitesmoke;">
+  <div class="modal-header">
+    <button class="close" data-dismiss="modal">×</button>
+    <h2>Willkommen in deinem Dashboard</h2>
+  </div>
+
+  <div class="modal-body" style="background:white;">
+    <p>wizardx<br>
+      </p>
+  </div>
+
+  <div class="modal-footer">
+      <button class="btn btn-large btn-success" data-dismiss="modal">fertig!</button>
+  </div><!-- modal-footer -->
+</div>
+<!-- explainer modal last end-->

@@ -10,3 +10,14 @@ $(document).ready ->
 
    $("#appointment_carousel").carousel
        interval: false
+
+   $("#wizard0").modal
+        show: true
+
+   $(".continue_button").click ->
+        $("[id^=explain]").removeClass("active_element")
+        $("[id^=wizard]").removeClass("active_modal")
+        element_id=$(this).data("activate_element")
+        modal_id=$(this).data("activate_modal")
+        $(element_id).addClass("active_element")
+        $(modal_id).addClass("active_modal")
