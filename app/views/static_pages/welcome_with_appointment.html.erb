@@ -17,14 +17,11 @@
   </h2>
 </center>
 
-<div class="row emphasize" style="position:relative;margin-top:30px;">
-<div class="span8 column_same_height">
+<div class="row" style="position:relative;margin-top:30px;">
+<div class="span8 emphasize column_same_height">
 
 <div class="whitebox" style="width: 539px; position: absolute; bottom: 0; top: 0;">
 
-  <h2 style="margin-bottom:15px;">Hallo <%= @name %>!</h2>
-  <p>schön, dass du bei uns mitmachst!</p>
-  <br/>
   <p>Wir haben eine Verabredung in deinen StartWork Kalender eingetragen:</p>
   <div class="well">
     <h2 style="margin-bottom:20px;">Deine Verabredung mit <%=@appointment.sender.name %></h2>
@@ -42,29 +39,41 @@
       Termine auf StartWork sind verbindlich! Falls etwas dazwischenkommen sollte, sag bitte frühzeitig ab, dein Gegenüber rechnet fest mit dir!
     </div>
   </div>
+  <p>Du kannst dich schon jetzt auf die produktive Zeit freuen!<br><%=@appointment.sender.first_name %> weiß schon Bescheid, dass du dabei bist und wird auf dich warten.</p>
   </div> <!-- end column left -->
 
 </div>
 
-<div class="span4 column_same_height">
+<div class="span4 column_same_height" style="text-align:justify;">
+
 <div class="whitebox">
+  <p><h4>Weiter zum Dashboard</h4></p>
+  <p>Im Dashboard kannst du deine Verabredungen verwalten, offenen Worksessions beitreten, und vieles mehr:</p>
+  <center>
+    <%= link_to "Zum Dashboard", root_path, :class => "btn btn-danger btn-large"%>
+  </center>
+</div>
+
+<div class="whitebox" style="margin-top:20px;">
 
     <% if !@friends.empty?%>
-      <h3>Wusstest du schon?</h3><br>
+      <p><h4>Wusstest du schon?</h4></p>
       <p>Es sind noch mehr deiner Freunde registriert:</p>
       <div class="well" style="padding:20px;margin:0 auto;">
-        <% @friends.each do |friend| %>
-          <div>
-            <img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture"><br>
-            <%= friend.first_name %>
-          </div>
-        <% end %>
+        <div class="row">
+          <% @friends.each do |friend| %>
+            <div class="span1">
+              <img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture"><br>
+              <%= friend.first_name %>
+            </div>
+          <% end %>
+        </div>
       </div>
       <br><p>Warum verabredest du dich nicht mit ihnen zum Arbeiten?<br>Das kannst du gleich in deinem Dashboard machen:</p>
       <%= link_to "Zum Dashboard", root_path, :class => "btn btn-danger btn-large"%>
     <% else %>
 
-    <h3>Freunde einladen</h3><br>
+    <h4>Freunde einladen</h4><br>
     <p>StartWork funktioniert am besten mit Freunden! Lade sie jetzt ein:</p>
     <center><div id="send_dialogue" class="btn btn-primary btn-large" style="margin-top:20px;"><img src="/assets/facebook_button.png" width="20px" style="position: absolute;"><span style="margin-left:25px;">Freunde einladen</span></div></center>
     <%   render :template => 'invitations/new' %>
@@ -73,13 +82,6 @@
 
 </div>
 
-<div class="whitebox" style="margin-top:20px;">
-
-  <p>Im Dashboard kannst du deine Verabredungen verwalten, dich Worksessions beitreten, und vieles mehr:</p>
-  <center>
-    <%= link_to "Zum Dashboard", root_path, :class => "btn btn-danger btn-large"%>
-  </center>
-</div>
 </div>
 
 
