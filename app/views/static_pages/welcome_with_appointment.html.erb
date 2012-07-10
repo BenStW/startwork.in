@@ -17,10 +17,10 @@
   </h2>
 </center>
 
-<div class="row" style="position:relative;margin-top:30px;">
-<div class="span8 emphasize column_same_height">
+<div class="row" style="position:relative;margin-top:30px;min-height:600px;">
+<div class="span8 emphasize column_same_height whitebox" style="padding:0;margin: 0 0 0 20px;width:618px;">
 
-<div class="whitebox" style="width: 539px; position: absolute; bottom: 0; top: 0;">
+<div style="padding:40px;">
 
   <p>Wir haben eine Verabredung in deinen StartWork Kalender eingetragen:</p>
   <div class="well">
@@ -33,6 +33,7 @@
           <a href="#" class="btn btn-small btn-edit" style="position: relative;top: 6px;"></a>
        </div>
        <span class="clr_fix"></span>
+       <br>Wir werden dich per E-Mail 2 Stunden vor dem Termin noch einmal erinnern!
     </div>
     <div class="alert alert-info">
       <b>Achtung!</b><br/>
@@ -44,41 +45,51 @@
 
 </div>
 
-<div class="span4 column_same_height" style="text-align:justify;">
+<div class="span4 column_same_height whitebox" style="text-align:justify;padding:0;margin: 0 0 0 20px;width:298px;">
 
-<div class="whitebox">
-  <p><h4>Weiter zum Dashboard</h4></p>
-  <p>Im Dashboard kannst du deine Verabredungen verwalten, offenen Worksessions beitreten, und vieles mehr:</p>
-  <center>
-    <%= link_to "Zum Dashboard", root_path, :class => "btn btn-danger btn-large"%>
-  </center>
-</div>
+<div style="padding:40px;">
 
-<div class="whitebox" style="margin-top:20px;">
+  <% if !@friends.empty?%>
 
-    <% if !@friends.empty?%>
-      <p><h4>Wusstest du schon?</h4></p>
-      <p>Es sind noch mehr deiner Freunde registriert:</p>
-      <div class="well" style="padding:20px;margin:0 auto;">
-        <div class="row">
-          <% @friends.each do |friend| %>
-            <div class="span1">
-              <img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture"><br>
-              <%= friend.first_name %>
-            </div>
-          <% end %>
-        </div>
+    <p><h4>Wusstest du schon?</h4></p>
+    <p>Es sind noch mehr deiner Freunde registriert:</p>
+    <div class="well" style="padding:20px;margin:0 auto;">
+      <div class="row">
+        <% @friends.each do |friend| %>
+          <div class="span1">
+            <img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture"><br>
+            <%= friend.first_name %>
+          </div>
+        <% end %>
       </div>
-      <br><p>Warum verabredest du dich nicht mit ihnen zum Arbeiten?<br>Das kannst du gleich in deinem Dashboard machen:</p>
-      <%= link_to "Zum Dashboard", root_path, :class => "btn btn-danger btn-large"%>
-    <% else %>
+    </div>
+    <br><p>Warum verabredest du dich nicht mit ihnen zum Arbeiten?<br>Das kannst du gleich in deinem Dashboard machen:</p>
+    <center style="margin:20px 0">
+      <%= link_to "Zum Dashboard", root_path, :class => "btn btn-primary btn-large"%>
+    </center>
+    <p>Im Dashboard kannst du deine Verabredungen verwalten, offenen Worksessions beitreten, und vieles mehr</p>
+
+  <% else %>
+
+    <p><h4>Weiter zum Dashboard</h4></p>
+    <p>Im Dashboard kannst du deine Verabredungen verwalten, offenen Worksessions beitreten, und vieles mehr:</p><br>
+    <center>
+      <%= link_to "Zum Dashboard", root_path, :class => "btn btn-primary btn-large"%>
+    </center>
+
+    <div class="line-top" style="width: 218px;height: 15px;background-size: 218px 15px;"></div>
 
     <h4>Freunde einladen</h4><br>
     <p>StartWork funktioniert am besten mit Freunden! Lade sie jetzt ein:</p>
-    <center><div id="send_dialogue" class="btn btn-primary btn-large" style="margin-top:20px;"><img src="/assets/facebook_button.png" width="20px" style="position: absolute;"><span style="margin-left:25px;">Freunde einladen</span></div></center>
+    <center>
+      <div id="send_dialogue" class="btn btn-primary btn-large" style="margin-top:20px;">
+        <img src="/assets/facebook_button.png" width="20px" style="position: absolute;">
+        <span style="margin-left:25px;">Freunde einladen</span>
+      </div>
+    </center>
     <%   render :template => 'invitations/new' %>
 
-    <% end %>
+  <% end %>
 
 </div>
 

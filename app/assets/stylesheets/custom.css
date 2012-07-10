@@ -231,12 +231,13 @@ h1, h2, h3 h4 {
 .span6 .line-bottom {
 
 	background: url('/assets/separator-bottom-940.png');
-	background-size: 720px 34px;
+	background-size: 480px 34px;
 	width:480px;
 	margin: 20px 0;
 	height: 34px;
 
 }
+
 
 .carousel .item {-webkit-transition: opacity 1s; -moz-transition: opacity 1s; -ms-transition: opacity 1s; -o-transition: opacity 1s; transition: opacity 1s;}
 .carousel .active.left {left:0;opacity:0;z-index:2;}
