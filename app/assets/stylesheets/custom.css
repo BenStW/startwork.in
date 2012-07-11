@@ -240,7 +240,7 @@ h1, h2, h3 h4 {
 
 .active_element {
 
-	z-index: 2000;
+	z-index: 1050;
 	position: relative;
 	-webkit-border-radius: 6px;
 	-moz-border-radius: 6px;
@@ -259,6 +259,58 @@ h1, h2, h3 h4 {
 
 	display: block;
 	
+}
+
+.blue_arrow_dl {
+
+	background: url('/assets/blue_arrow_dl.png');
+	position: absolute;
+	width: 193px;
+	height: 55px;
+	z-index: 3000;
+
+}
+
+.blue_arrow_dr {
+
+	background: url('/assets/blue_arrow_dr.png');
+	position: absolute;
+	width: 193px;
+	height: 55px;
+	z-index: 3000;
+
+}
+
+.blue_arrow_ul {
+
+	background: url('/assets/blue_arrow_ul.png');
+	position: absolute;
+	width: 193px;
+	height: 55px;
+	z-index: 3000;
+
+}
+
+.blue_arrow_ur {
+
+	background: url('/assets/blue_arrow_ur.png');
+	position: absolute;
+	width: 193px;
+	height: 55px;
+	z-index: 3000;
+
+}
+
+.wizard_modal .modal-backdrop, .wizard_modal .modal-backdrop.fade.in {
+
+	opacity: 0.4;
+
+}
+
+.wizard_modal .modal-footer {
+
+	padding:10px;
+
 }
 
 .carousel .item {-webkit-transition: opacity 1s; -moz-transition: opacity 1s; -ms-transition: opacity 1s; -o-transition: opacity 1s; transition: opacity 1s;}

@@ -26,7 +26,7 @@
 <div class="white_col span4 column_same_height">
 
   <div style="margin:20px;">
-  <div id="explain1">
+  <div id="explain1" style="padding-bottom:20px;">
     <h2>Verabreden</h2>
 
     <center>
@@ -34,11 +34,11 @@
     </center>
   </div>
 
- <div style="margin-top:20px;">
+ <div>
 
 
   <!-- Eigene Sessions -->
- <div id="explain2">
+ <div id="explain4">
   <div id="my_work_sessions" style="text-align: left;">
       <% my_or_friends = "my"%>
       <%= render :partial => "work_sessions/work_sessions", 
@@ -50,7 +50,7 @@
 
 
   <!-- Sessions von Freunden -->
-<div id="explain3">
+<div id="explain5">
   <div id="friends_work_sessions" style="text-align: left;">
       <% my_or_friends = "friends"%>
       <%= render :partial => "work_sessions/work_sessions", 
@@ -75,7 +75,7 @@
 
 <div class="white_col span4 column_same_height">
 
-  <div style="margin:20px;">
+  <div style="margin:20px;" id="explain2">
   <h2>Start Work'in</h2>
     <center><div id="join_work_session" href="#" class="btn btn-primary btn-large" style="margin-top:20px;">2. Jetzt starten!</div></center>
     <% if !@next_work_session.nil?%>
@@ -97,7 +97,7 @@
 
 <!-- RECHTER BLOCK -->
 <div class="white_col span4 column_same_height">
-  <div style="margin:20px;">
+  <div id="explain3" style="margin:20px;">
     <h2>Freunde treffen</h2>
     <center><div id="send_dialogue" class="btn btn-primary btn-large" style="margin-top:20px;"><img src="/assets/facebook_button.png" width="20px" style="position: absolute;"><span style="margin-left:25px;">Freunde einladen</span></div></center>
     <%   render :template => 'invitations/new' %>
@@ -133,56 +133,151 @@
 <div class="modal hide main-modal wizard_modal active_modal" id="wizard0" style="background:whitesmoke;">
   <div class="modal-header">
     <button class="close" data-dismiss="modal">×</button>
-    <h2>Willkommen in deinem Dashboard</h2>
+    <h3>Willkommen in deinem Dashboard</h3>
   </div>
 
   <div class="modal-body" style="background:white;">
-    <p>wizard0<br>
-      </p>
+    <p>
+      Im Dashboard hast kriegst du einen Überblick über alle Verabredungen von dir und deinen Freunden und kannst Sessions starten und Freunde einladen
+    </p>
   </div>
 
   <div class="modal-footer">
        <button class="continue_button btn btn-large btn-primary" data-activate_modal="#wizard1" data-activate_element="#explain1">Weiter</button>
-       <button class="continue_button btn btn-large">Tour abbrechen</button>
+       <button class="btn btn-large" data-dismiss="modal">Tour überspringen</button>
   </div><!-- modal-footer -->
 </div>
 <!-- main explainer modal end-->
 
 <!-- explainer modal 1 start-->
-<div class="modal hide main-modal wizard_modal" id="wizard1" style="background:whitesmoke;position: absolute;
-top: 400px;
-left: 800px;">
+<div class="modal hide main-modal wizard_modal" id="wizard1" style="background:whitesmoke;position: absolute;top: 400px;left: 850px;overflow:visible;width: 300px;">
+  <div class="blue_arrow_dl" style="left:-170px;"></div>
   <div class="modal-header">
     <button class="close" data-dismiss="modal">×</button>
-    <h2>Willkommen in deinem Dashboard</h2>
+    <h3>Mit Freunden verabreden</h3>
   </div>
 
   <div class="modal-body" style="background:white;">
-    <p>wizard1<br>
+    <p>Hier kannst du neue Verabredungen mit Freunden schließen.<br>
       </p>
   </div>
 
   <div class="modal-footer">
-       <button class="continue_button btn btn-large btn-primary" data-activate_modal="#wizardx">Weiter</button>
-       <button class="continue_button btn btn-large">Tour abbrechen</button>
+
+       <button class="continue_button btn btn-primary" data-activate_modal="#wizard2" data-activate_element="#explain2">Weiter</button>
+       <button class="continue_button btn" data-activate_modal="#wizard0" data-activate_element="#explain0">Zurück</button>
+       <span style="color:#ccc;">1 / 5</span>
   </div><!-- modal-footer -->
 </div>
 <!-- explainer modal 1 end-->
+
+<!-- explainer modal 2 start-->
+<div class="modal hide main-modal wizard_modal" id="wizard2" style="background:whitesmoke;position: absolute;top: 410px;left: 340px;overflow:visible;width: 400px;">
+  <div class="blue_arrow_ur" style="top: 60px;right: -120px;"></div>
+  <div class="modal-header">
+    <button class="close" data-dismiss="modal">×</button>
+    <h3>Direkt loslegen!</h3>
+  </div>
+
+  <div class="modal-body" style="background:white;">
+    <p>Hier kannst du eine fällige Verabredung starten oder spontan mit gerade eingeloggten Nutzern zusammen arbeiten!<br>
+      </p>
+  </div>
+
+  <div class="modal-footer">
+       <button class="continue_button btn btn-primary" data-activate_modal="#wizard3" data-activate_element="#explain3">Weiter</button>
+       <button class="continue_button btn" data-activate_modal="#wizard1" data-activate_element="#explain1">Zurück</button>
+       <span style="color:#ccc;idth: 400px;">2 / 5</span>
+
+  </div><!-- modal-footer -->
+</div>
+<!-- explainer modal 2 end-->
+
+<!-- explainer modal 3 start-->
+<div class="modal hide main-modal wizard_modal" id="wizard3" style="background:whitesmoke;position: absolute;top: 410px;left: 600px;overflow:visible;width:400px">
+  <div class="blue_arrow_ur" style="right: -150px;top: 40px;"></div>
+  <div class="modal-header">
+    <button class="close" data-dismiss="modal">×</button>
+    <h3>Mehr Freunde, mehr Spass!</h3>
+  </div>
+
+  <div class="modal-body" style="background:white;">
+    <p>Je mehr deiner Freunde bei StartWork sind, desto mehr Zeit kannst du mit Ihnen verbringen und umso produktiver wirst du!<br>
+      </p>
+  </div>
+
+  <div class="modal-footer">
+       <button class="continue_button btn btn-primary" data-activate_modal="#wizard4" data-activate_element="#explain4">Weiter</button>
+       <button class="continue_button btn" data-activate_modal="#wizard2" data-activate_element="#explain2">Zurück</button>
+       <span style="color:#ccc;">3 / 5</span>
+
+  </div><!-- modal-footer -->
+</div>
+<!-- explainer modal 3 end-->
+
+<!-- explainer modal 4 start-->
+<div class="modal hide main-modal wizard_modal" id="wizard4" style="background:whitesmoke;position: absolute;top: 500px;left: 800px;overflow:visible;width:400px">
+  <div class="blue_arrow_dl" style="left:-170px;"></div>
+  <div class="modal-header">
+    <button class="close" data-dismiss="modal">×</button>
+    <h3>Deine anstehenden Verabredungen</h3>
+  </div>
+
+  <div class="modal-body" style="background:white;">
+    <p>Hier kriegst du einen Überblick über deine geplanten Verabredungen und kannst sie bearbeiten<br>
+      </p>
+  </div>
+
+  <div class="modal-footer">
+       <button class="continue_button btn btn-primary" data-activate_modal="#wizard5" data-activate_element="#explain5">Weiter</button>
+
+       <button class="continue_button btn" data-activate_modal="#wizard3" data-activate_element="#explain3">Zurück</button>
+       <span style="color:#ccc;">4 / 5</span>
+
+  </div><!-- modal-footer -->
+</div>
+<!-- explainer modal 4 end-->
+
+<!-- explainer modal 5 start-->
+<div class="modal hide main-modal wizard_modal" id="wizard5" style="background:whitesmoke;position: absolute;top: 600px;left: 800px;overflow:visible;width: 400px;">
+  <div class="blue_arrow_dl" style="left:-170px;"></div>
+  <div class="modal-header">
+    <button class="close" data-dismiss="modal">×</button>
+    <h3>Was treiben deine Freunde?</h3>
+  </div>
+
+  <div class="modal-body" style="background:white;">
+    <p>Hier siehst du, wann deine Freunde planen zu arbeiten und kannst dich ihnen anschließen!<br>
+      </p>
+  </div>
+
+  <div class="modal-footer">
+       <button class="continue_button btn btn-primary" data-activate_modal="#wizardx" data-activate_element="#explainx">Weiter</button>
+
+       <button class="continue_button btn" data-activate_modal="#wizard4" data-activate_element="#explain4">Zurück</button>
+       <span style="color:#ccc;">5 / 5</span>
+
+  </div><!-- modal-footer -->
+</div>
+<!-- explainer modal 5 end-->
 
 <!-- explainer modal last start-->
 <div class="modal hide main-modal wizard_modal" id="wizardx" style="background:whitesmoke;">
   <div class="modal-header">
     <button class="close" data-dismiss="modal">×</button>
-    <h2>Willkommen in deinem Dashboard</h2>
+    <h3>Jetzt bist du bereit!</h3>
   </div>
 
   <div class="modal-body" style="background:white;">
-    <p>wizardx<br>
-      </p>
+    <blockquote style="margin: 10px 40px;">
+      <p><i>Wie gerät ein Projekt ein Jahr in Verzug? Einen Tag nach dem anderen.</i></p>
+      <small>Fred Brooks</small>
+    </blockquote>
   </div>
 
   <div class="modal-footer">
-      <button class="btn btn-large btn-success" data-dismiss="modal">fertig!</button>
+      <button class="btn btn-large btn-success" data-dismiss="modal">Fertig!</button>      <button class="continue_button btn btn-large" data-activate_modal="#wizard4" data-activate_element="#explain4">Zurück</button>
+
   </div><!-- modal-footer -->
 </div>
 <!-- explainer modal last end-->
