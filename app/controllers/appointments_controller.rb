@@ -15,7 +15,8 @@ class AppointmentsController < ApplicationController
      if @appointment.nil?
        render :json => "keine Verabredung gefunden"
      end
-     
+
+    # 
      # Shows the user two links:
      # reject appointment: --> appointment_reject_url
      # accept appointment: --> appointment_accept_without_authentication_url(:token=> @appointment.token)

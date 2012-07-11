@@ -48,8 +48,9 @@ class StaticPagesController < ApplicationController
   def home_not_logged_in
   end
 
-  def accept_appointment
+  def accept_appointment  
      token = params["token"]
+     session[:appointment_token] = token
      @appointment = Appointment.find_by_token(token)
      if @appointment.nil?
        render :json => "keine Verabredung gefunden"
@@ -91,7 +92,8 @@ class StaticPagesController < ApplicationController
       redirect_to root_url
     else
       current_user.registered=true
-      current_user.save      
+      current_user.save    
+      puts "************ session[:appointment_token] = #{session[:appointment_token]}"  
       if token = session[:appointment_token]
         session[:appointment_token] = nil
         redirect_to appointment_accept_url(:token=>token)

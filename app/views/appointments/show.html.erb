@@ -41,7 +41,13 @@
     <div class="item">
     	<div style="position:absolute;top:-60px;right:-20px;">
 			<%= link_to "Ablehnen", appointment_reject_url, :class=>"btn btn-large"%>
-			<%= link_to "Annehmen", appointment_accept_without_authentication_url(:token=> @appointment.token), :class=>"btn btn-large btn-success"%>
+			
+			<% if current_user %>
+			<%= link_to "Annehmen", appointment_accept_url(:token=> @appointment.token), :class=>"btn btn-large btn-success"%>			
+		     <% else %>
+			<%= link_to "Annehmen", accept_appointment_url(:token=> @appointment.token), :class=>"btn btn-large btn-success"%>	
+			<% end %>		
+						
 		</div>
 		<p style="font-size:26px;line-height:47px;margin-bottom:20px;">Du hast gerade eine solche Einladung erhalten:</p>
 		<div class="well">
