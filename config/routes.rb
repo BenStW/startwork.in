@@ -12,6 +12,15 @@ StartWork::Application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
 
+
+  match 'tmp' => 'tmp#index', :as => :tmp_index
+  match 'tmp/create_appointment' => 'tmp#create_appointment', :as => :tmp_create_appointment
+  match 'tmp/del_appointment' => 'tmp#del_appointment', :as => :tmp_del_appointment
+  match 'tmp/send_appointment' => 'tmp#send_appointment', :as => :tmp_send_appointment
+  
+
+
+
   match 'calendar' => 'calendar_events#show', :as => :calendar
   match 'calendar/new_event' => 'calendar_events#new_event', :as => :calendar_new_event
   match 'calendar/events' => 'calendar_events#events'  

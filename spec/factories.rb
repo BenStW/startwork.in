@@ -11,11 +11,7 @@ FactoryGirl.define do
     sequence(:fb_ui) { |n| n.to_s} 
     current_sign_in_ip "0.0.0.0"
     registered true
-    
-    after_create do |user|
-      user.room.tokbox_session_id = "tokbox_session_id"
-      user.room.save
-    end
+
 
   #  after_build do |user|
   #    TokboxApi.stub_chain(:instance, :generate_session).and_return("tokbox_session_id")  
@@ -46,37 +42,14 @@ FactoryGirl.define do
     end
   end
 
-  
-  factory :calendar_event do
-    user
-    start_time DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,10)+1.day
-    work_session { |ce| FactoryGirl.create(:work_session, :start_time => ce.start_time, :room => ce.user.room )}
-  end
+
 
   factory :friendship do
     user
     association :friend, factory: :user
   end
-  
-  factory :work_session do
-    start_time DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,10)+1.day
-    room 
-  end
-  
 
-  
-  factory :room do  
-    user
-    tokbox_session_id = "tokbox_session_id"
-#    after_build do |user|
-#      TokboxApi.stub_chain(:instance, :generate_session).and_return("tokbox_session_id")  
-#    end
-  end
-  
-  factory :invitation do
-    association :sender, factory: :user
-    recipient_mail "recipient@mail.com"
-  end
+
   
   factory :camera_audio do
     user
@@ -84,17 +57,26 @@ FactoryGirl.define do
   
   
   factory :appointment do
-    association :sender, factory: :user
+    user
     start_time DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,10)+1.day
     end_time DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,12)+1.day
   end
   
+  factory :recipient_appointment do
+    user
+    appointment
+  end  
   
-  factory :calendar_invitation do
-    association :sender, factory: :user
+  factory :user_hour do
+    user
+    appointment { |user_hour| FactoryGirl.create(:appointment, :user => user_hour.user)}    
+    start_time DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,10)+1.day
+    group_hour { |user_hour| FactoryGirl.create(:group_hour, :start_time => user_hour.start_time)}    
   end
   
-  factory :calendar_invitation_mailer do 
-  end
+  factory :group_hour do
+    tokbox_session_id "factory_tokbox_session_id"
+    start_time DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,10)+1.day
+  end  
 
 end

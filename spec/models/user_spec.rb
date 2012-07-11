@@ -233,79 +233,28 @@ describe User do
 
    end
    
-  # context "create FB friend" do
-  #   before(:each) do
-  #     @fb_robert = mock("FbGraph::User", :name => "Robert Sarrazin", :identifier => "Robert")
-  #   end
-  #   
-  #   it "creates a FB friend" do
-  #     expect {
-  #       user = @user.create_fb_friend(@fb_robert)
-  #     }.to change(User,:count).by(1)       
-  #   end
-  #   
-  #   it "stores the name of the FB friend" do
-  #     user = @user.create_fb_friend(@fb_robert)
-  #     user.first_name.should eq("Robert Sarrazin")
-  #   end
-  #
-  #   it "stores the fb id of the FB friend" do
-  #     user = @user.create_fb_friend(@fb_robert)
-  #     user.fb_ui.should eq("Robert")
-  #   end     
-  #
-  # end
+
+  context "it accepts an appointment" do
+     before(:each) do 
+       @user = FactoryGirl.create(:user)
+       @appointment = FactoryGirl.create(:appointment)
+       @received_appointment = FactoryGirl.create(:received_appointment, :user=>@user, :appointment=>@appointment)
+     end    
+
+     it "stores the received appointment" do 
+       @user.received_appointments.count.should eq(1)
+       @user.received_appointments.first.should eq(@received_appointment)       
+     end 
      
+     it "should have the original appointment accesible" do
+       @user.received_appointments.first.appointment eq(@appointment)     
+     end
      
-  #   it "should create an user based on the friend hash" do
-  #     user = nil
-  #     expect {
-  #        user = User.find_or_create_fb_friend(@fb_robert)
-  #     }.to change(User,:count).by(1) 
-  #     user.first_name.should eq("Robert Sarrazin")
-  #     user.email.should eq("tmp@startwork.in")
-  #     user.fb_ui.should eq("4711")
-  #     user.room.should_not eq(nil)
-  #   end
-  #   
-  #   it "should find an existing user by the facebook UI" do
-  #     existing_user = FactoryGirl.create(:user, :fb_ui => "4711")
-  #     user = nil
-  #     expect {
-  #        user = User.find_or_create_fb_friend(@fb_robert)
-  #     }.to change(User,:count).by(0) 
-  #     user.should eq(existing_user)          
-  #   end 
-  # end
-  #
- # context "it finds or creates a user based on facebook ID" do
- #   before do
- #     # @existing_user = FactoryGirl.create(:user)
- #    #  @fb_robert = mock("FbGraph::User", :first_name => "Robert", :last_name =>"Sarrazin", :identifier => "4711")
- #      
- #      @access_token = mock("access_token",
- #        :extra =>
- #          mock("raw_info",
- #            :email => "robert@startwork.in",
- #            :first_name = "Robert",
- #            :last_name = "Sarrazin"))
- #     Room.any_instance.stub(:populate_tokbox_session).and_return("tokbox_session_id")             
- #    end
- #      
- #   it "should return an existing user by fb ID" do   
- #     user = User.find_or_create(@existing_user.fb_ui)
- #     user.should eq(@existing_user)
- #   end
- #   
- #   it "should return an user when not existing" do
- #     user = User.find_or_create(@fb_robert.identifier)
- #     user.class.should eq(User)      
- #   end
- #   
- #   it "should create an user with first_name and last_name received by FB" do
- #     user = User.find_or_create(@fb_robert.identifier)
- #     user.first_name = @fb_robert.first_name    
- #     user.last_name = @fb_robert.last_name    
- #   end
- # end
+     it "should store the accepted appointement" do
+       @user.accept_appointment(@received_appointment)
+     end
+   
+   #  
+   
+
 end

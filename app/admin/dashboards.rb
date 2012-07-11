@@ -1,9 +1,9 @@
 ActiveAdmin::Dashboards.build do
   section "Calendar statistics" do
     ul do
-      li "#{CalendarEvent.this_week.count} calendar events this week"
-      li "#{CalendarEvent.today.count} calendar events today"    
-      li "#{WorkSession.current.count} current worksessions"
+      li "#{UserHour.this_week.count} user_hours this week"
+      li "#{UserHour.today.count}  user_hours  today"    
+      li "#{GroupHour.current.count} current group_hour"
     end    
   end
   
@@ -19,13 +19,13 @@ ActiveAdmin::Dashboards.build do
             user.friends.count
          end
          column 'appointments'  do |user| user.appointments.count  end       
-         column 'calendar events'  do |user| user.calendar_events.count  end       
-         column 'logged-in  events' do |user| user.calendar_events.logged_in.count end       
-         column 'missed  events' do |user| user.calendar_events.not_logged_in.count end       
-         column 'perc. of logged-in events' do  |user| 
-            if user.calendar_events.count>0
-              "#{(user.calendar_events.logged_in.count * 100 /
-              (user.calendar_events.count))} %" 
+         column 'user_hours'  do |user| user.user_hours.count  end       
+         column 'logged-in user_hours' do |user| user.user_hours.logged_in.count end       
+         column 'missed user_hours' do |user| user.user_hours.not_logged_in.count end       
+         column 'perc. of logged-in user_hours' do  |user| 
+            if user.user_hours.count>0
+              "#{(user.user_hours.logged_in.count * 100 /
+              (user.user_hours.count))} %" 
               else "-"
             end
          end 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120626122240) do
+ActiveRecord::Schema.define(:version => 20120710073444) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -47,7 +47,6 @@ ActiveRecord::Schema.define(:version => 20120626122240) do
   add_index "admin_users", ["reset_password_token"], :name => "index_admin_users_on_reset_password_token", :unique => true
 
   create_table "appointments", :force => true do |t|
-    t.integer  "sender_id"
     t.datetime "start_time"
     t.datetime "end_time"
     t.string   "token"
@@ -55,6 +54,7 @@ ActiveRecord::Schema.define(:version => 20120626122240) do
     t.datetime "updated_at",    :null => false
     t.integer  "send_count"
     t.integer  "receive_count"
+    t.integer  "user_id"
   end
 
   create_table "calendar_events", :force => true do |t|
@@ -95,6 +95,13 @@ ActiveRecord::Schema.define(:version => 20120626122240) do
   add_index "friendships", ["friend_id"], :name => "index_friendships_on_friend_id"
   add_index "friendships", ["user_id"], :name => "index_friendships_on_user_id"
 
+  create_table "group_hours", :force => true do |t|
+    t.datetime "start_time"
+    t.string   "tokbox_session_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
   create_table "interested_users", :force => true do |t|
     t.string   "email"
     t.datetime "created_at", :null => false
@@ -106,6 +113,35 @@ ActiveRecord::Schema.define(:version => 20120626122240) do
     t.string   "recipient_mail"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+  end
+
+  create_table "penalties", :force => true do |t|
+    t.integer  "from_user_id"
+    t.integer  "to_user_id"
+    t.string   "excuse"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.datetime "start_time"
+    t.datetime "end_time"
+  end
+
+  create_table "recipient_appointments", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "appointment_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  create_table "reminders", :force => true do |t|
+    t.string   "name"
+    t.text     "message"
+    t.datetime "appointment"
+    t.string   "phonenumber"
+    t.boolean  "flag1"
+    t.boolean  "flag2"
+    t.boolean  "flag3"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "rooms", :force => true do |t|
@@ -135,6 +171,18 @@ ActiveRecord::Schema.define(:version => 20120626122240) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "fb_ui"
+  end
+
+  create_table "user_hours", :force => true do |t|
+    t.integer  "user_id"
+    t.datetime "start_time"
+    t.integer  "group_hour_id"
+    t.integer  "appointment_id"
+    t.integer  "accepted_appointment_id"
+    t.datetime "login_time"
+    t.integer  "login_count"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
   end
 
   create_table "users", :force => true do |t|

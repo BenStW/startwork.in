@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
 
 
   # Specifies a white list of model attributes that can be set via mass-assignment.
-  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :registered,  :referer, :fb_ui, :room, :comment
+  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :registered,  :referer, :fb_ui,  :comment
 
   validates :fb_ui, presence: true, uniqueness: true  
   validates :first_name, presence: true, length: { maximum: 50 }
@@ -42,12 +42,8 @@ class User < ActiveRecord::Base
   # The room is created by the registrations_controller, when the user is created.
  # validates :room, presence: true#, uniqueness: true  
   
-  has_many :calendar_events, :dependent => :destroy
-  has_many :merged_work_sessions, :through => :users_of_merged_work_sessions
-  has_many :users_of_merged_work_sessions
-  
-  
-  has_one :room, :dependent => :destroy
+  has_many :user_hours
+
   has_one :camera_audio, :dependent => :destroy 
   
   has_many :friendships, :dependent => :destroy
@@ -55,13 +51,13 @@ class User < ActiveRecord::Base
   has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id",  :dependent => :destroy
   has_many :inverse_friends, :through => :inverse_friendships, :source => :user , :dependent => :destroy 
   
-  has_many :sent_invitations, :class_name => 'Invitation', :foreign_key => 'sender_id', :dependent => :destroy
-  has_many :appointments, :foreign_key => 'sender_id', :dependent => :destroy
+  has_many :appointments, :dependent => :destroy
+  has_many :received_appointments, :through => :recipient_appointments, :source => :appointment #, :conditions => ['recipient_appointments.user_id = ?',47]
+  has_many :recipient_appointments
+      
 #  belongs_to :work_session, :foreign_key => 'guest_id'
 
   after_initialize :init  
-  after_create :create_room #user must be first created with stored IP-address 
-  before_destroy :remove_guest_from_work_session
   
  # attr_accessor :current_user
     
@@ -78,35 +74,9 @@ class User < ActiveRecord::Base
   def is_friend?(user)
      self.friends.map(&:id).include?(user.id)
   end
-  
-#  def only_friends(user_array)
-#    return_array = Array.new
-#    user_array.each do |u|
-#      if self.is_friend?(u)
-#        return_array.push u
-#      end
-#    end
-#    return_array    
-#  end
 
- 
-  def create_calendar_event_now
-    c = DateTime.current
-    this_hour = DateTime.new(c.year,c.month,c.day, c.hour)
-    calendar_event = self.calendar_events.build(start_time: this_hour)
-    calendar_event.find_or_build_work_session
-    calendar_event.save
-    calendar_event.work_session.reload    #needed, as when an existing work_session is found, it has not loaded the room 
-    calendar_event  
-  end
-  
- # def current_work_session
- #   calendar_event = self.calendar_events.current  
- #   if !calendar_event.nil?
- #     work_session = calendar_event.work_session
- #   end      
- # end
- # 
+
+
   def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)    
     data = access_token.extra.raw_info
     user = nil
@@ -128,13 +98,8 @@ class User < ActiveRecord::Base
        )
     end
 
-    if user.room.tokbox_session_id.nil?
-      user.room.tokbox_session_id = (TokboxApi.instance.generate_session user.current_sign_in_ip).to_s                    
-      user.room.save
-    end    
-    logger.info("** begin update_fb_friends")
+
     user.update_fb_friends(access_token)
-    logger.info("** end update_fb_friends")
     user
   end
   
@@ -153,12 +118,15 @@ class User < ActiveRecord::Base
     end
   #  WorkSession.optimize_single_work_sessions(self)
   end
-
   
-  def remove_guest_from_work_session
-     WorkSession.where(:guest_id=>self.id) do |work_session|
-       work_session.guest_id = nil
-       work_session.save
-     end
-  end
+  def accept_appointment(aapointment)
+    if !self.received_appointments.include?(received_appointment)
+      raise "can't accept appointment when it is not stored as received"
+    end
+    appointment = self.appointments.create(
+       :start_time=>received_appointment.start_time, :end_time=>received_appointment.end_time)
+  end  
+ 
+   
+
 end
