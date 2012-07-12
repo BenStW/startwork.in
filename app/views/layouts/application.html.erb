@@ -17,7 +17,11 @@
   <%= javascript_include_tag "application" %>
   <%= yield(:head) %>
 
-  <%= render :partial => "layouts/user_voice" %>
+  <% if content_for?(:user_voice) then %>
+  <%= yield(:user_voice) %>
+  <% else %>  
+    <%= render :partial => "layouts/user_voice" %>
+  <% end %>
 
 </head>
 
@@ -31,15 +35,15 @@ background-image:url('/assets/grain.jpg')
 <%end%> 
 "> <!-- end of body tag -->
 
-	
+<% if content_for?(:nav_bar) then %>
+<%= yield(:nav_bar) %>
+<% else %>	
 <%= render :partial => "layouts/nav" %>
+<% end %>
 
 <%= yield(:below_nav) %>	
-  
-	
-<br><br><br>
 
-<div id="main_container" class="container"  style="min-height:100%;">
+<div id="main_container" class="container"  style="min-height:100%;margin-top:72px;">
 	
 	<% if content_for?(:first_in_container) then %>
 	   <%= yield(:first_in_container) %>
@@ -57,12 +61,15 @@ background-image:url('/assets/grain.jpg')
 
 	<%= yield %>
 
-
-      <hr>
+  <% if content_for?(:footer) then %>
+  <%= yield(:footer) %>
+  <% else %>  
+          <hr>
       <footer>
         <p>&copy; StartWork 2012 - <%= link_to "Impressum", impressum_path%></p>
 
       </footer>
+  <% end %>
 
     </div> <!-- /container -->   
 

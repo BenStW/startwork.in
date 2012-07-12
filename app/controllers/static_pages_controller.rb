@@ -48,6 +48,19 @@ class StaticPagesController < ApplicationController
   def home_not_logged_in
   end
 
+  def accept_appointment  
+     token = params["token"]
+     session[:appointment_token] = token
+     @appointment = Appointment.find_by_token(token)
+     if @appointment.nil?
+       render :json => "keine Verabredung gefunden"
+     end
+     
+     # Shows the user two links:
+     # reject appointment: --> appointment_reject_url
+     # accept appointment: --> appointment_accept_without_authentication_url(:token=> @appointment.token)
+  end
+
   def how_it_works
   end
   def effect
@@ -79,7 +92,8 @@ class StaticPagesController < ApplicationController
       redirect_to root_url
     else
       current_user.registered=true
-      current_user.save      
+      current_user.save    
+      puts "************ session[:appointment_token] = #{session[:appointment_token]}"  
       if token = session[:appointment_token]
         session[:appointment_token] = nil
         redirect_to appointment_accept_url(:token=>token)
@@ -92,13 +106,14 @@ class StaticPagesController < ApplicationController
   
   def welcome_with_appointment 
      @name = current_user.first_name
-     @friends = current_user.friends
      token = params["token"]
      @appointment = Appointment.find_by_token(token)
      if @appointment.nil?
        session[:appointment_token] = nil
        render :json => "welcome_with_appointment: keine Verabredung gefunden"
-     end    
+     end
+     @friends = current_user.friends - [@appointment.sender]
+     @app = if Rails.env.production? then "330646523672055" else "232041530243765" end
   end
 
  # def welcome_session

@@ -160,12 +160,18 @@ h1, h2, h3 h4 {
 
 }
 
-.column_same_height {
-   background:white;
-   padding:0;
-   min-height:500px;
-   position:relative;
-   text-align:center;
+.white_col {
+
+	background:white;
+	min-height:500px;
+	position:relative;
+	text-align:center;
+	padding: 0;
+	margin-bottom: 30px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+
 }
 
 .emphasize p {
@@ -225,9 +231,15 @@ h1, h2, h3 h4 {
 .span6 .line-bottom {
 
 	background: url('/assets/separator-bottom-940.png');
-	background-size: 720px 34px;
+	background-size: 480px 34px;
 	width:480px;
 	margin: 20px 0;
 	height: 34px;
 
 }
+
+
+.carousel .item {-webkit-transition: opacity 1s; -moz-transition: opacity 1s; -ms-transition: opacity 1s; -o-transition: opacity 1s; transition: opacity 1s;}
+.carousel .active.left {left:0;opacity:0;z-index:2;}
+.carousel .next {left:0;opacity:1;z-index:1;}
+

@@ -7,3 +7,6 @@ $(document).ready ->
    $("#video_modal_button").click ->
        $('#video_modal').modal("show")
 
+
+   $("#appointment_carousel").carousel
+       interval: false
