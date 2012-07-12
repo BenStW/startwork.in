@@ -29,7 +29,7 @@ class StaticPagesController < ApplicationController
       
       puts "--------- #{friends_work_sessions.to_yaml}"
       @friends_work_sessions = MergedWorkSession.merge_continuing_work_sessions(friends_work_sessions,current_user,true)
-      
+      @active_users = current_user.friends
       @friends = current_user.friends
       next_calendar_event = current_user.calendar_events.next
       if next_calendar_event

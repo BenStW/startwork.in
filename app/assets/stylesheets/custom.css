@@ -61,13 +61,8 @@ h1, h2, h3 h4 {
 .btn-edit:hover {
 
 	background-position: 0 0;
-	
-}
-
-.btn-edit:hover {
-
 	background:url("/assets/edit.png");
-	
+
 }
 
 .btn-join {
@@ -126,13 +121,56 @@ h1, h2, h3 h4 {
 
 }
 
+#start_work {
+
+	left: 0px;
+	top: 0px;
+	width: 940px;
+	position: absolute;
+	margin:0;
+	max-height: 9999px;
+	border:0;
+	z-index: 1020;
+	background: transparent;
+	box-shadow: none;
+
+}
+
+#start_work_left, #start_work_right {
+
+	z-index: 1050;
+	overflow: auto;
+	background-color: white;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding-box;
+	background-clip: padding-box;
+
+}
+
+#start_work_left {
+
+	width: 300px;
+	float:left;
+
+}
+
+#start_work_right {
+
+	width: 620px;
+	margin-left: 320px;
+	background: whitesmoke;
+
+}
+
 .modal-arrow {
 
 	position: absolute;
 	background: url('/assets/modal-arrow.png');
 	width: 20px;
 	height: 75px;
-	left: -20px;
 	z-index: 999999;
 
 }
@@ -317,3 +355,22 @@ h1, h2, h3 h4 {
 .carousel .active.left {left:0;opacity:0;z-index:2;}
 .carousel .next {left:0;opacity:1;z-index:1;}
 
+.icon-yes {
+
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+	background: url("/assets/check-icon.png") no-repeat;
+	background-size: 20px 20px;
+
+}
+
+.icon-no {
+
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+	background: url("/assets/icon-no.png") no-repeat;
+	background-size: 20px 20px;
+
+}
