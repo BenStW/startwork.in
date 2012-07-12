@@ -23,6 +23,10 @@ class UserHour < ActiveRecord::Base
   
   before_validation :get_group_hour
 
+  def self.until_now
+    c=DateTime.current
+    where("start_time<?",c) 
+  end
 
   def self.logged_in
     where("login_count>0") 

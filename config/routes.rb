@@ -12,11 +12,18 @@ StartWork::Application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
 
+  match 'appointments/accept_appointment' => 'appointments#accept_appointment', :as => :appointments_accept_appointment
+  match 'appointments/send_appointment' => 'appointments#send_appointment', :as => :appointments_send_appointment
+  resources :appointments
 
-  match 'tmp' => 'tmp#index', :as => :tmp_index
-  match 'tmp/create_appointment' => 'tmp#create_appointment', :as => :tmp_create_appointment
-  match 'tmp/del_appointment' => 'tmp#del_appointment', :as => :tmp_del_appointment
-  match 'tmp/send_appointment' => 'tmp#send_appointment', :as => :tmp_send_appointment
+  
+ # match 'tmp' => 'tmp#index', :as => :tmp_index
+ # match 'tmp/create' => 'tmp#create', :as => :tmp_create_appointment
+ # match 'tmp/new' => 'tmp#new', :as => :tmp_new_appointment
+ # match 'tmp/destroy' => 'tmp#destroy', :as => :tmp_destroy_appointment
+ # match 'tmp/send_appointment' => 'tmp#send_appointment', :as => :tmp_send_appointment
+ # match 'tmp/edit' => 'tmp#edit', :as => :tmp_edit_appointment
+ # match 'tmp/update' => 'tmp#update', :as => :tmp_update_appointment
   
 
 
@@ -28,12 +35,12 @@ StartWork::Application.routes.draw do
   match 'calendar/remove_events_by_time' => 'calendar_events#remove_events_by_time', :as => :calendar_remove_events_by_time
   match 'calendar/send_invitation' => 'calendar_events#send_invitation', :as => :calendar_send_invitation
 
-  match 'appointment' => 'appointments#show', :as => :appointment
-  match 'appointment/get_token' => 'appointments#get_token', :as => :appointment_get_token
-  match 'appointment/reject' => 'appointments#reject', :as => :appointment_reject
-  match 'appointment/accept_without_authentication' => 'appointments#accept_without_authentication', :as => :appointment_accept_without_authentication
-  match 'appointment/accept' => 'appointments#accept', :as => :appointment_accept
-
+ # match 'appointment' => 'appointments#show', :as => :appointment
+ # match 'appointment/get_token' => 'appointments#get_token', :as => :appointment_get_token
+ # match 'appointment/reject' => 'appointments#reject', :as => :appointment_reject
+ # match 'appointment/accept_without_authentication' => 'appointments#accept_without_authentication', :as => :appointment_accept_without_authentication
+ # match 'appointment/accept' => 'appointments#accept', :as => :appointment_accept
+ #
 
  # scope "(:locale)", :locale => /en|de/  do
      root :to => 'static_pages#home'  

@@ -1,8 +1,6 @@
 ActiveAdmin.register GroupHour do
     menu :priority => 11
   filter :start_time
-  scope :this_week  
-  scope :current
 
 
   index do
@@ -10,7 +8,7 @@ ActiveAdmin.register GroupHour do
        h3 "- zu einer bestimmten Zeit (start_time) fuer eine Stunde"
        h3 "- mit bestimmten Benutzern"
       column :id
-      column "start_time" do |group_hour | I18n.localize(work_session.start_time.in_time_zone("Berlin")) end
+      column "start_time" do |group_hour | I18n.localize(group_hour.start_time.in_time_zone("Berlin")) end
       column :users do |group_hour|
           #names = work_session.users.map(&:name).join(" - ")
           names = ""

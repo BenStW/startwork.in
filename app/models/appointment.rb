@@ -16,6 +16,9 @@
 class Appointment < ActiveRecord::Base
   belongs_to :user
   has_many :user_hours, :dependent => :destroy 
+  has_many :sent_appointments, :through => :recipient_appointments, :source => :appointment,  :dependent => :destroy 
+  has_many :recipient_appointments 
+    
   
   validates :user, :start_time, :end_time, presence: true
   validate :start_time_lt_end_time
@@ -76,8 +79,9 @@ class Appointment < ActiveRecord::Base
     if user.nil?
       raise "user is nil. Can't test whether appointments overlap"
     end
-    overlapping_appointments = user.appointments.where("(appointments.start_time<? and appointments.end_time>?) or 
-         appointments.start_time<? and appointments.end_time>?",start_time,start_time,end_time,end_time)
+    overlapping_appointments = user.appointments.where("(appointments.start_time<=? and appointments.end_time>?) or 
+         appointments.start_time<? and appointments.end_time>=?",start_time,start_time,end_time,end_time)
+    overlapping_appointments -= [self]
     !overlapping_appointments.empty?
   end
   
@@ -90,27 +94,19 @@ class Appointment < ActiveRecord::Base
   
   
   def self.accept_received_appointment(recipient, appointment)
-    
-    if !recipient.received_appointments.include?(appointment)
-      raise "can't accept appointment when it is not stored as received"
-    end
     if recipient == appointment.user
       raise "a user can't accept his own appointments"      
     end
-    start_time = appointment.start_time
-    end_time = appointment.end_time
+    if !recipient.received_appointments.include?(appointment)
+      raise "to accept an appointment a user must first receive it"      
+    end   
     
-    if Appointment.can_create_new_appointment?(recipient, start_time, end_time)    
-      new_appointment = user.appointments.build(
-         :start_time=>start_time, :end_time=>end_time)
-      
-      new_appointment.accepted_appointment = appointment #this is used in the after_save callback
-      new_appointment.save
-      new_appointment
-    else
-      nil
-    end
-  end  
+    Appointment.accept_appointment_for_user_hours(recipient, appointment)
+    
+    Appointment.create_new_appointments_for_empty_slots(recipient,appointment)
+  end
+  
+
   
   def update_user_hours
     delete_not_needed_user_hours
@@ -140,12 +136,41 @@ class Appointment < ActiveRecord::Base
   end
   
   def delete_not_needed_user_hours
+    
     self.user_hours.each do |user_hour|
       if user_hour.start_time<self.start_time or user_hour.start_time>=self.end_time
         user_hour.delete
       end
     end    
   end
+  
+  def self.get_possible_appointment_slots(user,start_time, end_time)
+    start_time = start_time.to_datetime
+    end_time = end_time.to_datetime   
+    hours = (end_time - start_time)*24 - 1
+    slots = []
+    slot = Hash.new
+    (0..hours).each do |hour|
+        hourly_start_time = start_time+hour.hours    
+        user_hour = user.user_hours.find_by_start_time(hourly_start_time) 
+        if !user_hour.nil? and slot.empty?
+          #do nothing
+        elsif !user_hour.nil? and !slot.empty?
+          slot[:end_time] = hourly_start_time
+          slots << slot
+          slot = Hash.new
+        elsif user_hour.nil? and slot.empty?
+          slot[:start_time] = hourly_start_time
+        else user_hour.nil? and !slot.empty?
+          #do nothing
+        end
+    end
+    if !slot.empty?
+      slot[:end_time] = end_time
+      slots << slot
+    end    
+    slots
+  end  
   
   def add_user_hours_based_on_accepted_appointment
     if self.accepted_appointment
@@ -157,15 +182,42 @@ class Appointment < ActiveRecord::Base
         u = self.user_hours.create(
           :user => self.user,
           :start_time=>s,
-          :accepted_appointment=>self.appointment,
-          :group_hour=>self.appointment.group_hour(s))
+          :accepted_appointment=>self.accepted_appointment,
+          :group_hour=>self.accepted_appointment.group_hour(s))
       end
       self.accepted_appointment = nil
     end
     
   end
   
-
+  def self.accept_appointment_for_user_hours(recipient, appointment)
+    user_hours = recipient.user_hours.where("start_time >= ? and start_time < ? and accepted_appointment_id is null",appointment.start_time, appointment.end_time)
+    
+    user_hours.each do |user_hour|
+      user_hour.accepted_appointment = appointment
+      old_group_hour = user_hour.group_hour
+      user_hour.group_hour = appointment.group_hour(user_hour.start_time)
+      user_hour.save
+      if old_group_hour.has_no_user_hours?
+        old_group_hour.destroy
+      end      
+    end
+    user_hours
+  end  
   
+  def self.create_new_appointments_for_empty_slots(recipient,appointment)    
+    slots = self.get_possible_appointment_slots(recipient,appointment.start_time, appointment.end_time)
+    appointments= Array.new
+    slots.each do |slot|
+    #  if Appointment.can_create_new_appointment?(recipient, start_time, end_time)  
+       
+     new_appointment = recipient.appointments.build(
+          :start_time=>slot[:start_time], :end_time=>slot[:end_time])       
+      new_appointment.accepted_appointment = appointment #this is used in the after_save callback
+      new_appointment.save
+      appointments << new_appointment
+    end
+    appointments
+  end  
 
 end

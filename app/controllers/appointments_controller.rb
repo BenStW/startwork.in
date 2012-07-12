@@ -1,6 +1,56 @@
 class AppointmentsController < ApplicationController
   skip_before_filter :authenticate_user!,  :only => [:show,:reject,:accept_without_authentication]
   
+  
+  
+   def index
+     @my_appointments = current_user.appointments  
+     @my_user_hours = current_user.user_hours    
+     @recipient_appointment = RecipientAppointment.new
+   end
+
+   def new
+     @appointment = current_user.appointments.build   
+   end
+
+   def create
+     a = current_user.appointments.create(params[:appointment])
+     a.save
+     redirect_to appointments_url
+   end
+
+   def edit
+     @appointment = current_user.appointments.find(params[:id])
+   end
+
+   def update
+      @appointment = current_user.appointments.find(params[:id])
+      @appointment.update_attributes(params[:appointment])
+     redirect_to appointments_url      
+   end  
+
+  def destroy
+    a = current_user.appointments.find(params[:id])
+    a.destroy
+     redirect_to appointments_url
+  end
+
+  def send_appointment
+    puts "params[:recipient_appointment] = #{params[:recipient_appointment].to_yaml}"
+    user = User.find(params[:recipient_appointment]["user_id"])
+    appointment = Appointment.find(params[:recipient_appointment]["appointment_id"])
+    recipient_appointment = RecipientAppointment.create(:user=>user, :appointment=>appointment)
+     redirect_to appointments_url 
+  end
+  
+  def accept_appointment
+    appointment = current_user.received_appointments.find(params[:id])
+    Appointment.accept_received_appointment(current_user, appointment)  
+    redirect_to appointments_url
+  end
+  
+  
+  
   def get_token
      start_time = params["start_time"]
      end_time = params["end_time"]

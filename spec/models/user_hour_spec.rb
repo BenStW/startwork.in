@@ -46,23 +46,20 @@ describe UserHour do
       @user_hour.group_hour.should_not be_nil
     end
   end
-    
-  context "when destroyed" do
 
     
-    it "destroys the group_hour when user_hour is destroyed and no other user_hour in group" do
+        
+  context "when destroyed" do
+   it "destroys the group_hour when user_hour is destroyed and no other user_hour in group" do
       @user_hour = FactoryGirl.create(:user_hour)
       expect { @user_hour.destroy }.to change(GroupHour, :count).by(-1)
     end  
-    
-    
-    
+
     it "does not destroy the group_hour when user_hour is destroyed, but an other user_hour in group" do
       user = FactoryGirl.create(:user)
       appointment = FactoryGirl.create(:appointment, :user=>user)
       new_user = FactoryGirl.create(:user)
-      received_appointment = FactoryGirl.create(:received_appointment, :user=>new_user, :appointment=>appointment)
-      new_appointment = Appointment.accept_received_appointment(received_appointment)
+      new_appointment = Appointment.accept_received_appointment(new_user, appointment)
       user_hour = appointment.user_hours.first
       #GroupHour.all.each do |g| puts "id=#{g.id} (#{g.user_hours.count}u)" end
       expect { user_hour.destroy }.to change(GroupHour, :count).by(0)

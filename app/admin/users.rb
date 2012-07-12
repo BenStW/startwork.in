@@ -13,8 +13,6 @@ ActiveAdmin.register User do
       column :last_name            
       column :name
       column :comment
-      column "room" do |user| user.room.id end 
-      column "tokbox" do |user| user.room.tokbox_session_id end 
       column "Facebook ID", :fb_ui
       column :email
       column :referer  

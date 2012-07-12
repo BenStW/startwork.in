@@ -2,10 +2,8 @@ ActiveAdmin.register UserHour do
     menu :priority => 10
     filter :start_time
     filter :login_count
-    scope :this_week
     scope :logged_in
     scope :not_logged_in
-    scope :not_logged_in_this_week
 
 
     index do
@@ -13,9 +11,9 @@ ActiveAdmin.register UserHour do
         column :id
         column :user
         column "start_time" do |user_hour | I18n.localize(user_hour.start_time.in_time_zone("Berlin")) end
-        column "login_time" do |user_hour | I18n.localize(user_hour.login_time.in_time_zone("Berlin")) if event.login_time end
+        column "login_time" do |user_hour | I18n.localize(user_hour.login_time.in_time_zone("Berlin")) if user_hour.login_time end
         column :login_count        
-        column :work_session do |user_hour|
+        column :group_hour do |user_hour|
            link_to user_hour.group_hour_id, admin_group_hour_path(user_hour.group_hour)  unless user_hour.group_hour.nil?
           end
         column :users do |user_hour|

@@ -30,6 +30,13 @@ describe RecipientAppointment do
       @recipient_appointment.appointment_id  = nil
       @recipient_appointment.should_not be_valid
     end   
+    
+    it "should not be valid with own appointment" do
+      user = FactoryGirl.create(:user)
+      appointment = FactoryGirl.create(:appointment, :user=>user)
+      recipient_appointment = RecipientAppointment.create(:user=>user, :appointment=>appointment)
+      recipient_appointment.should_not be_valid
+    end    
   end
   
   context "associations " do
@@ -49,9 +56,9 @@ describe RecipientAppointment do
       end
       
       it "should be deleted when the original appointment is deleted" do
-        expect { @appointment_a.destroy }.to change(recipientAppointment, :count).by(-1)
+        expect { @appointment_a.destroy }.to change(RecipientAppointment, :count).by(-1)
       end
-   end
+    end
    
    context "group_hour" do
      before(:each) do 

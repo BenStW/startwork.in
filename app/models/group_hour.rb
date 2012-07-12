@@ -25,7 +25,7 @@ class GroupHour < ActiveRecord::Base
      end
    end   
    
-   private 
+    
    def has_no_user_hours?
       self.user_hours.count == 0
    end   

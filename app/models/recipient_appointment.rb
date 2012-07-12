@@ -15,6 +15,7 @@ class RecipientAppointment < ActiveRecord::Base
   has_one :sender, :through=> :appointment, :source => :user 
 
   validates :user, :appointment, presence: true
+  validate :is_not_own_appointment
   
   #get UserHours by a class method
   
@@ -25,6 +26,15 @@ class RecipientAppointment < ActiveRecord::Base
     else
       raise "the appointment #{appointment.id} doesnt't have a user_hour at #{start_time}"
     end
+  end
+  
+  private
+  
+  def is_not_own_appointment
+    if self.user and self.appointment and self.user == appointment.user
+      errors.add(:user, "can't send the appointment to the same user")
+    end    
+    
   end
   
 end
