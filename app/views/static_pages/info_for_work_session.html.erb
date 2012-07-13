@@ -1,50 +1,44 @@
-  <%- content_for(:background_image) do -%>
-          background-image:url('/assets/paper_bg.jpg')
-  <%- end -%>
-
-  <%- content_for(:first_in_container) do -%>
-<div style="background:url('/assets/coffee.png') no-repeat;width: 751px;height: 836px;position: absolute;left: 0;top: 0;z-index: 0;"></div>
+<%- content_for(:head) do -%>
+  <%= javascript_include_tag "http://connect.facebook.net/en_US/all.js" -%>
+  <%= javascript_include_tag "http://static.opentok.com/v0.91/js/TB.min.js" -%>
+  <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js" -%>
 <%- end -%>
 
-<div class="hero-unit" style="background:white;position: relative;margin-top:70px;padding:30px 40px;">
-	<h2>Wie funktioniert das jetzt?</h2>
-	<div class="row" style="margin-top:20px;">
-		<div class="span5">
-			<div style="height:230px;">
-				<p>
-		       		Das Videofenster soll immer sichtbar bleiben!
-		       	</p>
-		       	<p>
-		       		bitte passe die anderen Fenster entsprechend an. Dadurch seid ihr stehts in Kontakt mit den anderen und wirkt Startwork am stärksten:
-		       	</p>
-	       	</div>
-	       	<div style="background:url('/assets/9010.png');background-size:380px 380px;height:380px;"></div>
-		</div>
-		<div class="span5">
-			<div style="height:230px;">
-				<p>
-					Ein Timer strukturiert die Arbeit:
-				</p>
-				<p>
-					50 Minuten Arbeitszeit - 10 Minuten Pause
-				</p>
-				<p>
-					In den Pausen könnt ihr euch unterhalten, euch einen Kaffee holen, usw.
-				</p>
-				<p>
-					In der Arbeitszeit solltet ihr bei der Sache bleiben und nicht aufstehen, telefonieren, usw.
-				</p>
-			</div>
-			<div style="background:url('/assets/wecker_button.png');background-size:380px 380px;height:380px;"></div>
-		</div>
-	</div>
+<%- content_for(:background_image) do -%>
+        background-image:url('/assets/paper_bg.jpg')
+<%- end -%>
 
-	<br>
-       <p>(Optional: Erzählt euch zusätzlich nach dem Einloggen gegenseitig kurz aber möglichst konkret, 
-       was ihr heute schaffen wollt.
-        Am Ende des gemeinsamen Arbeitstages soll sich nochmal gegenseitig erzählt werden,
-         was man davon geschafft hat. 
-         Dieses zusätzliche wechselseitige „Commitment“ kann bei Bedarf 
-         zur Verstärkung des Effekts von StartWork genutzt werden).
-       </p><br>
+<%- content_for(:first_in_container) do -%>
+<div style="background:url('/assets/coffee.png') no-repeat;width: 550px;height: 510px;position: absolute;left: 0;top: 0;z-index: 0;"></div>
+<%- end -%>
+
+<div class="row">
+<!-- LINKER BLOCK -->
+<div class="white_col span8 column_same_height">
+  <div style="margin:20px 40px;">
+
+  </div>
 </div>
+
+<!-- RECHTER BLOCK -->
+<div class="white_col span4 column_same_height">
+  <div style="margin:20px;text-align:justify;">
+    <center><h2 style="margin-bottom:20px;">FAQ</h2></center>
+    <a href="#" data-toggle="collapse" data-target="#whats_shown" style="color:black;"><h4>Was sehen die anderen?</h4></a>
+    <hr>
+    <div id="whats_shown" class="collapse" style="margin-bottom:20px;">
+      <p>Sie sehen nur das Bild deiner Webcam, dass du links siehst.<br>Sonst wird nichts übertragen, auch nicht dein Bildschirm!</p>
+      <p>In deiner Gruppe sind maximal 4 Leute, die du widerum per Webcam sehen kannst.</p>
+    </div>
+    <a href="#" data-toggle="collapse" data-target="#who_else" style="color:black;"><h4>Wer sind die anderen?</h4></a>
+    <hr>
+    <div id="who_else" class="collapse">
+      <p>Neben deinen Freunden sind können noch weitere Leute dabei sein. Startwork versucht immer dir ähnliche Arbeitspartner zu finden!</p>
+      <p>Wenn du z.B. Jura in Berlin studierst, versuchen wir solche Studenten dazuzuholen!</p>
+    </div>
+  </div>  
+</div>
+
+</div><!-- main row -->
+
+<div id="fb-root" data-app="<%=@app%>" style="position: absolute;left: 150px;top: 40px;"></div>
