@@ -115,33 +115,11 @@ ActiveRecord::Schema.define(:version => 20120710073444) do
     t.datetime "updated_at",     :null => false
   end
 
-  create_table "penalties", :force => true do |t|
-    t.integer  "from_user_id"
-    t.integer  "to_user_id"
-    t.string   "excuse"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-    t.datetime "start_time"
-    t.datetime "end_time"
-  end
-
   create_table "recipient_appointments", :force => true do |t|
     t.integer  "user_id"
     t.integer  "appointment_id"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
-  end
-
-  create_table "reminders", :force => true do |t|
-    t.string   "name"
-    t.text     "message"
-    t.datetime "appointment"
-    t.string   "phonenumber"
-    t.boolean  "flag1"
-    t.boolean  "flag2"
-    t.boolean  "flag3"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
   end
 
   create_table "rooms", :force => true do |t|
