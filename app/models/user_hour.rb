@@ -3,6 +3,7 @@
 # Table name: user_hours
 #
 #  id                      :integer         not null, primary key
+#  user_id                 :integer
 #  start_time              :datetime
 #  group_hour_id           :integer
 #  appointment_id          :integer

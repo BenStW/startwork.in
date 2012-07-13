@@ -36,6 +36,9 @@ StartWork::Application.routes.draw do
   # destroy
   resources :appointments
   
+  match 'camera' => 'cameras#show', :via => [:get]  
+  match 'camera' => 'cameras#update', :via => [:put]  
+  
   match 'welcome' => 'static_pages#welcome', :as => :welcome
   match 'login_to_accept_appointment' => 'static_pages#login_to_accept_appointment', :as => :login_to_accept_appointment 
   
@@ -68,12 +71,11 @@ StartWork::Application.routes.draw do
      match 'how_it_works' => 'static_pages#how_it_works', :as => :how_it_works
      match 'impressum' => 'static_pages#impressum', :as => :impressum
      match 'about_us' => 'static_pages#about_us', :as => :about_us
-     match 'camera' => 'static_pages#camera', :as => :camera
      match 'audio' => 'static_pages#audio', :as => :audio
      match 'ben' => 'static_pages#ben', :as => :ben
      match 'canvas' => 'static_pages#canvas', :as => :canvas
      match 'info_for_group_hour' => 'static_pages#info_for_group_hour', :as => :info_for_group_hour
-     match 'session_start' => 'static_pages#session_start', :as => :session_start
+   #  match 'session_start' => 'static_pages#session_start', :as => :session_start
      
 
       devise_for :users, :controllers => {:registrations => "registrations", :omniauth_callbacks => "users/omniauth_callbacks" }       
