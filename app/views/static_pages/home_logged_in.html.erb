@@ -1,17 +1,16 @@
+<%- content_for(:head) do -%>
+  <%= javascript_include_tag "http://connect.facebook.net/en_US/all.js" -%>
+  <link href='http://fonts.googleapis.com/css?family=Parisienne' rel='stylesheet' type='text/css'>
+<%- end -%>
 
 
-  <%- content_for(:head) do -%>
-    <%= javascript_include_tag "http://connect.facebook.net/en_US/all.js" -%>
-    <link href='http://fonts.googleapis.com/css?family=Parisienne' rel='stylesheet' type='text/css'>
-  <%- end -%>
+<%- content_for(:background_image) do -%>
+        background-image:url('/assets/paper_bg.jpg')
+<%- end -%>
 
+<%- content_for(:first_in_container) do -%>
 
-  <%- content_for(:background_image) do -%>
-          background-image:url('/assets/paper_bg.jpg')
-  <%- end -%>
-
-  <%- content_for(:first_in_container) do -%>
-<div style="background:url('/assets/coffee.png') no-repeat;width: 751px;height: 836px;position: absolute;left: 0;top: 0;z-index: 0;"></div>
+<div style="background:url('/assets/coffee.png') no-repeat;width: 550px;height: 510px;position: absolute;left: 0;top: 0;z-index: 0;"></div>
 <%- end -%>
 
 <span id="urls"
@@ -27,11 +26,11 @@
 
 
 
-  <center>
-    <h2 class="parisienne" id="greet_username" style="margin-left: 50px;">
-      <%=t '.greet_username', :username => current_user.name %>
-    </h2>
-  </center>
+<center>
+  <h2 class="parisienne" id="greet_username" style="margin-left: 50px;">
+    <%=t '.greet_username', :username => current_user.name %>
+  </h2>
+</center>
 
 <div class="row" style="min-height:500px;margin-top:32px;">
 
@@ -39,20 +38,26 @@
 <div class="white_col span4 column_same_height">
 
   <div style="margin:20px;">
-  <h2>Verabreden</h2>
+  <div id="explain1" style="padding-bottom:20px;">
+    <h2>Verabreden</h2>
 
-  <center><div class="btn btn-primary btn-large" id="launch_modal_button" style="margin-top:20px;">1. Jetzt verabreden</div></center>
+    <center>
+      <div class="btn btn-primary btn-large" id="launch_modal_button" style="margin-top:20px;">1. Jetzt verabreden</div>
+    </center>
+  </div>
 
- <div style="margin-top:20px;">
+ <div>
 
 
   <!-- Eigene Sessions -->
- 
+
+ <div id="explain4">
   <div id="my_appointments" style="text-align: left;">
       <% my_or_friends = "my"%>
       <%= render :partial => "appointments/appointments", 
           :locals => { :appointments => @my_appointments, :my_or_friends => my_or_friends } %>	
   </div>
+</div>
 </div>
   <!-- Ende eigene Sessions --> 
 
@@ -66,11 +71,14 @@
 
 
   <!-- Sessions von Freunden -->
+
+<div id="explain5">
   <div id="friends_appointments" style="text-align: left;">
       <% my_or_friends = "friends"%>
       <%= render :partial => "appointments/appointments", 
           :locals => { :appointments => @friends_appointments, :my_or_friends => my_or_friends } %>	
   </div>
+</div>
   <!-- Ende von Sessions von Freunden --> 
 
 
@@ -82,6 +90,111 @@
 
 <%= render 'appointments/main_modal' %>
 
+<!-- START JETZT STARTEN MODAL -->
+<div class="modal hide" id="start_work">
+  <div id="start_work_left" class="column_same_height">
+    <div style="margin:20px;" id="explain2">
+      <h2>Start Work'in</h2>
+        <center>
+          <!--<div id="join_work_session" href="#" class="btn btn-primary btn-large" style="margin-top:20px;">2. Jetzt starten!</div>-->
+          <div href="#" class="btn btn-large disabled" style="margin-top:20px;">2. Jetzt starten!</div>
+        </center>
+        <% if !@next_work_session.nil?%>
+          <hr>
+          <div style="margin-top:20px;">
+              <b> <%= t(".next_session")%>:</b><br>
+              <%= I18n.localize(@next_work_session.start_time.in_time_zone("Berlin")) %> <br> <%= @user_names %><br>
+          </div>
+        <% else %>
+          <hr>
+        <p>Nachdem du dich verabredet hast, kannst du hier die ArbeitsSession starten.</p><p> Oder lege jetzt spontan los!</p>
+        <hr>
+         <% end %>
+    </div>
+  </div><!-- modal -->
+
+  <div id="start_work_right" class="column_same_height">
+    <div class="modal-arrow" style="left: 300px;"></div>
+    <div class="modal-header" style="border-bottom:1px solid white">
+       <button class="close" data-dismiss="modal">×</button>
+       <h3>Aktuell: Pause</h3>
+       <p>noch 9:53 min</p>
+    </div> <!-- modal-header -->
+    <div class="modal-body" style="background:white;border-top:1px solid #eee;">
+      <div style="margin-bottom:20px;">
+        <% if @active_users.nil? %>
+          <p>Gerade aktiv:</p>
+          <div class="row">
+             <% @active_users.each do |active_user| %>
+               <div class="span1">
+               <img src="http://graph.facebook.com/<%=active_user.fb_ui%>/picture"><br>
+               <%= active_user.first_name%>
+             </div>
+             <% end %>
+          </div> <!-- row -->
+        
+        <% else %>
+          <p>Aktuell ist niemand eingeloggt. Hole ein paar Freunde dazu, um StartWork zu nutzen:</p>
+          <center><div id="send_dialogue" class="btn btn-primary btn-large" style="margin-top:20px;"><img src="/assets/facebook_button.png" width="20px" style="position: absolute;"><span style="margin-left:25px;">Freunde einladen</span></div></center>
+        <% end %>
+      </div>
+      <table class="table table-striped" style="width: 450px;margin: 0 auto;">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Arbeitszeit</th>
+            <th>Pause</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Dauer</td>
+            <td>50 Minuten</td>
+            <td>10 Minuten</td>
+          </tr>
+          <tr>
+            <td>Webcam</td>
+            <td><i class="icon-yes"></i> Ja</td>
+            <td><i class="icon-yes"></i> Ja</td>
+          </tr>
+          <tr>
+            <td>Mirkofon</td>
+            <td><i class="icon-no"></i> Nein</td>
+            <td><i class="icon-yes"></i> Ja</td>
+          </tr>
+          <tr>
+            <td>Aufstehen</td>
+            <td><i class="icon-no"></i> Nein</td>
+            <td><i class="icon-yes"></i> Ja</td>
+          </tr>
+          <tr>
+            <td>Handy</td>
+            <td><i class="icon-no"></i> Nein</td>
+            <td><i class="icon-yes"></i> Ja</td>
+          </tr>
+          <tr>
+            <td>Spass haben</td>
+            <td><i class="icon-yes"></i> Ja</td>
+            <td><i class="icon-yes"></i> Ja</td>
+          </tr>
+        </tbody>
+      </table>
+    </div> <!-- modal-body -->
+    <div class="modal-footer">
+
+         <a href="#" id="join_work_session" class="btn btn-danger btn-large" data-dismiss="modal">
+            Jetzt Starten!
+         </a>
+         <a href="#" class="btn btn-large" data-dismiss="modal">Abbrechen</a>
+         <form style="width: 200px;float: right;margin-right: 20px;margin-top: 10px;">
+            <label class="checkbox">
+              <input type="checkbox"> Diese Seite nicht mehr anzeigen
+            </label>
+         </form>
+    </div><!-- modal-footer -->
+  </div><!-- modal -->
+</div>
+<!-- END JETZT STARTEN MODAL -->
 
 </div>
 
@@ -90,10 +203,15 @@
 
 <div class="white_col span4 column_same_height">
 
-  <div style="margin:20px;">
+  <div style="margin:20px;" id="explain2">
   <h2>Start Work'in</h2>
-    <center><div id="join_work_session" href="#" class="btn btn-primary btn-large" style="margin-top:20px;">2. Jetzt starten!</div></center>
+
+    <center>
+      <!--<div id="join_work_session" href="#" class="btn btn-primary btn-large" style="margin-top:20px;">2. Jetzt starten!</div>-->
+      <div id="start_work_button" href="#" class="btn btn-primary btn-large" style="margin-top:20px;">2. Jetzt starten!</div>
+    </center>
     <% if !@next_group_hour.nil?%>
+
       <hr>
       <div style="margin-top:20px;">
           <b> <%= t(".next_session")%>:</b><br>
@@ -106,13 +224,12 @@
      <% end %>
   </div>
 
-
 </div>
 
 
 <!-- RECHTER BLOCK -->
 <div class="white_col span4 column_same_height">
-  <div style="margin:20px;">
+  <div id="explain3" style="margin:20px;">
     <h2>Freunde treffen</h2>
     <center><div id="send_dialogue" class="btn btn-primary btn-large" style="margin-top:20px;"><img src="/assets/facebook_button.png" width="20px" style="position: absolute;"><span style="margin-left:25px;">Freunde einladen</span></div></center>
 
@@ -142,4 +259,157 @@
 
 <div id="fb-root" data-app="<%=@app%>" style="position: absolute;left: 150px;top: 40px;"></div>
 
+
+<!-- main explainer modal start-->
+<div class="modal hide main-modal wizard_modal active_modal" id="wizard0" style="background:whitesmoke;">
+  <div class="modal-header">
+    <button class="close" data-dismiss="modal">×</button>
+    <h3>Willkommen in deinem Dashboard</h3>
+  </div>
+
+  <div class="modal-body" style="background:white;">
+    <p>
+      Im Dashboard hast kriegst du einen Überblick über alle Verabredungen von dir und deinen Freunden und kannst Sessions starten und Freunde einladen
+    </p>
+  </div>
+
+  <div class="modal-footer">
+       <button class="continue_button btn btn-large btn-primary" data-activate_modal="#wizard1" data-activate_element="#explain1">Weiter</button>
+       <button class="btn btn-large" data-dismiss="modal">Tour überspringen</button>
+  </div><!-- modal-footer -->
+</div>
+<!-- main explainer modal end-->
+
+<!-- explainer modal 1 start-->
+<div class="modal hide main-modal wizard_modal" id="wizard1" style="background:whitesmoke;position: absolute;top: 400px;left: 850px;overflow:visible;width: 300px;">
+  <div class="blue_arrow_dl" style="left:-170px;"></div>
+  <div class="modal-header">
+    <button class="close" data-dismiss="modal">×</button>
+    <h3>Mit Freunden verabreden</h3>
+  </div>
+
+  <div class="modal-body" style="background:white;">
+    <p>Hier kannst du neue Verabredungen mit Freunden schließen.<br>
+      </p>
+  </div>
+
+  <div class="modal-footer">
+
+       <button class="continue_button btn btn-primary" data-activate_modal="#wizard2" data-activate_element="#explain2">Weiter</button>
+       <button class="continue_button btn" data-activate_modal="#wizard0" data-activate_element="#explain0">Zurück</button>
+       <span style="color:#ccc;">1 / 5</span>
+  </div><!-- modal-footer -->
+</div>
+<!-- explainer modal 1 end-->
+
+<!-- explainer modal 2 start-->
+<div class="modal hide main-modal wizard_modal" id="wizard2" style="background:whitesmoke;position: absolute;top: 410px;left: 340px;overflow:visible;width: 400px;">
+  <div class="blue_arrow_ur" style="top: 60px;right: -120px;"></div>
+  <div class="modal-header">
+    <button class="close" data-dismiss="modal">×</button>
+    <h3>Direkt loslegen!</h3>
+  </div>
+
+  <div class="modal-body" style="background:white;">
+    <p>Hier kannst du eine fällige Verabredung starten oder spontan mit gerade eingeloggten Nutzern zusammen arbeiten!<br>
+      </p>
+  </div>
+
+  <div class="modal-footer">
+       <button class="continue_button btn btn-primary" data-activate_modal="#wizard3" data-activate_element="#explain3">Weiter</button>
+       <button class="continue_button btn" data-activate_modal="#wizard1" data-activate_element="#explain1">Zurück</button>
+       <span style="color:#ccc;idth: 400px;">2 / 5</span>
+
+  </div><!-- modal-footer -->
+</div>
+<!-- explainer modal 2 end-->
+
+<!-- explainer modal 3 start-->
+<div class="modal hide main-modal wizard_modal" id="wizard3" style="background:whitesmoke;position: absolute;top: 410px;left: 600px;overflow:visible;width:400px">
+  <div class="blue_arrow_ur" style="right: -150px;top: 40px;"></div>
+  <div class="modal-header">
+    <button class="close" data-dismiss="modal">×</button>
+    <h3>Mehr Freunde, mehr Spass!</h3>
+  </div>
+
+  <div class="modal-body" style="background:white;">
+    <p>Je mehr deiner Freunde bei StartWork sind, desto mehr Zeit kannst du mit Ihnen verbringen und umso produktiver wirst du!<br>
+      </p>
+  </div>
+
+  <div class="modal-footer">
+       <button class="continue_button btn btn-primary" data-activate_modal="#wizard4" data-activate_element="#explain4">Weiter</button>
+       <button class="continue_button btn" data-activate_modal="#wizard2" data-activate_element="#explain2">Zurück</button>
+       <span style="color:#ccc;">3 / 5</span>
+
+  </div><!-- modal-footer -->
+</div>
+<!-- explainer modal 3 end-->
+
+<!-- explainer modal 4 start-->
+<div class="modal hide main-modal wizard_modal" id="wizard4" style="background:whitesmoke;position: absolute;top: 500px;left: 800px;overflow:visible;width:400px">
+  <div class="blue_arrow_dl" style="left:-170px;"></div>
+  <div class="modal-header">
+    <button class="close" data-dismiss="modal">×</button>
+    <h3>Deine anstehenden Verabredungen</h3>
+  </div>
+
+  <div class="modal-body" style="background:white;">
+    <p>Hier kriegst du einen Überblick über deine geplanten Verabredungen und kannst sie bearbeiten<br>
+      </p>
+  </div>
+
+  <div class="modal-footer">
+       <button class="continue_button btn btn-primary" data-activate_modal="#wizard5" data-activate_element="#explain5">Weiter</button>
+
+       <button class="continue_button btn" data-activate_modal="#wizard3" data-activate_element="#explain3">Zurück</button>
+       <span style="color:#ccc;">4 / 5</span>
+
+  </div><!-- modal-footer -->
+</div>
+<!-- explainer modal 4 end-->
+
+<!-- explainer modal 5 start-->
+<div class="modal hide main-modal wizard_modal" id="wizard5" style="background:whitesmoke;position: absolute;top: 600px;left: 800px;overflow:visible;width: 400px;">
+  <div class="blue_arrow_dl" style="left:-170px;"></div>
+  <div class="modal-header">
+    <button class="close" data-dismiss="modal">×</button>
+    <h3>Was treiben deine Freunde?</h3>
+  </div>
+
+  <div class="modal-body" style="background:white;">
+    <p>Hier siehst du, wann deine Freunde planen zu arbeiten und kannst dich ihnen anschließen!<br>
+      </p>
+  </div>
+
+  <div class="modal-footer">
+       <button class="continue_button btn btn-primary" data-activate_modal="#wizardx" data-activate_element="#explainx">Weiter</button>
+
+       <button class="continue_button btn" data-activate_modal="#wizard4" data-activate_element="#explain4">Zurück</button>
+       <span style="color:#ccc;">5 / 5</span>
+
+  </div><!-- modal-footer -->
+</div>
+<!-- explainer modal 5 end-->
+
+<!-- explainer modal last start-->
+<div class="modal hide main-modal wizard_modal" id="wizardx" style="background:whitesmoke;">
+  <div class="modal-header">
+    <button class="close" data-dismiss="modal">×</button>
+    <h3>Jetzt bist du bereit!</h3>
+  </div>
+
+  <div class="modal-body" style="background:white;">
+    <blockquote style="margin: 10px 40px;">
+      <p><i>Wie gerät ein Projekt ein Jahr in Verzug? Einen Tag nach dem anderen.</i></p>
+      <small>Fred Brooks</small>
+    </blockquote>
+  </div>
+
+  <div class="modal-footer">
+      <button class="btn btn-large btn-success" data-dismiss="modal">Fertig!</button>      <button class="continue_button btn btn-large" data-activate_modal="#wizard4" data-activate_element="#explain4">Zurück</button>
+
+  </div><!-- modal-footer -->
+</div>
+<!-- explainer modal last end-->
 

@@ -73,6 +73,7 @@ StartWork::Application.routes.draw do
      match 'ben' => 'static_pages#ben', :as => :ben
      match 'canvas' => 'static_pages#canvas', :as => :canvas
      match 'info_for_group_hour' => 'static_pages#info_for_group_hour', :as => :info_for_group_hour
+     match 'session_start' => 'static_pages#session_start', :as => :session_start
      
 
       devise_for :users, :controllers => {:registrations => "registrations", :omniauth_callbacks => "users/omniauth_callbacks" }       

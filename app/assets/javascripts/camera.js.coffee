@@ -18,8 +18,8 @@ $(document).ready ->
     session = TB.initSession session_id   
 
     windowProps = 
-      width: 300
-      height: 300
+      width: 220
+      height: 220
     
     # The Session object dispatches SessionConnectEvent object when a session has successfully connected
     # in response to a call to the connect() method of the Session object.

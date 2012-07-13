@@ -1,5 +1,3 @@
-
-
 class StaticPagesController < ApplicationController
   skip_before_filter :authenticate_user!,  :except => [:welcome, :camera, :audio, :ben]
   
@@ -22,10 +20,12 @@ class StaticPagesController < ApplicationController
     #TODO this is hack
       @app = if Rails.env.production? then "330646523672055" else "232041530243765" end
         
+
       @my_appointments = current_user.appointments.this_week
       @my_received_appointments = current_user.received_appointments.this_week
       @friends_appointments = Appointment.this_week.friends_of(current_user)
-      
+      @active_users = current_user.friends
+
       @friends = current_user.friends
       next_user_hour = current_user.user_hours.next
       if next_user_hour
@@ -56,6 +56,20 @@ class StaticPagesController < ApplicationController
 
 
   
+  def session_start
+    if params[:success]
+      success = CameraAudio.find_or_create_by_user_id(current_user.id)
+      success.video_success=params[:success]
+      success.save
+      redirect_to audio_url
+    else
+      @api_key = TokboxApi.instance.api_key
+      @api_secret = TokboxApi.instance.api_secret
+      @session_id = TokboxApi.instance.get_session_for_camera_test
+      @tok_token = TokboxApi.instance.generate_token_for_camera_test
+    end
+  end
+
   # called by *omniauth_callbacks_controller.rb*
   def welcome
     if current_user.registered
@@ -74,6 +88,22 @@ class StaticPagesController < ApplicationController
   end
   
 
+
+ # def welcome_session
+ #   c = DateTime.current
+ #   this_hour = DateTime.new(c.year,c.month,c.day, c.hour)
+ #   calendar_event = current_user.calendar_events.build(start_time: this_hour)
+ #   calendar_event.find_or_build_work_session
+ #   calendar_event.save
+ #   work_session = calendar_event.work_session    
+ #      #    work_session = WorkSession.assign_for_guest(current_user)
+ #       #   if work_session.nil?
+ #      #      redirect_to root_url, :alert=> "Aktuell ist keine WorkSession vorhanden, wo Du als Gast teilnehmen kannst."
+ #      #    else
+ #   @work_buddies = work_session.users
+ #
+ # end
+  
 
   
   def camera
