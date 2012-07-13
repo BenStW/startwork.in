@@ -1,5 +1,3 @@
-
-
 class StaticPagesController < ApplicationController
   skip_before_filter :authenticate_user!,  :except => [:welcome, :camera, :audio, :ben]
   
@@ -62,29 +60,45 @@ class StaticPagesController < ApplicationController
 
   def how_it_works
   end
+
   def effect
   end  
+
   def pilot_study
   end
+
   def scientific_principles
   end
   
   def impressum
   end
+
   def about_us
   end
   
   def ben
-    
   end
   
   def blog
   end
   
   def info_for_work_session
-    
   end
   
+  def session_start
+    if params[:success]
+      success = CameraAudio.find_or_create_by_user_id(current_user.id)
+      success.video_success=params[:success]
+      success.save
+      redirect_to audio_url
+    else
+      @api_key = TokboxApi.instance.api_key
+      @api_secret = TokboxApi.instance.api_secret
+      @session_id = TokboxApi.instance.get_session_for_camera_test
+      @tok_token = TokboxApi.instance.generate_token_for_camera_test
+    end
+  end
+
   # called by *omniauth_callbacks_controller.rb*
   def welcome
     if current_user.registered
@@ -130,7 +144,6 @@ class StaticPagesController < ApplicationController
  # end
   
   def facebook
-
   end
   
 # def send_facebook_message

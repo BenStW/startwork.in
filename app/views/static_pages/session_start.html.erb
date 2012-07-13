@@ -1,0 +1,134 @@
+<%- content_for(:head) do -%>
+  <%= javascript_include_tag "http://connect.facebook.net/en_US/all.js" -%>
+  <%= javascript_include_tag "http://static.opentok.com/v0.91/js/TB.min.js" -%>
+  <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js" -%>
+<%- end -%>
+
+<%- content_for(:background_image) do -%>
+        background-image:url('/assets/paper_bg.jpg')
+<%- end -%>
+
+<%- content_for(:first_in_container) do -%>
+<div style="background:url('/assets/coffee.png') no-repeat;width: 550px;height: 510px;position: absolute;left: 0;top: 0;z-index: 0;"></div>
+<%- end -%>
+
+<div class="row">
+<!-- LINKER BLOCK -->
+<div class="white_col span8 column_same_height">
+  <div style="margin:20px 40px;">
+    <div class="alert alert-error">
+      <p>Du hast eine alte Version des Flash Players installiert (Version xxxx). Um StartWork zu nutzen musst du ihn aktualisieren: <a href="http://www.adobe.com/de/software/flash/about/">Flash Player Update</a></p>
+    </div>
+    <h2>Einmaliger Kamera-Check</h2>
+    <div class="row" style="margin-top:20px;margin-bottom:20px;">
+      <div class="span3">
+        <div id="xcamera_settings" data-session_id="<%=@session_id %>" data-tok_token="<%=@tok_token%>" data-api_key="<%=@api_key%>" style="background-color:grey;height:220px; width:220px;margin-left:0.5px;">
+          <span id="publisher_box_tmp" class="label label-warning">Bitte warten...</span>
+        </div> <!-- camera-->
+      </div>
+      <div class="span4">
+        <div class="well" style="text-align:left;height:180px;">
+          <h4>Die Webcam freischalten:</h4>
+          <ol>
+            <li><b>Öffene das Kontext-Menü:</b> Rechter Maus-click (Windows) oder Control-click (Macintosh) auf die Video Box. </li>
+            <li><b>Gehe auf Einstellungen</b></li>
+            <li><b>Gehe auf den Reiter Zugriffsschutz</b></li>
+            <li><b>Setze Zulassen und Speichern</b> </li>
+          </ol>
+        </div><!-- well-->
+      </div>
+    </div>
+    <p>Haben die vier Schritte geklappt?</p>
+    <div style="margin-bottom:20px;">
+      <a class='btn btn-success' href='<%=camera_path%>?success=true' >Ja, alles hat funktioniert.</a>&nbsp;&nbsp;
+      <button class='btn btn-warning' data-toggle="collapse" data-target="#problems">Nein, es gab Probleme</button>
+      <button id="flash_test_button" class="btn">test</button>
+    </div>
+    <div class="collapse" id="problems">
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Problem</th>
+            <th>Screenshot</th>
+            <th>Lösung</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Das Bild lädt nicht</td>
+            <td><img src="/assets/cam_waiting.png" alt="Bitte Warten"></td>
+            <td>Neuste Flashversion? hier kriegst du die neue</td>
+          </tr>
+          <tr>
+            <td>Das Bild bleibt schwarz</td>
+            <td><img src="/assets/cam_black.png" alt="Schwarzer Bildschirm"></td>
+            <td>Neuste Flashversion? hier kriegst du die neue</td>
+          </tr>
+          <tr>
+            <td>Ich komme ins Freigabemenü, kann aber nichts klicken</td>
+            <td><img src="/assets/cam_allow.png" alt="Kamera freigeben"></td>
+            <td>Es handelt sich um einen bekannten Bug von Adobe Flash. In diesem Fall musst du das Video manuell freigeben.<a class="btn" data-toggle="modal" href="#Kamerafreigabe">Anleitung</a></td>
+          </tr>
+          <tr>
+            <td>Ich komme ins Freigabemenü, kann aber nichts klicken</td>
+            <td><img src="/assets/cam_allow2.png" alt="Kamera freigeben"></td>
+            <td>Neuste Flashversion? hier kriegst du die neue</td>
+          </tr>
+          <tr>
+            <td rowspan="2">Sonstige Probleme</td>
+            <td colspan="2">Gehe auf <a href="http://www.tokbox.com/user-diagnostic/">www.tokbox.com/user-diagnostic</a>. Dort kannst du dein Problem weiter untersuchen.</td>
+          </tr>
+          <tr>
+            <td colspan="2">Es geht immer noch nicht weiter? Dann helfen wir dir gerne persönlich! Schreibe uns einfach eine Mail über den Feedback-Button unten rechts!</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Modal Freigabemenü -->
+    <div class="modal hide" id="Kamerafreigabe">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3>Webcam manuell freigeben</h3>
+      </div>
+      <div class="modal-body">
+        <p>Schritt 1</p>
+        <img src="/assets/cam_settings1.jpg" alt="Freigabeeinstellungen 1">
+        <p>Schritt 2</p>
+        <img src="/assets/cam_settings2.jpg" alt="Freigabeeinstellungen 2">
+        <p>Schritt 3</p>
+        <img src="/assets/cam_settings3.jpg" alt="Freigabeeinstellungen 3">
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal">Zurück</a>
+      </div>
+    </div>
+    <!-- ENDE Modal Freigabemenü -->
+<!--        
+If you experience any troubles, please visit the website of the 
+<a href='http://helpx.adobe.com/flash-player.html' target='_blank'>Adobe flash player</a>.-->
+  </div>
+</div>
+
+<!-- RECHTER BLOCK -->
+<div class="white_col span4 column_same_height">
+  <div style="margin:20px;text-align:justify;">
+    <center><h2 style="margin-bottom:20px;">FAQ</h2></center>
+    <a href="#" data-toggle="collapse" data-target="#whats_shown" style="color:black;"><h4>Was sehen die anderen?</h4></a>
+    <hr>
+    <div id="whats_shown" class="collapse" style="margin-bottom:20px;">
+      <p>Sie sehen nur das Bild deiner Webcam, dass du links siehst.<br>Sonst wird nichts übertragen, auch nicht dein Bildschirm!</p>
+      <p>In deiner Gruppe sind maximal 4 Leute, die du widerum per Webcam sehen kannst.</p>
+    </div>
+    <a href="#" data-toggle="collapse" data-target="#who_else" style="color:black;"><h4>Wer sind die anderen?</h4></a>
+    <hr>
+    <div id="who_else" class="collapse">
+      <p>Neben deinen Freunden sind können noch weitere Leute dabei sein. Startwork versucht immer dir ähnliche Arbeitspartner zu finden!</p>
+      <p>Wenn du z.B. Jura in Berlin studierst, versuchen wir solche Studenten dazuzuholen!</p>
+    </div>
+  </div>  
+</div>
+
+</div><!-- main row -->
+
+<div id="fb-root" data-app="<%=@app%>" style="position: absolute;left: 150px;top: 40px;"></div>

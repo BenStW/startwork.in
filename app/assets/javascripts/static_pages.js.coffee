@@ -27,13 +27,24 @@ $(document).ready ->
        $('#start_work').modal("show")
        $('.modal-backdrop').height(0)
        $('#start_work').height(max)
-       $('.modal-arrow').css("top",(max - 75) / 2)
+       $('.modal-arrow').css("top",(max - 75) / 2)   #funktioniert nicht mehr?!!
 
-   if $('.column_same_height').length>0
+   adjust_height = ->
+      console.log('adjust_height')
+      $('.column_same_height').removeAttr('height')
       heights= $(".column_same_height").map(->
             return $(this).outerHeight(true)).get()
       Array.max = (array) ->
         return Math.max.apply(Math, array)
       max = Array.max(heights)
-      $('#start_work_left').height(max)
-      $('#start_work_right').height(max)
+      $('.column_same_height').height(max)
+
+   if $('.column_same_height').length>0
+      adjust_height()
+
+   $('#problems').on('shown',-> $('.column_same_height').height(max))
+
+   $('#flash_test_button').click ->
+       playerVersion= swfobject.getFlashPlayerVersion()
+       output= "You have Flash player " + playerVersion.major + "." + playerVersion.minor + "." + playerVersion.release + " installed"
+       alert(output)

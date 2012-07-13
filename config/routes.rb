@@ -47,6 +47,7 @@ StartWork::Application.routes.draw do
      match 'ben' => 'static_pages#ben', :as => :ben
      match 'canvas' => 'static_pages#canvas', :as => :canvas
      match 'info_for_work_session' => 'static_pages#info_for_work_session', :as => :info_for_work_session
+     match 'session_start' => 'static_pages#session_start', :as => :session_start
      
 
 #     match 'send_facebook_message' => 'static_pages#send_facebook_message', :as => :send_facebook_message
