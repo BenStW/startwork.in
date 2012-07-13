@@ -16,8 +16,12 @@ class GroupHour < ActiveRecord::Base
    has_many :users, :through=> :user_hours
    
    before_destroy :has_no_user_hours?
+   before_create :generate_tokbox_session_id
    # don't fill tokbox_session_id with before_create because the IP of current_user needs to be overgiven
    
+   def self.this_week
+     where("start_time>?",DateTime.current-1.hour) 
+   end   
    
    def users_cant_be_more_then_five
      if users.count>5
@@ -29,4 +33,13 @@ class GroupHour < ActiveRecord::Base
    def has_no_user_hours?
       self.user_hours.count == 0
    end   
+   
+   private
+   def generate_tokbox_session_id
+     if Rails.env.production?
+       self.tokbox_session_id = (TokboxApi.instance.generate_session User.first.current_sign_in_ip).to_s
+     else
+       self.tokbox_session_id = TokboxApi.instance.get_session_for_camera_test
+     end
+   end
 end

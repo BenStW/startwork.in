@@ -23,6 +23,28 @@ class UserHour < ActiveRecord::Base
   
   before_validation :get_group_hour
 
+  def self.this_week
+    where("start_time>?",DateTime.current-1.hour) 
+  end
+  
+  def self.current
+    c = DateTime.current
+    this_hour = DateTime.new(c.year,c.month,c.day, c.hour)
+    user_hour = where("start_time = ?", this_hour).limit(1)[0]
+    if c.minute>=55 and user_hour.nil?
+      this_hour+=1.hours
+      where("start_time = ?", this_hour).limit(1)[0]
+    else
+      user_hour 
+    end
+  end
+  
+  def self.next
+    where("start_time >= (?)", DateTime.current-55.minutes).
+    order("start_time").limit(1)[0]   
+  end
+  
+
   def self.until_now
     c=DateTime.current
     where("start_time<?",c) 

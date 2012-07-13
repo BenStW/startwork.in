@@ -1,22 +1,57 @@
 class AppointmentsController < ApplicationController
-  skip_before_filter :authenticate_user!,  :only => [:show,:reject,:accept_without_authentication]
+  skip_before_filter :authenticate_user! #,  :only => [:show,:reject,:accept_without_authentication]
   
   
+  # appointment_url (appointments#show) (when logged in, store the appointment as received) 
+  # -> 1) reject_appointment_url
+  #        -> root_url
+  # -> 2) accept_appointment_url (when logged in)
+  #        -> root_url
+  # -> 3) login_to_accept_appointment (stores token as cookie)
+  #        -> welcome_url (default after facebook login, removes cookie)
+  #        -> accept_and_redirect_to_appointment_with_welcome
+  #        -> show_and_welcome_appointment
+  #
   
-   def index
+  
+   #--------------- REST desgin ----------------------- 
+  
+   def overview
      @my_appointments = current_user.appointments  
      @my_user_hours = current_user.user_hours    
      @recipient_appointment = RecipientAppointment.new
    end
+   
+   def index
+     @my_appointments = current_user.appointments  
+     my_or_friends = "my"
+     render :partial => "appointments", 
+         :locals => { :appointments => @my_appointments, :my_or_friends => my_or_friends } 
+   end
+
+   
+   def show
+     token = params[:token]
+     @appointment = Appointment.find_by_token(token)
+     if @appointment.nil?
+       render :json => "keine Verabredung gefunden"
+     end
+     if current_user
+       receive_appointment(@appointment)
+     end
+    end   
 
    def new
      @appointment = current_user.appointments.build   
    end
 
    def create
-     a = current_user.appointments.create(params[:appointment])
-     a.save
-     redirect_to appointments_url
+     appointment = current_user.appointments.create(params[:appointment])
+     if appointment.valid?
+        render :json => appointment.to_json(:only => [ :id, :token, :start_time, :end_time ])
+      else
+        render :text => "appointment could not be created", :status => :unprocessable_entity
+      end
    end
 
    def edit
@@ -26,15 +61,35 @@ class AppointmentsController < ApplicationController
    def update
       @appointment = current_user.appointments.find(params[:id])
       @appointment.update_attributes(params[:appointment])
-     redirect_to appointments_url      
+      if @appointment.valid?
+         render :json => "ok"   
+      else
+          render :text => "appointment could not be saved", :status => :unprocessable_entity
+      end        
    end  
 
   def destroy
     a = current_user.appointments.find(params[:id])
-    a.destroy
-     redirect_to appointments_url
+    if a.nil?
+      render :text => "appointment could not be deleted", :status => :unprocessable_entity
+    else 
+       a.destroy
+       render :json => "ok"
+    end
+  end
+  
+  # ---------------- END of REST design ----------------------   
+
+  def receive
+    appointment = Appointment.find_by_token(params[:token])
+    if appointment.nil?
+      raise "couldn't find an appointment with token = #{params[:token]}."
+    end
+    receive_appointment(appointment) 
+    redirect_to root_url, :notice => "Einladung erhalten"
   end
 
+  # only used for internal testing
   def send_appointment
     puts "params[:recipient_appointment] = #{params[:recipient_appointment].to_yaml}"
     user = User.find(params[:recipient_appointment]["user_id"])
@@ -43,69 +98,71 @@ class AppointmentsController < ApplicationController
      redirect_to appointments_url 
   end
   
-  def accept_appointment
-    appointment = current_user.received_appointments.find(params[:id])
-    Appointment.accept_received_appointment(current_user, appointment)  
-    redirect_to appointments_url
-  end
-  
-  
-  
-  def get_token
-     start_time = params["start_time"]
-     end_time = params["end_time"]
-     appointment = current_user.appointments.create(:start_time=>start_time, :end_time=>end_time)
-     render :json => appointment.token
-   end
-   
-   
-  def show
+  def show_and_welcome
+     @name = current_user.first_name
      token = params["token"]
      @appointment = Appointment.find_by_token(token)
      if @appointment.nil?
-       render :json => "keine Verabredung gefunden"
+       render :json => "welcome_with_appointment: keine Verabredung gefunden"
      end
-
-    # 
-     # Shows the user two links:
-     # reject appointment: --> appointment_reject_url
-     # accept appointment: --> appointment_accept_without_authentication_url(:token=> @appointment.token)
-  end
-  
+     @friends = current_user.friends - [@appointment.user]
+     @app = if Rails.env.production? then "330646523672055" else "232041530243765" end
+  end  
+ 
   def reject
      redirect_to root_url
-  end  
-  
-  def accept_without_authentication
-    session[:appointment_token] = params["token"]
-
-    # the following redirect does not work because of FB login.
-    # The user is redirected to root_url. 
-    # Therefore root_url must redirect to appointment_accept_url
-     redirect_to appointment_accept_url
   end
   
   def accept
-    token = params["token"]
-    appointment = Appointment.find_by_token(token)    
+    appointment = Appointment.find_by_token(params[:token])
+    if appointment.nil?
+      raise "couldn't find an appointment with token = #{params[:token]}."
+    end    
+    receive_appointment(appointment) 
+
+    Appointment.accept_received_appointment(current_user, appointment)  
+    redirect_to root_url
+  end
+  
+  def accept_and_redirect_to_appointment_with_welcome
+    token = params[:token]
+    appointment = Appointment.find_by_token(token)
     if appointment.nil?
       render :json => "keine Verabredung gefunden."
-    else
-       appointment.receive_count+=1
-       appointment.save
-       
-       hourly_start_times = CalendarEvent.split_to_hourly_start_times(appointment.start_time.to_datetime,appointment.end_time.to_datetime)
-       hourly_start_times.each do |start_time|
-         if current_user.calendar_events.find_by_start_time(start_time)
-           logger.error("ERROR: calendar event for user #{current_user.name} at #{start_time} does already exist.")
-         else
-           calendar_event = current_user.calendar_events.build(start_time: start_time)
-           calendar_event.find_or_build_work_session
-           calendar_event.save
-         end
-       end
-       redirect_to welcome_with_appointment_url(:token => token)
-     end
+    end
+    receive_appointment(appointment)   
+    Appointment.accept_received_appointment(current_user, appointment)
+    redirect_to show_and_welcome_appointment_url(:token => token)
   end  
+   
+
+   def get_token
+      start_time = params["start_time"]
+      end_time = params["end_time"]
+      appointment = current_user.appointments.create(:start_time=>start_time, :end_time=>end_time)
+      render :json => appointment.token
+    end
+    
+    
+    private 
+    
+    def receive_appointment(appointment)
+      recipient_appointment = RecipientAppointment.find_by_appointment_id_and_user_id(appointment,current_user)
+      if recipient_appointment.nil?
+         recipient_appointment = RecipientAppointment.create(:user=>current_user, :appointment=>appointment)
+      elsif !recipient_appointment.valid?
+         raise "couldln't store the appointment #{appointment.id} as received at user #{appointment.user.name}"
+      end     
+    end      
+      
+  
+  # def accept_without_authentication
+  #   session[:appointment_token] = params["token"]
+  #
+  #   # the following redirect does not work because of FB login.
+  #   # The user is redirected to root_url. 
+  #   # Therefore root_url must redirect to appointment_accept_url
+  #    redirect_to appointment_accept_url
+  # end  
    
  end

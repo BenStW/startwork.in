@@ -12,43 +12,53 @@ StartWork::Application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
 
-  match 'appointments/accept_appointment' => 'appointments#accept_appointment', :as => :appointments_accept_appointment
-  match 'appointments/send_appointment' => 'appointments#send_appointment', :as => :appointments_send_appointment
+  match 'appointment/receive' => 'appointments#receive', :as => :receive_appointment
+
+  #only used internally for testing
+  match 'appointment/send_appointment' => 'appointments#send_appointment', :as => :send_appointment
+  match 'appointment/overview' => 'appointments#overview', :as => :overview_appointment
+  #END OF only used internally for testing
+
+  match 'appointment/show_and_welcome' => 'appointments#show_and_welcome', :as => :show_and_welcome_appointment
+
+  match 'appointment/accept' => 'appointments#accept', :as => :accept_appointment
+  match 'appointment/accept_and_redirect_to_appointment_with_welcome' => 'appointments#accept_and_redirect_to_appointment_with_welcome', :as => :accept_and_redirect_to_appointment_with_welcome
+  match 'appointment/reject' => 'appointments#reject', :as => :reject_appointment
+
+
+  #creates the following actions:
+  # index
+  # new
+  # create
+  # show
+  # edit
+  # update
+  # destroy
   resources :appointments
-
   
- # match 'tmp' => 'tmp#index', :as => :tmp_index
- # match 'tmp/create' => 'tmp#create', :as => :tmp_create_appointment
- # match 'tmp/new' => 'tmp#new', :as => :tmp_new_appointment
- # match 'tmp/destroy' => 'tmp#destroy', :as => :tmp_destroy_appointment
- # match 'tmp/send_appointment' => 'tmp#send_appointment', :as => :tmp_send_appointment
- # match 'tmp/edit' => 'tmp#edit', :as => :tmp_edit_appointment
- # match 'tmp/update' => 'tmp#update', :as => :tmp_update_appointment
+  match 'welcome' => 'static_pages#welcome', :as => :welcome
+  match 'login_to_accept_appointment' => 'static_pages#login_to_accept_appointment', :as => :login_to_accept_appointment 
   
+  match 'weekly_overview' => 'user_hours#index', :as => :weekly_overview_user_hours
+  match 'appointment/get_token' => 'appointments#get_token', :as => :get_token_appointment
 
 
+  #  match 'appointment/accept_without_authentication' => 'appointments#accept_without_authentication', :as => :accept_without_authentication_appointment
 
-  match 'calendar' => 'calendar_events#show', :as => :calendar
-  match 'calendar/new_event' => 'calendar_events#new_event', :as => :calendar_new_event
-  match 'calendar/events' => 'calendar_events#events'  
-  match 'calendar/remove_event' => 'calendar_events#remove_event', :as => :calendar_remove_event
-  match 'calendar/remove_events_by_time' => 'calendar_events#remove_events_by_time', :as => :calendar_remove_events_by_time
-  match 'calendar/send_invitation' => 'calendar_events#send_invitation', :as => :calendar_send_invitation
+#
+#  match 'calendar' => 'calendar_events#show', :as => :calendar
+#  match 'calendar/new_event' => 'calendar_events#new_event', :as => :calendar_new_event
+#  match 'calendar/events' => 'calendar_events#events'  
+#  match 'calendar/remove_event' => 'calendar_events#remove_event', :as => :calendar_remove_event
+#  match 'calendar/remove_events_by_time' => 'calendar_events#remove_events_by_time', :as => :calendar_remove_events_by_time
+#  match 'calendar/send_invitation' => 'calendar_events#send_invitation', :as => :calendar_send_invitation
 
- # match 'appointment' => 'appointments#show', :as => :appointment
- # match 'appointment/get_token' => 'appointments#get_token', :as => :appointment_get_token
- # match 'appointment/reject' => 'appointments#reject', :as => :appointment_reject
- # match 'appointment/accept_without_authentication' => 'appointments#accept_without_authentication', :as => :appointment_accept_without_authentication
- # match 'appointment/accept' => 'appointments#accept', :as => :appointment_accept
- #
+
 
  # scope "(:locale)", :locale => /en|de/  do
      root :to => 'static_pages#home'  
 
-     match 'welcome' => 'static_pages#welcome', :as => :welcome
-     match 'welcome_with_appointment' => 'static_pages#welcome_with_appointment', :as => :welcome_with_appointment
-     match 'accept_appointment' => 'static_pages#accept_appointment', :as => :accept_appointment
-   #  match 'welcome_session' => 'static_pages#welcome_session', :as => :welcome_session
+
      match 'facebook' => 'static_pages#facebook', :as => :facebook
      match 'blog' => 'static_pages#blog', :as => :blog
 
@@ -62,37 +72,22 @@ StartWork::Application.routes.draw do
      match 'audio' => 'static_pages#audio', :as => :audio
      match 'ben' => 'static_pages#ben', :as => :ben
      match 'canvas' => 'static_pages#canvas', :as => :canvas
-     match 'info_for_work_session' => 'static_pages#info_for_work_session', :as => :info_for_work_session
+     match 'info_for_group_hour' => 'static_pages#info_for_group_hour', :as => :info_for_group_hour
      
 
-#     match 'send_facebook_message' => 'static_pages#send_facebook_message', :as => :send_facebook_message
-
-
-   #  match 'interested_user'  => 'interested_user#show',:via => :get, :as => :show_interested_user   
-  #   match 'interested_user' => 'interested_user#create',:via => :post, :as => :create_interested_user   
-       
-    
-#     devise_for :users, :controllers => {:registrations => "registrations"} 
       devise_for :users, :controllers => {:registrations => "registrations", :omniauth_callbacks => "users/omniauth_callbacks" }       
-#     devise_for :users, :controllers => {:registrations => "registrations", :omniauth_callbacks => "omniauth_callbacks" }       
 
-     #devise_for :users, :controllers => {:sessions => "devise_sessions"}
+
+      match 'group_hour' => 'group_hours#show', :as => :group_hour
+
      
-     match 'work_session/room_change(/:session)' => 'work_sessions#room_change', :as => :work_session_room_change
-     match 'work_session/get_time' => 'work_sessions#get_time', :as => :work_session_get_time
-     match 'work_session/work_sessions' => 'work_sessions#work_sessions'  
-     match 'work_session/my_work_sessions' => 'work_sessions#my_work_sessions', :as => :my_work_sessions
-     match 'work_session' => 'work_sessions#show', :as => :work_session
+     match 'group_hour/room_change(/:session)' => 'group_hours#room_change', :as => :group_hour_room_change
+     match 'group_hour/get_time' => 'group_hours#get_time', :as => :group_hour_get_time
+     match 'group_hour/group_hours' => 'group_hours#work_sessions', :as => :group_hours
+     match 'group_hour/my_group_hours' => 'group_hours#my_group_hours', :as => :my_group_hours
+     match 'group_hour' => 'group_hours#show', :as => :group_hour
 
- #    match 'spont_work_session' => 'work_sessions#spont_show', :as => :spont_work_session
      match 'test_work_session/:user' => 'work_sessions#test_show', :as => :test_work_session
-
-   #  match 'guest_work_session' => 'work_sessions#show_for_guest', :as => :guest_work_session
-
-    
- #    post 'connections/start', :to => 'connections#start'  
- #    post 'connections/end', :to => 'connections#end'
-    
 
  
     

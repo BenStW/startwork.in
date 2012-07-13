@@ -18,7 +18,10 @@ class Appointment < ActiveRecord::Base
   has_many :user_hours, :dependent => :destroy 
   has_many :sent_appointments, :through => :recipient_appointments, :source => :appointment,  :dependent => :destroy 
   has_many :recipient_appointments 
-    
+  
+  has_many :group_hours, :through => :user_hours
+  has_many :users, :through => :group_hours, :uniq => true
+
   
   validates :user, :start_time, :end_time, presence: true
   validate :start_time_lt_end_time
@@ -37,10 +40,25 @@ class Appointment < ActiveRecord::Base
     self.receive_count ||= 0
     self.accepted_appointment ||= nil
   end  
+
+  def self.this_week
+    where("start_time>?",DateTime.current-1.hour) 
+  end  
   
   def generate_token
    self.token = Digest::SHA1.hexdigest([Time.now, rand].join)
   end
+  
+  def self.has_user_ids(user_ids)
+    #TODO: write test case
+     where("user_id in (?)",user_ids)
+   end
+
+   def self.friends_of(user)
+     #TODO: write test case
+      friends = user.friends.map(&:id)
+      self.has_user_ids(friends)
+   end  
   
   def self.split_to_hourly_start_times(start_time, end_time)  
       start_time = start_time.to_datetime

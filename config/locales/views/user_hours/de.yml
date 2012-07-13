@@ -1,6 +1,6 @@
 de:
-    calendar_events:
-        show:
+    user_hours:
+        index:
             all: "Alle"
             title: "Kalender"
             description: "Trage deine Arbeitsstunden ein:"

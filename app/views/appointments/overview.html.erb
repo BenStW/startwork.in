@@ -1,0 +1,121 @@
+
+<h2>my Appointments</h2>
+
+<table class="table">	
+	<tr><td>id</td><td>start_time</td><td>end_time</td><td>token</td></tr>
+	<% current_user.appointments.each do |a| %>
+		<tr><td><%=a.id%></td>
+			<td>
+			<%=I18n.localize(a.start_time.in_time_zone("Berlin").to_date, :format => "%d.%m.%Y") %>	
+			<%=I18n.localize(a.start_time.in_time_zone("Berlin"),:format => "%H:%M") %> - 
+			<%=I18n.localize(a.end_time.in_time_zone("Berlin"),:format => "%H:%M") %></td>	
+			<td><%=a.token%></td>
+
+			<td><%= link_to "destroy", a, :method => :delete, :class=>"btn"%></td>
+			<td><%= link_to "edit", edit_appointment_url(:id=>a), :class=>"btn"%></td>
+
+			<td>
+				<%= form_for @recipient_appointment, :url => send_appointment_url do |f| %>
+				<%= f.hidden_field  :appointment_id, :value=>a.id  %>
+				<%= f.select(:user_id, User.all.collect {|u| [ u.name, u.id ] }) %>
+				<% f.select :user_id, User.all.map(&:id)  %> 
+				
+				 <%= f.submit "send", :class => "btn" %>	<% end %>
+				</td>			
+			</tr>
+		<% end %>
+</table>
+<%= link_to "new appointment", new_appointment_url, :class=>"btn"%>
+<div style="height:50px"></div>
+
+<h2>my ReceivedAppointments</h2>
+<table class="table">	
+	<tr><td>id</td><td>from user</td><td>time</td><td>accept</td></tr>
+	<% current_user.received_appointments.each do |a| %>
+		<tr><td><%=a.id%></td>
+			<td>
+				<%=I18n.localize(a.start_time.in_time_zone("Berlin").to_date, :format => "%d.%m.%Y") %>	
+			
+			<%=I18n.localize(a.start_time.in_time_zone("Berlin"),:format => "%H:%M") %> - 
+			<%=I18n.localize(a.end_time.in_time_zone("Berlin"),:format => "%H:%M") %></td>			
+			<td><%=a.start_time%> - <%=a.end_time%></td>
+			<td><%=a.user.name%></td>
+			<td><%= link_to "show", appointment_url(a,:token=>a.token), :class=>"btn"%></td>
+			<td><%= link_to "show_and_welcome", show_and_welcome_appointment_url(:token=>a.token), :class=>"btn"%></td>
+			<td><%= link_to "accept", accept_appointment_url(:token=>a.token), :class=>"btn"%></td>
+			<td><%= link_to "accept_and redirect_to appointment_with_welcome_url", accept_and_redirect_to_appointment_with_welcome_url(:token=>a.token), :class=>"btn"%></td>
+			
+			</td></tr>
+		<% end %>
+</table>	
+<div style="height:50px"></div>
+
+<h2>my UserHours</h2>
+<table class="table">	
+	<tr><td>id</td><td>start_time</td><td>group_hour_id</td><td>appointment_id</td><td>acc_appointment_id</td></tr>
+	
+	<% current_user.user_hours.each do |a| %>	<tr><td><%=a.id%></td><td>
+	<%=I18n.localize(a.start_time.in_time_zone("Berlin"),:format => "%H:%M") %>
+		</td><td><%=a.group_hour_id%></td><td><%=a.appointment_id%></td><td><%=a.accepted_appointment_id%></td></tr>
+		<% end %>		
+</table>
+<div style="height:50px"></div>
+
+<h2>my GroupHours</h2>
+<table class="table">	
+	<tr><td>id</td><td>start_time</td><td>tokbox_session_id</td></tr>
+	<% current_user.user_hours.map(&:group_hour).each do |a| %>
+		<tr><td><%=a.id%></td><td>
+			<%=I18n.localize(a.start_time.in_time_zone("Berlin"),:format => "%H:%M") %>
+		</td><td><%=a.tokbox_session_id%></td></tr>
+		<% end %>
+</table>	
+
+
+<div style="height:100px"></div>
+<hr>	
+<div style="height:100px"></div>
+
+
+
+<h2>Appointments</h2>
+<table class="table">	
+	<tr><td>id</td><td>start_time-end_time</td><td>user</td></tr>
+	<% Appointment.all.each do |a| %>
+		<tr><td><%=a.id%></td>
+			<td><%=I18n.localize(a.start_time.in_time_zone("Berlin").to_date, :format => "%d.%m.%Y") %>	
+			<%=I18n.localize(a.start_time.in_time_zone("Berlin"),:format => "%H:%M") %> - 
+			<%=I18n.localize(a.end_time.in_time_zone("Berlin"),:format => "%H:%M") %></td>			
+			<td><%=a.user.name%></td>
+			<td><%= link_to "receive", receive_appointment_url(:token=>a.token), :class=>"btn"%></td>
+			
+			</tr>
+		<% end %>
+</table>	
+
+<h2>RecipientAppointment</h2>
+<table class="table">	
+	<tr><td>id</td><td>user</td><td>appointment</td></tr>
+	<% RecipientAppointment.all.each do |a| %>
+		<tr><td><%=a.id%></td><td><%=a.user.name%></td><td><%=a.appointment_id%></td></tr>
+		<% end %>
+</table>
+
+<h2>UserHour</h2>
+<table class="table">	
+	<tr><td>id</td><td>start_time</td><td>group_hour_id</td><td>appointment_id</td><td>acc_appointment_id</td></tr>
+	
+	<% UserHour.all.each do |a| %>	<tr><td><%=a.id%></td><td>
+		<%=I18n.localize(a.start_time.in_time_zone("Berlin"),:format => "%H:%M") %></td><td><%=a.group_hour_id%></td><td><%=a.appointment_id%></td><td><%=a.accepted_appointment_id%></td></tr>
+		<% end %>		
+</table>
+
+<h2>GroupHour</h2>
+<table class="table">	
+	<tr><td>id</td><td>start_time</td><td>tokbox_session_id</td><td># UserHour's</td></tr>
+	<% GroupHour.all.each do |a| %>
+		<tr><td><%=a.id%></td><td><%=I18n.localize(a.start_time.in_time_zone("Berlin"),:format => "%H:%M")%>
+			</td><td><%=a.tokbox_session_id%></td><td><%=a.user_hours.count%></td></tr>
+		<% end %>
+</table>
+

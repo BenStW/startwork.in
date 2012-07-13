@@ -22,69 +22,39 @@ class StaticPagesController < ApplicationController
     #TODO this is hack
       @app = if Rails.env.production? then "330646523672055" else "232041530243765" end
         
-      my_work_sessions = current_user.calendar_events.this_week.map(&:work_session)
-      @my_work_sessions = MergedWorkSession.merge_continuing_work_sessions(my_work_sessions,current_user)
-      
-      friends_work_sessions = CalendarEvent.this_week.friends_of(current_user).no_work_session_with(current_user).map(&:work_session) 
-      
-      puts "--------- #{friends_work_sessions.to_yaml}"
-      @friends_work_sessions = MergedWorkSession.merge_continuing_work_sessions(friends_work_sessions,current_user,true)
+      @my_appointments = current_user.appointments.this_week
+      @my_received_appointments = current_user.received_appointments.this_week
+      @friends_appointments = Appointment.this_week.friends_of(current_user)
       
       @friends = current_user.friends
-      next_calendar_event = current_user.calendar_events.next
-      if next_calendar_event
-        @next_work_session = next_calendar_event.work_session
-        users = @next_work_session.users - [current_user]
+      next_user_hour = current_user.user_hours.next
+      if next_user_hour
+        @next_group_hour = next_user_hour.group_hour
+        users = @next_group_hour.users - [current_user]
         @user_names = users.map(&:name).join(", ")
         if @user_names.blank?
           @user_names = t("static_pages.home_logged_in.nobody")
         else
           @user_names = t("static_pages.home_logged_in.with")+" "+@user_names
         end
-        @room_host = @next_work_session.room.user.name
       end
   end
   
   def home_not_logged_in
   end
+  
 
-  def accept_appointment  
+
+  def login_to_accept_appointment  
      token = params["token"]
      session[:appointment_token] = token
      @appointment = Appointment.find_by_token(token)
      if @appointment.nil?
        render :json => "keine Verabredung gefunden"
      end
-     
-     # Shows the user two links:
-     # reject appointment: --> appointment_reject_url
-     # accept appointment: --> appointment_accept_without_authentication_url(:token=> @appointment.token)
   end
 
-  def how_it_works
-  end
-  def effect
-  end  
-  def pilot_study
-  end
-  def scientific_principles
-  end
-  
-  def impressum
-  end
-  def about_us
-  end
-  
-  def ben
-    
-  end
-  
-  def blog
-  end
-  
-  def info_for_work_session
-    
-  end
+
   
   # called by *omniauth_callbacks_controller.rb*
   def welcome
@@ -93,10 +63,9 @@ class StaticPagesController < ApplicationController
     else
       current_user.registered=true
       current_user.save    
-      puts "************ session[:appointment_token] = #{session[:appointment_token]}"  
       if token = session[:appointment_token]
         session[:appointment_token] = nil
-        redirect_to appointment_accept_url(:token=>token)
+        redirect_to accept_and_redirect_to_appointment_with_welcome_url(:token=>token)
       else
         @name = current_user.first_name
         @friends = current_user.friends
@@ -104,42 +73,8 @@ class StaticPagesController < ApplicationController
    end    
   end
   
-  def welcome_with_appointment 
-     @name = current_user.first_name
-     token = params["token"]
-     @appointment = Appointment.find_by_token(token)
-     if @appointment.nil?
-       session[:appointment_token] = nil
-       render :json => "welcome_with_appointment: keine Verabredung gefunden"
-     end
-     @friends = current_user.friends - [@appointment.sender]
-     @app = if Rails.env.production? then "330646523672055" else "232041530243765" end
-  end
 
- # def welcome_session
- #   c = DateTime.current
- #   this_hour = DateTime.new(c.year,c.month,c.day, c.hour)
- #   calendar_event = current_user.calendar_events.build(start_time: this_hour)
- #   calendar_event.find_or_build_work_session
- #   calendar_event.save
- #   work_session = calendar_event.work_session    
- #      #    work_session = WorkSession.assign_for_guest(current_user)
- #       #   if work_session.nil?
- #      #      redirect_to root_url, :alert=> "Aktuell ist keine WorkSession vorhanden, wo Du als Gast teilnehmen kannst."
- #      #    else
- #   @work_buddies = work_session.users
- #
- # end
-  
-  def facebook
 
-  end
-  
-# def send_facebook_message
-#   @marked = params[:friends]
-#   @message = params[:message]
-#   redirect_to welcome_url    
-# end
   
   def camera
     if params[:success]
@@ -167,6 +102,31 @@ class StaticPagesController < ApplicationController
       end
       redirect_to root_url, :notice => notice
    end
+ end
+ 
+ def how_it_works
+ end
+ def effect
+ end  
+ def pilot_study
+ end
+ def scientific_principles
+ end
+ 
+ def impressum
+ end
+ def about_us
+ end
+ 
+ def ben
+   
+ end
+ 
+ def blog
+ end
+ 
+ def info_for_group_hour
+   
  end
 
 end

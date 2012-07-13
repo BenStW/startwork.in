@@ -90,8 +90,22 @@ describe Appointment do
       UserHour.count.should eq(0)
     end
   end
-  
+ 
+  context "associations" do    
+    it "has two users when work_hour has two users" do
+      user_a = FactoryGirl.create(:user)
+      user_b = FactoryGirl.create(:user)
+      user_c = FactoryGirl.create(:user)
 
+      appointment_a = FactoryGirl.create(:appointment, :user=>user_a)
+      FactoryGirl.create(:recipient_appointment, :user=>user_b, :appointment=>appointment_a)
+      Appointment.accept_received_appointment(user_b,appointment_a)
+      appointment_a.users.count.should eq(2)
+      appointment_a.users.include?(user_a).should eq(true)
+      appointment_a.users.include?(user_b).should eq(true)
+      appointment_a.users.include?(user_c).should eq(false)
+    end
+  end
 
   
   context "class method split_to_hourly_start_times" do    

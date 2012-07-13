@@ -1,6 +1,6 @@
 en:
-    calendar_events:
-        show:
+    user_hours:
+        index:
             all: "All"
             title: Calendar    
             description: "Please fill out your working hours:"

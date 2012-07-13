@@ -14,6 +14,18 @@
 <div style="background:url('/assets/coffee.png') no-repeat;width: 751px;height: 836px;position: absolute;left: 0;top: 0;z-index: 0;"></div>
 <%- end -%>
 
+<span id="urls"
+  data-group_hour_url="<%= group_hour_url %>"
+  data-info_for_group_hour_url="<%= info_for_group_hour_url %>"
+  data-my_group_hours_url="<%= my_group_hours_url %>"
+  data-get_token_appointment_url="<%= get_token_appointment_url %>"
+  data-my_appointments_url="<%= appointments_url %>"
+  data-appointments_url="<%= appointments_url %>"
+  data-accept_appointment_url="<%= accept_appointment_url %>"
+
+></span>
+
+
 
   <center>
     <h2 class="parisienne" id="greet_username" style="margin-left: 50px;">
@@ -36,27 +48,35 @@
 
   <!-- Eigene Sessions -->
  
-  <div id="my_work_sessions" style="text-align: left;">
+  <div id="my_appointments" style="text-align: left;">
       <% my_or_friends = "my"%>
-      <%= render :partial => "work_sessions/work_sessions", 
-          :locals => { :work_sessions => @my_work_sessions, :my_or_friends => my_or_friends } %>	
+      <%= render :partial => "appointments/appointments", 
+          :locals => { :appointments => @my_appointments, :my_or_friends => my_or_friends } %>	
   </div>
 </div>
   <!-- Ende eigene Sessions --> 
 
+  <!-- Sessions von Freunden -->
+  <div id="my_received_appointments" style="text-align: left;">
+      <% my_or_friends = "my_received"%>
+      <%= render :partial => "appointments/appointments", 
+          :locals => { :appointments => @my_received_appointments, :my_or_friends => my_or_friends } %>	
+  </div>
+  <!-- Ende von Sessions von Freunden -->
+
 
   <!-- Sessions von Freunden -->
-  <div id="friends_work_sessions" style="text-align: left;">
+  <div id="friends_appointments" style="text-align: left;">
       <% my_or_friends = "friends"%>
-      <%= render :partial => "work_sessions/work_sessions", 
-          :locals => { :work_sessions => @friends_work_sessions, :my_or_friends => my_or_friends } %>	
+      <%= render :partial => "appointments/appointments", 
+          :locals => { :appointments => @friends_appointments, :my_or_friends => my_or_friends } %>	
   </div>
   <!-- Ende von Sessions von Freunden --> 
 
 
   <div style="margin-top:20px;">
     <hr>
-    <center><%= link_to "Wochenüberblick", calendar_path, :class => "btn btn-large"%></center>
+    <center><%= link_to "Wochenüberblick", weekly_overview_user_hours_url, :class => "btn btn-large"%></center>
   </div>
 </div>
 
@@ -73,11 +93,11 @@
   <div style="margin:20px;">
   <h2>Start Work'in</h2>
     <center><div id="join_work_session" href="#" class="btn btn-primary btn-large" style="margin-top:20px;">2. Jetzt starten!</div></center>
-    <% if !@next_work_session.nil?%>
+    <% if !@next_group_hour.nil?%>
       <hr>
       <div style="margin-top:20px;">
           <b> <%= t(".next_session")%>:</b><br>
-          <%= I18n.localize(@next_work_session.start_time.in_time_zone("Berlin")) %> <br> <%= @user_names %><br>
+          <%= I18n.localize(@next_group_hour.start_time.in_time_zone("Berlin")) %> <br> <%= @user_names %><br>
       </div>
     <% else %>
       <hr>
@@ -95,7 +115,7 @@
   <div style="margin:20px;">
     <h2>Freunde treffen</h2>
     <center><div id="send_dialogue" class="btn btn-primary btn-large" style="margin-top:20px;"><img src="/assets/facebook_button.png" width="20px" style="position: absolute;"><span style="margin-left:25px;">Freunde einladen</span></div></center>
-    <%   render :template => 'invitations/new' %>
+
     <hr>
     <p>StartWork funktioniert am besten mit Freunden. Lade sie jetzt ein!</p>
     <hr>
@@ -122,4 +142,4 @@
 
 <div id="fb-root" data-app="<%=@app%>" style="position: absolute;left: 150px;top: 40px;"></div>
 
-<%= render 'appointments/appointment_modal' %>
+

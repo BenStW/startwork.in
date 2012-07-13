@@ -40,19 +40,19 @@
     </div>
     <div class="item">
     	<div style="position:absolute;top:-60px;right:-20px;">
-			<%= link_to "Ablehnen", appointment_reject_url, :class=>"btn btn-large"%>
+			<%= link_to "Ablehnen", reject_appointment_url, :class=>"btn btn-large"%>
 			
 			<% if current_user %>
-			<%= link_to "Annehmen", appointment_accept_url(:token=> @appointment.token), :class=>"btn btn-large btn-success"%>			
+			<%= link_to "Annehmen", accept_appointment_url(:token=> @appointment.token), :class=>"btn btn-large btn-success"%>			
 		     <% else %>
-			<%= link_to "Annehmen", accept_appointment_url(:token=> @appointment.token), :class=>"btn btn-large btn-success"%>	
+			<%= link_to "Annehmen", login_to_accept_appointment_url(:token=> @appointment.token), :class=>"btn btn-large btn-success"%>	
 			<% end %>		
 						
 		</div>
 		<p style="font-size:26px;line-height:47px;margin-bottom:20px;">Du hast gerade eine solche Einladung erhalten:</p>
 		<div class="well">
-			<div class="left"><img src="http://graph.facebook.com/<%=@appointment.sender.fb_ui%>/picture"></div>
-			<h2>Verabredung mit <%=@appointment.sender.name %></h2>
+			<div class="left"><img src="http://graph.facebook.com/<%=@appointment.user.fb_ui%>/picture"></div>
+			<h2>Verabredung mit <%=@appointment.user.name %></h2>
 			<br/>
 			<% if !@appointment.start_time.nil? and !@appointment.end_time.nil? %>
 			

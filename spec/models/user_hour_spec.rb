@@ -59,6 +59,7 @@ describe UserHour do
       user = FactoryGirl.create(:user)
       appointment = FactoryGirl.create(:appointment, :user=>user)
       new_user = FactoryGirl.create(:user)
+      recipient_appointment = RecipientAppointment.new(:user=>new_user, :appointment=>appointment)
       new_appointment = Appointment.accept_received_appointment(new_user, appointment)
       user_hour = appointment.user_hours.first
       #GroupHour.all.each do |g| puts "id=#{g.id} (#{g.user_hours.count}u)" end
@@ -67,6 +68,61 @@ describe UserHour do
       
     end      
     
+  end
+  
+  context "class method next" do
+    it "selects next user_hour" do
+      tomorrow_at_9am = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,9)+1.day
+      user_hour_at_9am = FactoryGirl.create(:user_hour,:start_time=>tomorrow_at_9am) 
+      tomorrow_at_11am = tomorrow_at_9am+2.hours
+      user_hour_at_11am = FactoryGirl.create(:user_hour,:start_time=>tomorrow_at_11am)           
+      UserHour.next.should eq(user_hour_at_9am)
+    end
+  end
+  
+  context "class method current" do
+
+      it "selects next user_hour starting 5 minutes after now" do
+        tomorrow_8am = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,8)+1.day
+        DateTime.stub(:current).and_return(tomorrow_8am+5.minutes)
+        user_hour_at_8am = FactoryGirl.create(:user_hour,:start_time=>tomorrow_8am) 
+        UserHour.next.should eq(user_hour_at_8am)
+      end
+
+      it "does not select next user_hour starting 65 minutes ago" do
+        tomorrow_8am = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,8)+1.day
+        DateTime.stub(:current).and_return(tomorrow_8am+65.minutes)
+        user_hour_at_8am = FactoryGirl.create(:user_hour,:start_time=>tomorrow_8am) 
+        UserHour.next.start_time.should > tomorrow_8am
+      end 
+
+      it "selects current user_hour" do
+        tomorrow_at_9am = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,9)+1.day
+        user_hour_at_9am = FactoryGirl.create(:user_hour,:start_time=>tomorrow_at_9am) 
+        DateTime.stub(:current).and_return(tomorrow_at_9am + 5.minutes)
+        UserHour.current.should_not be_nil
+      end
+
+      it "selects current user_hour 3 minutes before start" do
+        tomorrow_at_9am = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,9)+1.day
+        user_hour_at_9am = FactoryGirl.create(:user_hour,:start_time=>tomorrow_at_9am) 
+        DateTime.stub(:current).and_return(tomorrow_at_9am - 3.minutes)
+        UserHour.current.should_not be_nil
+      end
+
+      it "does not select current user_hour 6 minutes before start" do
+        tomorrow_at_9am = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,9)+1.day
+        user_hour_at_9am = FactoryGirl.create(:user_hour,:start_time=>tomorrow_at_9am) 
+        DateTime.stub(:current).and_return(tomorrow_at_9am - 6.minutes)
+        UserHour.current.should be_nil
+      end   
+
+      it "does select current user_hour 56 minutes after start" do
+        tomorrow_at_9am = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,9)+1.day
+        user_hour_at_9am = FactoryGirl.create(:user_hour,:start_time=>tomorrow_at_9am) 
+        DateTime.stub(:current).and_return(tomorrow_at_9am +56.minutes)
+        UserHour.current.should eq(user_hour_at_9am)
+      end    
   end
   
   context "when storing the logins" do

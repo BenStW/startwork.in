@@ -1,7 +1,4 @@
 
-<%- content_for(:head) do -%>
-<%= javascript_include_tag "http://connect.facebook.net/en_US/all.js" -%>
-<%- end -%>
 
 
 <div class="row">
@@ -16,16 +13,13 @@
 
 </div><!-- end row -->
 <br>
-<div class="row">
-  <div class="span4"><%= t(".description")%></div>
-</div>
+
 
 
 <span id="data"
-  data-base_url="<%= calendar_url %>"
+  data-base_url="<%= weekly_overview_user_hours_url %>"
   data-my_user_id="<%=current_user.id%>"
   data-my_user_name="<%=current_user.name%>"
-  data-users="<%=@users %>"
 ></span>
 
 
@@ -42,8 +36,3 @@
 
 
 
-<div id="fb-root" data-app="<%=@app%>"></div>
-
-
-
-<%= render 'appointments/appointment_modal' %>

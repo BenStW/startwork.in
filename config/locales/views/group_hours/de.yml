@@ -1,5 +1,5 @@
 de:
-  work_sessions:
+  group_hours:
     show:
       to_speak_hold_button: "Zum Sprechen den Knopf gedrückt halten"
       no_work_session: "Du hast keine WorkSession für jetzt geplant. Bitte definiere deine WorkSessions im Kalender."

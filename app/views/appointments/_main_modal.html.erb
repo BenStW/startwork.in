@@ -1,49 +1,23 @@
-<span id="urls"
-  data-work_session_url="<%= work_session_url %>"
-  data-info_for_work_session_url="<%= info_for_work_session_url %>"
-  data-my_work_sessions_url="<%= my_work_sessions_url %>"
-  data-appointment_get_token_url="<%= appointment_get_token_url %>"
-  data-calendar_new_event_url="<%= calendar_new_event_url %>"
-  data-calendar_remove_events_by_time_url="<%= calendar_remove_events_by_time_url %>"
-  data-appointment_url="<%= appointment_url %>"
-></span>
 
 
 <!-- modal start-->
 <div class="modal hide main-modal" id="main_page_modal" style="background:whitesmoke;">
   <div class="modal-arrow"></div>
 
-
-
-  <div id="main_page_modal_when_empty">
-		  <div class="modal-header">
-		     <button class="close" data-dismiss="modal">×</button>
-		     <h2>Verabredung an Freunde verschicken</h2>
-	  </div>
-	
-	
-	 <div class="modal-body" style="background:white;">
-	<p>1. Gib zuerst deinen Freunden Bescheid</p>
-	<p>2. Im nächsten Fenster legst du die Zeiten für die Verabredung fest</p>
-		</div>
-	
-  </div>
-
-
-
-
-
-  <div id="main_page_modal_when_filled" style="display:none">
 	  <div class="modal-header">
 	     <button class="close" data-dismiss="modal">×</button>
-	     <h2>Termin für die Verabredung festlegen</h2>
+	     <h2 id="main_modal_title">Termin für die Verabredung festlegen</h2>
   </div>
 	
 	
  <div class="modal-body" style="background:white;">
+<h3 id="appointment_sender"></h3>	
+	Appointment_id: <div id="appointment_id"></div>
+	Token: <div id="token"></div>	
 
-      
-      <% (0..6).each do |day| %>
+
+<div id="main_modal_dates">
+     <% (0..6).each do |day| %>
          <div 
             <% if day==1 %>
             class="main_modal_day btn btn-primary" 
@@ -72,6 +46,8 @@
       &nbsp;&nbsp;
       Ende:	<%= select_hour(12, {:field_name => 'main_modal_end'}, {:style => "width:50px"}) %>
       </p>
+</div><!-- end main_modal_dates -->
+
       <h3 id="appointment_str"></h3>
       <div div class="alert" style="margin-top:30px;">
       <p style="font-size:15px;">Dieser Termin ist verbindlich. Logge dich bitte kurz vorher ein und 
@@ -81,14 +57,15 @@
 
 	  <div class="modal-footer">
 	       <a href="#" id="main_modal_invite" style="display:none" class="btn btn-success">
-		Weitere Freunde dazuholen</a>
+	    Freunde zum Termin einladen</a>
 	       <a href="#" id="main_modal_delete" style="display:none"class="btn btn-danger" data-dismiss="modal">
 		Termin löschen</a>
-	       <a href="#" id="main_modal_save" style="display:none" class="btn btn-primary" data-dismiss="modal">
-		Speichern</a>				
+	       <a href="#" id="main_modal_save" style="display:none" class="btn btn-primary">
+		Speichern</a>
+	       <a href="#" id="main_modal_accept" style="display:none" class="btn btn-primary" data-dismiss="modal">
+		Annehmen</a>						
 
 
 	</div><!-- modal-footer -->
-   </div>	
 </div>
 <!-- modal end-->

@@ -1,5 +1,5 @@
 <% if my_or_friends=="my"%>
-   <% if work_sessions.empty?  %>
+   <% if (appointments.nil? or appointments.empty?)  %>
    <hr>
    <p>Hier kannst du dich mit Freunden zum Arbeiten verabreden.</p>
   <% end %>
@@ -10,18 +10,21 @@
 
 
 
-<% if !work_sessions.empty?%>
+<% if !(appointments.nil? or appointments.blank?)%>
     <div style="margin-top:20px;">
 
         <% if my_or_friends=="friends" %>
             <hr>
             <p>Die nächsten Arbeitssessions deiner Freunde</p>
 
-		<% end %>
-        
-        <% work_sessions.each do |work_session|%>
-             <%= render :partial => "work_sessions/work_session", 
-                 :locals => { :work_session => work_session, :my_or_friends => my_or_friends } %>
+		<% elsif my_or_friends=="my_received" %>
+           <hr>
+           <p>Erhaltene Einladungen:</p>    
+        <% end %>        
+    
+        <% appointments.each do |appointment|%>
+             <%= render :partial => "appointments/appointment", 
+                 :locals => { :appointment => appointment, :my_or_friends => my_or_friends } %>
          <% end %>
        
     </div>
@@ -34,8 +37,6 @@
         <% end %>
 
 <% end %>
-
-
 
 
 

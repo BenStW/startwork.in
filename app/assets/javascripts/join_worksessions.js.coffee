@@ -1,5 +1,5 @@
 # document needs to be loaded, as parameters are passed from DOM to JS
-$(document).ready -> 	
+$(document).ready -> 
   
   popup_work_session = (video_url, info_url)->
     screenX = screen.availWidth
@@ -41,8 +41,9 @@ $(document).ready ->
        alert "Das Video-Fenster konnte nicht geöffnet werden. Für StartWork musst du Popups erlauben."
 
   $('#join_work_session').click (event)-> 
-    work_session_url = $("#urls").data("work_session_url")
-    info_url = $("#urls").data("info_for_work_session_url")
+    console.log "asdf"
+    work_session_url = $("#urls").data("group_hour_url")
+    info_url = $("#urls").data("info_for_group_hour_url")
     popup_work_session(work_session_url,info_url)
 
 

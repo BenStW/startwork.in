@@ -53,7 +53,7 @@ class User < ActiveRecord::Base
   
   has_many :appointments, :dependent => :destroy
   has_many :received_appointments, :through => :recipient_appointments, :source => :appointment #, :conditions => ['recipient_appointments.user_id = ?',47]
-  has_many :recipient_appointments
+  has_many :recipient_appointments, :dependent => :destroy
       
 #  belongs_to :work_session, :foreign_key => 'guest_id'
 
@@ -74,6 +74,16 @@ class User < ActiveRecord::Base
   def is_friend?(user)
      self.friends.map(&:id).include?(user.id)
   end
+  
+  def create_user_hour_now
+   # c = DateTime.current
+   # this_hour = DateTime.new(c.year,c.month,c.day, c.hour)
+   # user_hour = self.user_hours.build(start_time: this_hour)
+   # user_hour.find_or_build_work_session
+   # user_hour.save
+   # user_hour.group_hour.reload    #needed, as when an existing group_hour is found, it has not loaded the room 
+   # user_hour  
+  end  
 
 
 
@@ -119,14 +129,14 @@ class User < ActiveRecord::Base
   #  WorkSession.optimize_single_work_sessions(self)
   end
   
-  def accept_appointment(aapointment)
-    if !self.received_appointments.include?(received_appointment)
-      raise "can't accept appointment when it is not stored as received"
-    end
-    appointment = self.appointments.create(
-       :start_time=>received_appointment.start_time, :end_time=>received_appointment.end_time)
-  end  
- 
+ # def accept_appointment(aapointment)
+ #   if !self.received_appointments.include?(received_appointment)
+ #     raise "can't accept appointment when it is not stored as received"
+ #   end
+ #   appointment = self.appointments.create(
+ #      :start_time=>received_appointment.start_time, :end_time=>received_appointment.end_time)
+ # end  
+ #
    
 
 end

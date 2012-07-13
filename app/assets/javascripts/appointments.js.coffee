@@ -17,46 +17,65 @@ $(document).ready ->
         $('.modal-arrow').css("top",(max - 75) / 2)
 
 
-   $("#launch_modal_button").click ->
+   $("#launch_modal_button").click (event)->
       launch_main_modal()
-      show_empty_main_modal()
-      get_appointment_token(null,null, (token)->
-          $("#main_page_modal").data("token",token)
-          name =  "Einladung zum gemeinsamen Lernen "    
-          message =  "message"          
-          link = $("#urls").data("appointment_url")+"?token="+token
-          fb_popup(name,message,link, (response)->
-             show_filled_main_modal("new")))
+      write_data_into_modal($(this))
+#      fill_main_modal_with_dates(start_time,end_time)
+      show_filled_main_modal("create")
+    #  show_empty_main_modal()
+     # get_appointment_token(null,null, (token)->
+     #     $("#main_page_modal").data("token",token)
+     #     name =  "Einladung zum gemeinsamen Lernen "    
+     #     message =  "message"          
+     #     link = $("#urls").data("appointment_url")+"?token="+token
+     #     fb_popup(name,message,link, (response)->
+     #        show_filled_main_modal("new")))
    
-   $(".add_work_session").click (event) ->
+   $(".accept_appointment").click (event) ->
       launch_main_modal()
-      add_work_session($(this))
+      accept_work_session($(this))
    
-   $(".edit_work_session").click ->
+   $(".edit_appointment").click ->
      launch_main_modal()     
      edit_work_session($(this))
 
+
+   write_data_into_modal = (element)->
+      appointment_id = element.data("appointment_id")
+      token = element.data("token")
+      sender = element.data("sender")
+      if appointment_id?
+         $("#main_page_modal").data("appointment_id",appointment_id)
+         $("#appointment_id").html(appointment_id)
+      else
+         $("#main_page_modal").data("appointment_id","")
+         $("#appointment_id").html("")
+      if token?         
+         $("#main_page_modal").data("token",token)
+         $("#token").html(token)
+      else
+         $("#main_page_modal").data("token","")
+         $("#token").html("")
+      if sender?         
+         $("#appointment_sender").html("von "+sender)
+      else
+         $("#appointment_sender").html("")
+
    read_times = (element)->
       start_time = element.data("start_time")
-      console.log "start_time = " + start_time
       timezone_offset = 60000*new Date().getTimezoneOffset()
       start_time = new Date(getDateFromFormat(start_time, "yyyy-mm-dd HH:mm:ss UTC") - timezone_offset)
-      console.log "start_time = " + start_time
       end_time = element.data("end_time")
       end_time =  new Date(getDateFromFormat(end_time, "yyyy-mm-dd HH:mm:ss UTC") - timezone_offset)
       [start_time, end_time]
 
    edit_work_session = (element)->
-      [start_time,end_time] = read_times(element)
-      fill_main_modal_with_dates(start_time,end_time)
+      fill_main_modal(element)
       show_filled_main_modal("edit")
 
-   add_work_session = (element)->
-      [start_time,end_time] = read_times(element)
-      fill_main_modal_with_dates(start_time,end_time)
-      show_filled_main_modal("add")
-
-
+   accept_work_session = (element)->
+      fill_main_modal(element)
+      show_filled_main_modal("accept")
     
        
    leading_zero = (hour) ->
@@ -67,7 +86,6 @@ $(document).ready ->
    
    from_day_and_hours_to_dates = (day,start_hour,end_hour)->
       day = $.datepicker.parseDate('yy-mm-dd',day)	
-      console.log "day="+day
       start_time = new Date(day)   
       end_time = new Date(day)   
       start_time.setHours(start_hour)    
@@ -85,7 +103,7 @@ $(document).ready ->
            start_time:start_time.toString()
            end_time:end_time.toString()
      $.ajax
-      url: $("#urls").data("appointment_get_token_url")
+      url: $("#urls").data("get_token_appointment_url")
       data: data
       type: "POST"
       statusCode:
@@ -101,37 +119,77 @@ $(document).ready ->
          message: message,
          link: link},
          (response) ->
-          #  console.log "facebook popup response:"
-          #  if response?
-          #    console.log "The User has sent the appointment to FB friends"
-          #  else
-          #    console.log "The User has cancelled the FB popup window"
+            $('#main_page_modal').modal('hide')	
+            console.log "facebook popup response:"
+            if response?
+              console.log "The User has sent the appointment to FB friends"
+            else
+              console.log "The User has cancelled the FB popup window"
             if callback
               callback(response))
-
+          
    reload_my_work_sessions = ->
+     console.log $("#urls").data("my_appointments_url")
      $.ajax
-       url: $("#urls").data("my_work_sessions_url")
+       url: $("#urls").data("my_appointments_url")
        statusCode:
          200: (my_work_sessions_data) ->
-           $("#my_work_sessions").html(my_work_sessions_data)
-           $(".edit_work_session").bind('click', ->
+           $("#my_appointments").html(my_work_sessions_data)
+           $(".edit_appointment").bind('click', ->
                launch_main_modal()
                edit_work_session($(this)))
 
-   save_appointment = (token, start_time, end_time, callback)->
+   save_appointment = (appointment_id, start_time, end_time, callback)->
      data = 
-        start_time: start_time.toString()
-        end_time: end_time.toString()
-        token: token
+        appointment:
+          start_time: start_time.toString()
+          end_time: end_time.toString()
+          id: appointment_id
      $.ajax
-       url: $("#urls").data("calendar_new_event_url"),
+       url: $("#urls").data("appointments_url")+"/"+appointment_id,
+       data: data,
+       type: 'PUT',
+       statusCode:
+         200: (response)->
+           txt = "Die Verabredung wurde gespeichert. Achte bitte darauf, dich pünktlich zur WorkSession anzumelden."
+           notice_html = "<div  class='alert alert-success'>"+txt+"</div>"
+           $("#notice").html(notice_html)
+           reload_my_work_sessions()
+           show_filled_main_modal("invite_after_create")
+           if callback?
+              callback()
+   
+   create_appointment = (start_time, end_time, callback)->
+     data = 
+       appointment:
+         start_time: start_time.toString()
+         end_time: end_time.toString()
+     $.ajax
+       url: $("#urls").data("appointments_url"),
        data: data,
        type: 'POST',
        statusCode:
-         200: ->
-           $("#main_page_modal").removeAttr("data-token")
-           txt = "Die Verabredung wurde gespeichert. Achte bitte darauf, dich pünktlich zur WorkSession anzumelden."
+         200: (response)->
+           txt = "Die Verabredung wurde erstellt. Achte bitte darauf, dich pünktlich zur WorkSession anzumelden."
+           notice_html = "<div  class='alert alert-success'>"+txt+"</div>"
+           $("#notice").html(notice_html)
+           $("#main_page_modal").data("token",response.token)
+           $("#token").html(response.token)
+           $("#main_page_modal").data("appointment_id",response.id)
+           $("#appointment_id").html(response.id)
+
+           reload_my_work_sessions()
+           show_filled_main_modal("invite_after_create")
+           if callback?
+              callback()
+         
+   accept_appointment = (token)->
+     $.ajax
+       url: $("#urls").data("accept_appointment_url")+"?token="+token
+       statusCode:
+         200: (response)->
+           console.log response
+           txt = "Die Einladung wurde angenommen. Achte bitte darauf, dich pünktlich zur WorkSession anzumelden."
            notice_html = "<div  class='alert alert-success'>"+txt+"</div>"
            $("#notice").html(notice_html)
            reload_my_work_sessions()
@@ -139,26 +197,49 @@ $(document).ready ->
               callback()
    
 
-   
-
    show_filled_main_modal = (action)->
       if action == "edit"
+         $("#main_modal_title").html("Verabredung aktualisieren")
+         $("#main_modal_dates").css("display","inline")
          $("#main_modal_delete").css("display","inline")
-      else
+         $("#main_modal_accept").css("display","none")
+         $("#main_modal_save").css("display","inline")
+         $("#appointment_sender").css("display","none")
+         $("#main_modal_invite").css("display","none")
+      else if action == "accept"
+         $("#main_modal_title").html("Einladung annehmen")
+         $("#main_modal_dates").css("display","none")
          $("#main_modal_delete").css("display","none")
-   
-      $("#main_page_modal_when_empty").css("display","none")
-      $("#main_page_modal_when_filled").css("display","inline")
+         $("#main_modal_accept").css("display","inline")
+         $("#main_modal_save").css("display","none")
+         $("#appointment_sender").css("display","inline")
+         $("#main_modal_invite").css("display","none")
+      else if action == "create"
+         $("#main_modal_title").html("Termin für Verabredung festlegen")
+         $("#main_modal_dates").css("display","inline")
+         $("#main_modal_delete").css("display","none")
+         $("#main_modal_accept").css("display","none")
+         $("#main_modal_save").css("display","inline")
+         $("#appointment_sender").css("display","none")
+         $("#main_modal_invite").css("display","none")
+      else if action == "invite_after_create"
+         $("#main_modal_title").html("Mit Freunden verabreden")
+         $("#main_modal_dates").css("display","none")
+         $("#main_modal_delete").css("display","none")
+         $("#main_modal_accept").css("display","none")
+         $("#main_modal_save").css("display","none")
+         $("#appointment_sender").css("display","none")
+         $("#main_modal_invite").css("display","inline")
 
       show_appointment_string()
 
-      if $("#main_page_modal").data("token")?
-        show_save_and_invite_buttons()
-      else
-        get_appointment_token(null,null, (token)->
-          $("#main_page_modal").data("token",token)
-          show_save_and_invite_buttons()	
-          )
+     # if $("#main_page_modal").data("token")?
+     #   show_invite_buttons()
+     # else
+   #   get_appointment_token(null,null, (token)->
+   #       $("#main_page_modal").data("token",token)
+   #       $("#token").html(token)
+   #       show_invite_buttons())
 
    show_appointment_string = ->
       day = $.datepicker.parseDate('yy-mm-dd', $(".main_modal_day.btn-primary").data("day"))
@@ -168,13 +249,14 @@ $(document).ready ->
         $("#date_main_modal_end").val())
       $("#appointment_str").html(appointment_str)
 
-   show_save_and_invite_buttons = ->
+   show_invite_buttons = ->
       $("#main_modal_invite").css("display","inline")
-      $("#main_modal_save").css("display","inline")
-   
-   show_empty_main_modal = ->
-      $("#main_page_modal_when_empty").css("display","inline")
-      $("#main_page_modal_when_filled").css("display","none")
+
+
+   fill_main_modal = (element)->
+      [start_time,end_time] = read_times(element)
+      fill_main_modal_with_dates(start_time,end_time)
+      write_data_into_modal(element)
 
    fill_main_modal_with_dates = (start_time,end_time) ->
       day = new Date(start_time)
@@ -202,21 +284,15 @@ $(document).ready ->
      name =  "Einladung zum gemeinsamen Lernen: " + $("#appointment_str").html()     
      message = "message"
      token = $("#main_page_modal").data("token")
-     link = $("#urls").data("appointment_url")+"?token="+token
+     appointment_id = $("#main_page_modal").data("appointment_id")
+     link = $("#urls").data("appointments_url")+"/"+appointment_id+"/?token="+token
      fb_popup(name, message, link)	
 
    $("#main_modal_delete").click (event) ->
-      [start_time, end_time] = from_day_and_hours_to_dates(
-         $(".main_modal_day.btn-primary").data("day"), 
-         $("#date_main_modal_start").val(),
-         $("#date_main_modal_end").val())
-      data = 
-        start_time: start_time
-        end_time: end_time
+      appointment_id = $("#main_page_modal").data("appointment_id")
       $.ajax
-        url: $("#urls").data("calendar_remove_events_by_time_url"),
-        data: data,
-        type: 'POST',
+        url: $("#urls").data("appointments_url")+"/"+appointment_id,
+        type: 'DELETE',
         statusCode:
           200: (x)->
             console.log x.responseText
@@ -226,23 +302,23 @@ $(document).ready ->
             reload_my_work_sessions()
    
    $("#main_modal_save").click ->
-      console.log $(".main_modal_day.btn-primary")
-      token = $("#main_page_modal").data("token")
+      appointment_id = $("#main_page_modal").data("appointment_id")
    
       [start_time, end_time] = from_day_and_hours_to_dates(
          $(".main_modal_day.btn-primary").data("day"), 
          $("#date_main_modal_start").val(),
          $("#date_main_modal_end").val())
-      save_appointment(token, start_time, end_time, (response)->
-         console.log response)
-   
-   
-   $('#main_page_modal').bind('hidden', ->
-      show_empty_main_modal())
-   
+      if appointment_id
+         save_appointment(appointment_id, start_time, end_time, (response)->
+            console.log response)
+      else
+         create_appointment(start_time, end_time, (response)->
+            console.log response)
 
-   
-
+   $("#main_modal_accept").click ->
+       token = $("#main_page_modal").data("token")
+       accept_appointment(token, (response) ->
+            console.log response)
    
    
    # ------------- functions for calendar overview------ --------- #
@@ -331,7 +407,7 @@ $(document).ready ->
         # callback contains the callback function, which argument should contain the calendar events
         data: (start, end, callback) ->
           # under the following url the backend calendar events are fetched.
-          url = $("#data").data("base_url")+'/events.json' 
+          url = $("#data").data("base_url")+'.json' 
           $.getJSON(url 
               # the anonymous function to be called after the JSON-request
               (frontend_events) -> 
@@ -369,7 +445,7 @@ $(document).ready ->
        #       show_appointment_modal_and_get_token(start_time,end_time)
        #
         eventMouseover: (event,element,domEvent) ->
-            if event.userId>0
+          #  if event.userId>0
              $(domEvent.target).attr("rel","popover")
              title = "<center>"+event.start.getHours()+":00 </center><br><table class='table'>"+event.name+"</table>"
              $(domEvent.target).attr("data-title",title)

@@ -22,7 +22,7 @@
 <div class="whitebox" style="position:absolute;top: -208px;height:270px;width: 100%;padding: 0;opacity:0.8;"></div>
 <div class="emphasize" style="position:absolute;top: -208px;height:270px;padding: 40px 0;width:100%;">
   <center>
-    <p>Logge dich jetzt ein, um deine Verabredung <br>mit <%=@appointment.sender.name %> zu bestätigen:</p><br>
+    <p>Logge dich jetzt ein, um deine Verabredung <br>mit <%=@appointment.user.name %> zu bestätigen:</p><br>
     <a id="facebook_link" href="<%=user_omniauth_authorize_path(:facebook)%>">
     <img src='/assets/frontpage_facebook.png'></a>
     <a href="#facebook_login" data-toggle="collapse" data-target="#facebook_login" style="text-decoration: none;">

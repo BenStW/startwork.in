@@ -1,0 +1,39 @@
+<div class="row" style="margin:0;">
+   <% if appointment.start_time.to_date == DateTime.current.to_date %>
+     <div class="left rst" style="width:43px;margin-right:5px;">heute</div>
+   <% elsif appointment.start_time.to_date == (DateTime.current+1.day).to_date %>
+     <div class="left rst" style="width:43px;margin-right:5px;">morgen</div>
+   <% else %>
+     <div class="left rst" style="width:43px;margin-right:5px;">
+        <%= l appointment.start_time.to_date, :format =>  '%a' %></div>
+   <% end %>
+   <div class="left rst" style="margin-right:5px;">
+     <%=I18n.localize(appointment.start_time.to_time.in_time_zone("Berlin"),:format => "%H:%M")%>
+      &nbsp;-&nbsp;
+     <%=I18n.localize(appointment.end_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %>
+   </div>
+   <div class="left rst" style="margin-right:10px;width:92px;height:25px;">
+	<% #FIXME - show all users %>
+     <% appointment.users.each do |user|%>
+       <img src="http://graph.facebook.com/<%=user.fb_ui%>/picture"style="width:20px;">
+     <% end %>
+   </div>
+
+<% if my_or_friends=="my"%>
+   <a href="#" class="btn btn-small btn-edit edit_appointment"
+        data-token='<%=appointment.token %>'
+        data-appointment_id='<%=appointment.id %>'
+        data-start_time='<%=appointment.start_time %>'
+        data-end_time='<%=appointment.end_time %>'>
+    </a> 
+<% elsif my_or_friends=="my_received" %>
+   <a href="#" class="btn btn-small btn-join accept_appointment"
+        data-token='<%=appointment.token %>'
+        data-sender='<%=appointment.user.name %>'
+        data-start_time='<%=appointment.start_time %>'
+        data-end_time='<%=appointment.end_time %>'>
+     </a>
+<% else my_or_friends=="friends" %>
+
+<% end %>
+ </div> <!--row -->

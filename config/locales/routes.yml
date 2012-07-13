@@ -10,7 +10,6 @@ de:
   about_us: ueber_uns
   camera: kamera
   study: studie
-  interested_user: interessierter_benutzer
   friendships: freundschaften
   effect: wirkung
   pilot_study: pilot_studie
@@ -23,8 +22,11 @@ de:
   sign_up: registrieren
 #  users: benutzer  #don't translate it, because it doesn't work with devise/omniauth
   
-  work_session: arbeitssitzung
+  group_hour: arbeitssitzung
   calendar: kalender
- # appointment: verabredung
+  appointment: verabredung
+  appointments: verabredungen
+  weekly_overview: wochenueberblick
+  overview: ueberblick
   
  
