@@ -40,7 +40,12 @@
     </div>
     <p>Haben die vier Schritte geklappt?</p>
     <div style="margin-bottom:20px;">
-      <a class='btn btn-success' href='<%=camera_path%>?success=true' >Ja, alles hat funktioniert.</a>&nbsp;&nbsp;
+	
+		<%= form_for(@camera) do |f| %>
+		   <%= f.hidden_field :success, :value=>:true %>
+		    <%= f.submit "Ja, alles hat funktioniert.",   :class=>"btn btn-success" %>
+		<% end %>
+    
       <button class='btn btn-warning' data-toggle="collapse" data-target="#problems">Nein, es gab Probleme</button>
     </div>
     <div class="collapse" id="problems">

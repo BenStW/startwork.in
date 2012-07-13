@@ -38,6 +38,10 @@ class StaticPagesController < ApplicationController
           @user_names = t("static_pages.home_logged_in.with")+" "+@user_names
         end
       end
+      if !current_user.camera
+        current_user.create_camera
+      end
+      @camera = current_user.camera
   end
   
   def home_not_logged_in
@@ -56,19 +60,19 @@ class StaticPagesController < ApplicationController
 
 
   
-  def session_start
-    if params[:success]
-      success = CameraAudio.find_or_create_by_user_id(current_user.id)
-      success.video_success=params[:success]
-      success.save
-      redirect_to audio_url
-    else
-      @api_key = TokboxApi.instance.api_key
-      @api_secret = TokboxApi.instance.api_secret
-      @session_id = TokboxApi.instance.get_session_for_camera_test
-      @tok_token = TokboxApi.instance.generate_token_for_camera_test
-    end
-  end
+# def session_start
+#   if params[:success]
+#     success = CameraAudio.find_or_create_by_user_id(current_user.id)
+#     success.video_success=params[:success]
+#     success.save
+#     redirect_to audio_url
+#   else
+#     @api_key = TokboxApi.instance.api_key
+#     @api_secret = TokboxApi.instance.api_secret
+#     @session_id = TokboxApi.instance.get_session_for_camera_test
+#     @tok_token = TokboxApi.instance.generate_token_for_camera_test
+#   end
+# end
 
   # called by *omniauth_callbacks_controller.rb*
   def welcome
@@ -133,6 +137,7 @@ class StaticPagesController < ApplicationController
       redirect_to root_url, :notice => notice
    end
  end
+  
  
  def how_it_works
  end

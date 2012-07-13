@@ -22,6 +22,7 @@
   data-my_appointments_url="<%= appointments_url %>"
   data-appointments_url="<%= appointments_url %>"
   data-accept_appointment_url="<%= accept_appointment_url %>"
+  data-camera_url="<%= camera_url %>"
 
 ></span>
 
@@ -98,7 +99,6 @@
     <div style="margin:20px;" id="explain2">
       <h2>Start Work'in</h2>
         <center>
-          <!--<div id="join_work_session" href="#" class="btn btn-primary btn-large" style="margin-top:20px;">2. Jetzt starten!</div>-->
           <div href="#" class="btn btn-large disabled" style="margin-top:20px;">2. Jetzt starten!</div>
         </center>
         <% if !@next_work_session.nil?%>
@@ -184,15 +184,15 @@
     </div> <!-- modal-body -->
     <div class="modal-footer">
 
-         <a href="#" id="join_work_session" class="btn btn-danger btn-large" data-dismiss="modal">
-            Jetzt Starten!
-         </a>
+<%= form_for(@camera) do |f| %>
+    <%= f.submit "Jetzt Starten!", :id=>"join_work_session_after_info", 
+          :class=>"btn btn-danger btn-large", :data => { :camera_success=> current_user.camera.success } %>
+
          <a href="#" class="btn btn-large" data-dismiss="modal">Abbrechen</a>
-         <form style="width: 200px;float: right;margin-right: 20px;margin-top: 10px;">
-            <label class="checkbox">
-              <input type="checkbox"> Diese Seite nicht mehr anzeigen
+            <label class="checkbox" style="width: 200px;float: right;margin-right: 20px;margin-top: 10px;">
+			    <%= f.check_box :dont_show_info %> Diese Seite nicht mehr anzeigen
             </label>
-         </form>
+  <% end %>
     </div><!-- modal-footer -->
   </div><!-- modal -->
 </div>
@@ -209,8 +209,11 @@
   <h2>Start Work'in</h2>
 
     <center>
-      <!--<div id="join_work_session" href="#" class="btn btn-primary btn-large" style="margin-top:20px;">2. Jetzt starten!</div>-->
-      <div id="start_work_button" href="#" class="btn btn-primary btn-large" style="margin-top:20px;">2. Jetzt starten!</div>
+      <div id="start_work_button" href="#" class="btn btn-primary btn-large" style="margin-top:20px;" 
+        data-dont_show_info="<%= current_user.camera.dont_show_info%>"
+        data-camera_success="<%= current_user.camera.success%>"
+
+>2. Jetzt starten!</div>
     </center>
     <% if !@next_group_hour.nil?%>
 

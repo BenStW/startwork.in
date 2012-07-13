@@ -1,0 +1,23 @@
+# == Schema Information
+#
+# Table name: cameras
+#
+#  id             :integer         not null, primary key
+#  user_id        :integer
+#  success        :boolean
+#  dont_show_info :boolean
+#  created_at     :datetime        not null
+#  updated_at     :datetime        not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 1
+  success: false
+  dont_show_info: false
+
+two:
+  user_id: 1
+  success: false
+  dont_show_info: false
