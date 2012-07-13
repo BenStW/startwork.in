@@ -13,15 +13,19 @@ $(document).ready ->
    $("#wizard0").modal
         show: true
 
+   # this is only the initial backdrop of the first modal
    $('.modal-backdrop').css("opacity",0.4)
 
    $(".continue_button").click ->
         $("[id^=explain]").removeClass("active_element")
-        $("[id^=wizard]").removeClass("active_modal")
+        #$("[id^=wizard]").removeClass("active_modal")
+        $("[id^=wizard]").modal("hide")
         element_id=$(this).data("activate_element")
         modal_id=$(this).data("activate_modal")
+        $(modal_id).modal("show")
         $(element_id).addClass("active_element")
-        $(modal_id).addClass("active_modal")
+        $('.modal-backdrop').css("opacity",0.4)
+       # $(modal_id).addClass("active_modal")
 
    $("#start_work_button").click ->
        $('#start_work').modal("show")

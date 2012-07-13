@@ -10,6 +10,7 @@
 
 <%- content_for(:first_in_container) do -%>
 
+
 <div style="background:url('/assets/coffee.png') no-repeat;width: 550px;height: 510px;position: absolute;left: 0;top: 0;z-index: 0;"></div>
 <%- end -%>
 
@@ -53,6 +54,7 @@
 
  <div id="explain4">
   <div id="my_appointments" style="text-align: left;">
+
       <% my_or_friends = "my"%>
       <%= render :partial => "appointments/appointments", 
           :locals => { :appointments => @my_appointments, :my_or_friends => my_or_friends } %>	
