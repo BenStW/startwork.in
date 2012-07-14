@@ -19,7 +19,7 @@ class StaticPagesController < ApplicationController
   def home_logged_in    
     #TODO this is hack
     #  @app = if Rails.env.production? then "330646523672055" else "232041530243765" end #PRODUCTION
-      @app = if Rails.env.production? then "331305516942290" else "232041530243765" end RELEASE CANDIDATE
+      @app = if Rails.env.production? then "331305516942290" else "232041530243765" end #RELEASE CANDIDATE
 
       @my_appointments = current_user.appointments.this_week
       @my_received_appointments = current_user.received_appointments.this_week
