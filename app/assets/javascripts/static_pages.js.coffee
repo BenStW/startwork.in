@@ -32,10 +32,9 @@ $(document).ready ->
        # $(modal_id).addClass("active_modal")
 
    $("#start_work_button").click -> 
-        console.log $(this).data("dont_show_info")
-        console.log $(this).data("camera-success")
         if $(this).data("dont_show_info")
            if $(this).data("camera-success")
+              console.log "popup_work_session"
               popup_work_session()
            else
               window.location = $("#urls").data("camera_url")
@@ -72,10 +71,9 @@ $(document).ready ->
       adjust_height())
 
 
-   popup_work_session = (main_page_url, video_url)->
+   popup_work_session = ->
      video_url = $("#urls").data("group_hour_url")
      info_url = $("#urls").data("info_for_group_hour_url")
-	
      screenX = screen.availWidth
    
      screenY = screen.availHeight
