@@ -210,8 +210,8 @@
 
     <center>
       <div id="start_work_button" href="#" class="btn btn-primary btn-large" style="margin-top:20px;" 
-        data-dont_show_info="<%= current_user.camera.dont_show_info%>"
-        data-camera_success="<%= current_user.camera.success%>"
+        data-dont_show_info="<%= current_user.camera.dont_show_info  ? true : false %>"
+        data-camera-success="<%= current_user.camera.success  ? true : false  %>"
 
 >2. Jetzt starten!</div>
     </center>

@@ -194,6 +194,12 @@ class Appointment < ActiveRecord::Base
     if self.accepted_appointment
       s = self.accepted_appointment.start_time
       e = self.accepted_appointment.end_time
+      if s<self.start_time 
+        s=self.start_time
+      end
+      if e>self.end_time
+        e=self.end_time
+      end
       start_times = Appointment.split_to_hourly_start_times(s,e)
       start_times.each do |s|
         # user_hours can't exist currently
@@ -225,7 +231,8 @@ class Appointment < ActiveRecord::Base
   
   def self.create_new_appointments_for_empty_slots(recipient,appointment)    
     slots = self.get_possible_appointment_slots(recipient,appointment.start_time, appointment.end_time)
-    appointments= Array.new
+    appointments_array = Array.new
+
     slots.each do |slot|
     #  if Appointment.can_create_new_appointment?(recipient, start_time, end_time)  
        
@@ -233,9 +240,9 @@ class Appointment < ActiveRecord::Base
           :start_time=>slot[:start_time], :end_time=>slot[:end_time])       
       new_appointment.accepted_appointment = appointment #this is used in the after_save callback
       new_appointment.save
-      appointments << new_appointment
+      appointments_array << new_appointment
     end
-    appointments
+    appointments_array
   end  
 
 end

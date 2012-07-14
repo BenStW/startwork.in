@@ -16,6 +16,10 @@
 
 class UserHour < ActiveRecord::Base
   validates  :user, :start_time, :appointment, :group_hour, :presence => true
+  validate :only_one_per_hour_and_user
+  validate :within_appointment
+
+
   validates_associated :group_hour  
   belongs_to :user
   belongs_to :group_hour, :dependent => :destroy
@@ -75,4 +79,24 @@ class UserHour < ActiveRecord::Base
       group_hour = create_group_hour(:start_time=>start_time, :tokbox_session_id=>"asdf") 
     end
   end
+
+  
+  def only_one_per_hour_and_user
+    if !persisted?
+      user_hours = UserHour.where("user_id = ? and start_time = ?", user_id, start_time)
+      if user_hours.count>0
+        raise "tried to create more then one user_hour per hour and user "
+        errors.add(:start_time, "can't create more then one user_hour per hour")
+      end    
+    end
+ end
+ 
+ def within_appointment
+   if self.appointment and self.start_time
+     if self.start_time<self.appointment.start_time or self.start_time>=self.appointment.end_time
+         raise "tried to create an user_hour outside the appointment"
+         errors.add(:start_time, "can't create an user_hour outside the appointment")
+       end    
+     end
+   end
 end

@@ -1,11 +1,15 @@
 
 
 $(document).ready ->
+	
 
    # The Javascript for the 3 columns and the modal was moved to calendar.js.coffee
 
    $("#video_modal_button").click ->
        $('#video_modal').modal("show")
+   $("#ben").click ->
+       $(".column_same_height").height("")
+       adjust_height()
 
    $("#appointment_carousel").carousel
        interval: false
@@ -29,37 +33,47 @@ $(document).ready ->
 
    $("#start_work_button").click -> 
         if $(this).data("dont_show_info")
-           if $(this).data("camera_success")
+           if $(this).data("camera-success")
+              console.log "popup_work_session"
               popup_work_session()
            else
               window.location = $("#urls").data("camera_url")
         else
-           $('#start_work').modal("show")
-           $('.modal-backdrop').height(0)
-           $('#start_work').height(max)
-           $('.modal-arrow').css("top",(max - 75) / 2)   #funktioniert nicht mehr?!!
+            $('#start_work').modal("show")
+            $('.modal-backdrop').height(0)
+            max = get_max()
+            $('#start_work').height(max)
+            $('.modal-arrow').css("top",(max - 75) / 2)   #funktioniert nicht mehr?!!        
 
-   adjust_height = ->
-      console.log('adjust_height')
-      $('.column_same_height').removeAttr('height')
+
+   get_max = ->
       heights= $(".column_same_height").map(->
             return $(this).outerHeight(true)).get()
       Array.max = (array) ->
         return Math.max.apply(Math, array)
       max = Array.max(heights)
+
+   adjust_height = ->
+      $('.column_same_height').removeAttr('height')
+      max = get_max()
+
       $('.column_same_height').height(max)
 
    if $('.column_same_height').length>0
       adjust_height()
 
-   $('#problems').on('shown',-> $('.column_same_height').height(max))
+   $('#problems').on('shown',-> 
+      $(".column_same_height").height("")
+      adjust_height())
 
+   $('#problems').on('hidden',-> 
+      $(".column_same_height").height("")
+      adjust_height())
 
 
    popup_work_session = ->
      video_url = $("#urls").data("group_hour_url")
      info_url = $("#urls").data("info_for_group_hour_url")
-	
      screenX = screen.availWidth
    
      screenY = screen.availHeight
@@ -87,19 +101,21 @@ $(document).ready ->
            if (popUp.screenX is 0)
               popup_not_successful()
            else	
-              window.location = info_url
+              if info_url?
+                window.location = info_url
         setTimeout(f,0)
-   
+    
    popup_not_successful = ->
         alert "Das Video-Fenster konnte nicht geöffnet werden. Für StartWork musst du Popups erlauben."
    
+   $('#join_work_session_after_camera_test').click (event)-> 
+        popup_work_session()
+
    $('#join_work_session_after_info').click (event)-> 
-      console.log "camera success"
-      console.log $(this).data("camera_success")
-    #  if $(this).data("camera_success")
-    #     popup_work_session()
-    #  else
-    #     window.location = camera_url
+      if $(this).data("camera-success")
+         popup_work_session()
+      else
+         window.location = camera_url
 
    if $("#flash_version").length>0
       playerVersion= swfobject.getFlashPlayerVersion()

@@ -10,8 +10,12 @@ class CamerasController < ApplicationController
 
    def update
       @camera = current_user.camera
-      @camera.update_attributes(params[:camera]) 
-      redirect_to camera_url    
+      @camera.update_attributes(params[:camera])
+      if @camera.success
+        redirect_to info_for_group_hour_url
+      else
+        redirect_to camera_url    
+      end
    end  
 
 end
