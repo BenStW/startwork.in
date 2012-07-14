@@ -12,6 +12,11 @@
 <div style="background:url('/assets/coffee.png') no-repeat;width: 550px;height: 510px;position: absolute;left: 0;top: 0;z-index: 0;"></div>
 <%- end -%>
 
+<span id="urls"
+  data-group_hour_url="<%= group_hour_url %>"
+></span>
+
+
 <div class="row">
 <!-- LINKER BLOCK -->
 <div class="white_col span8 column_same_height">
@@ -22,7 +27,7 @@
     <h2>Einmaliger Kamera-Check</h2>
     <div class="row" style="margin-top:20px;margin-bottom:20px;">
       <div class="span3">
-        <div id="xcamera_settings" data-session_id="<%=@session_id %>" data-tok_token="<%=@tok_token%>" data-api_key="<%=@api_key%>" style="background-color:grey;height:220px; width:220px;margin-left:0.5px;">
+        <div id="camera_settings" data-session_id="<%=@session_id %>" data-tok_token="<%=@tok_token%>" data-api_key="<%=@api_key%>" style="background-color:grey;height:220px; width:220px;margin-left:0.5px;">
           <span id="publisher_box_tmp" class="label label-warning">Bitte warten...</span>
         </div> <!-- camera-->
       </div>
@@ -41,12 +46,19 @@
     <p>Haben die vier Schritte geklappt?</p>
     <div style="margin-bottom:20px;">
 	
+	<div class="row">
+	      <div class="span3">
 		<%= form_for(@camera) do |f| %>
 		   <%= f.hidden_field :success, :value=>:true %>
-		    <%= f.submit "Ja, alles hat funktioniert.",   :class=>"btn btn-success" %>
+		    <%= f.submit "Ja, alles hat funktioniert.",  :id=>:join_work_session_after_camera_test, :class=>"btn btn-success" %>
 		<% end %>
-    
+    </div>
+
+      <div class="span3">
       <button class='btn btn-warning' data-toggle="collapse" data-target="#problems">Nein, es gab Probleme</button>
+    </div>
+   </div> <!-- end of row -->
+
     </div>
     <div class="collapse" id="problems">
       <table class="table table-bordered table-striped">

@@ -7,9 +7,11 @@
 
 # document needs to be loaded, as parameters are passed from DOM to JS
 $(document).ready ->
+	
   
   # only run code when videobox is present
-  if $('#camera_settings').length > 0 
+  if $('#camera_settings1').length > 0 
+	
     publisher = null
     TB.setLogLevel(TB.DEBUG) 
     session_id  = $("#camera_settings").data("session_id")
@@ -25,7 +27,7 @@ $(document).ready ->
     # in response to a call to the connect() method of the Session object.
     sessionConnectedHandler = (event) ->
        replaceElementId = 'publisher_box_tmp'
-       publisher = session.publish replaceElementId, windowProps
+       publisher = session.publish replaceElementId, windowProps       
     
     session.addEventListener 'sessionConnected', sessionConnectedHandler
     session.connect api_key, tok_token

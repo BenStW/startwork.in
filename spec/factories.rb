@@ -67,12 +67,12 @@ FactoryGirl.define do
     appointment
   end  
   
-  factory :user_hour do
-    user
-    appointment { |user_hour| FactoryGirl.create(:appointment, :user => user_hour.user)}    
-    start_time DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,10)+1.day
-    group_hour { |user_hour| FactoryGirl.create(:group_hour, :start_time => user_hour.start_time)}    
-  end
+#  factory :user_hour do
+#    user
+# #   appointment { |user_hour| FactoryGirl.create(:appointment, :user => user_hour.user)}    
+#    start_time DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,10)+1.day
+#    group_hour { |user_hour| FactoryGirl.create(:group_hour, :start_time => user_hour.start_time)}    
+#  end
   
   factory :group_hour do
     tokbox_session_id "factory_tokbox_session_id"

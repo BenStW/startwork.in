@@ -19,7 +19,8 @@ require 'spec_helper'
 describe UserHour do
   context "when created" do
     before(:each) do 
-      @user_hour = FactoryGirl.create(:user_hour)
+      appointment = FactoryGirl.create(:appointment)
+      @user_hour = appointment.user_hours.first
     end
     
     it "should be valid with attributes from the factory" do
@@ -46,21 +47,51 @@ describe UserHour do
       @user_hour.should be_valid
       @user_hour.group_hour.should_not be_nil
     end
+    
+    it "should raise an error when trying to create an user_hour at the  same time an user_hour already exists" do
+      user=@user_hour.user
+      appointment=@user_hour.appointment
+      new_user_hour = UserHour.new(:user=>user,:appointment=>appointment, :start_time=>@user_hour.start_time)
+      expect {
+        new_user_hour.valid?
+       }.to raise_error
+    end
+    
+    it "should raise an error when trying to create an user_hour before the time of the appointment" do
+       user=@user_hour.user
+       appointment=@user_hour.appointment
+
+      new_user_hour = UserHour.new(:user=>user,:appointment=>appointment, :start_time=>@user_hour.start_time-1.hour)
+      expect {
+         new_user_hour.valid?
+       }.to raise_error     
+    end
+    
+    it "should raise an error when trying to create an user_hour after the time of the appointment" do
+       user=@user_hour.user
+       appointment=@user_hour.appointment
+
+      new_user_hour = UserHour.new(:user=>user,:appointment=>appointment, :start_time=>@user_hour.start_time+2.hour)
+      expect {
+         new_user_hour.valid?
+       }.to raise_error     
+    end    
   end
 
     
         
   context "when destroyed" do
    it "destroys the group_hour when user_hour is destroyed and no other user_hour in group" do
-      @user_hour = FactoryGirl.create(:user_hour)
-      expect { @user_hour.destroy }.to change(GroupHour, :count).by(-1)
+      appointment = FactoryGirl.create(:appointment)
+      user_hour = appointment.user_hours.first     
+      expect { user_hour.destroy }.to change(GroupHour, :count).by(-1)
     end  
 
     it "does not destroy the group_hour when user_hour is destroyed, but an other user_hour in group" do
       user = FactoryGirl.create(:user)
       appointment = FactoryGirl.create(:appointment, :user=>user)
       new_user = FactoryGirl.create(:user)
-      recipient_appointment = RecipientAppointment.new(:user=>new_user, :appointment=>appointment)
+      recipient_appointment = FactoryGirl.create(:recipient_appointment, :user=>new_user, :appointment=>appointment)
       new_appointment = Appointment.accept_received_appointment(new_user, appointment)
       user_hour = appointment.user_hours.first
       #GroupHour.all.each do |g| puts "id=#{g.id} (#{g.user_hours.count}u)" end
@@ -74,61 +105,61 @@ describe UserHour do
   context "class method next" do
     it "selects next user_hour" do
       tomorrow_at_9am = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,9)+1.day
-      user_hour_at_9am = FactoryGirl.create(:user_hour,:start_time=>tomorrow_at_9am) 
-      tomorrow_at_11am = tomorrow_at_9am+2.hours
-      user_hour_at_11am = FactoryGirl.create(:user_hour,:start_time=>tomorrow_at_11am)           
-      UserHour.next.should eq(user_hour_at_9am)
+      tomorrow_at_11am = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,11)+1.day
+      
+      user = FactoryGirl.create(:user)
+      appointment_11am = FactoryGirl.create(:appointment,:start_time=>tomorrow_at_11am, :end_time=>tomorrow_at_11am+1.hour,:user=>user)
+      appointment_9am = FactoryGirl.create(:appointment,:start_time=>tomorrow_at_9am, :end_time=>tomorrow_at_9am+1.hour,:user=>user)
+            
+      UserHour.next.should eq(appointment_9am.user_hours.first)
     end
   end
   
   context "class method current" do
+     before(:each) do 
+       @appointment = FactoryGirl.create(:appointment)
+       @user_hour_at_10 = @appointment.user_hours.first
+       @user_hour_at_11 = @appointment.user_hours.last
+       @tomorrow_10am = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,10)+1.day       
+     end
 
       it "selects next user_hour starting 5 minutes after now" do
-        tomorrow_8am = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,8)+1.day
-        DateTime.stub(:current).and_return(tomorrow_8am+5.minutes)
-        user_hour_at_8am = FactoryGirl.create(:user_hour,:start_time=>tomorrow_8am) 
-        UserHour.next.should eq(user_hour_at_8am)
+        DateTime.stub(:current).and_return(@tomorrow_10am+5.minutes)
+        UserHour.next.should eq(@user_hour_at_10)
       end
 
       it "does not select next user_hour starting 65 minutes ago" do
-        tomorrow_8am = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,8)+1.day
-        DateTime.stub(:current).and_return(tomorrow_8am+65.minutes)
-        user_hour_at_8am = FactoryGirl.create(:user_hour,:start_time=>tomorrow_8am) 
-        UserHour.next.start_time.should > tomorrow_8am
+        DateTime.stub(:current).and_return(@tomorrow_10am+65.minutes)
+        UserHour.next.should  eq(@user_hour_at_11)
       end 
 
-      it "selects current user_hour" do
-        tomorrow_at_9am = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,9)+1.day
-        user_hour_at_9am = FactoryGirl.create(:user_hour,:start_time=>tomorrow_at_9am) 
-        DateTime.stub(:current).and_return(tomorrow_at_9am + 5.minutes)
-        UserHour.current.should_not be_nil
+      it "does not select next user_hour starting 65 minutes ago, no following user_hour" do
+        DateTime.stub(:current).and_return(@tomorrow_10am + 65.minutes)
+        @appointment.end_time = @tomorrow_10am+1.hour
+        @appointment.save
+        UserHour.current.should be_nil
       end
 
       it "selects current user_hour 3 minutes before start" do
-        tomorrow_at_9am = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,9)+1.day
-        user_hour_at_9am = FactoryGirl.create(:user_hour,:start_time=>tomorrow_at_9am) 
-        DateTime.stub(:current).and_return(tomorrow_at_9am - 3.minutes)
+        DateTime.stub(:current).and_return(@tomorrow_10am - 3.minutes)
         UserHour.current.should_not be_nil
       end
 
       it "does not select current user_hour 6 minutes before start" do
-        tomorrow_at_9am = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,9)+1.day
-        user_hour_at_9am = FactoryGirl.create(:user_hour,:start_time=>tomorrow_at_9am) 
-        DateTime.stub(:current).and_return(tomorrow_at_9am - 6.minutes)
+        DateTime.stub(:current).and_return(@tomorrow_10am - 6.minutes)
         UserHour.current.should be_nil
       end   
 
       it "does select current user_hour 56 minutes after start" do
-        tomorrow_at_9am = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,9)+1.day
-        user_hour_at_9am = FactoryGirl.create(:user_hour,:start_time=>tomorrow_at_9am) 
-        DateTime.stub(:current).and_return(tomorrow_at_9am +56.minutes)
-        UserHour.current.should eq(user_hour_at_9am)
+        DateTime.stub(:current).and_return(@tomorrow_10am +56.minutes)
+        UserHour.current.should eq(@user_hour_at_10)
       end    
   end
   
   context "when storing the logins" do
     before(:each) do 
-      @user_hour = FactoryGirl.create(:user_hour)
+      appointment = FactoryGirl.create(:appointment)
+      @user_hour = appointment.user_hours.first
     end    
     it "stores the current time as login_time when login_time is empty" do
       @user_hour.login_time.should be_nil
@@ -136,12 +167,12 @@ describe UserHour do
       @user_hour.login_time.should_not be_nil
     end
     it "does not overwrite the time if its already populated" do
-      tomorrow_at_9am = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,9)+1.day     
-      DateTime.stub(:current).and_return(tomorrow_at_9am)
+      tomorrow_at_11am = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,9)+1.day     
+      DateTime.stub(:current).and_return(tomorrow_at_11am)
       @user_hour.store_login
       tomorrow_at_9_15am = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,9)+1.day+15.minutes
       @user_hour.store_login
-      @user_hour.login_time.should eq(tomorrow_at_9am)     
+      @user_hour.login_time.should eq(tomorrow_at_11am)     
     end
     it "counts the logins" do
       @user_hour.login_count.should be_nil
