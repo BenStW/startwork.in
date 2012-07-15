@@ -34,7 +34,7 @@
   </h2>
 </center>
 
-<div class="row" style="min-height:500px;margin-top:32px;">
+<div class="row" style="min-height:500px;margin-top:32px;position:relative;">
 
 <!-- LINKER BLOCK -->
 <div class="white_col span4 column_same_height">
@@ -96,7 +96,7 @@
 <!-- START JETZT STARTEN MODAL -->
 <div class="modal hide" id="start_work">
   <div id="start_work_left" class="column_same_height">
-    <div style="margin:20px;" id="explain2">
+    <div id="explain2" style="margin:20px;">
       <h2>Start Work'in</h2>
         <center>
           <div href="#" class="btn btn-large disabled" style="margin-top:20px;">2. Jetzt starten!</div>
@@ -259,10 +259,13 @@
     </div>
 </div>  
 </div>
-</div>
+
+<div id="fb-root" data-app="<%=@app%>" style="position: absolute;"></div>
+
+</div> <!-- main row -->
 
 
-<div id="fb-root" data-app="<%=@app%>" style="position: absolute;left: 150px;top: 40px;"></div>
+
 
 
 <!-- main explainer modal start-->
@@ -274,7 +277,7 @@
 
   <div class="modal-body" style="background:white;">
     <p>
-      Im Dashboard hast kriegst du einen Überblick über alle Verabredungen von dir und deinen Freunden und kannst Sessions starten und Freunde einladen
+      Im Dashboard kriegst du einen Überblick über alle Verabredungen von dir und deinen Freunden. Du kannst Sessions starten und Freunde einladen.
     </p>
   </div>
 
@@ -294,7 +297,7 @@
   </div>
 
   <div class="modal-body" style="background:white;">
-    <p>Hier kannst du neue Verabredungen mit Freunden schließen.<br>
+    <p>Hier kannst du neue Verabredungen mit Freunden schließen.<br>Verabredungen führen dazu, dass du deine Pläne einhältst anstatt die Arbeit aufzuschieben.
       </p>
   </div>
 
@@ -315,7 +318,7 @@
   </div>
 
   <div class="modal-body" style="background:white;">
-    <p>Hier kannst du eine fällige Verabredung starten oder spontan mit gerade eingeloggten Nutzern zusammen arbeiten!<br>
+    <p>Hier kannst du eine fällige Verabredung starten oder spontan mit gerade eingeloggten Nutzern zusammen arbeiten!
       </p>
   </div>
 
@@ -337,7 +340,7 @@
   </div>
 
   <div class="modal-body" style="background:white;">
-    <p>Je mehr deiner Freunde bei StartWork sind, desto mehr Zeit kannst du mit Ihnen verbringen und umso produktiver wirst du!<br>
+    <p>Je mehr deiner Freunde bei StartWork sind, desto mehr Zeit kannst du mit Ihnen verbringen und umso produktiver wirst du!
       </p>
   </div>
 
@@ -359,7 +362,7 @@
   </div>
 
   <div class="modal-body" style="background:white;">
-    <p>Hier kriegst du einen Überblick über deine geplanten Verabredungen und kannst sie bearbeiten<br>
+    <p>Hier kriegst du einen Überblick über deine geplanten Verabredungen und kannst sie bearbeiten.
       </p>
   </div>
 
@@ -382,7 +385,7 @@
   </div>
 
   <div class="modal-body" style="background:white;">
-    <p>Hier siehst du, wann deine Freunde planen zu arbeiten und kannst dich ihnen anschließen!<br>
+    <p>Hier siehst du, wann deine Freunde planen zu arbeiten und kannst dich ihnen anschließen!
       </p>
   </div>
 

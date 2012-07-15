@@ -207,6 +207,7 @@ $(document).ready ->
          $("#main_modal_save").css("display","inline")
          $("#appointment_sender").css("display","none")
          $("#main_modal_close").css("display","none")
+         $("#fb_space").css("display","none")
        #  $("#main_modal_invite").css("display","none")
       else if action == "accept"
          $("#main_modal_title").html("Einladung annehmen")
@@ -216,6 +217,7 @@ $(document).ready ->
          $("#main_modal_save").css("display","none")
          $("#appointment_sender").css("display","inline")
          $("#main_modal_close").css("display","none")
+         $("#fb_space").css("display","none")
        #  $("#main_modal_invite").css("display","none")
       else if action == "create"
          $("#main_modal_title").html("Termin für Verabredung festlegen")
@@ -225,6 +227,7 @@ $(document).ready ->
          $("#main_modal_save").css("display","inline")
          $("#appointment_sender").css("display","none")
          $("#main_modal_close").css("display","none")
+         $("#fb_space").css("display","none")
        #  $("#main_modal_invite").css("display","none")
       else if action == "invite_after_create"
          $("#main_modal_title").html("Mit Freunden verabreden")
@@ -234,6 +237,7 @@ $(document).ready ->
          $("#main_modal_save").css("display","none")
          $("#appointment_sender").css("display","none")
          $("#main_modal_close").css("display","inline")
+         $("#fb_space").css("display","block")
        #  $("#main_modal_invite").css("display","inline")
 
       show_appointment_string()
