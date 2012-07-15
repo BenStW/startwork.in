@@ -43,7 +43,17 @@ class Appointment < ActiveRecord::Base
 
   def self.this_week
     where("start_time>?",DateTime.current-1.hour) 
-  end  
+  end
+    
+  def self.without_accepted(current_user)
+    where("recipient_appointments.accepted != ? ",:true)
+#    Store.all(:select => "DISTINCT store_type",
+  #   where("NOT EXISTS (SELECT * FROM recipient_appointments as r WHERE        
+  #      id=r.appointment_id AND
+  #      r.user_id=? AND
+  #      r.accepted=? )",current_user.id,:true)
+  end
+
   
   def generate_token
    self.token = Digest::SHA1.hexdigest([Time.now, rand].join)
@@ -119,9 +129,16 @@ class Appointment < ActiveRecord::Base
       raise "to accept an appointment a user must first receive it"      
     end   
     
+    
     Appointment.accept_appointment_for_user_hours(recipient, appointment)
     
-    Appointment.create_new_appointments_for_empty_slots(recipient,appointment)
+    new_appointments = Appointment.create_new_appointments_for_empty_slots(recipient,appointment)
+    
+    recipient_appointment = RecipientAppointment.where("user_id = ? and appointment_id = ?",recipient.id, appointment.id).first
+    recipient_appointment.accepted=true
+    recipient_appointment.accepted_on = DateTime.current
+    recipient_appointment.save
+    new_appointments
   end
   
 

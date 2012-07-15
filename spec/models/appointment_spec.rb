@@ -106,6 +106,40 @@ describe Appointment do
       appointment_a.users.include?(user_c).should eq(false)
     end
   end
+  
+  context "class method without_accepted" do
+    before(:each) do
+      @user_a = FactoryGirl.create(:user)
+      @appointment_a = FactoryGirl.create(:appointment, :user=>@user_a)  
+      @user_b = FactoryGirl.create(:user)
+      @appointment_b = FactoryGirl.create(:appointment, :user=>@user_b)  
+      @user_c = FactoryGirl.create(:user)
+      @r1 = RecipientAppointment.create(:user=>@user_c, :appointment=>@appointment_a)
+      @r2 = RecipientAppointment.create(:user=>@user_c, :appointment=>@appointment_b)   
+    end    
+    
+    it "should show both received appointments" do
+      received_appointments = @user_c.received_appointments.this_week.without_accepted(@user_c)
+      received_appointments.count.should eq(2)
+      received_appointments.include?(@appointment_a).should eq(true)
+      received_appointments.include?(@appointment_b).should eq(true)      
+    end
+    
+    it "should should show one received appointments, when the second is accepted" do
+      Appointment.accept_received_appointment(@user_c,@appointment_a)
+      received_appointments = @user_c.received_appointments.this_week.without_accepted(@user_c)
+      received_appointments.count.should eq(1)
+      received_appointments.first.should eq(@appointment_b)
+    end
+    
+    it "should should show the other received appointments, when the first is accepted" do
+      Appointment.accept_received_appointment(@user_c,@appointment_b)
+      received_appointments = @user_c.received_appointments.this_week.without_accepted(@user_c)
+      received_appointments.count.should eq(1)
+      received_appointments.first.should eq(@appointment_a)
+    end    
+    
+  end
 
   
   context "class method split_to_hourly_start_times" do    
@@ -180,8 +214,8 @@ describe Appointment do
          appointment_a = FactoryGirl.create(:appointment, :user=>user_a)
          user_b = FactoryGirl.create(:user)
          recipient_appointment = RecipientAppointment.create(:user=>user_b, :appointment=>appointment_a)         
-         appointments_b = Appointment.accept_received_appointment(user_b, appointment_a)
-         appointment_b = appointments_b.first
+         Appointment.accept_received_appointment(user_b, appointment_a)
+         appointment_b = user_b.appointments.first
          appointment_a.user_hours.first.group_hour.should eq(appointment_b.user_hours.first.group_hour) 
          appointment_a.user_hours.last.group_hour.should eq(appointment_b.user_hours.last.group_hour) 
       end      
@@ -332,22 +366,22 @@ describe Appointment do
       end  
       
       it "should create an appointment of 2 hours if accepting a received appointment of 2 hours" do
-        appointments = Appointment.accept_received_appointment(@user_b,@appointment_a )
-        appointment = appointments.first
+        Appointment.accept_received_appointment(@user_b,@appointment_a )
+        appointment = @user_b.appointments.first
         appointment.should_not be_nil
         appointment.should_not eq(@appointment_a)
         (appointment.start_time+2.hours).should eq(appointment.end_time)
       end
       
       it "should create two user_hours for a 2 hour appointment" do
-        appointments = Appointment.accept_received_appointment(@user_b,@appointment_a )
-        appointment = appointments.first
+        Appointment.accept_received_appointment(@user_b,@appointment_a )
+        appointment = @user_b.appointments.first
          appointment.user_hours.count.should eq(2)
       end  
       
       it "should have user_hours with the same GroupHour" do
-        appointments = Appointment.accept_received_appointment(@user_b,@appointment_a )
-        appointment = appointments.first
+        Appointment.accept_received_appointment(@user_b,@appointment_a )
+        appointment = @user_b.appointments.first
          group_hours = appointment.user_hours.map(&:group_hour)
          group_hours.should eq(@appointment_a.user_hours.map(&:group_hour))
       end      

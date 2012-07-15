@@ -1,5 +1,5 @@
 class StaticPagesController < ApplicationController
-  skip_before_filter :authenticate_user!,  :except => [:welcome, :camera, :audio, :ben]
+  skip_before_filter :authenticate_user!,  :except => [:welcome, :camera, :ben,:info_for_group_hour]
   
   def home
     session[:appointment_token] = nil
@@ -22,7 +22,7 @@ class StaticPagesController < ApplicationController
     #  @app = if Rails.env.production? then "331305516942290" else "232041530243765" end RELEASE CANDIDATE
 
       @my_appointments = current_user.appointments.this_week
-      @my_received_appointments = current_user.received_appointments.this_week
+      @my_received_appointments = current_user.received_appointments.this_week.without_accepted(current_user)
       @friends_appointments = Appointment.this_week.friends_of(current_user)
       @active_users = current_user.friends
 
@@ -59,20 +59,6 @@ class StaticPagesController < ApplicationController
   end
 
 
-  
-# def session_start
-#   if params[:success]
-#     success = CameraAudio.find_or_create_by_user_id(current_user.id)
-#     success.video_success=params[:success]
-#     success.save
-#     redirect_to audio_url
-#   else
-#     @api_key = TokboxApi.instance.api_key
-#     @api_secret = TokboxApi.instance.api_secret
-#     @session_id = TokboxApi.instance.get_session_for_camera_test
-#     @tok_token = TokboxApi.instance.generate_token_for_camera_test
-#   end
-# end
 
   # called by *omniauth_callbacks_controller.rb*
   def welcome
@@ -90,53 +76,6 @@ class StaticPagesController < ApplicationController
       end
    end    
   end
-  
-
-
- # def welcome_session
- #   c = DateTime.current
- #   this_hour = DateTime.new(c.year,c.month,c.day, c.hour)
- #   calendar_event = current_user.calendar_events.build(start_time: this_hour)
- #   calendar_event.find_or_build_work_session
- #   calendar_event.save
- #   work_session = calendar_event.work_session    
- #      #    work_session = WorkSession.assign_for_guest(current_user)
- #       #   if work_session.nil?
- #      #      redirect_to root_url, :alert=> "Aktuell ist keine WorkSession vorhanden, wo Du als Gast teilnehmen kannst."
- #      #    else
- #   @work_buddies = work_session.users
- #
- # end
-  
-
-  
-  def camera
-    if params[:success]
-      success = CameraAudio.find_or_create_by_user_id(current_user.id)
-      success.video_success=params[:success]
-      success.save
-      redirect_to audio_url
-    else
-      @api_key = TokboxApi.instance.api_key
-      @api_secret = TokboxApi.instance.api_secret
-      @session_id = TokboxApi.instance.get_session_for_camera_test
-      @tok_token = TokboxApi.instance.generate_token_for_camera_test
-    end
-  end  
-  
-  def audio
-    if params[:success]
-      success = CameraAudio.find_or_create_by_user_id(current_user.id)
-      success.audio_success=params[:success]
-      success.save
-      if success.video_success==false or success.audio_success== false
-        notice = t("static_pages.audio.no_success_msg")
-      else
-        notice = t("static_pages.audio.success_msg")
-      end
-      redirect_to root_url, :notice => notice
-   end
- end
   
  
  def how_it_works

@@ -1,5 +1,5 @@
 class AppointmentsController < ApplicationController
-  skip_before_filter :authenticate_user! #,  :only => [:show,:reject,:accept_without_authentication]
+  skip_before_filter :authenticate_user!,  :only => [:show,:reject]
   
   
   # appointment_url (appointments#show) (when logged in, store the appointment as received) 
@@ -154,15 +154,6 @@ class AppointmentsController < ApplicationController
          raise "couldln't store the appointment #{appointment.id} as received at user #{appointment.user.name}"
       end     
     end      
-      
-  
-  # def accept_without_authentication
-  #   session[:appointment_token] = params["token"]
-  #
-  #   # the following redirect does not work because of FB login.
-  #   # The user is redirected to root_url. 
-  #   # Therefore root_url must redirect to appointment_accept_url
-  #    redirect_to appointment_accept_url
-  # end  
+       
    
  end
