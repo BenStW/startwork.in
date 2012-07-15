@@ -10,6 +10,8 @@ ActiveAdmin.register RecipientAppointment do
          column "Sender" do |recipient_appointment | recipient_appointment.user.name end     
          column "Empfaenger", :user
          column "(empfangene) Verabredung" do |recipient_appointment | recipient_appointment.appointment.id end     
+         column :accepted
+         column :accepted_on
          default_actions           
       end
 end

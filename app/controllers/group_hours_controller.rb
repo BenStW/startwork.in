@@ -4,14 +4,24 @@ class GroupHoursController < ApplicationController
 
   def show  
     user_hour = current_user.user_hours.current 
+    group_hour = nil
     if user_hour.nil?
-      user_hour = current_user.create_user_hour_now
-      render :json => "keine Arbeitssitzung geplant"
+      group_hours = GroupHour.current_logged_in
+      puts "blank? #{group_hours.blank?}"
+      if !group_hours.blank?
+        group_hour = group_hours.first
+        group_hour.reload
+      end
     else
       user_hour.store_login 
-      @tokbox_session_id = user_hour.group_hour.tokbox_session_id
-      @tokbox_token = TokboxApi.instance.generate_token @tokbox_session_id, current_user
-      @tokbox_api_key = TokboxApi.instance.api_key
+      group_hour= user_hour.group_hour
+    end      
+    if group_hour.nil?
+        render :json => "aktuell keine Arbeitssitzung"
+    else
+       @tokbox_session_id = group_hour.tokbox_session_id
+       @tokbox_token = TokboxApi.instance.generate_token @tokbox_session_id, current_user
+       @tokbox_api_key = TokboxApi.instance.api_key
     end
   end  
  

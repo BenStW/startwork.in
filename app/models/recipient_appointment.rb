@@ -1,12 +1,14 @@
 # == Schema Information
 #
-# Table name: received_appointments
+# Table name: recipient_appointments
 #
 #  id             :integer         not null, primary key
 #  user_id        :integer
 #  appointment_id :integer
 #  created_at     :datetime        not null
 #  updated_at     :datetime        not null
+#  accepted       :boolean
+#  accepted_on    :datetime
 #
 
 class RecipientAppointment < ActiveRecord::Base
@@ -17,7 +19,11 @@ class RecipientAppointment < ActiveRecord::Base
   validates :user, :appointment, presence: true
   validate :is_not_own_appointment
   
-  #get UserHours by a class method
+  after_initialize :init
+    
+  def init
+    self.accepted ||= false
+  end  
   
   def group_hour(start_time)
     user_hour_of_sender =  appointment.user_hours.find_by_start_time(start_time)

@@ -7,6 +7,8 @@
 #  appointment_id :integer
 #  created_at     :datetime        not null
 #  updated_at     :datetime        not null
+#  accepted       :boolean
+#  accepted_on    :datetime
 #
 
 require 'spec_helper'

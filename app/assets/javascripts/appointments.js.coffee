@@ -20,16 +20,8 @@ $(document).ready ->
    $("#launch_modal_button").click (event)->
       launch_main_modal()
       write_data_into_modal($(this))
-#      fill_main_modal_with_dates(start_time,end_time)
       show_filled_main_modal("create")
-    #  show_empty_main_modal()
-     # get_appointment_token(null,null, (token)->
-     #     $("#main_page_modal").data("token",token)
-     #     name =  "Einladung zum gemeinsamen Lernen "    
-     #     message =  "message"          
-     #     link = $("#urls").data("appointment_url")+"?token="+token
-     #     fb_popup(name,message,link, (response)->
-     #        show_filled_main_modal("new")))
+
    
    $(".accept_appointment").click (event) ->
       launch_main_modal()
@@ -111,7 +103,12 @@ $(document).ready ->
            console.log data.responseText
            callback(data.responseText)
    
-   fb_popup = (name,message,link, callback)->
+   fb_popup = (callback)->
+      name =  "Einladung zum gemeinsamen Lernen: " + $("#appointment_str").html()     
+      message = "message"
+      token = $("#main_page_modal").data("token")
+      appointment_id = $("#main_page_modal").data("appointment_id")
+      link = $("#urls").data("appointments_url")+"/"+appointment_id+"/?token="+token
       console.log link
       FB.ui(
          {method: 'send',
@@ -156,6 +153,7 @@ $(document).ready ->
            $("#notice").html(notice_html)
            reload_my_work_sessions()
            show_filled_main_modal("invite_after_create")
+           fb_popup()
            if callback?
               callback()
    
@@ -180,6 +178,7 @@ $(document).ready ->
 
            reload_my_work_sessions()
            show_filled_main_modal("invite_after_create")
+           fb_popup()
            if callback?
               callback()
          
@@ -193,6 +192,8 @@ $(document).ready ->
            notice_html = "<div  class='alert alert-success'>"+txt+"</div>"
            $("#notice").html(notice_html)
            reload_my_work_sessions()
+           show_filled_main_modal("invite_after_create")
+           fb_popup()
            if callback?
               callback()
    
@@ -205,7 +206,8 @@ $(document).ready ->
          $("#main_modal_accept").css("display","none")
          $("#main_modal_save").css("display","inline")
          $("#appointment_sender").css("display","none")
-         $("#main_modal_invite").css("display","none")
+         $("#main_modal_close").css("display","none")
+       #  $("#main_modal_invite").css("display","none")
       else if action == "accept"
          $("#main_modal_title").html("Einladung annehmen")
          $("#main_modal_dates").css("display","none")
@@ -213,7 +215,8 @@ $(document).ready ->
          $("#main_modal_accept").css("display","inline")
          $("#main_modal_save").css("display","none")
          $("#appointment_sender").css("display","inline")
-         $("#main_modal_invite").css("display","none")
+         $("#main_modal_close").css("display","none")
+       #  $("#main_modal_invite").css("display","none")
       else if action == "create"
          $("#main_modal_title").html("Termin für Verabredung festlegen")
          $("#main_modal_dates").css("display","inline")
@@ -221,7 +224,8 @@ $(document).ready ->
          $("#main_modal_accept").css("display","none")
          $("#main_modal_save").css("display","inline")
          $("#appointment_sender").css("display","none")
-         $("#main_modal_invite").css("display","none")
+         $("#main_modal_close").css("display","none")
+       #  $("#main_modal_invite").css("display","none")
       else if action == "invite_after_create"
          $("#main_modal_title").html("Mit Freunden verabreden")
          $("#main_modal_dates").css("display","none")
@@ -229,17 +233,10 @@ $(document).ready ->
          $("#main_modal_accept").css("display","none")
          $("#main_modal_save").css("display","none")
          $("#appointment_sender").css("display","none")
-         $("#main_modal_invite").css("display","inline")
+         $("#main_modal_close").css("display","inline")
+       #  $("#main_modal_invite").css("display","inline")
 
       show_appointment_string()
-
-     # if $("#main_page_modal").data("token")?
-     #   show_invite_buttons()
-     # else
-   #   get_appointment_token(null,null, (token)->
-   #       $("#main_page_modal").data("token",token)
-   #       $("#token").html(token)
-   #       show_invite_buttons())
 
    show_appointment_string = ->
       day = $.datepicker.parseDate('yy-mm-dd', $(".main_modal_day.btn-primary").data("day"))
@@ -281,12 +278,8 @@ $(document).ready ->
       show_appointment_string()
 
    $("#main_modal_invite").click (event) ->
-     name =  "Einladung zum gemeinsamen Lernen: " + $("#appointment_str").html()     
-     message = "message"
-     token = $("#main_page_modal").data("token")
-     appointment_id = $("#main_page_modal").data("appointment_id")
-     link = $("#urls").data("appointments_url")+"/"+appointment_id+"/?token="+token
-     fb_popup(name, message, link)	
+     fb_popup()
+	
 
    $("#main_modal_delete").click (event) ->
       appointment_id = $("#main_page_modal").data("appointment_id")
