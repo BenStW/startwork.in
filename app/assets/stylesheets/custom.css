@@ -400,3 +400,11 @@ top: -168px;
 padding: 40px;
 
 }
+
+#notice {
+
+	position: absolute;
+	top: 40px;
+	width: 940px;
+	
+}

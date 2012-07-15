@@ -13,30 +13,22 @@
 <%- end -%>
 
 <div class="span10" style="margin-left: 80px;position: relative;">
-  <div id="notice" style="position:relative"></div>
+  <div id="notice"></div>
   <div class="overlaybox" style="top: -230px;height: 330px;"></div>
 <div class="overlaycontent" style="top: -230px;height: 250px;width: 700px;">
     <div class="row">
       <div class="span4 emphasize" style="text-align: justify;margin-top: 45px;">
         <center>
-          <p style="
-    font-size: 23px;
-    line-height: 30px;
-">Gemeinsam Produktiver.</p>
-          <p style="
-    font-size: 23px;
-    line-height: 30px;
-">Mit Leuten wie dir.</p><br>
-            <a id="facebook_link" href="/users/auth/facebook">
-              <img src="/assets/frontpage_facebook.png">
-            </a><br>
-            (Wir posten nichts auf deine Wall)
+          <p style="font-size: 23px;line-height: 30px;">Gemeinsam produktiver.</p>
+          <p style="font-size: 23px;line-height: 30px;">Mit Leuten wie dir.</p><br>
+          <a id="facebook_link" href="/users/auth/facebook">
+            <img src="/assets/frontpage_facebook.png">
+          </a><br>
+          (Wir posten nichts auf deine Wall)
         </center>
       </div>
 
-
       <div style="float: left;height: 250px;margin: 0 38px;width:1px;background:#888;"></div>
-
 
       <div class="span4">
         <center>
@@ -53,31 +45,17 @@
 <div id="footer">
 <center>
   <p>
-    <span class="copyright">
+    <span style="color:#888;">
       Copyright © 2012 StartWork.in. Alle Rechte vorbehalten.
     </span>
     <span class="links">
-      
-      
-    <span <%= if_active 'how_it_works' %>><%= link_to "Wie es geht", how_it_works_path %></span> 
-   ▪
-      
-    <span <%= if_active 'effect' %>><%= link_to "Wirkung", effect_path %></span>
-   ▪
-      
-    <span <%= if_active 'blog' %>><%=link_to "Blog", blog_path %></span>
-   ▪
-      
-    <span <%= if_active 'about_us' %>><%=link_to "Über uns", about_us_path %></span>
-   ▪
-      
-    <span><a href="#">Jobs</a></span>
-  
-      
-        ▪ <span><a href="#">Presse</a></span>
-
-       ▪ <span><%= link_to "Impressum", impressum_path%></span>
-      
+      <span <%= if_active 'how_it_works' %>><%= link_to "Wie es geht", how_it_works_path %></span> 
+      ▪ <span <%= if_active 'effect' %>><%= link_to "Wirkung", effect_path %></span>
+      ▪ <span <%= if_active 'blog' %>><%=link_to "Blog", blog_path %></span>
+      ▪ <span <%= if_active 'about_us' %>><%=link_to "Über uns", about_us_path %></span>
+      ▪ <span><a href="#">Jobs</a></span>
+      ▪ <span><a href="#">Presse</a></span>
+      ▪ <span><%= link_to "Impressum", impressum_path%></span>
     </span>
   </p>
 </center>
