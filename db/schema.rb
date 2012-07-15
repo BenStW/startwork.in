@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120715123201) do
+ActiveRecord::Schema.define(:version => 20120715165419) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -89,8 +89,9 @@ ActiveRecord::Schema.define(:version => 20120715123201) do
     t.integer  "user_id"
     t.boolean  "success"
     t.boolean  "dont_show_info"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.boolean  "dont_show_wizard"
   end
 
   create_table "friendships", :force => true do |t|
@@ -123,6 +124,16 @@ ActiveRecord::Schema.define(:version => 20120715123201) do
     t.datetime "updated_at",     :null => false
   end
 
+  create_table "penalties", :force => true do |t|
+    t.integer  "from_user_id"
+    t.integer  "to_user_id"
+    t.string   "excuse"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.datetime "start_time"
+    t.datetime "end_time"
+  end
+
   create_table "recipient_appointments", :force => true do |t|
     t.integer  "user_id"
     t.integer  "appointment_id"
@@ -130,6 +141,18 @@ ActiveRecord::Schema.define(:version => 20120715123201) do
     t.datetime "updated_at",     :null => false
     t.boolean  "accepted"
     t.datetime "accepted_on"
+  end
+
+  create_table "reminders", :force => true do |t|
+    t.string   "name"
+    t.text     "message"
+    t.datetime "appointment"
+    t.string   "phonenumber"
+    t.boolean  "flag1"
+    t.boolean  "flag2"
+    t.boolean  "flag3"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "rooms", :force => true do |t|

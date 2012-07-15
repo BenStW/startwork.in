@@ -4,6 +4,7 @@
 </div>
 <% end %>	
 
+
 <%- content_for(:user_voice) do -%>
 <span></span>
 <%- end -%>
@@ -22,7 +23,12 @@
           <p style="font-size: 23px;line-height: 30px;">Gemeinsam produktiver.</p>
           <p style="font-size: 23px;line-height: 30px;">Mit Leuten wie dir.</p><br>
           <a id="facebook_link" href="/users/auth/facebook">
-            <img src="/assets/frontpage_facebook.png">
+            <img1 src="/assets/frontpage_facebook.png">
+
+<div style="background:url(/assets/fb_login_startwork.png)">
+	<center id="login_button" style="color:white;font-size:30px;height:60px;vertical-align:middle">Start work!</center>
+</div>
+
           </a><br>
           (Wir posten nichts auf deine Wall)
         </center>
@@ -64,6 +70,7 @@
 <%- end -%>
 
 </div><!--span10-->
+
 
 <!-- MODAL FOR VIDEO -->
 <div class="modal frontpage hide fade" id="video_modal">
