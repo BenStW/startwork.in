@@ -120,6 +120,9 @@ $(document).ready ->
             console.log "facebook popup response:"
             if response?
               console.log "The User has sent the appointment to FB friends"
+              txt = "Die Einladung wurde erfolgreich versendet."
+              notice_html = "<div  class='alert alert-success'>"+txt+"</div>"
+              $("#notice").html(notice_html)
             else
               console.log "The User has cancelled the FB popup window"
             if callback
