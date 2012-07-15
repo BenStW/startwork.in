@@ -1,3 +1,139 @@
+<%- content_for(:head) do -%>
+  <link href='http://fonts.googleapis.com/css?family=Parisienne' rel='stylesheet' type='text/css'>
+  <%= javascript_include_tag "http://connect.facebook.net/en_US/all.js" -%>
+<%- end -%>
+
+<%- content_for(:background_image) do -%>
+         background-image:url('/assets/paper_bg.jpg')
+<%- end -%>
+
+<%- content_for(:first_in_container) do -%>
+<div style="background:url('/assets/coffee.png') no-repeat;width: 751px;height: 836px;position: absolute;left: 0;top: 0;z-index: 0;"></div>
+<%- end -%>
+
+<center>
+  <h2 class="parisienne" id="greet_username" style="margin-left: 50px;">
+    Willkommen <%=@current_user.first_name %>
+  </h2>
+</center>
+
+<div class="row" style="position:relative;margin-top:30px;min-height:600px;">
+<div class="span8 emphasize column_same_height white_col" style="padding:20px;">
+<h3>Verabrede dich jetzt zum Arbeiten auf StartWork!</h3>
+  <div class="well" style="margin:30px 15px 0 15px;">
+    <h3 id="appointment_sender"></h3> 
+      Appointment_id: <div id="appointment_id"></div>
+      Token: <div id="token"></div> 
+
+
+    <div id="main_modal_dates">
+       <% (0..6).each do |day| %>
+           <div 
+              <% if day==1 %>
+              class="main_modal_day btn btn-primary" 
+              <% else %>
+              class="main_modal_day btn " 
+              <% end %>
+             
+              data-day="<%=(DateTime.current+ day.day).to_date%>"
+              id="main_modal_day<%=day%>">
+        
+              <% if day==0 %>
+                <%= l (DateTime.current+ day.day).to_date, :format =>  '%A' %>
+                 <br>(heute)
+              <% elsif  day==1 %>
+                <%= l (DateTime.current+ day.day).to_date, :format =>  '%A' %>
+                <br>(morgen)
+              <% else %>
+                <%= l (DateTime.current+ day.day).to_date, :format =>  '%A' %><br>&nbsp;
+              <% end %>
+            </div>
+        <% end %>
+        <div style="height:30px"></div>
+        
+        <p>   
+        Beginn: <%= select_hour(9, {:field_name => 'main_modal_start'}, {:style => "width:50px"}) %>
+        &nbsp;&nbsp;
+        Ende: <%= select_hour(12, {:field_name => 'main_modal_end'}, {:style => "width:50px"}) %>
+        </p>
+  </div><!-- end main_modal_dates -->
+
+  <h3 id="appointment_str"></h3>
+  <div div class="alert" style="margin-top:30px;">
+    <p style="font-size:15px;">Dieser Termin ist verbindlich. Logge dich bitte kurz vorher ein und 
+    freu dich schon jetzt auf das produktive Arbeiten mit deinen Freunden und neuen Leuten.</p>
+  </div>
+
+  <div>
+    <a href="#" id="main_modal_delete" style="display:none"class="btn btn-danger" data-dismiss="modal">
+    Abbrechen</a>
+    <a href="#" id="main_modal_save" style="display:none" class="btn btn-primary">
+    Jetzt verabreden</a>         
+
+
+  </div><!-- modal-footer -->
+</div>
+</div>
+
+
+
+<!-- RECHTS -->
+<div class="span3 column_same_height white_col" style="text-align:justify;padding:20px;">
+<h3 style="text-align:center;">Mach's mit!</h3>
+
+    <p><h4>Weiter zum Dashboard</h4></p>
+    <p>Du kannst StartWork auch ohne deine Freunde nutzen, aber es macht natürlich längst nicht so viel Spass!</p><br>
+    <center>
+      <%= link_to "Zum Dashboard", root_path, :class => "btn btn-primary btn-large"%>
+    </center>
+
+    <div class="line-top" style="width: 218px;height: 15px;background-size: 218px 15px;"></div>
+
+  <% if !@friends.empty?%>
+
+    <p><h4>Wusstest du schon?</h4></p>
+    <p>Es sind noch mehr deiner Freunde registriert:</p>
+    <div class="well" style="padding:20px;margin:0 auto;">
+      <div class="row">
+        <% @friends.each do |friend| %>
+          <div class="span1">
+            <img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture"><br>
+            <%= friend.first_name %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <br><p>Warum verabredest du dich nicht mit ihnen zum Arbeiten?</p>
+
+  <% else %>
+
+    <h4>Freunde einladen</h4><br>
+    <p>StartWork funktioniert am besten mit Freunden! Lade sie jetzt ein:</p>
+    <center>
+      <div id="send_dialogue" class="btn btn-primary btn-large" style="margin-top:20px;">
+        <img src="/assets/facebook_button.png" width="20px" style="position: absolute;">
+        <span style="margin-left:25px;">Freunde einladen</span>
+      </div>
+    </center>
+
+
+  <% end %>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
 <div class="row">
 <div class="emphasize span8" style="margin:30px auto 0 auto;float:none;">
 
@@ -76,3 +212,5 @@
   </div>
 </div>
 <!-- END OF MODAL FOR VIDEO -->
+
+<div id="fb-root" data-app="<%=@app%>" style="position: absolute;left: 150px;top: 40px;"></div>

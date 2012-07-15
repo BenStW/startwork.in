@@ -3,76 +3,81 @@
   <head>
     <meta charset="utf-8">
 
-  <title>StartWork - Die Plattform für gemeinsames Lernen und Arbeiten</title>
+    <title>StartWork - Die Plattform für gemeinsames Lernen und Arbeiten</title>
 
-   <meta name="Description" content="Mit StartWork kannst du mit Freunden
-    gemeinsam lernen und arbeiten, 
-   und dabei neue Leute kennenlernen. Eine Studie hat gezeigt, 
-    dass es die Prokrastination ('Aufschieberitis') um 73% senkt.">
-   
-  <%= render :partial => "layouts/google_analytics" %>
+     <meta name="Description" content="Mit StartWork kannst du mit Freunden
+      gemeinsam lernen und arbeiten, 
+     und dabei neue Leute kennenlernen. Eine Studie hat gezeigt, 
+      dass es die Prokrastination ('Aufschieberitis') um 73% senkt.">
+     
+    <%= render :partial => "layouts/google_analytics" %>
 
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= csrf_meta_tags %>
-  <%= javascript_include_tag "application" %>
-  <%= yield(:head) %>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= csrf_meta_tags %>
+    <%= javascript_include_tag "application" %>
+    <%= yield(:head) %>
 
-  <% if content_for?(:user_voice) then %>
-  <%= yield(:user_voice) %>
-  <% else %>  
-    <%= render :partial => "layouts/user_voice" %>
-  <% end %>
+    <% if content_for?(:user_voice) then %>
+      <%= yield(:user_voice) %>
+    <% else %>  
+      <%= render :partial => "layouts/user_voice" %>
+    <% end %>
 
-</head>
+  </head>
 
-<body  style="height:100%;min-width: 940px;
-<% if params["bg_image"] then %>
-     <%= "background-image:url('/assets/#{params['bg_image']}')" %>
-<% elsif content_for?(:background_image) then %>
-<%= yield(:background_image) %>
-<% else %>
-background-image:url('/assets/grain.jpg')
-<%end%> 
-"> <!-- end of body tag -->
+  <body  style="height:100%;min-width: 940px;
+    <% if params["bg_image"] then %>
+      <%= "background-image:url('/assets/#{params['bg_image']}')" %>
+    <% elsif content_for?(:background_image) then %>
+      <%= yield(:background_image) %>
+    <% else %>
+      background-image:url('/assets/grain.jpg')
+    <%end%> 
+  "> <!-- end of body tag -->
 
-<% if content_for?(:nav_bar) then %>
-<%= yield(:nav_bar) %>
-<% else %>	
-<%= render :partial => "layouts/nav" %>
-<% end %>
+    <noscript>
+      <div class="alert">
+        This site requires JavaScript. Please enable it to continue.
+        Diese Seite benötigt JavaScript. Bitte aktivere es um fortzufahren.
+      </div>
+    </noscript>  
 
-<%= yield(:below_nav) %>	
+    <% if content_for?(:nav_bar) then %>
+      <%= yield(:nav_bar) %>
+    <% else %>	
+      <%= render :partial => "layouts/nav" %>
+    <% end %>
 
-<div id="main_container" class="container"  style="min-height:100%;margin-top:72px;">
-	
-	<% if content_for?(:first_in_container) then %>
-	   <%= yield(:first_in_container) %>
-	<% end %>
-	
-	<div id="notice" style="position:relative">
+    <%= yield(:below_nav) %>	
 
-	<% if notice %>
-	<div  class="alert alert-success"><%= notice %></div>
-	<% end %>
-	<% if alert %>	
- 	<div class="alert alert-error"> <%= alert %></div>
-     <% end %>
+    <div id="main_container" class="container"  style="min-height:100%;margin-top:72px;">
+    	
+    	<% if content_for?(:first_in_container) then %>
+    	   <%= yield(:first_in_container) %>
+    	<% end %>
+    	
+    	<div id="notice" style="position:relative">
+      	<% if notice %>
+      	  <div  class="alert alert-success"><%= notice %></div>
+      	<% end %>
+      	<% if alert %>	
+       	  <div class="alert alert-error"> <%= alert %></div>
+        <% end %>
+      </div>
+
+    	<%= yield %>
+
+      <% if content_for?(:footer) then %>
+        <%= yield(:footer) %>
+      <% else %>  
+        <hr>
+        <footer>
+          <p>&copy; StartWork 2012 - <%= link_to "Impressum", impressum_path%></p>
+        </footer>
+      <% end %>
+
     </div>
 
-	<%= yield %>
-
-  <% if content_for?(:footer) then %>
-  <%= yield(:footer) %>
-  <% else %>  
-          <hr>
-      <footer>
-        <p>&copy; StartWork 2012 - <%= link_to "Impressum", impressum_path%></p>
-
-      </footer>
-  <% end %>
-
-    </div> <!-- /container -->   
-
-</body>
+  </body>
 </html>
 
