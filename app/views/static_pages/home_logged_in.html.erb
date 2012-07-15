@@ -96,7 +96,7 @@
 <!-- START JETZT STARTEN MODAL -->
 <div class="modal hide" id="start_work">
   <div id="start_work_left" class="column_same_height">
-    <div style="margin:20px;" id="explain2">
+    <div style="margin:20px;">
       <h2>Start Work'in</h2>
         <center>
           <div href="#" class="btn btn-large disabled" style="margin-top:20px;">2. Jetzt starten!</div>
@@ -266,7 +266,8 @@
 
 
 <!-- main explainer modal start-->
-<div class="modal hide main-modal wizard_modal active_modal" id="wizard0" style="background:whitesmoke;">
+<div class="modal hide main-modal wizard_modal" id="wizard0" style="background:whitesmoke;"
+data-dont_show_wizard="<%= if @camera.dont_show_wizard then true else false end %>">
   <div class="modal-header">
     <button class="close" data-dismiss="modal">×</button>
     <h3>Willkommen in deinem Dashboard</h3>
@@ -280,7 +281,7 @@
 
   <div class="modal-footer">
        <button class="continue_button btn btn-large btn-primary" data-activate_modal="#wizard1" data-activate_element="#explain1">Weiter</button>
-       <button class="btn btn-large" data-dismiss="modal">Tour überspringen</button>
+       <button class="btn btn-large dont_show_tour" data-dismiss="modal">Tour überspringen</button>
   </div><!-- modal-footer -->
 </div>
 <!-- main explainer modal end-->
@@ -411,7 +412,7 @@
   </div>
 
   <div class="modal-footer">
-      <button class="btn btn-large btn-success" data-dismiss="modal">Fertig!</button>      <button class="continue_button btn btn-large" data-activate_modal="#wizard4" data-activate_element="#explain4">Zurück</button>
+      <button class="btn btn-large btn-success dont_show_tour" data-dismiss="modal">Fertig!</button>      <button class="continue_button btn btn-large" data-activate_modal="#wizard4" data-activate_element="#explain4">Zurück</button>
 
   </div><!-- modal-footer -->
 </div>

@@ -1,20 +1,53 @@
 
 
 $(document).ready ->
-	
+   #$("[id^=explain]").addClass("active_element")
 
+
+   addDot = ->
+      $("#login_button").append(".")
+	
+   $("#login_button").click (event )->
+     $("#login_button").html("verbinde")
+    # event.preventDefault()
+     for sec in [1..20]
+       setTimeout(addDot,sec*1000)
+
+	  # <form accept-charset="UTF-8" action="/kamera.20" class="edit_camera" id="edit_camera_20" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="put"><input name="authenticity_token" type="hidden" value="cGXwM2F5HR3B0MZDZ52+bhen0IfuOUdSNTtd7xgtPu8="></div>
+	  #     <input class="btn btn-danger btn-large" data-camera-success="null" id="join_work_session_after_info" name="commit" type="submit" value="Jetzt Starten!">
+	  #
+	  #          <a href="#" class="btn btn-large" data-dismiss="modal">Abbrechen</a>
+	  #             <label class="checkbox" style="width: 200px;float: right;margin-right: 20px;margin-top: 10px;">
+	  # 			    <input name="camera[dont_show_info]" type="hidden" value="0"><input id="camera_dont_show_info" name="camera[dont_show_info]" type="checkbox" value="1"> Diese Seite nicht mehr anzeigen
+	  #             </label>
+	  # </form>
+	
+   $(".dont_show_tour").click ->
+      console.log "dont_show_tour"
+      data =
+        camera :
+          dont_show_wizard : 1
+      console.log data
+      $.ajax
+        url: $("#urls").data("camera_url"),
+        data: data,
+        type: 'PUT',
+        statusCode:
+          200: (response)->
+            console.log "Das Ausblenden des Wizards wurde gespeichert"
+      
    # The Javascript for the 3 columns and the modal was moved to calendar.js.coffee
 
    $("#video_modal_button").click ->
        $('#video_modal').modal("show")
-   $("#ben").click ->
-       $(".column_same_height").height("")
-       adjust_height()
+
 
    $("#appointment_carousel").carousel
        interval: false
 
-   $("#wizard0").modal
+   if $("#wizard0").data("dont_show_wizard")
+   else
+     $("#wizard0").modal
         show: true
 
    # this is only the initial backdrop of the first modal

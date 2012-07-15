@@ -11,6 +11,7 @@ ActiveAdmin.register Camera do
        column :user
        column :success
        column :dont_show_info
+       column :dont_show_wizard       
        default_actions       
      end
    

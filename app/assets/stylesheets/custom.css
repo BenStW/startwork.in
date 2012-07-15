@@ -375,3 +375,36 @@ h1, h2, h3 h4 {
 	background-size: 20px 20px;
 
 }
+
+.overlaybox {
+
+	position: absolute;
+	top: -168px;
+	width: 100%;
+	padding: 0;
+	opacity: 0.8;
+	margin: 0 auto;
+	border: #D9D9D9 1px solid;
+	background-color: white;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	margin: 0 auto;
+
+}
+
+.overlaycontent {
+
+position: absolute;
+top: -168px;
+padding: 40px;
+
+}
+
+#notice {
+
+	position: absolute;
+	top: 40px;
+	width: 940px;
+	
+}
