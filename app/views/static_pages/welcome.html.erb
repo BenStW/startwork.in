@@ -1,32 +1,62 @@
 <%- content_for(:head) do -%>
-  <link href='http://fonts.googleapis.com/css?family=Parisienne' rel='stylesheet' type='text/css'>
   <%= javascript_include_tag "http://connect.facebook.net/en_US/all.js" -%>
 <%- end -%>
 
+<%- content_for(:nav_bar) do -%>
+  <span></span>
+<%- end -%>
+
+<%- content_for(:user_voice) do -%>
+  <span></span>
+<%- end -%>
+
+<%- content_for(:footer) do -%>
+  <span></span>
+<%- end -%>
+
 <%- content_for(:background_image) do -%>
-         background-image:url('/assets/paper_bg.jpg')
+  background:url('/assets/paper_bg_plain.jpg');
 <%- end -%>
 
-<%- content_for(:first_in_container) do -%>
-<div style="background:url('/assets/coffee.png') no-repeat;width: 751px;height: 836px;position: absolute;left: 0;top: 0;z-index: 0;"></div>
-<%- end -%>
+<%= content_for :below_nav do %>
+  <img src="/assets/frontpage_biggestpicture2.jpg" style="width:100%;position:relative;display:block;">
+<% end %>
 
-<center>
-  <h2 class="parisienne" id="greet_username" style="margin-left: 50px;">
-    Willkommen <%=@current_user.first_name %>
-  </h2>
-</center>
+<div style="margin:0 auto; width:696px;position:relative;">
+<div class="whitebox" id="welcome_box" style="position:absolute;top: -168px;height:270px;width: 100%;padding: 0;opacity:0.8;"></div>
+<div class="emphasize" id="welcome_content" style="position:absolute;top: -168px;height:270px;padding: 40px;">
+<div id="appointment_carousel" class="carousel slide">
+  <!-- Carousel items -->
+  <div class="carousel-inner" style="margin-top:40px;overflow:visible;width:614px;">
+    <div class="active item" style="vertical-align:middle;width:">
+      <!-- Carousel nav -->
+      <a class="btn btn-danger btn-large" style="position:absolute;top:-60px;right:-20px;" href="#appointment_carousel" data-slide="next">Weiter</a>
+      <center><p style="font-size:26px;line-height:47px;">Geht es dir auch so, dass du das Anfangen mit einer Arbeit ewig lange aufschiebst?</p></center>
+    </div>
+    <div class="item" style="vertical-align:middle;">   <!-- Carousel nav -->
+        <a class="btn btn-danger btn-large" style="position:absolute;top:-60px;right:-20px;" href="#appointment_carousel" data-slide="next">Weiter</a>
+      <center><p style="font-size:26px;line-height:47px;">Auf StartWork verabredest du mit Freunden gemeinsame Arbeitszeiten über Webcam. </p></center>
+    </div>
+    <div class="item" style="vertical-align:middle;">
+      <!-- Carousel nav -->
+      <a class="btn btn-danger btn-large" id="adjust_height" style="position:absolute;top:-60px;right:-20px;" href="#appointment_carousel" data-slide="next">Weiter</a>
+      <center><p style="font-size:26px;line-height:47px;">Es geht dabei um das pünktliche Anfangen mit der Arbeit, nicht um die inhaltliche Zusammenarbeit.</p></center>
+    </div>
+    <div class="item" style="margin-top:-40px;">
+      <div style="position:absolute;top:-60px;right:-20px;">
 
-<div class="row" style="position:relative;margin-top:30px;min-height:600px;">
-<div class="span8 emphasize column_same_height white_col" style="padding:20px;">
-<h3>Verabrede dich jetzt zum Arbeiten auf StartWork!</h3>
-  <div class="well" style="margin:30px 15px 0 15px;">
+BUTTONS 
+            
+    </div>
+  <h2 style="font-weight:300">Verabrede dich jetzt zum Arbeiten auf StartWork</h2>
+  
     <h3 id="appointment_sender"></h3> 
+    <div id="needed_for_debugging" style="display:none">
       Appointment_id: <div id="appointment_id"></div>
       Token: <div id="token"></div> 
+    </div>
+    <div id="main_modal_dates" style="text-align:center;margin-top:15px;">
 
-
-    <div id="main_modal_dates">
        <% (0..6).each do |day| %>
            <div 
               <% if day==1 %>
@@ -60,7 +90,7 @@
 
   <h3 id="appointment_str"></h3>
   <div div class="alert" style="margin-top:30px;">
-    <p style="font-size:15px;">Dieser Termin ist verbindlich. Logge dich bitte kurz vorher ein und 
+    <p style="font-size:15px;text-align:center;">Dieser Termin ist verbindlich. Logge dich bitte kurz vorher ein und 
     freu dich schon jetzt auf das produktive Arbeiten mit deinen Freunden und neuen Leuten.</p>
   </div>
 
@@ -69,148 +99,14 @@
     Abbrechen</a>
     <a href="#" id="main_modal_save" style="display:none" class="btn btn-primary">
     Jetzt verabreden</a>         
-
-
   </div><!-- modal-footer -->
-</div>
-</div>
 
 
-
-<!-- RECHTS -->
-<div class="span3 column_same_height white_col" style="text-align:justify;padding:20px;">
-<h3 style="text-align:center;">Mach's mit!</h3>
-
-    <p><h4>Weiter zum Dashboard</h4></p>
-    <p>Du kannst StartWork auch ohne deine Freunde nutzen, aber es macht natürlich längst nicht so viel Spass!</p><br>
-    <center>
-      <%= link_to "Zum Dashboard", root_path, :class => "btn btn-primary btn-large"%>
-    </center>
-
-    <div class="line-top" style="width: 218px;height: 15px;background-size: 218px 15px;"></div>
-
-  <% if !@friends.empty?%>
-
-    <p><h4>Wusstest du schon?</h4></p>
-    <p>Es sind noch mehr deiner Freunde registriert:</p>
-    <div class="well" style="padding:20px;margin:0 auto;">
-      <div class="row">
-        <% @friends.each do |friend| %>
-          <div class="span1">
-            <img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture"><br>
-            <%= friend.first_name %>
-          </div>
-        <% end %>
-      </div>
+    </div>      
     </div>
-    <br><p>Warum verabredest du dich nicht mit ihnen zum Arbeiten?</p>
-
-  <% else %>
-
-    <h4>Freunde einladen</h4><br>
-    <p>StartWork funktioniert am besten mit Freunden! Lade sie jetzt ein:</p>
-    <center>
-      <div id="send_dialogue" class="btn btn-primary btn-large" style="margin-top:20px;">
-        <img src="/assets/facebook_button.png" width="20px" style="position: absolute;">
-        <span style="margin-left:25px;">Freunde einladen</span>
-      </div>
-    </center>
-
-
-  <% end %>
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
-<div class="row">
-<div class="emphasize span8" style="margin:30px auto 0 auto;float:none;">
-
-  <h2 class="parisienne" style="margin-bottom:15px;">Hallo <%= @name %>!</h2>
-  <p>schön, dass du bei uns mitmachst!</p>
-  <br/>
-
-  <div class="whitebox">
-    <h2>Was als nächstes passiert</h2>
-    <p>Du hast gleich die Möglichkeit, StartWork direkt auszuprobieren und einer Arbeitssession beizutreten.</p>
-
-    <% if !@friends.empty?%>
-      <p>Wusstest du schon? Es sind noch mehr deiner Freunde registriert:</p>
-      <div>
-        <% @friends.each do |friend| %>
-          <div>
-            <img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture"><br>
-            <%= friend.first_name%>
-          </div>
-        <% end %>
-      </div>
-      <br><p>Warum verabredest du dich nicht mit ihnen zum Arbeiten? Das kannst du gleich in deinem Dashboard machen!</p>
-      <a href='<%= root_url %>' class="btn btn-primary">Weiter</a>
-
-    <% else %>
-    <div class="row" style="margin-top:20px;">
-      <div class="span3">
-        <img src="/assets/friends_button.png" width="200" height="200">
-      </div>
-      <div class="span4" style="width:299px;">
-        <p>StartWork funktioniert am besten zusammen mit Freunden. Du hast gleich in deinem Dashboard die Gelegenheit, sie zum gemeinsamen Arbeiten einzuladen!</p>
-        <a href='<%= root_url %>' class="btn btn-primary">Weiter</a>
-      </div>
-    </div>
-    
-
-    <% end %>
-  </div>
-
- <div class="line-top"></div>
- <div class="row">
-   <div class="span4">
-      <h2>Wie funktioniert das jetzt?</h2><br>
-      <ol style=" font-weight: 200; line-height: 27px;
-">
-        <li>Du wirst mit deinen Freunden per Webcam verbunden.</li>
-        <li>Ein Timer zählt abwechselnd 50min Arbeitszeit und 10min Pause.</li>
-        <li>In der Arbeitszeit arbeitet jeder für sich und bleibt am Arbeitsplatz.</p>
-        <li>In der Pause wird das Mirko aktiviert und man kann den Kaffeevorrat auffüllen :-)</li>
-      </ol>
-    </div>
-
-    <div class="vr" style="height:"></div>
-
-    <div class="span4">
-      <center>
-        <a href="#">
-          <img src="/assets/promotion_video.jpg" id="video_modal_button">
-        </a>
-      </center>
-    </div> <!-- end column span -->
-  </div>
-
-</div>
-</div>
-
-<!-- MODAL FOR VIDEO -->
-<div class="modal frontpage hide fade" id="video_modal" style="width: 600px;">
-  <div>
-     <button class="close" data-dismiss="modal">×</button>
-  </div>
-  <div class="modal-body">
-  <center>
-<iframe src="http://player.vimeo.com/video/44444224?title=0&amp;byline=0&amp;portrait=0&amp;color=005580" width="600" height="400" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-</center>
   </div>
 </div>
-<!-- END OF MODAL FOR VIDEO -->
+</div>
+</div>
 
 <div id="fb-root" data-app="<%=@app%>" style="position: absolute;left: 150px;top: 40px;"></div>

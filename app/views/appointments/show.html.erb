@@ -36,35 +36,34 @@
     <div class="item" style="vertical-align:middle;">
 	    <!-- Carousel nav -->
 	    <a class="btn btn-danger btn-large" style="position:absolute;top:-60px;right:-20px;" href="#appointment_carousel" data-slide="next">Weiter</a>
-    	<center><p style="font-size:26px;line-height:47px;">Es geht dabei um das pünktliche Anfangen mit der Arbeit, nicht um die inhaltliche Kollaboration.</p></center>
+    	<center><p style="font-size:26px;line-height:47px;">Es geht dabei um das pünktliche Anfangen mit der Arbeit, nicht um die inhaltliche Zusammenarbeit.</p></center>
     </div>
-    <div class="item">
-    	<div style="position:absolute;top:-60px;right:-20px;">
-			<%= link_to "Ablehnen", reject_appointment_url, :class=>"btn btn-large"%>
-			
-			<% if current_user %>
-			<%= link_to "Annehmen", accept_appointment_url(:token=> @appointment.token), :class=>"btn btn-large btn-success"%>			
-		     <% else %>
-			<%= link_to "Annehmen", login_to_accept_appointment_url(:token=> @appointment.token), :class=>"btn btn-large btn-success"%>	
-			<% end %>		
-						
-		</div>
-		<p style="font-size:26px;line-height:47px;margin-bottom:20px;">Du hast gerade eine solche Einladung erhalten:</p>
+    <div class="item" style="margin-top:-40px;">
+		<p style="font-size:26px;line-height:47px;margin-bottom:20px;text-align:center;">Du hast gerade eine solche Einladung erhalten</p>
 		<div class="well">
 			<div class="left"><img src="http://graph.facebook.com/<%=@appointment.user.fb_ui%>/picture"></div>
 			<h2>Verabredung mit <%=@appointment.user.name %></h2>
 			<br/>
 			<% if !@appointment.start_time.nil? and !@appointment.end_time.nil? %>
-			
-			<h3>am 
-			<%= I18n.localize(@appointment.start_time.to_date, :format => "%d.%m.%Y") %>	
-			 von 
-			<%= I18n.localize(@appointment.start_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %>
-			bis
-			<%= I18n.localize(@appointment.end_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %>
-			</h3>
+				
+				<h3>am 
+				<%= I18n.localize(@appointment.start_time.to_date, :format => "%d.%m.%Y") %>	
+				 von 
+				<%= I18n.localize(@appointment.start_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %>
+				bis
+				<%= I18n.localize(@appointment.end_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %>
+				</h3>
+				<div style="text-align: right;margin-top: -5px;">
+					<%= link_to "Ablehnen", reject_appointment_url, :class=>"btn btn-large"%>
+					
+					<% if current_user %>
+						<%= link_to "Annehmen", accept_appointment_url(:token=> @appointment.token), :class=>"btn btn-large btn-success"%>			
+					<% else %>
+						<%= link_to "Annehmen", login_to_accept_appointment_url(:token=> @appointment.token), :class=>"btn btn-large btn-success"%>	
+					<% end %>	
+				</div>
 			<% else %>
-			Noch keine Zeiten angegeben
+				<p>Noch keine Zeiten angegeben</p>
 			<% end %>
 		</div>			
     </div>

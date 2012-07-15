@@ -103,6 +103,12 @@ $(document).ready ->
       $(".column_same_height").height("")
       adjust_height())
 
+   $('#adjust_height').click ->
+      myheight = 0
+      $('#welcome_box').removeAttr('height')
+      myheight = $('#welcome_content').height
+      $('#welcome_content').height(myheight)
+      console.log(myheight)
 
    popup_work_session = ->
      video_url = $("#urls").data("group_hour_url")
