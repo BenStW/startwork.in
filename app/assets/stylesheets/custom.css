@@ -411,7 +411,8 @@ padding: 40px;
 
 #fb_login_button {
 
-	background:url('/assets/fb_login_startwork.png')
+	background:url('/assets/fb_login_startwork.png');
+	cursor: pointer;
 
 }
 
@@ -428,5 +429,15 @@ padding: 40px;
 	height: 30px;
 	vertical-align: middle;
 	padding: 17px 0 13px;
+
+}
+
+.fb-favicon {
+
+	width: 14px;
+	height: 14px;
+	margin-bottom: -1px;
+	display: inline-block;
+	background: url('/assets/fb-favicon.png') no-repeat top left;
 
 }
