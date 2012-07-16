@@ -120,7 +120,10 @@ $(document).ready ->
       console.log link
       fb_popup(name, message, link)
 
-   fb_popup = (name, message, link) ->
+
+
+
+   fb_popup = (name, message, link) ->	
       FB.ui(
          {method: 'send',
          name: name,

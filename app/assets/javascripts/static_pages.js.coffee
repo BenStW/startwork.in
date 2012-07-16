@@ -193,6 +193,7 @@ $(document).ready ->
    $(".fb_reset_40_145").click ->
        fb_reset(40,145)
 
+
    fb_reset = (x,y) ->
      screenX = window.innerWidth
      screenY = window.innerHeight
@@ -200,3 +201,12 @@ $(document).ready ->
      fb_height = 288
      $("#fb-root").css("top",(y + 25 + (fb_height - screenY) / 2))
      $("#fb-root").css("left",(x + (fb_width - screenX) / 2) - window.pageXOffset)
+
+   $(".remove_height_from_content_and_set_it_to_box").click ->
+     $('#welcome_content').css("height", "")
+     height=$("#welcome_content").outerHeight()
+     console.log "set height from "+$("#welcome_box").height()+" to "+height
+     $("#welcome_box").height(height)
+
+
+

@@ -59,8 +59,10 @@
               <h2 style="font-weight:300;margin-bottom:15px;">Verabrede dich jetzt zum Arbeiten auf StartWork</h2>
               <%= render :partial => "appointments/appointment_picker" %>
 
-              <div style="position:absolute;top:-25px;right:0;">
-                <button id="main_modal_save" class="btn btn-primary btn-large fb_reset_40_145" >Weiter</button>
+
+              <div style="position:absolute;top:-35px;right:0;">
+	<a href="<%=root_url%>">Verabredung überspringen</a>
+                <button id="main_modal_save" class="btn btn-primary btn-large fb_reset_40_145 remove_height_from_content_and_set_it_to_box" >Weiter</button>
               </div>
             </div> <!-- end appointment_on_welcomepage -->
 
@@ -68,9 +70,7 @@
         </div>
 
       </div> <!-- end item -->   
-
       <div id="fb-root" data-app="<%=@app%>" style="position: absolute;left: 150px;top: 40px;"></div>
-
     </div> <!-- end welcome_content -->
   </div> <!-- end welcome_box -->
 </div> <!-- first div -->
