@@ -1,101 +1,102 @@
 <%- content_for(:head) do -%>
   <%= javascript_include_tag "http://connect.facebook.net/en_US/all.js" -%>
-  <link href='http://fonts.googleapis.com/css?family=Parisienne' rel='stylesheet' type='text/css'>
+<%- end -%>
+
+<%- content_for(:nav_bar) do -%>
+  <span></span>
+<%- end -%>
+
+<%- content_for(:user_voice) do -%>
+  <span></span>
+<%- end -%>
+
+<%- content_for(:footer) do -%>
+  <span></span>
 <%- end -%>
 
 <%- content_for(:background_image) do -%>
-         background-image:url('/assets/paper_bg.jpg')
+  background:url('/assets/paper_bg_plain.jpg');
 <%- end -%>
 
-<%- content_for(:first_in_container) do -%>
-<div style="background:url('/assets/coffee.png') no-repeat;width: 751px;height: 836px;position: absolute;left: 0;top: 0;z-index: 0;"></div>
-<%- end -%>
+<%= content_for :below_nav do %>
+  <img src="/assets/frontpage_biggestpicture3.jpg" style="width:100%;position:relative;display:block;">
+<% end %>
 
-<center>
-  <h2 class="parisienne" id="greet_username" style="margin-left: 50px;">
-    Willkommen <%=@current_user.first_name %>
-  </h2>
-</center>
+<%= render :partial => "static_pages/urls"%> 
 
-<div class="row" style="position:relative;margin-top:30px;min-height:600px;">
-<div class="span8 emphasize column_same_height whitebox" style="padding:0;margin: 0 0 0 20px;width:618px;">
 
-<div style="padding:40px;">
 
-  <p>Wir haben eine Verabredung in deinen StartWork Kalender eingetragen:</p>
-  <div class="well">
-    <h2 style="margin-bottom:20px;">Deine Verabredung mit <%=@appointment.user.name %></h2>
-    <div style="margin-bottom:20px;">
-      <div class="left" style="margin:0;"><img src="http://graph.facebook.com/<%=@appointment.user.fb_ui%>/picture"></div>
-      <div style="margin: 0 0 0 70px;">
-          Datum: <%= I18n.localize(@appointment.start_time.to_date, :format => "%d.%m.%Y") %><br/>
-          Uhrzeit: <%= I18n.localize(@appointment.start_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %> Uhr bis <%= I18n.localize(@appointment.end_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %> Uhr
-          <a href="#" class="btn btn-small btn-edit" style="position: relative;top: 6px;"></a>
-       </div>
-       <span class="clr_fix"></span>
-       <br>Trage am besten gleich den Termin in deinen Kalender ein.
-    </div>
-    <div class="alert alert-info">
-      <b>Achtung!</b><br/>
-      Termine auf StartWork sind verbindlich! Falls etwas dazwischenkommen sollte, sag bitte frühzeitig ab, dein Gegenüber rechnet fest mit dir!
-    </div>
-  </div>
-  <p>Du kannst dich schon jetzt auf die produktive Zeit freuen!<br><%=@appointment.user.first_name %> weiß schon Bescheid, dass du dabei bist und wird auf dich warten.</p>
-  </div> <!-- end column left -->
 
-</div>
+<div style="margin:0 auto; width:696px;position:relative;">
+  
+  <div class="whitebox" id="welcome_box" style="position:absolute;top: -200px;height:410px;width: 100%;padding: 0;opacity:0.8;"></div>
 
-<div class="span4 column_same_height whitebox" style="text-align:justify;padding:0;margin: 0 0 0 20px;width:298px;">
-
-<div style="padding:40px;">
-
-  <% if !@friends.empty?%>
-
-    <p><h4>Wusstest du schon?</h4></p>
-    <p>Es sind noch mehr deiner Freunde registriert:</p>
-    <div class="well" style="padding:20px;margin:0 auto;">
-      <div class="row">
-        <% @friends.each do |friend| %>
-          <div class="span1">
-            <img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture"><br>
-            <%= friend.first_name %>
+    <div class="emphasize" id="welcome_content" style="position:absolute;top: -200px;height:410px;padding: 40px;">
+   
+      <!-- CAROUSEL -->
+      <div id="show_and_welcome_carousel" class="carousel slide">
+        <!-- Carousel items -->
+        <div class="carousel-inner" style="margin-top:10px;overflow:visible;width:614px;">
+          <div class="item" style="vertical-align:middle;width:">
+            <p>Die Verabredung wurde akzeptiert und <%=@appointment.user.first_name %> ist informiert!</p>
+            <div class="well emphasize">
+              <h2 style="margin-bottom:20px;">Deine Verabredung mit <%=@appointment.user.name %></h2>
+              <div style="margin-bottom:20px;">
+                <div class="left" style="margin:5px 0 0 0;"><img src="http://graph.facebook.com/<%=@appointment.user.fb_ui%>/picture"></div>
+                <div style="margin: 0 0 0 70px;">
+                    <p>Datum: <%= I18n.localize(@appointment.start_time.to_date, :format => "%d.%m.%Y") %></p>
+                    <p>Uhrzeit: <%= I18n.localize(@appointment.start_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %> Uhr bis <%= I18n.localize(@appointment.end_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %> Uhr
+                    <a href="#" class="btn btn-small btn-edit" style="position: relative;top: 6px;"></a></p>
+                 </div>
+                 <span class="clr_fix"></span>
+                 <br>Trage den Termin am besten gleich in deinen Kalender ein!
+              </div>
+              <div class="alert alert-info">
+                <b>Achtung!</b>
+                Termine auf StartWork sind verbindlich! Falls etwas dazwischenkommen sollte, sag bitte frühzeitig ab, dein Gegenüber rechnet fest mit dir!
+              </div>
+            </div>
+            <div style="position:absolute;top:-25px;right:0;">
+              <button href="#show_and_welcome_carousel" data-slide="next" class="btn btn-primary btn-large fb_reset_40_145" >Weiter</button>
+            </div>
           </div>
-        <% end %>
-      </div>
-    </div>
-    <br><p>Warum verabredest du dich nicht mit ihnen zum Arbeiten?<br>Das kannst du gleich in deinem Dashboard machen:</p>
-    <center style="margin:20px 0">
-      <%= link_to "Zum Dashboard", root_path, :class => "btn btn-primary btn-large"%>
-    </center>
-    <p>Im Dashboard kannst du deine Verabredungen verwalten, offenen Worksessions beitreten, und vieles mehr</p>
 
-  <% else %>
+          <div class="active item" style="vertical-align:middle;width:">
+            <div style="position:absolute;top:-25px;right:0;">
+              <%= link_to "Zum Dashboard", root_path, :class => "btn btn-primary btn-large"%>
+            </div>
 
-    <p><h4>Weiter zum Dashboard</h4></p>
-    <p>Im Dashboard kannst du deine Verabredungen verwalten, offenen Worksessions beitreten, und vieles mehr:</p><br>
-    <center>
-      <%= link_to "Zum Dashboard", root_path, :class => "btn btn-primary btn-large"%>
-    </center>
+          <% if !@friends.empty?%>
 
-    <div class="line-top" style="width: 218px;height: 15px;background-size: 218px 15px;"></div>
+            <p><h2>Wusstest du schon?</h2></p>
+            <p>Es sind noch mehr deiner Freunde registriert:</p>
+            <div class="well" style="padding:20px;margin:0 auto;">
+              <div class="row">
+                <% @friends.each do |friend| %>
+                  <div class="span1">
+                    <img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture"><br>
+                    <%= friend.first_name %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+            <br><p>Warum holst du sie nicht zu deiner Verabredung dazu?</p>
 
-    <h4>Freunde einladen</h4><br>
-    <p>StartWork ist toll für dich selbst. Aber zusammen mit deinen Freunden wird es noch viel besser. Lade sie jetzt ein und verbessere das Erlebnis um ein Vielfaches:</p>
-    <center>
-      <div id="send_dialogue" class="btn btn-primary btn-large" style="margin-top:20px;">
-        <img src="/assets/facebook_button.png" width="20px" style="position: absolute;">
-        <span style="margin-left:25px;">Freunde einladen</span>
-      </div>
-    </center>
+          <% else %>
 
+            <p><h2>Mehr Freunde - mehr Spass!</h2></p>
+            <p>Warum holst du nicht noch ein paar Freunde zu deiner Verabredung dazu? Zusammen fällt es noch leichter zu arbeiten!</p><br>
 
-  <% end %>
+          <% end %>
 
+          </div>
+
+        </div>
+
+      </div> <!-- end item -->   
+
+      <div id="fb-root" data-app="<%=@app%>" style="position: absolute;left: 150px;top: 40px;"></div>
+
+    </div> <!-- end welcome_content -->
+  </div> <!-- end welcome_box -->
 </div>
-
-</div>
-
-
-</div>
-
-<div id="fb-root" data-app="<%=@app%>" style="position: absolute;left: 150px;top: 40px;"></div>
