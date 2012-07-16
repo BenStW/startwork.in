@@ -166,13 +166,19 @@ $(document).ready ->
       else
          $("#flash_version_alert").css("display","none")
 
-   $("#main_modal_save").click ->
-       fb_reset(335,145)
+   $(".fb_reset_355_112").click ->
+       fb_reset(355,112)
+
+   $(".fb_reset_0_0").click ->
+       fb_reset(0,0)
+
+   $(".fb_reset_40_145").click ->
+       fb_reset(40,145)
 
    fb_reset = (x,y) ->
      screenX = window.innerWidth
      screenY = window.innerHeight
      fb_width = 595
-     fb_height = 283
-     $("#fb-root").css("top",(y + 10 + (fb_height - screenY) / 2))
-     $("#fb-root").css("left",(x + 20 + (fb_width - screenX) / 2) - window.pageXOffset)
+     fb_height = 288
+     $("#fb-root").css("top",(y + 25 + (fb_height - screenY) / 2))
+     $("#fb-root").css("left",(x + (fb_width - screenX) / 2) - window.pageXOffset)

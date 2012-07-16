@@ -428,7 +428,8 @@ padding: 40px;
 	font-size: 30px;
 	height: 30px;
 	vertical-align: middle;
-	padding: 17px 0 13px;
+	padding: 20px 0 10px;
+	font-weight: 600;
 
 }
 
@@ -439,5 +440,11 @@ padding: 40px;
 	margin-bottom: -1px;
 	display: inline-block;
 	background: url('/assets/fb-favicon.png') no-repeat top left;
+
+}
+
+#facebook_link:hover {
+
+	text-decoration: none;
 
 }
