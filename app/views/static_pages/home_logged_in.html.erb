@@ -262,9 +262,6 @@
 
 <div id="fb-root" data-app="<%=@app%>" style="position: absolute;"></div>
 
-</div> <!-- main row -->
-
-
 
 
 
@@ -290,7 +287,7 @@ data-dont_show_wizard="<%= if @camera.dont_show_wizard then true else false end 
 <!-- main explainer modal end-->
 
 <!-- explainer modal 1 start-->
-<div class="modal hide main-modal wizard_modal" id="wizard1" style="background:whitesmoke;position: absolute;top: 400px;left: 850px;overflow:visible;width: 300px;">
+<div class="modal hide main-modal wizard_modal" id="wizard1" style="background:whitesmoke;position: absolute;top: 250px;left: 700px;overflow:visible;width: 300px;">
   <div class="blue_arrow_dl" style="left:-170px;"></div>
   <div class="modal-header">
     <button class="close" data-dismiss="modal">×</button>
@@ -311,7 +308,7 @@ data-dont_show_wizard="<%= if @camera.dont_show_wizard then true else false end 
 <!-- explainer modal 1 end-->
 
 <!-- explainer modal 2 start-->
-<div class="modal hide main-modal wizard_modal" id="wizard2" style="background:whitesmoke;position: absolute;top: 410px;left: 340px;overflow:visible;width: 400px;">
+<div class="modal hide main-modal wizard_modal" id="wizard2" style="background:whitesmoke;position: absolute;top: 300px;left: 190px;overflow:visible;width: 400px;">
   <div class="blue_arrow_ur" style="top: 60px;right: -120px;"></div>
   <div class="modal-header">
     <button class="close" data-dismiss="modal">×</button>
@@ -333,7 +330,7 @@ data-dont_show_wizard="<%= if @camera.dont_show_wizard then true else false end 
 <!-- explainer modal 2 end-->
 
 <!-- explainer modal 3 start-->
-<div class="modal hide main-modal wizard_modal" id="wizard3" style="background:whitesmoke;position: absolute;top: 410px;left: 600px;overflow:visible;width:400px">
+<div class="modal hide main-modal wizard_modal" id="wizard3" style="background:whitesmoke;position: absolute;top: 260px;left: 450px;overflow:visible;width:400px">
   <div class="blue_arrow_ur" style="right: -150px;top: 40px;"></div>
   <div class="modal-header">
     <button class="close" data-dismiss="modal">×</button>
@@ -355,7 +352,7 @@ data-dont_show_wizard="<%= if @camera.dont_show_wizard then true else false end 
 <!-- explainer modal 3 end-->
 
 <!-- explainer modal 4 start-->
-<div class="modal hide main-modal wizard_modal" id="wizard4" style="background:whitesmoke;position: absolute;top: 500px;left: 800px;overflow:visible;width:400px">
+<div class="modal hide main-modal wizard_modal" id="wizard4" style="background:whitesmoke;position: absolute;top: 350px;left: 650px;overflow:visible;width:400px">
   <div class="blue_arrow_dl" style="left:-170px;"></div>
   <div class="modal-header">
     <button class="close" data-dismiss="modal">×</button>
@@ -363,42 +360,19 @@ data-dont_show_wizard="<%= if @camera.dont_show_wizard then true else false end 
   </div>
 
   <div class="modal-body" style="background:white;">
-    <p>Hier kriegst du einen Überblick über deine geplanten Verabredungen und kannst sie bearbeiten.
-      </p>
-  </div>
-
-  <div class="modal-footer">
-       <button class="continue_button btn btn-primary" data-activate_modal="#wizard5" data-activate_element="#explain5">Weiter</button>
-
-       <button class="continue_button btn" data-activate_modal="#wizard3" data-activate_element="#explain3">Zurück</button>
-       <span style="color:#ccc;">4 / 5</span>
-
-  </div><!-- modal-footer -->
-</div>
-<!-- explainer modal 4 end-->
-
-<!-- explainer modal 5 start-->
-<div class="modal hide main-modal wizard_modal" id="wizard5" style="background:whitesmoke;position: absolute;top: 600px;left: 800px;overflow:visible;width: 400px;">
-  <div class="blue_arrow_dl" style="left:-170px;"></div>
-  <div class="modal-header">
-    <button class="close" data-dismiss="modal">×</button>
-    <h3>Was treiben deine Freunde?</h3>
-  </div>
-
-  <div class="modal-body" style="background:white;">
-    <p>Hier siehst du, wann deine Freunde planen zu arbeiten und kannst dich ihnen anschließen!
+    <p>Hier kriegst du einen Überblick über deine Verabredungen und was deine Freunde geplant haben.
       </p>
   </div>
 
   <div class="modal-footer">
        <button class="continue_button btn btn-primary" data-activate_modal="#wizardx" data-activate_element="#explainx">Weiter</button>
 
-       <button class="continue_button btn" data-activate_modal="#wizard4" data-activate_element="#explain4">Zurück</button>
-       <span style="color:#ccc;">5 / 5</span>
+       <button class="continue_button btn" data-activate_modal="#wizard3" data-activate_element="#explain3">Zurück</button>
+       <span style="color:#ccc;">4 / 4</span>
 
   </div><!-- modal-footer -->
 </div>
-<!-- explainer modal 5 end-->
+<!-- explainer modal 4 end-->
 
 <!-- explainer modal last start-->
 <div class="modal hide main-modal wizard_modal" id="wizardx" style="background:whitesmoke;">
@@ -421,3 +395,10 @@ data-dont_show_wizard="<%= if @camera.dont_show_wizard then true else false end 
 </div>
 <!-- explainer modal last end-->
 
+
+
+
+
+
+
+</div> <!-- main row -->
