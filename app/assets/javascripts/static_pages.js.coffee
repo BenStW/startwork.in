@@ -113,7 +113,7 @@ $(document).ready ->
 
 
    popup_work_session = ->
-     video_url = $("#urls").data("group_hour_url")
+     group_hour_url = $("#urls").data("group_hour_url")
      info_url = $("#urls").data("info_for_group_hour_url")
      screenX = screen.availWidth
    
@@ -131,7 +131,7 @@ $(document).ready ->
      window_width = ((reduced_screenY - to_speak - timer) / 3) - name - video_border
    
      popup_start = screenX - window_width
-     popUp = window.open(video_url,
+     popUp = window.open(group_hour_url,
         'StartWork',
         'width='+window_width+',height='+screenY+',location=no,menubar=no,toolbar=no,scrollbars=yes,resizable=yes,left='+popup_start+',top=0')
      if (!popUp)

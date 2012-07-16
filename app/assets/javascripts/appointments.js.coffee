@@ -31,6 +31,12 @@ $(document).ready ->
      launch_main_modal()     
      edit_work_session($(this))
 
+   $(".send_dialogue_button").click ->
+      name = "StartWork.in - Gemeinsam produktiver. Mit Leuten wie dir."
+      message = "message"
+      link = "http://startwork.in"
+      fb_popup(name, message, link)
+      
 
    write_data_into_modal = (element)->
       appointment_id = element.data("appointment_id")
@@ -102,13 +108,18 @@ $(document).ready ->
         200: (data)->
            console.log data.responseText
            callback(data.responseText)
-   
-   fb_popup = (callback)->
+
+
+
+   fb_popup_with_appointment = (callback)->
       name =  "Einladung zum gemeinsamen Lernen: " + $("#appointment_str").html()     
       message = "message"
       token = $("#appointment").data("token")
       appointment_id = $("#appointment").data("appointment_id")
       link = $("#urls").data("appointments_url")+"/"+appointment_id+"/?token="+token
+      fb_popup(name, message, link)
+
+   fb_popup = (name, message, link) ->
       FB.ui(
          {method: 'send',
          name: name,
@@ -162,7 +173,7 @@ $(document).ready ->
            $("#notice").html(notice_html)
            reload_my_work_sessions()
            show_filled_main_modal("invite_after_create")
-           fb_popup()
+           fb_popup_with_appointment()
            if callback?
               callback()
    
@@ -192,7 +203,7 @@ $(document).ready ->
 
            reload_my_work_sessions()
            show_filled_main_modal("invite_after_create")
-           fb_popup()
+           fb_popup_with_appointment()
            if callback?
               callback()
          
@@ -207,7 +218,7 @@ $(document).ready ->
            $("#notice").html(notice_html)
            reload_my_work_sessions()
            show_filled_main_modal("invite_after_create")
-           fb_popup()
+           fb_popup_with_appointment()
            if callback?
               callback()
    
@@ -296,7 +307,7 @@ $(document).ready ->
       show_appointment_string()
 
    $("#main_modal_invite").click (event) ->
-     fb_popup()
+     fb_popup_with_appointment()
 	
 
    $("#main_modal_delete").click (event) ->
