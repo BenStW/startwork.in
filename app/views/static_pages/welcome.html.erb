@@ -22,91 +22,33 @@
   <img src="/assets/frontpage_biggestpicture2.jpg" style="width:100%;position:relative;display:block;">
 <% end %>
 
+<%= render :partial => "static_pages/urls"%> 
+
+
 <div style="margin:0 auto; width:696px;position:relative;">
-<div class="whitebox" id="welcome_box" style="position:absolute;top: -168px;height:270px;width: 100%;padding: 0;opacity:0.8;"></div>
-<div class="emphasize" id="welcome_content" style="position:absolute;top: -168px;height:270px;padding: 40px;">
-<div id="appointment_carousel" class="carousel slide">
-  <!-- Carousel items -->
-  <div class="carousel-inner" style="margin-top:40px;overflow:visible;width:614px;">
-    <div class="active item" style="vertical-align:middle;width:">
-      <!-- Carousel nav -->
-      <a class="btn btn-danger btn-large" style="position:absolute;top:-60px;right:-20px;" href="#appointment_carousel" data-slide="next">Weiter</a>
-      <center><p style="font-size:26px;line-height:47px;">Geht es dir auch so, dass du das Anfangen mit einer Arbeit ewig lange aufschiebst?</p></center>
-    </div>
-    <div class="item" style="vertical-align:middle;">   <!-- Carousel nav -->
-        <a class="btn btn-danger btn-large" style="position:absolute;top:-60px;right:-20px;" href="#appointment_carousel" data-slide="next">Weiter</a>
-      <center><p style="font-size:26px;line-height:47px;">Auf StartWork verabredest du mit Freunden gemeinsame Arbeitszeiten über Webcam. </p></center>
-    </div>
-    <div class="item" style="vertical-align:middle;">
-      <!-- Carousel nav -->
-      <a class="btn btn-danger btn-large" id="adjust_height" style="position:absolute;top:-60px;right:-20px;" href="#appointment_carousel" data-slide="next">Weiter</a>
-      <center><p style="font-size:26px;line-height:47px;">Es geht dabei um das pünktliche Anfangen mit der Arbeit, nicht um die inhaltliche Zusammenarbeit.</p></center>
-    </div>
-    <div class="item" style="margin-top:-40px;">
-      <div style="position:absolute;top:-60px;right:-20px;">
+	
+   <div class="whitebox" id="welcome_box" style="position:absolute;top: -168px;height:270px;width: 100%;padding: 0;opacity:0.8;"></div>
 
-BUTTONS 
-            
-    </div>
+   <div class="emphasize" id="welcome_content" style="position:absolute;top: -168px;height:270px;padding: 40px;">
+   
+   <div class="item" style="margin-top:-40px;">
+
+
+
   <h2 style="font-weight:300">Verabrede dich jetzt zum Arbeiten auf StartWork</h2>
-  
-    <h3 id="appointment_sender"></h3> 
-    <div id="needed_for_debugging" style="display:none">
-      Appointment_id: <div id="appointment_id"></div>
-      Token: <div id="token"></div> 
-    </div>
-    <div id="main_modal_dates" style="text-align:center;margin-top:15px;">
-
-       <% (0..6).each do |day| %>
-           <div 
-              <% if day==1 %>
-              class="main_modal_day btn btn-primary" 
-              <% else %>
-              class="main_modal_day btn " 
-              <% end %>
-             
-              data-day="<%=(DateTime.current+ day.day).to_date%>"
-              id="main_modal_day<%=day%>">
-        
-              <% if day==0 %>
-                <%= l (DateTime.current+ day.day).to_date, :format =>  '%A' %>
-                 <br>(heute)
-              <% elsif  day==1 %>
-                <%= l (DateTime.current+ day.day).to_date, :format =>  '%A' %>
-                <br>(morgen)
-              <% else %>
-                <%= l (DateTime.current+ day.day).to_date, :format =>  '%A' %><br>&nbsp;
-              <% end %>
-            </div>
-        <% end %>
-        <div style="height:30px"></div>
-        
-        <p>   
-        Beginn: <%= select_hour(9, {:field_name => 'main_modal_start'}, {:style => "width:50px"}) %>
-        &nbsp;&nbsp;
-        Ende: <%= select_hour(12, {:field_name => 'main_modal_end'}, {:style => "width:50px"}) %>
-        </p>
-  </div><!-- end main_modal_dates -->
-
-  <h3 id="appointment_str"></h3>
-  <div div class="alert" style="margin-top:30px;">
-    <p style="font-size:15px;text-align:center;">Dieser Termin ist verbindlich. Logge dich bitte kurz vorher ein und 
-    freu dich schon jetzt auf das produktive Arbeiten mit deinen Freunden und neuen Leuten.</p>
-  </div>
-
-  <div>
-    <a href="#" id="main_modal_delete" style="display:none"class="btn btn-danger" data-dismiss="modal">
-    Abbrechen</a>
-    <a href="#" id="main_modal_save" style="display:none" class="btn btn-primary">
-    Jetzt verabreden</a>         
-  </div><!-- modal-footer -->
+  <%= render :partial => "appointments/appointment_picker" %>
 
 
-    </div>      
-    </div>
-  </div>
+<div align="right">
+     <a href="#" id="main_modal_save" class="btn btn-primary" >
+	Weiter</a>
 </div>
-</div>
-</div>
+
+
+    </div> <!-- end item -->    
+    </div> <!-- end welcome_content -->
+  </div> <!-- end welcome_box -->
+</div> <!-- first div -->
+
 
 <div id="fb-root" data-app="<%=@app%>" style="position: absolute;left: 150px;top: 40px;"></div>

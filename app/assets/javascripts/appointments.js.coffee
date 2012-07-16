@@ -1,6 +1,7 @@
 
 
 $(document).ready ->
+
 	
    if $('.column_same_height').length>0
       heights= $(".column_same_height").map(->
@@ -37,16 +38,16 @@ $(document).ready ->
       token = element.data("token")
       sender = element.data("sender")
       if appointment_id?
-         $("#main_page_modal").data("appointment_id",appointment_id)
+         $("#appointment").data("appointment_id",appointment_id)
          $("#appointment_id").html(appointment_id)
       else
-         $("#main_page_modal").data("appointment_id","")
+         $("#appointment").data("appointment_id","")
          $("#appointment_id").html("")
       if token?         
-         $("#main_page_modal").data("token",token)
+         $("#appointment").data("token",token)
          $("#token").html(token)
       else
-         $("#main_page_modal").data("token","")
+         $("#appointment").data("token","")
          $("#token").html("")
       if sender?         
          $("#appointment_sender").html("von "+sender)
@@ -106,8 +107,8 @@ $(document).ready ->
    fb_popup = (callback)->
       name =  "Einladung zum gemeinsamen Lernen: " + $("#appointment_str").html()     
       message = "message"
-      token = $("#main_page_modal").data("token")
-      appointment_id = $("#main_page_modal").data("appointment_id")
+      token = $("#appointment").data("token")
+      appointment_id = $("#appointment").data("appointment_id")
       link = $("#urls").data("appointments_url")+"/"+appointment_id+"/?token="+token
       console.log link
       FB.ui(
@@ -129,15 +130,15 @@ $(document).ready ->
               callback(response))
           
    reload_my_work_sessions = ->
-     console.log $("#urls").data("my_appointments_url")
-     $.ajax
-       url: $("#urls").data("my_appointments_url")
-       statusCode:
-         200: (my_work_sessions_data) ->
-           $("#my_appointments").html(my_work_sessions_data)
-           $(".edit_appointment").bind('click', ->
-               launch_main_modal()
-               edit_work_session($(this)))
+     if  $("#my_appointments").length>0
+       $.ajax
+         url: $("#urls").data("my_appointments_url")
+         statusCode:
+           200: (my_work_sessions_data) ->
+             $("#my_appointments").html(my_work_sessions_data)
+             $(".edit_appointment").bind('click', ->
+                 launch_main_modal()
+                 edit_work_session($(this)))
 
    save_appointment = (appointment_id, start_time, end_time, callback)->
      data = 
@@ -150,6 +151,10 @@ $(document).ready ->
        data: data,
        type: 'PUT',
        statusCode:
+         422: (response)->
+           txt = "Die Verabredung konnte nicht gespeichert werden.."
+           notice_html = "<div  class='alert alert-error'>"+txt+"</div>"
+           $("#notice").html(notice_html)	
          200: (response)->
            txt = "Die Verabredung wurde gespeichert. Achte bitte darauf, dich pünktlich zur WorkSession anzumelden."
            notice_html = "<div  class='alert alert-success'>"+txt+"</div>"
@@ -170,13 +175,17 @@ $(document).ready ->
        data: data,
        type: 'POST',
        statusCode:
+         422: (response)->
+           txt = "Die Verabredung konnte nicht gespeichert werden.."
+           notice_html = "<div  class='alert alert-error'>"+txt+"</div>"
+           $("#notice").html(notice_html)	
          200: (response)->
            txt = "Die Verabredung wurde erstellt. Achte bitte darauf, dich pünktlich zur WorkSession anzumelden."
            notice_html = "<div  class='alert alert-success'>"+txt+"</div>"
            $("#notice").html(notice_html)
-           $("#main_page_modal").data("token",response.token)
+           $("#appointment").data("token",response.token)
            $("#token").html(response.token)
-           $("#main_page_modal").data("appointment_id",response.id)
+           $("#appointment").data("appointment_id",response.id)
            $("#appointment_id").html(response.id)
 
            reload_my_work_sessions()
@@ -289,7 +298,7 @@ $(document).ready ->
 	
 
    $("#main_modal_delete").click (event) ->
-      appointment_id = $("#main_page_modal").data("appointment_id")
+      appointment_id = $("#appointment").data("appointment_id")
       $.ajax
         url: $("#urls").data("appointments_url")+"/"+appointment_id,
         type: 'DELETE',
@@ -302,12 +311,15 @@ $(document).ready ->
             reload_my_work_sessions()
    
    $("#main_modal_save").click ->
-      appointment_id = $("#main_page_modal").data("appointment_id")
+      appointment_id = $("#appointment").data("appointment_id")
    
       [start_time, end_time] = from_day_and_hours_to_dates(
          $(".main_modal_day.btn-primary").data("day"), 
          $("#date_main_modal_start").val(),
          $("#date_main_modal_end").val())
+      console.log "start_time = "+start_time
+      console.log "end_time = "+end_time
+ 
       if appointment_id
          save_appointment(appointment_id, start_time, end_time, (response)->
             console.log response)
@@ -316,9 +328,17 @@ $(document).ready ->
             console.log response)
 
    $("#main_modal_accept").click ->
-       token = $("#main_page_modal").data("token")
+       token = $("#appointment").data("token")
        accept_appointment(token, (response) ->
             console.log response)
+
+
+
+   # WELCOME page
+   if $("#welcome_box").length>0
+    $("#notice").remove()
+    show_appointment_string()
+   # END OF WELCOME page
    
    
    # ------------- functions for calendar overview------ --------- #
@@ -433,17 +453,7 @@ $(document).ready ->
           false
         eventNew : (calEvent, event, FreeBusyManager, calendar)-> 
            $(calendar).weekCalendar('removeEvent',calEvent.id)
-       # eventNew : (calEvent, event, FreeBusyManager, calendar)-> 
-       #   if calEvent.userId>0
-       #      $(calendar).weekCalendar('removeEvent',calEvent.id)
-       #   else
-       #     start_time = calEvent.start
-       #     end_time = calEvent.end 
-       #     if start_time > end_time
-       #       $(calendar).weekCalendar('removeEvent',calEvent.id)
-       #     else
-       #       show_appointment_modal_and_get_token(start_time,end_time)
-       #
+
         eventMouseover: (event,element,domEvent) ->
           #  if event.userId>0
              $(domEvent.target).attr("rel","popover")
@@ -451,79 +461,4 @@ $(document).ready ->
              $(domEvent.target).attr("data-title",title)
              $(domEvent.target).popover("show"))
      
-      #
-      #  eventClick : (calEvent, event) ->
-      #    if calEvent.userId==0        
-      #      data = 
-      #        event: calEvent.id
-      #      $.ajax
-      #        url: $("#data").data("base_url")+'/remove_event'
-      #        data: data,
-      #        type: 'POST',
-      #     #   beforeSend: (xhr) -> 
-      #     #     xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-      #        statusCode:
-      #          200: ->
-      #            $("#calendar").weekCalendar("refresh"))
-      #
-   
-      			
-                  
-      			
-      			
-                  
-   #  # ------------- functions specific appointment modal --------- #
-   #  
-   #
-   #  
-   #  show_appointment_modal_and_get_token = (start_time, end_time) ->
-   #     get_appointment_token(start_time, end_time, (token)->          
-   #         $("#appointment_modal").data("token", token)
-   #         $("#save_appointment").css("display","inline"))
-   #     fill_appointment_modal_with_dates(new Date(start_time),new Date(end_time))
-   #     $('#appointment_modal').modal("show")
-   #  
-   #  fill_appointment_modal_with_dates = (start_time,end_time) ->
-   #     day = new Date(start_time)
-   #     day.setHours(0,0,0,0)
-   #     $("#appointment_modal").data("day",day)
-   #     $('#date_appointment_modal_start option').removeAttr('selected')
-   #     $("#date_appointment_modal_start option[value='"+leading_zero(start_time.getHours())+"']").attr('selected',true)
-   #     $('#date_appointment_modal_end option').removeAttr('selected')
-   #     $("#date_appointment_modal_end option[value='"+leading_zero(end_time.getHours())+"']").attr('selected',true)
-   #     appointment_str = getAppointmentString()
-   #     $("#appointment_str").html(appointment_str)
-   #  
-   #
-   #  
-   #  $("#date_appointment_modal_start").change ->
-   #     update_appointment_modal_after_change()
-   #  $("#date_appointment_modal_end").change ->
-   #     update_appointment_modal_after_change()
-   #  
-   #  update_appointment_modal_after_change = ->
-   #    appointment_str = getAppointmentString()
-   #    $("#appointment_str").html(appointment_str)
-   #  
-   #  $("#save_appointment").click ->
-   #     token = $("#appointment_modal").data("token")
-   #  
-   #     [start_time, end_time] = from_day_and_hours_to_dates(
-   #       $("#appointment_modal").data("day"), 
-   #       $("#date_appointment_modal_start").val(),
-   #       $("#date_appointment_modal_end").val())
-   #  
-   #     save_appointment(token, start_time, end_time)
-   #  
-   #     name =  "Einladung zum gemeinsamen Lernen: " + $("#appointment_str").html()     
-   #     message = "message"
-   #     link = $("#urls").data("appointment_url")+"?token="+token
-   #     fb_popup(name, message, link)
-   #  
-   
-      			
-                  
-      			
-      			
-                  
-     
+      

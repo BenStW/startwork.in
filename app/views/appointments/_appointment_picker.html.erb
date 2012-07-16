@@ -1,0 +1,50 @@
+<div id="appointment">
+	
+<h3 id="appointment_sender"></h3>	
+
+<div id="needed_for_debugging" style="display:none">
+	Appointment_id: <div id="appointment_id"></div>
+	Token: <div id="token"></div>	
+</div>
+
+
+<div id="main_modal_dates">
+     <% (0..6).each do |day| %>
+         <div 
+            <% if day==1 %>
+            class="main_modal_day btn btn-primary" 
+            <% else %>
+            class="main_modal_day btn " 
+            <% end %>
+           
+            data-day="<%=(DateTime.current+ day.day).to_date%>"
+            id="main_modal_day<%=day%>">
+      
+            <% if day==0 %>
+              <%= l (DateTime.current+ day.day).to_date, :format =>  '%A' %>
+               <br>(heute)
+            <% elsif  day==1 %>
+              <%= l (DateTime.current+ day.day).to_date, :format =>  '%A' %>
+              <br>(morgen)
+            <% else %>
+              <%= l (DateTime.current+ day.day).to_date, :format =>  '%A' %><br>&nbsp;
+            <% end %>
+          </div>
+      <% end %>
+      <div style="height:30px"></div>
+      
+      <p>		
+      Beginn:	<%= select_hour(9, {:field_name => 'main_modal_start'}, {:style => "width:50px"}) %>
+      &nbsp;&nbsp;
+      Ende:	<%= select_hour(12, {:field_name => 'main_modal_end'}, {:style => "width:50px"}) %>
+      </p>
+</div><!-- end main_modal_dates -->
+
+      <h3 id="appointment_str"></h3>
+      <div id="fb_space" style="height:283px;display:none;"></div>
+      <div div class="alert" style="margin-top:30px;">
+      <p style="font-size:15px;">Dieser Termin ist verbindlich. Logge dich bitte kurz vorher ein und 
+      freu dich schon jetzt auf das produktive Arbeiten mit deinen Freunden und neuen Leuten.</p>
+      </div>
+
+</div>

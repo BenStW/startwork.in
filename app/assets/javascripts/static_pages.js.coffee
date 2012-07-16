@@ -1,7 +1,7 @@
 
 
 $(document).ready ->
-   #$("[id^=explain]").addClass("active_element")
+	
 
 
    addDot = ->
@@ -13,21 +13,13 @@ $(document).ready ->
      for sec in [1..20]
        setTimeout(addDot,sec*1000)
 
-	  # <form accept-charset="UTF-8" action="/kamera.20" class="edit_camera" id="edit_camera_20" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="put"><input name="authenticity_token" type="hidden" value="cGXwM2F5HR3B0MZDZ52+bhen0IfuOUdSNTtd7xgtPu8="></div>
-	  #     <input class="btn btn-danger btn-large" data-camera-success="null" id="join_work_session_after_info" name="commit" type="submit" value="Jetzt Starten!">
-	  #
-	  #          <a href="#" class="btn btn-large" data-dismiss="modal">Abbrechen</a>
-	  #             <label class="checkbox" style="width: 200px;float: right;margin-right: 20px;margin-top: 10px;">
-	  # 			    <input name="camera[dont_show_info]" type="hidden" value="0"><input id="camera_dont_show_info" name="camera[dont_show_info]" type="checkbox" value="1"> Diese Seite nicht mehr anzeigen
-	  #             </label>
-	  # </form>
+
 	
    $(".dont_show_tour").click ->
       console.log "dont_show_tour"
       data =
         camera :
           dont_show_wizard : 1
-      console.log data
       $.ajax
         url: $("#urls").data("camera_url"),
         data: data,
@@ -103,12 +95,14 @@ $(document).ready ->
       $(".column_same_height").height("")
       adjust_height())
 
-   $('#adjust_height').click ->
+ #  $('#adjust_height').click ->
+   if $('#welcome_box').length>0
       myheight = 0
       $('#welcome_box').removeAttr('height')
-      myheight = $('#welcome_content').height
-      $('#welcome_content').height(myheight)
-      console.log(myheight)
+      $('#welcome_box').css('height',"")
+      myheight = $('#welcome_content').outerHeight()
+      $('#welcome_box').height(myheight)
+
 
    popup_work_session = ->
      video_url = $("#urls").data("group_hour_url")
@@ -174,7 +168,3 @@ $(document).ready ->
      fb_height = 283
      $("#fb-root").css("top",(y + 10 + (fb_height - screenY) / 2))
      $("#fb-root").css("left",(x + 20 + (fb_width - screenX) / 2) - window.pageXOffset)
-     console.log(screenX)
-     console.log(screenY)
-     console.log(window.pageYOffset)
-     console.log(window.pageXOffset)
