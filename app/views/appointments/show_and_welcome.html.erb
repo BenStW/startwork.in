@@ -37,7 +37,7 @@
       <div id="show_and_welcome_carousel" class="carousel slide">
         <!-- Carousel items -->
         <div class="carousel-inner" style="margin-top:10px;overflow:visible;width:614px;">
-          <div class="item" style="vertical-align:middle;width:">
+          <div class="item active" style="vertical-align:middle;width:">
             <p>Die Verabredung wurde akzeptiert und <%=@appointment.user.first_name %> ist informiert!</p>
             <div class="well emphasize">
               <h2 style="margin-bottom:20px;">Deine Verabredung mit <%=@appointment.user.name %></h2>
@@ -57,11 +57,11 @@
               </div>
             </div>
             <div style="position:absolute;top:-25px;right:0;">
-              <button href="#show_and_welcome_carousel" data-slide="next" class="btn btn-primary btn-large fb_reset_40_145" >Weiter</button>
+              <button href="#show_and_welcome_carousel" id="show_and_welcome_save_continue" data-slide="next" class="btn btn-primary btn-large fb_reset_40_145" >Weiter</button>
             </div>
           </div>
 
-          <div class="active item" style="vertical-align:middle;width:">
+          <div class="item" style="vertical-align:middle;width:">
             <div style="position:absolute;top:-25px;right:0;">
               <%= link_to "Zum Dashboard", root_path, :class => "btn btn-primary btn-large"%>
             </div>
@@ -86,6 +86,17 @@
 
             <p><h2>Mehr Freunde - mehr Spass!</h2></p>
             <p>Warum holst du nicht noch ein paar Freunde zu deiner Verabredung dazu? Zusammen fällt es noch leichter zu arbeiten!</p><br>
+
+<!-- SEND APPOINTMENT BY FACEBOOK -->
+			<div id="appointment"
+			data-appointment_id="<%=@appointment.id%>"
+			data-token="<%=@appointment.token%>"
+			data-start_time="<%=@appointment.start_time%>"
+			data-end_time="<%=@appointment.end_time%>">
+			
+	
+          <h3 id="appointment_str" style="display:none"></h3>			
+<!-- SEND APPOINTMENT BY FACEBOOK -->
 
           <% end %>
 

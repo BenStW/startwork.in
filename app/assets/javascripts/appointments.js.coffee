@@ -1,6 +1,8 @@
 
 
 $(document).ready ->
+
+
 	
    if $('.column_same_height').length>0
       heights= $(".column_same_height").map(->
@@ -351,10 +353,23 @@ $(document).ready ->
 
 
    # WELCOME page
-   if $("#welcome_box").length>0
+   if $("#welcome_box").length>0 and $("#show_and_welcome_carousel").length==0
     $("#notice").remove()
     show_appointment_string()
    # END OF WELCOME page
+
+
+   if("#show_and_welcome_carousel").length>0
+      start_time = new Date($("#appointment").data("start_time"))
+      end_time = new Date($("#appointment").data("end_time"))
+      day = new Date(start_time)  
+      start_hour = start_time.getHours()
+      end_hour = end_time.getHours()      
+      appointment_str = to_appointment_string(day, start_hour, end_hour)
+      $("#appointment_str").html(appointment_str)
+
+    $("#show_and_welcome_save_continue").click ->
+       fb_popup_with_appointment()
    
    
    # ------------- functions for calendar overview------ --------- #

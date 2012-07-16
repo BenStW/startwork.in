@@ -41,8 +41,10 @@ $(document).ready ->
    $("#video_modal_button").click ->
        $('#video_modal').modal("show")
 
-   if $(".carousel").length>0 and 
-   $("#appointment_carousel").carousel
+   if $(".carousel").length>0  
+     $("#appointment_carousel").carousel
+       interval: false
+   $("#show_and_welcome_carousel").carousel
        interval: false
 
    if $("#wizard0").data("dont_show_wizard")
