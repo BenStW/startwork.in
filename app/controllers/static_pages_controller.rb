@@ -73,6 +73,9 @@ class StaticPagesController < ApplicationController
    #   else
         @name = current_user.first_name
         @friends = current_user.friends
+        @app = if Rails.env.production? then "330646523672055" else "232041530243765" end #PRODUCTION
+      #  @app = if Rails.env.production? then "331305516942290" else "232041530243765" end #RELEASE CANDIDATE
+        
  #     end
  #  end    
   end

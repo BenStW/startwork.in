@@ -2,17 +2,18 @@
 
 $(document).ready ->
 	
-
-
-   addDot = ->
-      $("#login_button").append(".")
-	
-   $("#login_button").click (event )->
-     $("#login_button").html("verbinde")
-    # event.preventDefault()
-     for sec in [1..20]
-       setTimeout(addDot,sec*1000)
-
+#   showConnecting = (element)->
+#      $(element).html("verbinde")
+#
+#   addDot = (element)->
+#      $(element).append(".")
+#
+#   $("#login_button").click (event )->
+#     event.preventDefault()
+#     for sec in [1..99]
+#      var x = Jahr % 4;
+#       setTimeout(addDot,sec*1000)
+#
 
 	
    $(".dont_show_tour").click ->

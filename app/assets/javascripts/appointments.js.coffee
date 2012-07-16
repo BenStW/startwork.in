@@ -1,7 +1,6 @@
 
 
 $(document).ready ->
-
 	
    if $('.column_same_height').length>0
       heights= $(".column_same_height").map(->
@@ -110,14 +109,15 @@ $(document).ready ->
       token = $("#appointment").data("token")
       appointment_id = $("#appointment").data("appointment_id")
       link = $("#urls").data("appointments_url")+"/"+appointment_id+"/?token="+token
-      console.log link
       FB.ui(
          {method: 'send',
          name: name,
          message: message,
          link: link},
          (response) ->
-            $('#main_page_modal').modal('hide')	
+            $('#main_page_modal').modal('hide')
+            if $("#welcome_box").length>0
+                window.location = $("#urls").data("root_url")
             console.log "facebook popup response:"
             if response?
               console.log "The User has sent the appointment to FB friends"
@@ -150,6 +150,7 @@ $(document).ready ->
        url: $("#urls").data("appointments_url")+"/"+appointment_id,
        data: data,
        type: 'PUT',
+       async: false, # the call must be synchronous so it is still part of the  user event and the popup won't be blocked
        statusCode:
          422: (response)->
            txt = "Die Verabredung konnte nicht gespeichert werden.."
@@ -174,6 +175,7 @@ $(document).ready ->
        url: $("#urls").data("appointments_url"),
        data: data,
        type: 'POST',
+       async: false, # the call must be synchronous so it is still part of the  user event and the popup won't be blocked
        statusCode:
          422: (response)->
            txt = "Die Verabredung konnte nicht gespeichert werden.."
@@ -319,7 +321,6 @@ $(document).ready ->
          $("#date_main_modal_end").val())
       console.log "start_time = "+start_time
       console.log "end_time = "+end_time
- 
       if appointment_id
          save_appointment(appointment_id, start_time, end_time, (response)->
             console.log response)
