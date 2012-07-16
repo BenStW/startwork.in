@@ -43,8 +43,8 @@
 
 
   <!-- Eigene Sessions -->
-
- <div id="explain4">
+<div id="explain4">
+ <div>
   <div id="my_appointments" style="text-align: left;">
 
       <% my_or_friends = "my"%>
@@ -66,7 +66,7 @@
 
   <!-- Sessions von Freunden -->
 
-<div id="explain5">
+<div>
   <div id="friends_appointments" style="text-align: left;">
       <% my_or_friends = "friends"%>
       <%= render :partial => "appointments/appointments", 
@@ -74,7 +74,7 @@
   </div>
 </div>
   <!-- Ende von Sessions von Freunden --> 
-
+</div>
 
   <div style="margin-top:20px;">
     <hr>
@@ -293,7 +293,7 @@ data-dont_show_wizard="<%= if @camera.dont_show_wizard then true else false end 
   <div class="modal-footer">
        <button class="continue_button btn btn-primary" data-activate_modal="#wizard2" data-activate_element="#explain2">Weiter</button>
        <button class="continue_button btn" data-activate_modal="#wizard0" data-activate_element="#explain0">Zurück</button>
-       <span style="color:#ccc;">1 / 5</span>
+       <span style="color:#ccc;">1 / 4</span>
   </div><!-- modal-footer -->
 </div>
 <!-- explainer modal 1 end-->
@@ -314,7 +314,7 @@ data-dont_show_wizard="<%= if @camera.dont_show_wizard then true else false end 
   <div class="modal-footer">
        <button class="continue_button btn btn-primary" data-activate_modal="#wizard3" data-activate_element="#explain3">Weiter</button>
        <button class="continue_button btn" data-activate_modal="#wizard1" data-activate_element="#explain1">Zurück</button>
-       <span style="color:#ccc;idth: 400px;">2 / 5</span>
+       <span style="color:#ccc;idth: 400px;">2 / 4</span>
 
   </div><!-- modal-footer -->
 </div>
@@ -336,7 +336,7 @@ data-dont_show_wizard="<%= if @camera.dont_show_wizard then true else false end 
   <div class="modal-footer">
        <button class="continue_button btn btn-primary" data-activate_modal="#wizard4" data-activate_element="#explain4">Weiter</button>
        <button class="continue_button btn" data-activate_modal="#wizard2" data-activate_element="#explain2">Zurück</button>
-       <span style="color:#ccc;">3 / 5</span>
+       <span style="color:#ccc;">3 / 4</span>
 
   </div><!-- modal-footer -->
 </div>
@@ -385,11 +385,6 @@ data-dont_show_wizard="<%= if @camera.dont_show_wizard then true else false end 
   </div><!-- modal-footer -->
 </div>
 <!-- explainer modal last end-->
-
-
-
-
-
 
 
 </div> <!-- main row -->
