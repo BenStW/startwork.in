@@ -41,7 +41,7 @@ $(document).ready ->
    $("#video_modal_button").click ->
        $('#video_modal').modal("show")
 
-
+   if $(".carousel").length>0 and 
    $("#appointment_carousel").carousel
        interval: false
 

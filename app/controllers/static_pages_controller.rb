@@ -24,7 +24,8 @@ class StaticPagesController < ApplicationController
       @my_appointments = current_user.appointments.this_week
       @my_received_appointments = current_user.received_appointments.this_week.without_accepted(current_user)
       @friends_appointments = Appointment.this_week.friends_of(current_user)
-      @active_users = current_user.friends
+
+      @active_users = User.current_users
 
       @friends = current_user.friends
       next_user_hour = current_user.user_hours.next
@@ -62,22 +63,22 @@ class StaticPagesController < ApplicationController
 
   # called by *omniauth_callbacks_controller.rb*
   def welcome
-   # if current_user.registered
-   #   redirect_to root_url
-   # else
-   #   current_user.registered=true
-   #   current_user.save    
-   #   if token = session[:appointment_token]
-   #     session[:appointment_token] = nil
-   #     redirect_to accept_and_redirect_to_appointment_with_welcome_url(:token=>token)
-   #   else
+   if current_user.registered
+     redirect_to root_url
+   else
+     current_user.registered=true
+     current_user.save    
+     if token = session[:appointment_token]
+       session[:appointment_token] = nil
+       redirect_to accept_and_redirect_to_appointment_with_welcome_url(:token=>token)
+     else
         @name = current_user.first_name
         @friends = current_user.friends
         @app = if Rails.env.production? then "330646523672055" else "232041530243765" end #PRODUCTION
       #  @app = if Rails.env.production? then "331305516942290" else "232041530243765" end #RELEASE CANDIDATE
         
-  #    end
-  # end    
+      end
+   end    
   end
   
  

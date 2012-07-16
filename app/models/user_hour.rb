@@ -44,6 +44,8 @@ class UserHour < ActiveRecord::Base
     end
   end
   
+
+  
   def self.next
     where("start_time >= (?)", DateTime.current-55.minutes).
     order("start_time").limit(1)[0]   

@@ -75,15 +75,14 @@ class User < ActiveRecord::Base
      self.friends.map(&:id).include?(user.id)
   end
   
-  def create_user_hour_now
-   # c = DateTime.current
-   # this_hour = DateTime.new(c.year,c.month,c.day, c.hour)
-   # user_hour = self.user_hours.build(start_time: this_hour)
-   # user_hour.find_or_build_work_session
-   # user_hour.save
-   # user_hour.group_hour.reload    #needed, as when an existing group_hour is found, it has not loaded the room 
-   # user_hour  
-  end  
+  def self.current_users
+    c = DateTime.current
+    this_hour = DateTime.new(c.year,c.month,c.day, c.hour)
+    User.find_by_sql(
+      ["SELECT users.* FROM
+      users LEFT JOIN user_hours on user_hours.user_id=users.id
+      WHERE user_hours.start_time=? and user_hours.login_count>0",this_hour])    
+  end
 
 
 
@@ -122,21 +121,12 @@ class User < ActiveRecord::Base
       if friend = User.find_by_fb_ui(fb_friend.identifier)
         if !self.is_friend?(friend)
           Friendship.create_reciproke_friendship(self, friend)
-          #optimize work session with this user
         end
       end
     end
-  #  WorkSession.optimize_single_work_sessions(self)
   end
   
- # def accept_appointment(aapointment)
- #   if !self.received_appointments.include?(received_appointment)
- #     raise "can't accept appointment when it is not stored as received"
- #   end
- #   appointment = self.appointments.create(
- #      :start_time=>received_appointment.start_time, :end_time=>received_appointment.end_time)
- # end  
- #
+
    
 
 end

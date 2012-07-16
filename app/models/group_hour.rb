@@ -34,8 +34,8 @@ class GroupHour < ActiveRecord::Base
        ["SELECT distinct group_hour_id as id, start_time,logged_in_count FROM
        (SELECT group_hour_id,start_time, count(id) AS logged_in_count FROM user_hours 
        WHERE login_count>0 and start_time=? GROUP BY group_hour_id,start_time ) AS logged_in_count",this_hour])
-   end    
-
+   end  
+   
    
    def users_cant_be_more_then_five
      if users.count>5

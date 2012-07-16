@@ -28,7 +28,6 @@ require 'spec_helper'
 describe User do
   
   before(:each) do 
-  #  Room.any_instance.stub(:populate_tokbox_session).and_return("tokbox_session_id")    
     @user = FactoryGirl.create(:user)  
   end
   
@@ -42,12 +41,7 @@ describe User do
     it "should not be valid when first name is blank" do
       @user.first_name = " "
       @user.should_not be_valid
-    end
-
-  #  it "should not be valid when last name is blank" do
-  #    @user.last_name = " "
-  #    @user.should_not be_valid
-  #  end   
+    end 
     
     it "should not be valid when first name is too long" do
       @user.first_name = "a" * 51 
@@ -99,22 +93,13 @@ describe User do
       @user.fb_ui = nil
       @user.should_not be_valid
     end
- #  
- #  it "should not be valid without a room" do
- #    @user.room = nil
- #    @user.should_not be_valid
- #  end
- #  
+
     it "should concatenate first and last name by method name" do
        name = "#{@user.first_name} #{@user.last_name}"
        @user.name.should eq(name)
     end
     
-    
-    it "should create a room after creation of the user" do
-      new_user = User.create!(:first_name => "Ben", :email=>"ben@startwork.in", :fb_ui => "4711", :password=>"password")
-      new_user.room.should_not be_nil
-    end
+
   end
   
   context "is_friend?" do
@@ -131,21 +116,42 @@ describe User do
     end
   end    
   
-    context "it creates a calendar event now" do
+   context "class method current_users" do
+     before(:each) do 
+       @user_a = FactoryGirl.create(:user)
+       @user_b = FactoryGirl.create(:user)
+       @user_c = FactoryGirl.create(:user)
+       FactoryGirl.create(:appointment, :user=>@user_a)
+       FactoryGirl.create(:appointment, :user=>@user_b)
+       FactoryGirl.create(:appointment, :user=>@user_c)
+     end    
+     
+     it "should show no current_users, when nobody has logged in" do
+       current_users = User.current_users
+       current_users.should be_blank
+     end
+     
+     it "should show 2 current_users, when 2 users have logged in" do
+       DateTime.stub(:current).and_return(@user_a.appointments.first.start_time+5.minutes )
+       @user_a.user_hours.first.store_login
+       @user_b.user_hours.first.store_login
+       current_users = User.current_users
+       current_users.count.should eq(2)
+       current_users.include?(@user_a).should eq(true)
+       current_users.include?(@user_b).should eq(true)
+     end    
+     
+     it "should not show current_users, when the following hours has started and nobody logged in" do
+       DateTime.stub(:current).and_return(@user_a.appointments.first.start_time+5.minutes )
+       @user_a.user_hours.first.store_login
+       @user_b.user_hours.first.store_login
+       DateTime.stub(:current).and_return(@user_a.appointments.first.start_time+65.minutes )       
+       current_users = User.current_users
+       current_users.should be_blank      
+       end     
+   end
+   
 
-       before(:each) do 
-         @user = FactoryGirl.create(:user)
-       end    
-
-       it "creates a calendar event for the current hour" do
-         current = DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,10)+1.day+10.minutes
-         this_hour = current-10.minutes
-         DateTime.stub(:current).and_return(current)
-         calendar_event = @user.create_calendar_event_now
-         calendar_event.start_time.should eq (this_hour)
-       end
-    end  
-  
   context "it finds an user for facebook authentication" do
     before(:each) do
        @access_token = mock("access_token",
@@ -169,7 +175,6 @@ describe User do
        user.last_name.should eq("Sarrazin")
        user.email.should eq("robert@startwork.in")
        user.fb_ui.should eq("4711")
-       user.room.should_not eq(nil)
      end
      
      it "should find an existing user" do
@@ -198,11 +203,6 @@ describe User do
        user = User.find_for_facebook_oauth(@access_token)
      end
      
-     it "should populate the tokbox_session_id in its room" do
-       TokboxApi.stub_chain(:instance, :generate_session).and_return("tokbox_session_id")  
-       user = User.find_for_facebook_oauth(@access_token)
-       user.room.tokbox_session_id.should eq("tokbox_session_id")        
-     end
   end
   
    context "updates FB friends" do
@@ -216,7 +216,6 @@ describe User do
        FbGraph::User.stub_chain(:new, :fetch, :friends).and_return([@fb_robert,@fb_miro])   
 #       User.any_instance.stub(:create_fb_friend)
        Friendship.stub(:create_reciproke_friendship)
-       WorkSession.stub(:optimize_single_work_sessions)
       end
       
       it "should fetch the facebook user with the token" do
@@ -234,27 +233,6 @@ describe User do
    end
    
 
-  context "it accepts an appointment" do
-     before(:each) do 
-       @user = FactoryGirl.create(:user)
-       @appointment = FactoryGirl.create(:appointment)
-       @received_appointment = FactoryGirl.create(:received_appointment, :user=>@user, :appointment=>@appointment)
-     end    
-
-     it "stores the received appointment" do 
-       @user.received_appointments.count.should eq(1)
-       @user.received_appointments.first.should eq(@received_appointment)       
-     end 
-     
-     it "should have the original appointment accesible" do
-       @user.received_appointments.first.appointment eq(@appointment)     
-     end
-     
-     it "should store the accepted appointement" do
-       @user.accept_appointment(@received_appointment)
-     end
-   
-   #  
    
 
 end
