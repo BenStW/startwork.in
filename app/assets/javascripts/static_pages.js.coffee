@@ -1,19 +1,24 @@
 
 
 $(document).ready ->
-	
-#   showConnecting = (element)->
-#      $(element).html("verbinde")
-#
-#   addDot = (element)->
-#      $(element).append(".")
-#
-#   $("#login_button").click (event )->
-#     event.preventDefault()
-#     for sec in [1..99]
-#      var x = Jahr % 4;
-#       setTimeout(addDot,sec*1000)
-#
+
+   # LOGIN BUTTON	
+   showConnecting = ()->
+      $("#login_button").html("verbinde")
+
+   dot_sec=1
+   addDot = ()->
+      $("#login_button").append(".")
+      modulo = dot_sec % 4
+      if modulo==0
+        showConnecting()
+      dot_sec = dot_sec + 1
+
+   $("#login_button").click (event )->
+     showConnecting()
+     setInterval(addDot,1000)
+   # END OF LOGIN BUTTON	
+
 
 	
    $(".dont_show_tour").click ->
@@ -28,6 +33,8 @@ $(document).ready ->
         statusCode:
           200: (response)->
             console.log "Das Ausblenden des Wizards wurde gespeichert"
+
+
       
    # The Javascript for the 3 columns and the modal was moved to calendar.js.coffee
 
@@ -96,8 +103,8 @@ $(document).ready ->
       $(".column_same_height").height("")
       adjust_height())
 
- #  $('#adjust_height').click ->
-   if $('#welcome_box').length>0
+   $('#adjust_height').click ->
+      $("#appointment_on_welcomepage").css("display","inline")
       myheight = 0
       $('#welcome_box').removeAttr('height')
       $('#welcome_box').css('height',"")

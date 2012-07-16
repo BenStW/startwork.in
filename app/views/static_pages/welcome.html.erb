@@ -25,6 +25,39 @@
 <%= render :partial => "static_pages/urls"%> 
 
 
+
+
+<!-- CAROUSEL -->
+<div id="appointment_carousel" class="carousel slide">
+  <!-- Carousel items -->
+  <div class="carousel-inner" style="margin-top:40px;overflow:visible;width:614px;">
+    <div class="active item" style="vertical-align:middle;width:">
+      <!-- Carousel nav -->
+      <a class="btn btn-danger btn-large" style="position:absolute;top:-60px;right:-20px;" href="#appointment_carousel" data-slide="next">Weiter</a>
+      <center><p style="font-size:26px;line-height:47px;">Geht es dir auch so, dass du das Anfangen mit einer Arbeit ewig lange aufschiebst?</p></center>
+    </div>
+    <div class="item" style="vertical-align:middle;">   <!-- Carousel nav -->
+        <a class="btn btn-danger btn-large" style="position:absolute;top:-60px;right:-20px;" href="#appointment_carousel" data-slide="next">Weiter</a>
+      <center><p style="font-size:26px;line-height:47px;">Auf StartWork verabredest du mit Freunden gemeinsame Arbeitszeiten über Webcam. </p></center>
+    </div>
+    <div class="item" style="vertical-align:middle;">
+      <!-- Carousel nav -->
+      <a class="btn btn-danger btn-large" id="adjust_height" style="position:absolute;top:-60px;right:-20px;" href="#appointment_carousel" data-slide="next">Weiter</a>
+      <center><p style="font-size:26px;line-height:47px;">Es geht dabei um das pünktliche Anfangen mit der Arbeit, nicht um die inhaltliche Zusammenarbeit.</p></center>
+    </div>
+
+<!-- END OF CAROUSEL -->
+
+
+
+
+
+
+
+
+
+
+
 <div style="margin:0 auto; width:696px;position:relative;">
 	
    <div class="whitebox" id="welcome_box" style="position:absolute;top: -168px;height:270px;width: 100%;padding: 0;opacity:0.8;"></div>
@@ -35,21 +68,25 @@
 
 
 
+<div id="appointment_on_welcomepage" style="display:none">
   <h2 style="font-weight:300">Verabrede dich jetzt zum Arbeiten auf StartWork</h2>
   <%= render :partial => "appointments/appointment_picker" %>
-
 
 <div align="right">
      <a href="#" id="main_modal_save" class="btn btn-primary" >
 	Weiter</a>
 </div>
+</div> <!-- end appointment_on_welcomepage -->
 
-
+</div>
+</div>
 
     </div> <!-- end item -->    
     </div> <!-- end welcome_content -->
   </div> <!-- end welcome_box -->
 </div> <!-- first div -->
+</div> <!-- appointment_on_welcomepage -->
+
 
 
 <div id="fb-root" data-app="<%=@app%>" style="position: absolute;left: 150px;top: 40px;"></div>
