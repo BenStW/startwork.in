@@ -64,6 +64,23 @@ $(document).ready ->
         $('.modal-backdrop').css("opacity",0.4)
        # $(modal_id).addClass("active_modal")
 
+   add_time_and_break_on_info = ->
+       time = new Date()
+       absolute_minutes = time.getMinutes()
+       if absolute_minutes>=5 and absolute_minutes<55
+         break_work = "Arbeitssitzung"
+       else
+         break_work = "Pause"
+       if absolute_minutes<5
+         m = 5-absolute_minutes
+       else if absolute_minutes<55
+         m = 55-absolute_minutes
+       else
+         m = 65 - absolute_minutes
+       html =  "noch " + m + " Min"
+       $("#info_time").html(html)       
+       $("#info_break_or_worksession").html(break_work)
+
    $("#start_work_button").click -> 
         if $(this).data("dont_show_info")
            if $(this).data("camera-success")
@@ -72,6 +89,7 @@ $(document).ready ->
            else
               window.location = $("#urls").data("camera_url")
         else
+            add_time_and_break_on_info()
             $('#start_work').modal("show")
             $('.modal-backdrop').height(0)
             max = get_max()

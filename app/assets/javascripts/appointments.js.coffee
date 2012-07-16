@@ -117,6 +117,7 @@ $(document).ready ->
       token = $("#appointment").data("token")
       appointment_id = $("#appointment").data("appointment_id")
       link = $("#urls").data("appointments_url")+"/"+appointment_id+"/?token="+token
+      console.log link
       fb_popup(name, message, link)
 
    fb_popup = (name, message, link) ->

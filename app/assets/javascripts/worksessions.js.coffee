@@ -8,7 +8,7 @@
 # document needs to be loaded, as parameters are passed from DOM to JS
 $(document).ready -> 
 
-   if $("#video_window").length > 0
+   if $("#video_window").length > 0 
     #  OT_LayoutContainer.init("#video_container", 100, 300)
 
       padding = 12	   
