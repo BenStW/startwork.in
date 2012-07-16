@@ -10,14 +10,14 @@ $(document).ready ->
 	
   
   # only run code when videobox is present
-  if $('#camera_settings1').length > 0 
+  if $('#camera_settings').length > 0 
 	
     publisher = null
     TB.setLogLevel(TB.DEBUG) 
     session_id  = $("#camera_settings").data("session_id")
     tok_token = $("#camera_settings").data("tok_token")
     api_key = $("#camera_settings").data("api_key")
-    session = TB.initSession session_id   
+    session = TB.initSession session_id
 
     windowProps = 
       width: 220
@@ -31,11 +31,4 @@ $(document).ready ->
     
     session.addEventListener 'sessionConnected', sessionConnectedHandler
     session.connect api_key, tok_token
-
-
-
- 
-
-
-
 

@@ -192,6 +192,9 @@ $(document).ready ->
    $(".fb_reset_0_0").click ->
        fb_reset(0,0)
 
+   $(".fb_reset_0_-100").click ->
+       fb_reset(0,0)
+
    $(".fb_reset_40_145").click ->
        fb_reset(40,145)
 
