@@ -197,6 +197,6 @@ $(document).ready ->
      screenX = window.innerWidth
      screenY = window.innerHeight
      fb_width = 595
-     fb_height = 288
+     fb_height = 347   # 288
      $("#fb-root").css("top",(y + 25 + (fb_height - screenY) / 2))
      $("#fb-root").css("left",(x + (fb_width - screenX) / 2) - window.pageXOffset)
