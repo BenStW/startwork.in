@@ -46,24 +46,9 @@ class AppointmentsController < ApplicationController
    end
 
    def create
-     puts "**************"
-     puts params[:appointment].to_yaml
-
-     start_time = params[:appointment][:start_time]
-     puts "********start_time = #{start_time}"
-     end_time = params[:appointment][:end_time]
-#     puts "********end_time = #{end_time}"
-
-     appointment = current_user.appointments.create(params[:appointment])     
-    puts "**********xxxxxxxxxxxx****"
-     puts "1appointment.start_time = #{appointment.start_time}"
-     appointment.start_time = start_time
-     appointment.save
-     puts "2appointment.start_time = #{appointment.start_time}"
-     appointment.start_time = DateTime.parse(start_time)
-     appointment.end_time = DateTime.parse(end_time)
-     appointment.save
-     puts "3appointment.start_time = #{appointment.start_time}" 
+     start_time = DateTime.parse(params[:appointment][:start_time])
+     end_time = DateTime.parse(params[:appointment][:end_time])
+     appointment = current_user.appointments.create(:user=>current_user, :start_time=>start_time, :end_time=>end_time)     
      if appointment.valid?
         render :json => appointment.to_json(:only => [ :id, :token, :start_time, :end_time ])
       else
@@ -77,7 +62,9 @@ class AppointmentsController < ApplicationController
 
    def update
       @appointment = current_user.appointments.find(params[:id])
-      @appointment.update_attributes(params[:appointment])
+      @appointment.start_time = DateTime.parse(params[:appointment][:start_time])
+      @appointment.end_time = DateTime.parse(params[:appointment][:end_time])
+      @appointment.save
       if @appointment.valid?
          render :json => "ok"   
       else
@@ -154,8 +141,8 @@ class AppointmentsController < ApplicationController
    
 
    def get_token
-      start_time = params["start_time"]
-      end_time = params["end_time"]
+      start_time = DateTime.parse(params["start_time"])
+      end_time = DateTime.parse(params["end_time"])
       appointment = current_user.appointments.create(:start_time=>start_time, :end_time=>end_time)
       render :json => appointment.token
     end
