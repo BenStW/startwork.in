@@ -36,7 +36,7 @@ class Appointment < ActiveRecord::Base
   attr_accessor :accepted_appointment
 
   # Specifies a white list of model attributes that can be set via mass-assignment.
-  attr_accessible :start_time, :end_time, :user_id
+ # attr_accessible :start_time, :end_time, :user_id
   
   
   

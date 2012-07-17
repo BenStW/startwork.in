@@ -47,6 +47,11 @@ class AppointmentsController < ApplicationController
 
    def create
      appointment = current_user.appointments.create(params[:appointment])
+     logger.info "**************"
+     logger.info params[:appointment].to_yaml
+     logger.info "**************"
+     logger.info appointment.to_yaml
+     logger.info "**************"     
      if appointment.valid?
         render :json => appointment.to_json(:only => [ :id, :token, :start_time, :end_time ])
       else
