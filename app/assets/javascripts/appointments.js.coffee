@@ -38,6 +38,10 @@ $(document).ready ->
       message = "message"
       link = "http://startwork.in"
       fb_popup(name, message, link)
+
+   $(".join_appointment").click ->
+      launch_main_modal()     
+      join_work_session($(this))
       
 
    write_data_into_modal = (element)->
@@ -76,6 +80,10 @@ $(document).ready ->
    accept_work_session = (element)->
       fill_main_modal(element)
       show_filled_main_modal("accept")
+
+   join_work_session = (element)->
+      fill_main_modal(element)
+      show_filled_main_modal("join")
     
        
    leading_zero = (hour) ->
@@ -156,6 +164,26 @@ $(document).ready ->
              $(".edit_appointment").bind('click', ->
                  launch_main_modal()
                  edit_work_session($(this)))
+
+   receive_and_accept_appointment = (appointment_id, callback)->
+     $.ajax
+       url: $("#urls").data("receive_and_accept_appointment_url")+"/"+appointment_id
+       type: 'POST',
+       async: false, # the call must be synchronous so it is still part of the  user event and the popup won't be blocked
+       statusCode:
+         422: (response)->
+           txt = "Die Verabredung konnte nicht gespeichert werden.."
+           notice_html = "<div  class='alert alert-error'>"+txt+"</div>"
+           $("#notice").html(notice_html)	
+         200: (response)->
+           txt = "Die Verabredung wurde gespeichert. Achte bitte darauf, dich pünktlich zur WorkSession anzumelden."
+           notice_html = "<div  class='alert alert-success'>"+txt+"</div>"
+           $("#notice").html(notice_html)
+           reload_my_work_sessions()
+           show_filled_main_modal("invite_after_create")
+           fb_popup_with_appointment()
+           if callback?
+              callback()
 
    save_appointment = (appointment_id, start_time, end_time, callback)->
      data = 
@@ -239,7 +267,7 @@ $(document).ready ->
          $("#appointment_sender").css("display","none")
          $("#main_modal_close").css("display","none")
          $("#fb_space").css("display","none")
-       #  $("#main_modal_invite").css("display","none")
+         $("#main_modal_join").css("display","none")
       else if action == "accept"
          $("#main_modal_title").html("Einladung annehmen")
          $("#main_modal_dates").css("display","none")
@@ -249,7 +277,7 @@ $(document).ready ->
          $("#appointment_sender").css("display","inline")
          $("#main_modal_close").css("display","none")
          $("#fb_space").css("display","none")
-       #  $("#main_modal_invite").css("display","none")
+         $("#main_modal_join").css("display","none")
       else if action == "create"
          $("#main_modal_title").html("Termin für Verabredung festlegen")
          $("#main_modal_dates").css("display","inline")
@@ -259,7 +287,7 @@ $(document).ready ->
          $("#appointment_sender").css("display","none")
          $("#main_modal_close").css("display","none")
          $("#fb_space").css("display","none")
-       #  $("#main_modal_invite").css("display","none")
+         $("#main_modal_join").css("display","none")
       else if action == "invite_after_create"
          $("#main_modal_title").html("Mit Freunden verabreden")
          $("#main_modal_dates").css("display","none")
@@ -269,7 +297,17 @@ $(document).ready ->
          $("#appointment_sender").css("display","none")
          $("#main_modal_close").css("display","inline")
          $("#fb_space").css("display","block")
-       #  $("#main_modal_invite").css("display","inline")
+         $("#main_modal_join").css("display","none")
+      else if action == "join"
+         $("#main_modal_title").html("Bei Arbeitssitzung dabei sein")
+         $("#main_modal_dates").css("display","none")
+         $("#main_modal_delete").css("display","none")
+         $("#main_modal_accept").css("display","none")
+         $("#main_modal_save").css("display","none")
+         $("#appointment_sender").css("display","none")
+         $("#main_modal_close").css("display","none")
+         $("#fb_space").css("display","none")
+         $("#main_modal_join").css("display","inline")
 
       show_appointment_string()
 
@@ -349,6 +387,12 @@ $(document).ready ->
        token = $("#appointment").data("token")
        accept_appointment(token, (response) ->
             console.log response)
+
+   $("#main_modal_join").click ->
+       id = $("#appointment").data("appointment_id")
+       receive_and_accept_appointment(id ,(response) ->
+          console.log response)
+
 
 
 

@@ -23,6 +23,7 @@ StartWork::Application.routes.draw do
   match 'appointment/accept' => 'appointments#accept', :as => :accept_appointment
   match 'appointment/accept_and_redirect_to_appointment_with_welcome' => 'appointments#accept_and_redirect_to_appointment_with_welcome', :as => :accept_and_redirect_to_appointment_with_welcome
   match 'appointment/reject' => 'appointments#reject', :as => :reject_appointment
+  match 'appointment/receive_and_accept(/:id)' => 'appointments#receive_and_accept', :as => :receive_and_accept_appointment
 
 
   #creates the following actions:

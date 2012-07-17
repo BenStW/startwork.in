@@ -34,6 +34,12 @@
         data-end_time='<%=appointment.end_time %>'>
      </a>
 <% else my_or_friends=="friends" %>
+<a href="#" class="btn btn-small btn-join join_appointment"
+     data-token='<%=appointment.token %>'
+     data-appointment_id='<%=appointment.id %>'
+     data-start_time='<%=appointment.start_time %>'
+     data-end_time='<%=appointment.end_time %>'>
+  </a>
 
 <% end %>
  </div> <!--row -->

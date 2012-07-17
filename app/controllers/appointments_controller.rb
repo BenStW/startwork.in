@@ -76,6 +76,20 @@ class AppointmentsController < ApplicationController
     receive_appointment(appointment) 
     redirect_to root_url, :notice => "Einladung erhalten"
   end
+  
+  def receive_and_accept
+     appointment = Appointment.find(params[:id])  
+     if appointment.nil?
+       raise "couldn't find an appointment with token = #{params[:token]}."
+     end      
+     receive_appointment(appointment)
+    new_appointments = Appointment.accept_received_appointment(current_user, appointment)   
+    if new_appointments.blank?
+      render :text => "appointment could not be deleted", :status => :unprocessable_entity
+    else 
+       render :json => "ok"
+    end       
+  end
 
   # only used for internal testing
   def send_appointment
