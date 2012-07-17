@@ -34,6 +34,11 @@ class Appointment < ActiveRecord::Base
   after_initialize :init
   
   attr_accessor :accepted_appointment
+
+  # Specifies a white list of model attributes that can be set via mass-assignment.
+ # attr_accessible :start_time, :end_time, :user_id
+  
+  
   
   def init
     self.send_count ||= 0
