@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe WorkSessionsController do
+describe GroupHoursController do
  # render_views
   
   context "show" do

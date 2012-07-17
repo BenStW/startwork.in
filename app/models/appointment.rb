@@ -34,6 +34,8 @@ class Appointment < ActiveRecord::Base
   after_initialize :init
   
   attr_accessor :accepted_appointment
+  
+    default_scope :order => 'start_time ASC'  
 
   # Specifies a white list of model attributes that can be set via mass-assignment.
  # attr_accessible :start_time, :end_time, :user_id
@@ -58,6 +60,7 @@ class Appointment < ActiveRecord::Base
   #      r.user_id=? AND
   #      r.accepted=? )",current_user.id,:true)
   end
+  
 
   
   def generate_token
@@ -134,7 +137,6 @@ class Appointment < ActiveRecord::Base
       raise "to accept an appointment a user must first receive it"      
     end   
     
-    
     Appointment.accept_appointment_for_user_hours(recipient, appointment)
     
     new_appointments = Appointment.create_new_appointments_for_empty_slots(recipient,appointment)
@@ -146,7 +148,30 @@ class Appointment < ActiveRecord::Base
     new_appointments
   end
   
+  
+  
+  
+  
+  def self.accept_foreign_appointment_now(user)  
+     foreign_appointment = Appointment.get_foreign_appointment_now(user)
+     if !foreign_appointment.nil?
+        RecipientAppointment.create(:user=>user, :appointment=>foreign_appointment)
+        user_hour = user.user_hours.current      
+        if user_hour.nil?
+          raise "when accept_foreign_appointment_now a current user_hour must exist"
+        end
+        Appointment.accept_appointment_for_user_hour(user, foreign_appointment, user_hour)
+        foreign_appointment
+     else
+       nil
+     end
+  end
+  
 
+
+  
+  #------------------------ PRIVATE -----------------
+  private 
   
   def update_user_hours
     delete_not_needed_user_hours
@@ -162,7 +187,7 @@ class Appointment < ActiveRecord::Base
     end
   end  
   
-  private 
+
   def start_time_lt_end_time
     if !start_time.nil? and !end_time.nil? and start_time >= end_time
       errors.add(:start_time, "start_time (#{start_time}) must be lower then end_time (#{end_time})")
@@ -233,22 +258,28 @@ class Appointment < ActiveRecord::Base
       end
       self.accepted_appointment = nil
     end
-    
   end
+  
+
   
   def self.accept_appointment_for_user_hours(recipient, appointment)
     user_hours = recipient.user_hours.where("start_time >= ? and start_time < ? and accepted_appointment_id is null",appointment.start_time, appointment.end_time)
     
     user_hours.each do |user_hour|
-      user_hour.accepted_appointment = appointment
-      old_group_hour = user_hour.group_hour
-      user_hour.group_hour = appointment.group_hour(user_hour.start_time)
-      user_hour.save
-      if old_group_hour.has_no_user_hours?
-        old_group_hour.destroy
-      end      
+      Appointment.accept_appointment_for_user_hour(recipient, appointment, user_hour)
     end
     user_hours
+  end  
+  
+  def self.accept_appointment_for_user_hour(recipient, appointment, user_hour)
+    user_hour.accepted_appointment = appointment
+    old_group_hour = user_hour.group_hour
+    user_hour.group_hour = appointment.group_hour(user_hour.start_time)
+    user_hour.save
+    if old_group_hour.has_no_user_hours?
+      old_group_hour.destroy
+    end
+    user_hour
   end  
   
   def self.create_new_appointments_for_empty_slots(recipient,appointment)    
@@ -266,5 +297,17 @@ class Appointment < ActiveRecord::Base
     end
     appointments_array
   end  
+  
+  def self.get_foreign_appointment_now(user)
+    current_group_hours = GroupHour.current_logged_in_except_user(user)
+    if !current_group_hours.blank?
+      current_group_hour = current_group_hours.first
+      current_group_hour.reload
+      foreign_user_hour = current_group_hour.user_hours.first
+      foreign_appointment = foreign_user_hour.appointment
+   else
+     nil
+   end  
+ end
 
 end

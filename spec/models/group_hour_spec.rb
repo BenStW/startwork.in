@@ -57,26 +57,28 @@ describe GroupHour do
     end    
   end
   
-  context "class method current_logged_in" do
+  context "class method current_logged_in_except_user" do
     before(:each) do       
       #ActiveRecord::Base.logger = Logger.new(STDOUT) if defined?(ActiveRecord::Base)
+      @my_user = FactoryGirl.create(:user)         
       @user_a = FactoryGirl.create(:user)    
       @user_b = FactoryGirl.create(:user)    
       appointment_a = FactoryGirl.create(:appointment, :user=>@user_a)
+      my_appointment = FactoryGirl.create(:appointment, :user=>@my_user)
       recipient_appointment = RecipientAppointment.create(:user=>@user_b, :appointment=>appointment_a)
       Appointment.accept_received_appointment(@user_b,appointment_a)
       DateTime.stub(:current).and_return(appointment_a.start_time+5.minutes)      
     end
     
     it "finds no group_hours, if nobody has logged_in" do
-      current_logged_in = GroupHour.current_logged_in
+      current_logged_in = GroupHour.current_logged_in_except_user(@my_user)
       current_logged_in.count.should eq(0)
     end
     
     it "finds the group_hour, if user_a has logged_in" do
       user_hour_a_first = @user_a.user_hours.first
       user_hour_a_first.store_login
-      current_logged_in = GroupHour.current_logged_in
+      current_logged_in = GroupHour.current_logged_in_except_user(@my_user)
       current_logged_in.count.should eq(1)
       current_logged_in.first.id.should eq(user_hour_a_first.group_hour.id)
     end
@@ -87,7 +89,7 @@ describe GroupHour do
       user_hour_a_first.store_login
       user_hour_b_last = @user_b.user_hours.last
       user_hour_b_last.store_login 
-      current_logged_in = GroupHour.current_logged_in  
+      current_logged_in = GroupHour.current_logged_in_except_user(@my_user)
       current_logged_in.count.should eq(1)
       current_logged_in.first.id.should eq(user_hour_b_last.group_hour.id)     
     end
@@ -97,11 +99,19 @@ describe GroupHour do
       user_hour_b_first = @user_b.user_hours.first
       user_hour_b_first.store_login
       
-      current_logged_in = GroupHour.current_logged_in
-      puts current_logged_in.to_yaml
+      current_logged_in = GroupHour.current_logged_in_except_user(@my_user)
       current_logged_in.count.should eq(1)
       current_logged_in.first.logged_in_count.to_i.should eq(2)            
     end
+    it "does not find the own group_hour" do
+      my_user_hour_first = @my_user.user_hours.first
+      user_hour_a_first = @user_a.user_hours.first
+      user_hour_a_first.store_login
+      my_user_hour_first.store_login
+      current_logged_in = GroupHour.current_logged_in_except_user(@my_user)
+      current_logged_in.count.should eq(1)
+      current_logged_in.first.id.should eq(user_hour_a_first.group_hour.id)
+    end    
   end
   
   context "group_hour building" do

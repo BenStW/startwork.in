@@ -13,17 +13,9 @@ class AppointmentsController < ApplicationController
   #        -> show_and_welcome_appointment
   #
   
-  
-   #--------------- REST desgin ----------------------- 
-  
-   def overview
-     @my_appointments = current_user.appointments  
-     @my_user_hours = current_user.user_hours    
-     @recipient_appointment = RecipientAppointment.new
-   end
-   
+    
    def index
-     @my_appointments = current_user.appointments  
+     @my_appointments = current_user.appointments.this_week
      my_or_friends = "my"
      render :partial => "appointments", 
          :locals => { :appointments => @my_appointments, :my_or_friends => my_or_friends } 
@@ -34,16 +26,12 @@ class AppointmentsController < ApplicationController
      token = params[:token]
      @appointment = Appointment.find_by_token(token)
      if @appointment.nil?
-       render :json => "keine Verabredung gefunden"
+        render :template => "errors/404", :layout => 'application', :status => 404      
      end
      if current_user
        receive_appointment(@appointment)
      end
     end   
-
-   def new
-     @appointment = current_user.appointments.build   
-   end
 
    def create
      start_time = DateTime.parse(params[:appointment][:start_time])
@@ -52,12 +40,8 @@ class AppointmentsController < ApplicationController
      if appointment.valid?
         render :json => appointment.to_json(:only => [ :id, :token, :start_time, :end_time ])
       else
-        render :text => "appointment could not be created", :status => :unprocessable_entity
+        render :template => "errors/404", :layout => 'application', :status => 404    
       end
-   end
-
-   def edit
-     @appointment = current_user.appointments.find(params[:id])
    end
 
    def update
@@ -107,7 +91,7 @@ class AppointmentsController < ApplicationController
      token = params["token"]
      @appointment = Appointment.find_by_token(token)
      if @appointment.nil?
-       render :json => "welcome_with_appointment: keine Verabredung gefunden"
+       render :template => "errors/404", :layout => 'application', :status => 404      
      end
      @friends = current_user.friends - [@appointment.user]
      @app = if Rails.env.production? then "330646523672055" else "232041530243765" end
@@ -132,32 +116,43 @@ class AppointmentsController < ApplicationController
     token = params[:token]
     appointment = Appointment.find_by_token(token)
     if appointment.nil?
-      render :json => "keine Verabredung gefunden."
+      render :template => "errors/404", :layout => 'application', :status => 404      
     end
     receive_appointment(appointment)   
     Appointment.accept_received_appointment(current_user, appointment)
     redirect_to show_and_welcome_appointment_url(:token => token)
   end  
-   
+  
+  
+  
+  # this action "overview" is used only for internal testing
+  def overview
+    @my_appointments = current_user.appointments  
+    @my_user_hours = current_user.user_hours  
+    @recipient_appointment = RecipientAppointment.new  
+  end
 
-   def get_token
-      start_time = DateTime.parse(params["start_time"])
-      end_time = DateTime.parse(params["end_time"])
-      appointment = current_user.appointments.create(:start_time=>start_time, :end_time=>end_time)
-      render :json => appointment.token
-    end
+  # this action "new" is used only for internal testing  
+  def new
+    @appointment = current_user.appointments.build   
+  end
+  
+  # this action "edit" is used only for internal testing    
+  def edit
+    @appointment = current_user.appointments.find(params[:id])
+  end
+   
     
     
     private 
     
     def receive_appointment(appointment)
-      recipient_appointment = RecipientAppointment.find_by_appointment_id_and_user_id(appointment,current_user)
+      recipient_appointment = RecipientAppointment.find_by_appointment_id_and_user_id(appointment.id, current_user.id)
       if recipient_appointment.nil?
          recipient_appointment = RecipientAppointment.create(:user=>current_user, :appointment=>appointment)
       elsif !recipient_appointment.valid?
-         raise "couldln't store the appointment #{appointment.id} as received at user #{appointment.user.name}"
-      end     
+         raise "couldn't store the appointment #{appointment.id} as received at user #{appointment.user.name}"
+      end
+      recipient_appointment     
     end      
-       
-   
  end

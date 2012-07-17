@@ -83,8 +83,13 @@ class User < ActiveRecord::Base
       users LEFT JOIN user_hours on user_hours.user_id=users.id
       WHERE user_hours.start_time=? and user_hours.login_count>0",this_hour])    
   end
-
-
+  
+  def create_appointment_now
+    c = DateTime.current
+    this_hour = DateTime.new(c.year,c.month,c.day, c.hour)
+    appointment = self.appointments.create(:start_time=>this_hour, :end_time=>this_hour+1.hour)        
+  end
+  
 
   def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)    
     data = access_token.extra.raw_info

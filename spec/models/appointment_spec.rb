@@ -255,6 +255,42 @@ describe Appointment do
       end 
     end   
     
+    context "class method accept_foreign_appointment_now" do
+      before(:each) do
+        @my_user = FactoryGirl.create(:user)
+        @my_appointment = FactoryGirl.create(:appointment, :user=>@my_user)
+        @user_a = FactoryGirl.create(:user)
+        @appointment_a = FactoryGirl.create(:appointment, :user=>@user_a)
+        @user_a.user_hours.first.store_login
+        DateTime.stub(:current).and_return(@appointment_a.start_time + 5.minutes)          
+      end
+      it "should store the foreign_appointment as accepted in the current user_hour" do
+        Appointment.accept_foreign_appointment_now(@my_user)
+        @my_user.user_hours.current.accepted_appointment.should eq(@appointment_a)
+      end
+      it "should return the accepted foreign_appointment" do
+        foreign_appointment = Appointment.accept_foreign_appointment_now(@my_user)
+        foreign_appointment.should eq(@appointment_a)
+      end      
+      it "should have the same group_hour" do
+        Appointment.accept_foreign_appointment_now(@my_user)
+        @my_user.user_hours.current.group_hour.should eq(@user_a.user_hours.current.group_hour)
+      end
+      it "should raise an exception when own user_hour does not exist" do
+         @my_appointment.destroy
+         expect {
+           Appointment.accept_foreign_appointment_now(@my_user)           
+         }.to raise_error
+      end 
+      it "should return nil when no foreign appointment" do
+        @appointment_a.destroy
+        response = Appointment.accept_foreign_appointment_now(@my_user)
+        response.should be_nil
+      end
+        
+      
+    end
+    
     context "class method get_possible_appointment_slots for 10-13" do
       before(:each) do 
          @user = FactoryGirl.create(:user)
@@ -399,5 +435,30 @@ describe Appointment do
          }.should raise_error
       end        
         
+    end
+    
+   
+   context "class method get_foreign_appointment_now" do    
+      before(:each) do 
+        @my_user = FactoryGirl.create(:user)
+        @user_a = FactoryGirl.create(:user)
+        @appointment_a = FactoryGirl.create(:appointment, :user=>@user_a)        
+        DateTime.stub(:current).and_return(@appointment_a.start_time + 5.minutes)        
+      end    
+      it "should return nil when nobody has logged in" do
+        foreign_appointment = Appointment.get_foreign_appointment_now(@my_user)
+        foreign_appointment.should eq(nil)
+      end
+      it "should return nil when I logged in " do
+        @my_appointment = FactoryGirl.create(:appointment, :user=>@my_user)
+        @my_appointment.user_hours.first.store_login
+        foreign_appointment = Appointment.get_foreign_appointment_now(@my_user)        
+        foreign_appointment.should eq(nil)
+      end
+      it "should return the appointment when another user logged in" do
+        @appointment_a.user_hours.first.store_login
+        foreign_appointment = Appointment.get_foreign_appointment_now(@my_user)        
+        foreign_appointment.should eq(@appointment_a)       
+      end
     end
 end

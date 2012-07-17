@@ -1,7 +1,7 @@
 require 'spec_helper'
 #require 'ruby-debug19'
 
-describe CalendarEventsController do
+describe UserHoursController do
   
  context "show" do
    before(:each) do

@@ -102,6 +102,29 @@ describe User do
 
   end
   
+  context "create_appointment_now" do
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+    end
+    it "should create an appointment" do
+      expect {        
+        @user.create_appointment_now
+      }.to change(Appointment,:count).by(1)
+    end   
+    it "should have the start_time of this hour" do 
+       c = DateTime.current
+       this_hour = DateTime.new(c.year,c.month,c.day, c.hour)         
+       appointment = @user.create_appointment_now
+       appointment.start_time.should eq(this_hour)
+    end  
+    it "should have the end_time of this hour" do 
+       c = DateTime.current
+       next_hour = DateTime.new(c.year,c.month,c.day, c.hour+1)         
+       appointment = @user.create_appointment_now
+       appointment.end_time.should eq(next_hour)
+    end       
+  end
+  
   context "is_friend?" do
     it "should return true if is friend" do
       new_user = FactoryGirl.create(:user)

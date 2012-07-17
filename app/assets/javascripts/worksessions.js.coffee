@@ -14,6 +14,12 @@ $(document).ready ->
       padding = 12	   
       width = $(window).width()-2*padding #200 
       height = $(window).width()-2*padding #200
+      console.log "width="+width
+
+      if width >300
+        width = 300
+        height = 300
+     
 
       $("#publisher_box").css("width",width)
       $("#publisher_box").css("height",height)

@@ -169,7 +169,7 @@ $(document).ready ->
        type: 'PUT',
        async: false, # the call must be synchronous so it is still part of the  user event and the popup won't be blocked
        statusCode:
-         422: (response)->
+         404: (response)->
            txt = "Die Verabredung konnte nicht gespeichert werden.."
            notice_html = "<div  class='alert alert-error'>"+txt+"</div>"
            $("#notice").html(notice_html)	
@@ -194,7 +194,7 @@ $(document).ready ->
        type: 'POST',
        async: false, # the call must be synchronous so it is still part of the  user event and the popup won't be blocked
        statusCode:
-         422: (response)->
+         404: (response)->
            txt = "Die Verabredung konnte nicht gespeichert werden.."
            notice_html = "<div  class='alert alert-error'>"+txt+"</div>"
            $("#notice").html(notice_html)	

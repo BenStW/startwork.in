@@ -4,38 +4,33 @@ class GroupHoursController < ApplicationController
 
   def show  
     user_hour = current_user.user_hours.current 
-    group_hour = nil
     if user_hour.nil?
-      group_hours = GroupHour.current_logged_in
-      puts "blank? #{group_hours.blank?}"
-      if !group_hours.blank?
-        group_hour = group_hours.first
-        group_hour.reload
-      end
-    else
-      user_hour.store_login 
-      group_hour= user_hour.group_hour
-    end      
-    if group_hour.nil?
-        render :json => "aktuell keine Arbeitssitzung"
-    else
-       @tokbox_session_id = group_hour.tokbox_session_id
-       @tokbox_token = TokboxApi.instance.generate_token @tokbox_session_id, current_user
-       @tokbox_api_key = TokboxApi.instance.api_key
+      current_user.create_appointment_now
+      user_hour = current_user.user_hours.current 
     end
+    group_hour = user_hour.group_hour
+    if group_hour.users.count<2
+      Appointment.accept_foreign_appointment_now(current_user)
+    end
+    user_hour.store_login 
+
+    @tokbox_session_id = group_hour.tokbox_session_id
+    @tokbox_token = TokboxApi.instance.generate_token @tokbox_session_id, current_user
+    @tokbox_api_key = TokboxApi.instance.api_key
   end  
  
   
   def room_change
      user_hour = current_user.user_hours.current 
      if user_hour.nil?
-         user_hour = current_user.create_user_hour_now
-     end
-     user_hour.store_login
-     if user_hour.group_hour.tokbox_session_id == params[:session]
-        render :json => false
-      else
-        render :json => true
+         render :json => true
+     else
+       user_hour.store_login
+       if user_hour.group_hour.tokbox_session_id == params[:session]
+          render :json => false
+        else
+          render :json => true
+        end
       end
   end
   

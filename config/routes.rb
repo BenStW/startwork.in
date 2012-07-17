@@ -1,16 +1,15 @@
 # encoding: utf-8
 StartWork::Application.routes.draw do
 
+  match 'how_it_works' => 'static_pages#how_it_works', :as => :how_it_works
+
 
   resources :invitations
-
-#  match 'friendships/create_all_fb_friends' => "friendships#create_all_fb_friends", :as => :create_friendship_all_fb_friends  
-#  resources :friendships
-#  match 'friendships/create_with_fb_friend/(:fb_ui)' => "friendships#create_with_fb_friend", :as => :create_friendship_with_fb_friend
 
   ActiveAdmin.routes(self)
 
   devise_for :admin_users, ActiveAdmin::Devise.config
+
 
   match 'appointment/receive' => 'appointments#receive', :as => :receive_appointment
 
@@ -34,6 +33,7 @@ StartWork::Application.routes.draw do
   # edit
   # update
   # destroy
+ # match 'appointments/show/:id' => 'appointments#show'
   resources :appointments
   
   match 'camera' => 'cameras#show', :via => [:get]  
@@ -43,18 +43,6 @@ StartWork::Application.routes.draw do
   match 'login_to_accept_appointment' => 'static_pages#login_to_accept_appointment', :as => :login_to_accept_appointment 
   
   match 'weekly_overview' => 'user_hours#index', :as => :weekly_overview_user_hours
-  match 'appointment/get_token' => 'appointments#get_token', :as => :get_token_appointment
-
-
-  #  match 'appointment/accept_without_authentication' => 'appointments#accept_without_authentication', :as => :accept_without_authentication_appointment
-
-#
-#  match 'calendar' => 'calendar_events#show', :as => :calendar
-#  match 'calendar/new_event' => 'calendar_events#new_event', :as => :calendar_new_event
-#  match 'calendar/events' => 'calendar_events#events'  
-#  match 'calendar/remove_event' => 'calendar_events#remove_event', :as => :calendar_remove_event
-#  match 'calendar/remove_events_by_time' => 'calendar_events#remove_events_by_time', :as => :calendar_remove_events_by_time
-#  match 'calendar/send_invitation' => 'calendar_events#send_invitation', :as => :calendar_send_invitation
 
 
 
@@ -75,8 +63,6 @@ StartWork::Application.routes.draw do
      match 'ben' => 'static_pages#ben', :as => :ben
      match 'canvas' => 'static_pages#canvas', :as => :canvas
      match 'info_for_group_hour' => 'static_pages#info_for_group_hour', :as => :info_for_group_hour
-   #  match 'session_start' => 'static_pages#session_start', :as => :session_start
-     
 
       devise_for :users, :controllers => {:registrations => "registrations", :omniauth_callbacks => "users/omniauth_callbacks" }       
 
@@ -154,4 +140,7 @@ StartWork::Application.routes.draw do
   # match ':controller(/:action(/:id))(.:format)'
 end
 
-ActionDispatch::Routing::Translator.translate_from_file('config/locales/routes.yml', { :prefix_on_default_locale => false })
+if Rails.env != "test"
+  #somehow a RoutingError appears in RSPEC with this line
+  ActionDispatch::Routing::Translator.translate_from_file('config/locales/routes.yml', { :prefix_on_default_locale => false })
+end
