@@ -48,8 +48,10 @@ class AppointmentsController < ApplicationController
    def create
      appointment = current_user.appointments.create(params[:appointment])
      logger.info "**************"
+     puts params[:appointment].to_yaml
      logger.info params[:appointment].to_yaml
      logger.info "**************"
+     puts appointment.to_yaml
      logger.info appointment.to_yaml
      logger.info "**************"     
      if appointment.valid?
