@@ -54,6 +54,8 @@ class User < ActiveRecord::Base
   has_many :appointments, :dependent => :destroy
   has_many :received_appointments, :through => :recipient_appointments, :source => :appointment #, :conditions => ['recipient_appointments.user_id = ?',47]
   has_many :recipient_appointments, :dependent => :destroy
+  
+    default_scope :order => 'ID DESC'    
       
 #  belongs_to :work_session, :foreign_key => 'guest_id'
 
