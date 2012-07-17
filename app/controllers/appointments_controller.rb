@@ -46,14 +46,24 @@ class AppointmentsController < ApplicationController
    end
 
    def create
-     appointment = current_user.appointments.create(params[:appointment])
-     logger.info "**************"
+     puts "**************"
      puts params[:appointment].to_yaml
-     logger.info params[:appointment].to_yaml
-     logger.info "**************"
-     puts appointment.to_yaml
-     logger.info appointment.to_yaml
-     logger.info "**************"     
+
+     start_time = params[:appointment][:start_time]
+     puts "********start_time = #{start_time}"
+     end_time = params[:appointment][:end_time]
+#     puts "********end_time = #{end_time}"
+
+     appointment = current_user.appointments.create(params[:appointment])     
+    puts "**********xxxxxxxxxxxx****"
+     puts "1appointment.start_time = #{appointment.start_time}"
+     appointment.start_time = start_time
+     appointment.save
+     puts "2appointment.start_time = #{appointment.start_time}"
+     appointment.start_time = DateTime.parse(start_time)
+     appointment.end_time = DateTime.parse(end_time)
+     appointment.save
+     puts "3appointment.start_time = #{appointment.start_time}" 
      if appointment.valid?
         render :json => appointment.to_json(:only => [ :id, :token, :start_time, :end_time ])
       else
