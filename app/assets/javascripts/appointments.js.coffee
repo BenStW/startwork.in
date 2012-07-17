@@ -42,6 +42,7 @@ $(document).ready ->
    $(".join_appointment").click ->
       launch_main_modal()     
       join_work_session($(this))
+
       
 
    write_data_into_modal = (element)->
@@ -402,8 +403,10 @@ $(document).ready ->
     show_appointment_string()
    # END OF WELCOME page
 
-
-   if("#show_and_welcome_carousel").length>0
+   $(".fill_initial_dates").click ->
+      fill_initial_dates()
+	
+   fill_initial_dates = ->	
       start_time = new Date($("#appointment").data("start_time"))
       end_time = new Date($("#appointment").data("end_time"))
       day = new Date(start_time)  
@@ -414,6 +417,10 @@ $(document).ready ->
 
     $("#show_and_welcome_save_continue").click ->
        fb_popup_with_appointment()
+
+
+    if $("#show_and_welcome_carousel").length>0 or $("#appointment_carousel").length>0
+      fill_initial_dates()
    
    
    # ------------- functions for calendar overview------ --------- #

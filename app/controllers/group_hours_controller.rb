@@ -12,7 +12,10 @@ class GroupHoursController < ApplicationController
     if group_hour.users.count<2
       Appointment.accept_foreign_appointment_now(current_user)
     end
+    user_hour.reload
     user_hour.store_login 
+    
+    InfoMailer.deliver_session_start(current_user,user_hour.group_hour).deliver       
 
     @tokbox_session_id = group_hour.tokbox_session_id
     @tokbox_token = TokboxApi.instance.generate_token @tokbox_session_id, current_user

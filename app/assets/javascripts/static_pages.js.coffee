@@ -17,7 +17,10 @@ $(document).ready ->
    $("#login_button").click (event )->
      showConnecting()
      setInterval(addDot,1000)
-   # END OF LOGIN BUTTON	
+   # END OF LOGIN BUTTON
+
+
+      	
 
 
 	

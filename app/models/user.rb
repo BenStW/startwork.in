@@ -105,13 +105,14 @@ class User < ActiveRecord::Base
        user
      else      
       # Create a user with a stub password. 
+      
       user = self.create!(
              :email => data.email,
              :fb_ui => data.id,             
              :first_name => data.first_name,
              :last_name => data.last_name,
-             :password => Devise.friendly_token[0,20]  
-       )
+             :password => Devise.friendly_token[0,20] ) 
+      InfoMailer.deliver_new_user(user).deliver             
     end
 
 
