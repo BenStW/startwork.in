@@ -1,7 +1,8 @@
 
 
 $(document).ready ->
-
+   if $(".init_popover").length>0
+     $(".init_popover").popover()
 
 	
    if $('.column_same_height').length>0

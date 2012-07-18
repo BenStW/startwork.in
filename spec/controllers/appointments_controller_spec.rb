@@ -140,7 +140,9 @@ describe AppointmentsController do
     before(:each) do
       @user = FactoryGirl.create(:user) 
       @appointment = FactoryGirl.create(:appointment, :user=>@user)
-      sign_in @user      
+      sign_in @user   
+      @new_times = Hash.new
+     # @new_times (params[:appointment][:start_time])   
     end
     
     it "should be success" do      

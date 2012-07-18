@@ -10,7 +10,7 @@ mit <%= @group_hour.users.count %> geplanten Benutzern:<br>
 <br>
 <ul>
 <% @group_hour.user_hours.each do |user_hour| %>
-<li><%= user_hour.user.name %> - eingeloggt: <%= if user_hour.login_count>0 then "ja" else "nein" end %></li>
+<li><%= user_hour.user.name %> - eingeloggt: <%= if user_hour.login_count.nil? then "ja" else "nein" end %></li>
 <% end %>
 </ul>
   </body>

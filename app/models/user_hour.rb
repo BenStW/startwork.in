@@ -25,8 +25,13 @@ class UserHour < ActiveRecord::Base
   belongs_to :group_hour, :dependent => :destroy
   belongs_to :appointment
   belongs_to :accepted_appointment, :class_name => 'Appointment'
+  after_initialize :init  
   
   before_validation :get_group_hour
+  
+  def init
+    self.login_count ||= 0
+  end  
 
   def self.this_week
     where("start_time>?",DateTime.current-1.hour) 
