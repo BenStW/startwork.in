@@ -64,6 +64,7 @@ StartWork::Application.routes.draw do
      match 'ben' => 'static_pages#ben', :as => :ben
      match 'canvas' => 'static_pages#canvas', :as => :canvas
      match 'info_for_group_hour' => 'static_pages#info_for_group_hour', :as => :info_for_group_hour
+     match 'users_tomorrow' => 'static_pages#users_tomorrow', :as => :users_tomorrow
 
       devise_for :users, :controllers => {:registrations => "registrations", :omniauth_callbacks => "users/omniauth_callbacks" }       
 
@@ -141,9 +142,7 @@ StartWork::Application.routes.draw do
   # match ':controller(/:action(/:id))(.:format)'
 end
 
-ActionDispatch::Routing::Translator.translate_from_file('config/locales/routes.yml',{:prefix_on_default_locale => false })
-#if Rails.env != "test"
+if Rails.env != "test"
   #somehow a RoutingError appears in RSPEC with this line
- #  ActionDispatch::Routing::Translator.translate_from_file('config/locales/routes.yml', { :prefix_on_default_locale => false })
-#  ActionDispatch::Routing::Translator.translate_from_file('config/locales/routes.yml', { :no_prefixes => true })
-#end
+  ActionDispatch::Routing::Translator.translate_from_file('config/locales/routes.yml',{:prefix_on_default_locale => false })
+end

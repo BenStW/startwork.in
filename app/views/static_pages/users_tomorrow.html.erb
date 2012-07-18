@@ -1,0 +1,21 @@
+<h1>Folgende Benutzer haben für morgen einen Termin:</h1>
+<div style="height:100px">&nbsp;</div>
+<div id="code_to_copy">
+	
+
+<table>
+	
+	<% @users.each do |user| %>
+	<tr>
+		<td><img src='http://graph.facebook.com/<%=user.fb_ui%>/picture'></td>
+		<td><%= user.name %></td>
+	 </tr>
+  <%end %>
+</table>
+
+
+
+
+</div>	
+<div style="height:100px">&nbsp;</div>
+

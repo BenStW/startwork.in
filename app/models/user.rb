@@ -87,6 +87,16 @@ class User < ActiveRecord::Base
       WHERE user_hours.start_time=? and user_hours.login_count>0",this_hour])    
   end
   
+  def self.users_tomorrow
+    t = DateTime.now.tomorrow
+    t1 = DateTime.new(t.year,t.month,t.day)
+    t2 = DateTime.new(t.year,t.month,t.day+1)
+    User.find_by_sql(
+      ["SELECT distinct users.* FROM
+      users LEFT JOIN user_hours on user_hours.user_id=users.id
+      WHERE user_hours.start_time>=? and user_hours.start_time<?",t1,t2])    
+  end
+  
   def create_appointment_now
     c = DateTime.current
     this_hour = DateTime.new(c.year,c.month,c.day, c.hour)

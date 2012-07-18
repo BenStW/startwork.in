@@ -104,5 +104,9 @@ class StaticPagesController < ApplicationController
  def info_for_group_hour
    
  end
+ 
+ def users_tomorrow
+   @users = User.users_tomorrow
+ end
 
 end
