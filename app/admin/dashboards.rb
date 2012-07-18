@@ -34,7 +34,9 @@ ActiveAdmin::Dashboards.build do
      
        table_for GroupHour.scope_current.each do
           column 'id', :id    
-          column 'start_time', :start_time
+          column 'start_time' do |group_hour| 
+            I18n.localize(group_hour.start_time.in_time_zone("Berlin")) 
+          end
           column 'planned users' do |group_hour|
             group_hour.users.map(&:name)
           end
