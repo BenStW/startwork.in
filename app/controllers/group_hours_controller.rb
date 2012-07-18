@@ -9,6 +9,7 @@ class GroupHoursController < ApplicationController
     if @user_hour.nil?
       current_user.create_appointment_now
       @user_hour = current_user.user_hours.current 
+      puts "#{current_user.name}: is user_hour still NIL?: #{@user_hour.nil?}"      
       puts "#{current_user.name}: user_hour was NIL. created new user_hour = #{@user_hour.id}"
     else
       puts "#{current_user.name}: user_hour NOT NIL = #{@user_hour.id}"

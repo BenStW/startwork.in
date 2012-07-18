@@ -26,7 +26,7 @@ class AppointmentsController < ApplicationController
      token = params[:token]
      @appointment = Appointment.find_by_token!(token)
      if current_user
-       receive_appointment(@appointment)
+       @appointment.receive(current_user)
      end
     end   
 
@@ -64,7 +64,7 @@ class AppointmentsController < ApplicationController
      @name = current_user.first_name
      token = params["token"]
      @appointment = Appointment.find_by_token!(token)
-     receive_appointment(@appointment)     
+     @appointment.receive(current_user)  
           
      @friends = current_user.friends - [@appointment.user]
      @app = if Rails.env.production? then "330646523672055" else "232041530243765" end
@@ -76,7 +76,7 @@ class AppointmentsController < ApplicationController
   
   def accept
     appointment = Appointment.find_by_token!(params[:token])
-    receive_appointment(appointment) 
+    appointment.receive(current_user)
    
     Appointment.accept_received_appointment(current_user, appointment) 
      
@@ -90,7 +90,7 @@ class AppointmentsController < ApplicationController
   def accept_and_redirect_to_appointment_with_welcome
     token = params[:token]
     appointment = Appointment.find_by_token!(token)
-    receive_appointment(appointment)   
+    appointment.receive(current_user)
     Appointment.accept_received_appointment(current_user, appointment)
     redirect_to show_and_welcome_appointment_url(:token => token)
   end  
@@ -117,7 +117,7 @@ class AppointmentsController < ApplicationController
   # this action "receive" is used only for internal testing    
   def receive
     appointment = Appointment.find_by_token!(params[:token])
-    receive_appointment(appointment) 
+    appointment.receive(current_user)
     redirect_to root_url, :notice => "Einladung erhalten"
   end  
   
@@ -133,13 +133,13 @@ class AppointmentsController < ApplicationController
     
     private 
     
-    def receive_appointment(appointment)
-      recipient_appointment = RecipientAppointment.find_by_appointment_id_and_user_id(appointment.id, current_user.id)
-      if recipient_appointment.nil?
-         recipient_appointment = RecipientAppointment.create(:user=>current_user, :appointment=>appointment)
-      elsif !recipient_appointment.valid?
-         raise "couldn't store the appointment #{appointment.id} as received at user #{appointment.user.name}"
-      end
-      recipient_appointment     
-    end      
+  #  def receive_appointment(appointment)
+  #    recipient_appointment = RecipientAppointment.find_by_appointment_id_and_user_id(appointment.id, current_user.id)
+  #    if recipient_appointment.nil?
+  #       recipient_appointment = RecipientAppointment.create(:user=>current_user, :appointment=>appointment)
+  #    elsif !recipient_appointment.valid?
+  #       raise "couldn't store the appointment #{appointment.id} as received at user #{appointment.user.name}"
+  #    end
+  #    recipient_appointment     
+  #  end      
  end

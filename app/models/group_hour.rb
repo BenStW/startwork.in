@@ -37,10 +37,15 @@ class GroupHour < ActiveRecord::Base
        end
      end
      logged_in_users
-   end   
+   end 
+   
+   def self.filter_on_start_time(time)
+     where("start_time = ?",time)
+    end 
+    
    
    
-   def self.current_logged_in_except_user(user)
+   def self.get_potential_foreign_groups(user)
      c = DateTime.current
      this_hour = DateTime.new(c.year,c.month,c.day, c.hour)
      if c.minute>=55
@@ -49,9 +54,8 @@ class GroupHour < ActiveRecord::Base
      GroupHour.find_by_sql(
        ["SELECT distinct group_hour_id as id, start_time,logged_in_count FROM
        (SELECT group_hour_id,start_time, count(id) AS logged_in_count FROM user_hours 
-       WHERE login_count>0 and start_time=? and user_id!=? GROUP BY group_hour_id,start_time ) AS logged_in_count",this_hour,user.id])
+       WHERE login_count>0 and start_time=? and user_id!=? GROUP BY group_hour_id,start_time ) AS logged_in_count where logged_in_count<5 order by logged_in_count",this_hour,user.id])
    end  
-   
    
    def users_cant_be_more_then_five
      if users.count>5

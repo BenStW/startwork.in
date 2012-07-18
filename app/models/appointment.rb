@@ -132,6 +132,30 @@ class Appointment < ActiveRecord::Base
     user_hours = user.user_hours.where("user_hours.start_time>=? and user_hours.start_time < ?", start_time, end_time)
     user_hours.empty?
   end
+ # 
+ # def self.accept_appointment(recipient, appointment)
+ #   if recipient == appointment.user
+ #     raise "a user can't accept his own appointments"      
+ #   end
+ #   RecipientAppointment.create()        
+ # end
+  
+  def receive_and_accept(recipient)
+    #TODO write test cases    
+    receive(recipient)
+    Appointment.accept_received_appointment(recipient, self)    
+  end
+  
+  def receive(recipient)
+    #TODO write test cases
+    recipient_appointment = RecipientAppointment.find_by_appointment_id_and_user_id(self.id, recipient.id)
+    if recipient_appointment.nil?
+       recipient_appointment = RecipientAppointment.create(:user=>recipient, :appointment=>self)
+    elsif !recipient_appointment.valid?
+       raise "couldn't store the appointment #{self.id} as received at user #{recipient.name}"
+    end
+    recipient_appointment     
+  end    
   
   
   
@@ -305,9 +329,11 @@ class Appointment < ActiveRecord::Base
   end  
   
   def self.get_foreign_appointment_now(user)
-    current_group_hours = GroupHour.current_logged_in_except_user(user)
+    c = DateTime.current
+    this_hour = DateTime.new(c.year,c.month,c.day, c.hour)    
+    current_group_hours =  GroupHour.get_potential_foreign_groups(user)
     if !current_group_hours.blank?
-      current_group_hour = current_group_hours.first
+      current_group_hour = current_group_hours.first      
       current_group_hour.reload
       foreign_user_hour = current_group_hour.user_hours.first
       foreign_appointment = foreign_user_hour.appointment
