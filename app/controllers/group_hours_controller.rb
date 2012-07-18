@@ -3,23 +3,32 @@ class GroupHoursController < ApplicationController
   layout "video_layout"
 
   def show  
+    puts "#{current_user.name}: ******** SHOW GROUP HOUR *********"    
     @user_hour = current_user.user_hours.current 
+    puts "#{current_user.name}: user_hour = #{@user_hour.id}"
+        
     if @user_hour.nil?
       current_user.create_appointment_now
       @user_hour = current_user.user_hours.current 
+      puts "#{current_user.name}: user_hour was NIL. created new user_hour = #{@user_hour.id}"
     end
     group_hour = @user_hour.group_hour
+    puts "#{current_user.name}: group_hour = #{group_hour.id} with #{group_hour.users.count} users"    
     if group_hour.users.count<2
       Appointment.accept_foreign_appointment_now(current_user)
+      puts "#{current_user.name}: accept_foreign_appointment_now "          
     end
     @user_hour.reload
     @user_hour.store_login 
+    puts "#{current_user.name}: user_hour = #{@user_hour.id}"    
     
     InfoMailer.deliver_session_start(current_user,@user_hour.group_hour).deliver       
 
     @tokbox_session_id = group_hour.tokbox_session_id
     @tokbox_token = TokboxApi.instance.generate_token @tokbox_session_id, current_user
     @tokbox_api_key = TokboxApi.instance.api_key
+    puts "#{current_user.name}: ******** END OF SHOW GROUP HOUR *********"    
+    
   end  
  
   
