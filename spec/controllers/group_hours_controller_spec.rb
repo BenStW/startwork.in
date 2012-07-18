@@ -15,8 +15,11 @@ describe GroupHoursController do
     end
     
     it "should create a new appointment" do
-      
+      expect{
+        get :show
+      }.to change(Appointment,:count).by(1)            
     end
+    
   end
   
   
