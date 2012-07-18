@@ -78,7 +78,7 @@ class AppointmentsController < ApplicationController
     appointment = Appointment.find_by_token!(params[:token])
     receive_appointment(appointment) 
    
-    new_appointments = Appointment.accept_received_appointment(current_user, appointment) 
+    Appointment.accept_received_appointment(current_user, appointment) 
      
    respond_to do |format|
      format.html { redirect_to root_url }
@@ -89,10 +89,7 @@ class AppointmentsController < ApplicationController
   
   def accept_and_redirect_to_appointment_with_welcome
     token = params[:token]
-    appointment = Appointment.find_by_token(token)
-    if appointment.nil?
-      render :template => "errors/404", :layout => 'application', :status => 404      
-    end
+    appointment = Appointment.find_by_token!(token)
     receive_appointment(appointment)   
     Appointment.accept_received_appointment(current_user, appointment)
     redirect_to show_and_welcome_appointment_url(:token => token)

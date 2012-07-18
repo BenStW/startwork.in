@@ -1,7 +1,7 @@
 ActiveAdmin.register RecipientAppointment do
     menu :priority => 10
     filter :user
-    filter :appointment
+    filter :appointment_id
 
 
     index do

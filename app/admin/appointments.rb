@@ -1,10 +1,11 @@
 ActiveAdmin.register Appointment do
     menu :priority => 10
+    filter :id    
     filter :user
+    filter :token
     filter :start_time
-    filter :end_time
-    filter :send_count
-    filter :receive_count
+    scope  :this_week        
+    scope  :current        
 
 
     index do

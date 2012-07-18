@@ -243,47 +243,67 @@ describe AppointmentsController do
        @user = FactoryGirl.create(:user) 
        sign_in @user
      end
-     it "should be success" do      
-       get :accept, :token=>@appointment.token
-       response.should be_success 
-     end
      it "should raise an error when appointment is not found" do
        expect {
          get :accept, :token=>"asdf"
        }.to raise_error
      end     
      it "should add the appointment to received_appointments" do      
-       get :accept, :id=>@appointment.id
+       get :accept, :token=>@appointment.token
        @user.received_appointments.should eq([@appointment])
      end   
 
      it "should create a new appointment" do
        @user.appointments.should be_blank
-       get :receive_and_accept, :id=>@appointment.id
+       get :accept, :token=>@appointment.token
        @user.reload
        @user.appointments.should_not be_blank
+     end  
+     it "should redirect to root_url" do
+       get :accept, :token=>@appointment.token
+       response.should redirect_to(root_url)       
+     end   
+     it "should not redirect when requested as JSON" do
+       get :accept, :token=>@appointment.token, :format => :json
+       response.should_not redirect_to(root_url)       
+     end     
+     it "should return ok when requested as JSON" do
+       get :accept, :token=>@appointment.token, :format => :json
+       response.body.should eq("ok")
      end     
 
   end 
   
-  
 
-    
-    
-    def accept_without_authentication
-      session[:appointment_token] = params["token"]
-      redirect_to appointment_accept_url
-    end
-    
-    context "accept_without_authentication" do
-      before(:each) do
-        @user = FactoryGirl.create(:user)
-      end
-       it "should redirect to root_url without signing in" do      
-         get :accept_without_authentication
-         response.should redirect_to(appointment_accept_url)
-       end
+   context "accept_and_redirect_to_appointment_with_welcome" do
+     before(:each) do
+       sender = FactoryGirl.create(:user) 
+       @appointment = FactoryGirl.create(:appointment, :user=>sender)
+       @user = FactoryGirl.create(:user) 
+       sign_in @user
      end
+     it "should raise an error when appointment is not found" do
+       expect {
+         get :accept_and_redirect_to_appointment_with_welcome, :token=>"asdf"
+       }.to raise_error
+     end     
+     it "should add the appointment to received_appointments" do      
+       get :accept_and_redirect_to_appointment_with_welcome, :token=>@appointment.token
+       @user.received_appointments.should eq([@appointment])
+     end   
+
+     it "should create a new appointment" do
+       @user.appointments.should be_blank
+       get :accept_and_redirect_to_appointment_with_welcome, :token=>@appointment.token
+       @user.reload
+       @user.appointments.should_not be_blank
+     end  
+     it "should redirect to root_url" do
+       get :accept_and_redirect_to_appointment_with_welcome, :token=>@appointment.token
+       response.should redirect_to(show_and_welcome_appointment_url)       
+     end   
+
+  end 
      
   
    

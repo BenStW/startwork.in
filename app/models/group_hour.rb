@@ -21,7 +21,13 @@ class GroupHour < ActiveRecord::Base
    
    def self.this_week
      where("start_time>?",DateTime.current-1.hour) 
-   end  
+   end
+
+   def self.scope_current
+     c = DateTime.current
+     this_hour = DateTime.new(c.year,c.month,c.day, c.hour)
+     where("start_time = ?", this_hour)
+   end   
    
    
    def self.current_logged_in_except_user(user)

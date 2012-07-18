@@ -5,12 +5,14 @@
   </head>
   <body>
     <h1>Hallo Miro, Robert und Benedikt,</h1>
-<%= @user.name %> ( <%= @user.email %>) beginnt nun eine Session der Arbeitsgruppe <%= @group_hour.id %> 
-mit <%= @group_hour.users.count %> geplanten Benutzern:<br>
+<%= @user.name %> ( <%= @user.email %>) beginnt nun eine Session:<br><br>
+
+Arbeitsgruppe: <%= @group_hour.id %> <br><br>
+Anzahl geplante Benutzer: <%= @group_hour.users.count %> <br>
 <br>
 <ul>
 <% @group_hour.user_hours.each do |user_hour| %>
-<li><%= user_hour.user.name %> - eingeloggt: <%= if user_hour.login_count.nil? then "ja" else "nein" end %></li>
+<li><%= user_hour.user.name %> - UserHour: <%= user_hour%> - eingeloggt: <%= if user_hour.login_count.nil? then "ja" else "nein" end %></li>
 <% end %>
 </ul>
   </body>

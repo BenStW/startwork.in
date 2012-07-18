@@ -1,6 +1,9 @@
 ActiveAdmin.register GroupHour do
     menu :priority => 11
   filter :start_time
+  scope :this_week      
+
+    scope  :scope_current
 
 
   index do

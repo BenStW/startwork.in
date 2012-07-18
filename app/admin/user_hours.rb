@@ -2,9 +2,12 @@ ActiveAdmin.register UserHour do
     menu :priority => 10
     filter :start_time
     filter :login_count
+    
+    scope :this_week
+    scope  :scope_current  
+     
     scope :logged_in
     scope :not_logged_in
-
 
     index do
          h2 "'User_Hours' sind die Termine der Benutzer pro Stunde"

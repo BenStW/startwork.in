@@ -47,6 +47,12 @@ class Appointment < ActiveRecord::Base
     self.receive_count ||= 0
     self.accepted_appointment ||= nil
   end  
+  
+  def self.current
+    c = DateTime.current
+    this_hour = DateTime.new(c.year,c.month,c.day, c.hour)
+    where("start_time = ?", this_hour)
+  end  
 
   def self.this_week
     where("start_time>?",DateTime.current-1.hour) 
