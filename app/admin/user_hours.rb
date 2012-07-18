@@ -14,6 +14,8 @@ ActiveAdmin.register UserHour do
         column :id
         column :user
         column "start_time" do |user_hour | I18n.localize(user_hour.start_time.in_time_zone("Berlin")) end
+        column :appointment_id 
+        column :accepted_appointment_id       
         column "login_time" do |user_hour | I18n.localize(user_hour.login_time.in_time_zone("Berlin")) if user_hour.login_time end
         column :login_count        
         column :group_hour do |user_hour|
