@@ -21,11 +21,23 @@ describe GroupHoursController do
     end
     
     it "should create a user_hour of current hour" do
-      get :show
-      user_hour = UserHour.all.first
+      expect{
+        get :show
+      }.to change(UserHour,:count).by(1)
+      user_hour = UserHour.first
       
+      c = DateTime.current
+      this_hour = DateTime.new(c.year,c.month,c.day, c.hour)
+      user_hour.start_time.should eq(this_hour)      
     end
     
+    it "should assign the 3 tokbox variables" do
+      get :show
+      group_hour = GroupHour.first
+      assigns(:tokbox_session_id).should eq(group_hour.tokbox_session_id) 
+      assigns(:tokbox_token).should_not be_nil        
+      assigns(:tokbox_api_key).should_not be_nil        
+    end
   end
   
   
