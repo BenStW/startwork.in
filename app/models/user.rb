@@ -77,6 +77,10 @@ class User < ActiveRecord::Base
      self.friends.map(&:id).include?(user.id)
   end
   
+  def currently_logged_in?
+    user_hours.current.login_count>0
+  end
+  
   def self.current_users
     c = DateTime.current
     this_hour = DateTime.new(c.year,c.month,c.day, c.hour)
