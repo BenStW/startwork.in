@@ -1,7 +1,7 @@
 class GroupHoursController < ApplicationController
   skip_before_filter :authenticate_user!,  :only => [:test_show]  
   layout "video_layout"
-
+  
   def show  
     puts "#{current_user.name}: ******** SHOW GROUP HOUR *********"    
     @user_hour = current_user.user_hours.current 

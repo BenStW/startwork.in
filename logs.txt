@@ -1,215 +1,3 @@
-2012-07-18T14:50:35+00:00 heroku[nginx]: 94.223.127.72 - - [18/Jul/2012:14:50:35 +0000] "GET / HTTP/1.1" 200 2437 "http://startwork.in/ueber_uns" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:50:36+00:00 app[web.1]: cache: [GET /assets/frontpage_bigpicture.jpg] stale, valid, store
-2012-07-18T14:50:36+00:00 heroku[router]: GET startwork.in/assets/frontpage_bigpicture.jpg dyno=web.1 queue=0 wait=0ms service=52ms status=200 bytes=215175
-2012-07-18T14:50:36+00:00 heroku[nginx]: 94.223.127.72 - - [18/Jul/2012:14:50:36 +0000] "GET /assets/frontpage_bigpicture.jpg HTTP/1.1" 304 0 "http://startwork.in/" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:50:36+00:00 app[web.1]: cache: [GET /assets/fb_login_startwork.png] stale, valid, store
-2012-07-18T14:50:36+00:00 heroku[router]: GET startwork.in/assets/fb_login_startwork.png dyno=web.1 queue=0 wait=0ms service=6ms status=200 bytes=21388
-2012-07-18T14:50:36+00:00 heroku[nginx]: 94.223.127.72 - - [18/Jul/2012:14:50:36 +0000] "GET /assets/fb_login_startwork.png HTTP/1.1" 304 0 "http://startwork.in/" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:50:36+00:00 app[web.1]: cache: [GET /assets/fb-favicon.png] stale, valid, store
-2012-07-18T14:50:36+00:00 heroku[nginx]: 94.223.127.72 - - [18/Jul/2012:14:50:36 +0000] "GET /assets/fb-favicon.png HTTP/1.1" 304 0 "http://startwork.in/" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:50:36+00:00 app[web.1]: cache: [GET /assets/promotion_video.jpg] stale, valid, store
-2012-07-18T14:50:36+00:00 heroku[router]: GET startwork.in/assets/promotion_video.jpg dyno=web.1 queue=0 wait=0ms service=15ms status=200 bytes=52892
-2012-07-18T14:50:36+00:00 heroku[nginx]: 94.223.127.72 - - [18/Jul/2012:14:50:36 +0000] "GET /assets/promotion_video.jpg HTTP/1.1" 304 0 "http://startwork.in/" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:50:36+00:00 heroku[router]: GET startwork.in/assets/fb-favicon.png dyno=web.1 queue=0 wait=0ms service=4ms status=200 bytes=147
-2012-07-18T14:50:45+00:00 app[web.1]: 
-2012-07-18T14:50:45+00:00 app[web.1]: Started GET "/admin" for 194.94.8.133 at 2012-07-18 14:50:45 +0000
-2012-07-18T14:50:45+00:00 app[web.1]: 
-2012-07-18T14:50:50+00:00 app[web.1]: cache: [GET /admin] miss
-2012-07-18T14:50:50+00:00 heroku[router]: GET startwork.in/admin dyno=web.1 queue=0 wait=0ms service=4908ms status=200 bytes=46226
-2012-07-18T14:50:50+00:00 heroku[nginx]: 194.94.8.133 - - [18/Jul/2012:14:50:50 +0000] "GET /admin HTTP/1.1" 200 4750 "http://startwork.in/admin/login" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:50:50+00:00 app[web.1]: cache: [GET /assets/active_admin-86dbac21cc05ceb10c3249e6402001b3.js] miss
-2012-07-18T14:50:50+00:00 app[web.1]: cache: [GET /assets/active_admin-1f293e8bc62608abbf49ed7255dd37a9.css] miss
-2012-07-18T14:50:50+00:00 heroku[router]: GET startwork.in/assets/active_admin-1f293e8bc62608abbf49ed7255dd37a9.css dyno=web.1 queue=0 wait=0ms service=13ms status=200 bytes=63989
-2012-07-18T14:50:50+00:00 heroku[nginx]: 194.94.8.133 - - [18/Jul/2012:14:50:50 +0000] "GET /assets/active_admin-86dbac21cc05ceb10c3249e6402001b3.js HTTP/1.1" 304 0 "http://startwork.in/admin" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:50:50+00:00 heroku[router]: GET startwork.in/assets/active_admin-86dbac21cc05ceb10c3249e6402001b3.js dyno=web.1 queue=0 wait=0ms service=23ms status=200 bytes=302259
-2012-07-18T14:50:50+00:00 heroku[nginx]: 194.94.8.133 - - [18/Jul/2012:14:50:50 +0000] "GET /assets/active_admin-1f293e8bc62608abbf49ed7255dd37a9.css HTTP/1.1" 304 0 "http://startwork.in/admin" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:50:50+00:00 app[web.1]: cache: [GET /favicon.ico] stale, valid, store
-2012-07-18T14:50:50+00:00 heroku[router]: GET startwork.in/favicon.ico dyno=web.1 queue=0 wait=0ms service=5ms status=200 bytes=0
-2012-07-18T14:50:50+00:00 heroku[nginx]: 194.94.8.133 - - [18/Jul/2012:14:50:50 +0000] "GET /favicon.ico HTTP/1.1" 304 0 "-" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:51:07+00:00 heroku[api]: Release v426 created by mail@benedikt-voigt.net
-2012-07-18T14:51:07+00:00 heroku[api]: Deploy fa1452e by mail@benedikt-voigt.net
-2012-07-18T14:51:08+00:00 heroku[web.1]: State changed from up to starting
-2012-07-18T14:51:10+00:00 heroku[web.1]: Stopping all processes with SIGTERM
-2012-07-18T14:51:10+00:00 app[web.1]: 	/usr/local/lib/ruby/1.9.1/webrick/server.rb:90:in `select'
-2012-07-18T14:51:10+00:00 app[web.1]: [2012-07-18 14:51:10] ERROR SignalException: SIGTERM
-2012-07-18T14:51:11+00:00 heroku[slugc]: Slug compilation finished
-2012-07-18T14:51:12+00:00 heroku[web.1]: Starting process with command `bundle exec rails server -p 51660`
-2012-07-18T14:51:20+00:00 heroku[web.1]: Error R12 (Exit timeout) -> At least one process failed to exit within 10 seconds of SIGTERM
-2012-07-18T14:51:20+00:00 heroku[web.1]: Stopping remaining processes with SIGKILL
-2012-07-18T14:51:21+00:00 heroku[web.1]: Process exited with status 137
-2012-07-18T14:51:27+00:00 app[web.1]: DEPRECATION WARNING: You have Rails 2.3-style plugins in vendor/plugins! Support for these plugins will be removed in Rails 4.0. Move them out and bundle them in your Gemfile, or fold them in to your app as lib/myplugin/* and config/initializers/myplugin.rb. See the release notes for more on this: http://weblog.rubyonrails.org/2012/01/04/rails-3-2-0-rc2-has-been-released. (called from <top (required)> at /app/config/environment.rb:5)
-2012-07-18T14:51:27+00:00 app[web.1]: DEPRECATION WARNING: You have Rails 2.3-style plugins in vendor/plugins! Support for these plugins will be removed in Rails 4.0. Move them out and bundle them in your Gemfile, or fold them in to your app as lib/myplugin/* and config/initializers/myplugin.rb. See the release notes for more on this: http://weblog.rubyonrails.org/2012/01/04/rails-3-2-0-rc2-has-been-released. (called from <top (required)> at /app/config/environment.rb:5)
-2012-07-18T14:51:31+00:00 app[web.1]: => Booting WEBrick
-2012-07-18T14:51:31+00:00 app[web.1]: => Rails 3.2.1 application starting in production on http://0.0.0.0:51660
-2012-07-18T14:51:31+00:00 app[web.1]: => Call with -d to detach
-2012-07-18T14:51:31+00:00 app[web.1]: => Ctrl-C to shutdown server
-2012-07-18T14:51:34+00:00 app[web.1]: 
-2012-07-18T14:51:34+00:00 app[web.1]: [DEVISE] Devise.apply_schema is deprecated and has no effect. Please remove it.
-2012-07-18T14:51:34+00:00 app[web.1]: 
-2012-07-18T14:51:34+00:00 app[web.1]: 
-2012-07-18T14:51:34+00:00 app[web.1]: [DEVISE] Devise.use_salt_as_remember_token is deprecated and has no effect. Please remove it.
-2012-07-18T14:51:34+00:00 app[web.1]: 
-2012-07-18T14:51:37+00:00 app[web.1]: Translating routes (default locale: en)
-2012-07-18T14:51:37+00:00 app[web.1]: Translating routes (default locale: de)
-2012-07-18T14:51:38+00:00 app[web.1]: Translating routes (default locale: de)
-2012-07-18T14:51:38+00:00 app[web.1]: [2012-07-18 14:51:38] INFO  WEBrick 1.3.1
-2012-07-18T14:51:38+00:00 app[web.1]: [2012-07-18 14:51:38] INFO  ruby 1.9.2 (2011-07-09) [x86_64-linux]
-2012-07-18T14:51:38+00:00 app[web.1]: [2012-07-18 14:51:38] INFO  WEBrick::HTTPServer#start: pid=2 port=51660
-2012-07-18T14:51:39+00:00 heroku[web.1]: State changed from starting to up
-2012-07-18T14:51:42+00:00 app[web.1]: Connected to NewRelic Service at collector-9.newrelic.com
-2012-07-18T14:52:11+00:00 app[web.1]: 
-2012-07-18T14:52:11+00:00 app[web.1]: 
-2012-07-18T14:52:11+00:00 app[web.1]: Started GET "/admin" for 194.94.8.133 at 2012-07-18 14:52:11 +0000
-2012-07-18T14:52:15+00:00 app[web.1]: cache: [GET /admin] miss
-2012-07-18T14:52:15+00:00 heroku[router]: GET startwork.in/admin dyno=web.1 queue=0 wait=0ms service=3454ms status=200 bytes=46178
-2012-07-18T14:52:15+00:00 heroku[nginx]: 194.94.8.133 - - [18/Jul/2012:14:52:15 +0000] "GET /admin HTTP/1.1" 200 4728 "http://startwork.in/admin/login" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:15+00:00 app[web.1]: cache: [GET /assets/active_admin-1f293e8bc62608abbf49ed7255dd37a9.css] miss
-2012-07-18T14:52:15+00:00 heroku[router]: GET startwork.in/assets/active_admin-1f293e8bc62608abbf49ed7255dd37a9.css dyno=web.1 queue=0 wait=0ms service=6ms status=200 bytes=63989
-2012-07-18T14:52:15+00:00 heroku[nginx]: 194.94.8.133 - - [18/Jul/2012:14:52:15 +0000] "GET /assets/active_admin-1f293e8bc62608abbf49ed7255dd37a9.css HTTP/1.1" 200 8328 "http://startwork.in/admin" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:15+00:00 app[web.1]: cache: [GET /assets/active_admin-86dbac21cc05ceb10c3249e6402001b3.js] miss
-2012-07-18T14:52:15+00:00 heroku[router]: GET startwork.in/assets/active_admin-86dbac21cc05ceb10c3249e6402001b3.js dyno=web.1 queue=0 wait=0ms service=10ms status=200 bytes=302259
-2012-07-18T14:52:15+00:00 app[web.1]: 
-2012-07-18T14:52:15+00:00 app[web.1]: 
-2012-07-18T14:52:15+00:00 app[web.1]: Started GET "/" for 94.223.127.72 at 2012-07-18 14:52:15 +0000
-2012-07-18T14:52:15+00:00 app[web.1]: cache: [GET /] miss
-2012-07-18T14:52:15+00:00 heroku[router]: GET startwork.in/ dyno=web.1 queue=0 wait=0ms service=49ms status=200 bytes=5389
-2012-07-18T14:52:15+00:00 heroku[nginx]: 94.223.127.72 - - [18/Jul/2012:14:52:15 +0000] "GET / HTTP/1.1" 200 2451 "http://www.facebook.com/l.php?u=http%3A%2F%2Fstartwork.in%2F&h=-AQEv3Y48" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:15+00:00 heroku[nginx]: 194.94.8.133 - - [18/Jul/2012:14:52:15 +0000] "GET /assets/active_admin-86dbac21cc05ceb10c3249e6402001b3.js HTTP/1.1" 200 89730 "http://startwork.in/admin" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:15+00:00 heroku[router]: GET startwork.in/assets/application-e8585ab6cc20332e2f80e2bd82bd29c5.css dyno=web.1 queue=0 wait=0ms service=7ms status=200 bytes=82179
-2012-07-18T14:52:15+00:00 app[web.1]: cache: [GET /assets/application-e8585ab6cc20332e2f80e2bd82bd29c5.css] miss
-2012-07-18T14:52:15+00:00 heroku[nginx]: 94.223.127.72 - - [18/Jul/2012:14:52:15 +0000] "GET /assets/application-e8585ab6cc20332e2f80e2bd82bd29c5.css HTTP/1.1" 200 15272 "http://startwork.in/" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:16+00:00 app[web.1]: cache: [GET /assets/application-5060b3f4e88685a261bf83fb2db03776.js] miss
-2012-07-18T14:52:16+00:00 heroku[router]: GET startwork.in/assets/application-5060b3f4e88685a261bf83fb2db03776.js dyno=web.1 queue=0 wait=0ms service=18ms status=200 bytes=463528
-2012-07-18T14:52:16+00:00 app[web.1]: cache: [GET /assets/active_admin/nested_menu_arrow-dcb32755d9740e23965a1e76bb945ce9.gif] miss
-2012-07-18T14:52:16+00:00 heroku[nginx]: 194.94.8.133 - - [18/Jul/2012:14:52:16 +0000] "GET /assets/active_admin/nested_menu_arrow-dcb32755d9740e23965a1e76bb945ce9.gif HTTP/1.1" 200 70 "http://startwork.in/admin" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:16+00:00 heroku[router]: GET startwork.in/assets/active_admin/nested_menu_arrow-dcb32755d9740e23965a1e76bb945ce9.gif dyno=web.1 queue=0 wait=0ms service=5ms status=200 bytes=70
-2012-07-18T14:52:16+00:00 heroku[nginx]: 94.223.127.72 - - [18/Jul/2012:14:52:16 +0000] "GET /assets/application-5060b3f4e88685a261bf83fb2db03776.js HTTP/1.1" 200 129057 "http://startwork.in/" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:17+00:00 app[web.1]: cache: [GET /assets/grain.jpg] miss
-2012-07-18T14:52:17+00:00 heroku[router]: GET startwork.in/assets/grain.jpg dyno=web.1 queue=0 wait=0ms service=5ms status=200 bytes=13137
-2012-07-18T14:52:17+00:00 heroku[nginx]: 94.223.127.72 - - [18/Jul/2012:14:52:17 +0000] "GET /assets/grain.jpg HTTP/1.1" 200 13137 "http://startwork.in/" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:17+00:00 app[web.1]: cache: [GET /favicon.ico] miss
-2012-07-18T14:52:17+00:00 heroku[router]: GET startwork.in/favicon.ico dyno=web.1 queue=0 wait=0ms service=4ms status=200 bytes=0
-2012-07-18T14:52:17+00:00 heroku[nginx]: 94.223.127.72 - - [18/Jul/2012:14:52:17 +0000] "GET /favicon.ico HTTP/1.1" 200 0 "-" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:21+00:00 app[web.1]: 
-2012-07-18T14:52:21+00:00 app[web.1]: 
-2012-07-18T14:52:21+00:00 app[web.1]: Started GET "/wie_geht_es" for 94.223.127.72 at 2012-07-18 14:52:21 +0000
-2012-07-18T14:52:21+00:00 app[web.1]: cache: [GET /wie_geht_es] miss
-2012-07-18T14:52:21+00:00 heroku[router]: GET startwork.in/wie_geht_es dyno=web.1 queue=0 wait=0ms service=19ms status=200 bytes=9048
-2012-07-18T14:52:21+00:00 heroku[nginx]: 94.223.127.72 - - [18/Jul/2012:14:52:21 +0000] "GET /wie_geht_es HTTP/1.1" 200 3774 "http://startwork.in/" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:21+00:00 app[web.1]: cache: [GET /assets/werde_produktiv.png] miss
-2012-07-18T14:52:21+00:00 heroku[router]: GET startwork.in/assets/werde_produktiv.png dyno=web.1 queue=0 wait=0ms service=4ms status=200 bytes=7860
-2012-07-18T14:52:21+00:00 heroku[nginx]: 94.223.127.72 - - [18/Jul/2012:14:52:21 +0000] "GET /assets/werde_produktiv.png HTTP/1.1" 200 7860 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:21+00:00 app[web.1]: cache: [GET /assets/frontpage_facebook.png] miss
-2012-07-18T14:52:21+00:00 heroku[router]: GET startwork.in/assets/frontpage_facebook.png dyno=web.1 queue=0 wait=0ms service=3ms status=200 bytes=7982
-2012-07-18T14:52:21+00:00 heroku[nginx]: 94.223.127.72 - - [18/Jul/2012:14:52:21 +0000] "GET /assets/frontpage_facebook.png HTTP/1.1" 200 7982 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:21+00:00 app[web.1]: cache: [GET /assets/frontpage_call_to_action.png] miss
-2012-07-18T14:52:21+00:00 heroku[nginx]: 94.223.127.72 - - [18/Jul/2012:14:52:21 +0000] "GET /assets/frontpage_call_to_action.png HTTP/1.1" 200 7191 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:21+00:00 heroku[router]: GET startwork.in/assets/frontpage_call_to_action.png dyno=web.1 queue=0 wait=0ms service=5ms status=200 bytes=7191
-2012-07-18T14:52:21+00:00 heroku[nginx]: 94.223.127.72 - - [18/Jul/2012:14:52:21 +0000] "GET /assets/separator-top-940.png HTTP/1.1" 200 22425 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:21+00:00 app[web.1]: cache: [GET /assets/separator-top-940.png] miss
-2012-07-18T14:52:21+00:00 heroku[router]: GET startwork.in/assets/separator-top-940.png dyno=web.1 queue=0 wait=0ms service=5ms status=200 bytes=22425
-2012-07-18T14:52:21+00:00 app[web.1]: cache: [GET /assets/session_screen.jpg] miss
-2012-07-18T14:52:22+00:00 app[web.1]: cache: [GET /assets/session_screen2.jpg] miss
-2012-07-18T14:52:22+00:00 heroku[router]: GET startwork.in/assets/session_screen.jpg dyno=web.1 queue=0 wait=0ms service=72ms status=200 bytes=106563
-2012-07-18T14:52:22+00:00 heroku[router]: GET startwork.in/assets/session_screen2.jpg dyno=web.1 queue=0 wait=0ms service=62ms status=200 bytes=75404
-2012-07-18T14:52:22+00:00 heroku[router]: GET startwork.in/assets/kalender.jpg dyno=web.1 queue=0 wait=0ms service=5ms status=200 bytes=74055
-2012-07-18T14:52:22+00:00 app[web.1]: cache: [GET /assets/kalender.jpg] miss
-2012-07-18T14:52:22+00:00 heroku[nginx]: 94.223.127.72 - - [18/Jul/2012:14:52:22 +0000] "GET /assets/kalender.jpg HTTP/1.1" 200 74055 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:22+00:00 app[web.1]: cache: [GET /assets/trust.jpg] miss
-2012-07-18T14:52:22+00:00 heroku[router]: GET startwork.in/assets/trust.jpg dyno=web.1 queue=0 wait=0ms service=11ms status=200 bytes=69672
-2012-07-18T14:52:22+00:00 heroku[nginx]: 94.223.127.72 - - [18/Jul/2012:14:52:22 +0000] "GET /assets/trust.jpg HTTP/1.1" 200 69672 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:22+00:00 app[web.1]: cache: [GET /assets/separator-bottom-940.png] miss
-2012-07-18T14:52:22+00:00 heroku[router]: GET startwork.in/assets/separator-bottom-940.png dyno=web.1 queue=0 wait=0ms service=4ms status=200 bytes=22419
-2012-07-18T14:52:22+00:00 heroku[nginx]: 94.223.127.72 - - [18/Jul/2012:14:52:22 +0000] "GET /assets/separator-bottom-940.png HTTP/1.1" 200 22419 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:22+00:00 app[web.1]: cache: [GET /assets/friends_button.png] miss
-2012-07-18T14:52:22+00:00 heroku[router]: GET startwork.in/assets/friends_button.png dyno=web.1 queue=0 wait=0ms service=9ms status=200 bytes=141284
-2012-07-18T14:52:22+00:00 heroku[nginx]: 94.223.127.72 - - [18/Jul/2012:14:52:22 +0000] "GET /assets/session_screen2.jpg HTTP/1.1" 200 75404 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:22+00:00 app[web.1]: cache: [GET /assets/kalender_button.png] miss
-2012-07-18T14:52:22+00:00 heroku[router]: GET startwork.in/assets/kalender_button.png dyno=web.1 queue=0 wait=0ms service=12ms status=200 bytes=40581
-2012-07-18T14:52:22+00:00 heroku[nginx]: 94.223.127.72 - - [18/Jul/2012:14:52:22 +0000] "GET /assets/kalender_button.png HTTP/1.1" 200 40581 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:22+00:00 heroku[nginx]: 94.223.127.72 - - [18/Jul/2012:14:52:22 +0000] "GET /assets/session_screen.jpg HTTP/1.1" 200 106563 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:22+00:00 app[web.1]: cache: [GET /assets/wecker_button.png] miss
-2012-07-18T14:52:22+00:00 heroku[router]: GET startwork.in/assets/wecker_button.png dyno=web.1 queue=0 wait=0ms service=10ms status=200 bytes=145914
-2012-07-18T14:52:22+00:00 app[web.1]: cache: [GET /assets/kamera_button.png] miss
-2012-07-18T14:52:22+00:00 heroku[router]: GET startwork.in/assets/kamera_button.png dyno=web.1 queue=0 wait=0ms service=9ms status=200 bytes=103475
-2012-07-18T14:52:22+00:00 heroku[nginx]: 94.223.127.72 - - [18/Jul/2012:14:52:22 +0000] "GET /assets/kamera_button.png HTTP/1.1" 200 103475 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:22+00:00 heroku[nginx]: 94.223.127.72 - - [18/Jul/2012:14:52:22 +0000] "GET /assets/wecker_button.png HTTP/1.1" 200 145914 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:22+00:00 heroku[nginx]: 94.223.127.72 - - [18/Jul/2012:14:52:22 +0000] "GET /assets/friends_button.png HTTP/1.1" 200 141284 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:23+00:00 heroku[router]: GET startwork.in/assets/screen_button.png dyno=web.1 queue=0 wait=0ms service=7ms status=200 bytes=133715
-2012-07-18T14:52:23+00:00 app[web.1]: cache: [GET /assets/screen_button.png] miss
-2012-07-18T14:52:23+00:00 app[web.1]: cache: [GET /assets/9010_button.png] miss
-2012-07-18T14:52:23+00:00 heroku[router]: GET startwork.in/assets/9010_button.png dyno=web.1 queue=0 wait=0ms service=10ms status=200 bytes=91646
-2012-07-18T14:52:23+00:00 app[web.1]: cache: [GET /assets/bg_control_nav.png] miss
-2012-07-18T14:52:23+00:00 heroku[router]: GET startwork.in/assets/bg_control_nav.png dyno=web.1 queue=0 wait=0ms service=4ms status=200 bytes=1776
-2012-07-18T14:52:23+00:00 heroku[nginx]: 94.223.127.72 - - [18/Jul/2012:14:52:23 +0000] "GET /assets/bg_control_nav.png HTTP/1.1" 200 1776 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:23+00:00 heroku[nginx]: 94.223.127.72 - - [18/Jul/2012:14:52:23 +0000] "GET /assets/screen_button.png HTTP/1.1" 200 133715 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:23+00:00 heroku[nginx]: 94.223.127.72 - - [18/Jul/2012:14:52:23 +0000] "GET /assets/9010_button.png HTTP/1.1" 200 91646 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:23+00:00 app[web.1]: cache: [GET /assets/bg_direction_nav.png] miss
-2012-07-18T14:52:23+00:00 heroku[router]: GET startwork.in/assets/bg_direction_nav.png dyno=web.1 queue=0 wait=0ms service=5ms status=200 bytes=2427
-2012-07-18T14:52:23+00:00 heroku[nginx]: 94.223.127.72 - - [18/Jul/2012:14:52:23 +0000] "GET /assets/bg_direction_nav.png HTTP/1.1" 200 2427 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:52+00:00 heroku[router]: GET startwork.in/wie_geht_es dyno=web.1 queue=0 wait=0ms service=20ms status=200 bytes=9047
-2012-07-18T14:52:52+00:00 app[web.1]: 
-2012-07-18T14:52:52+00:00 app[web.1]: Started GET "/wie_geht_es" for 178.8.169.61 at 2012-07-18 14:52:52 +0000
-2012-07-18T14:52:52+00:00 app[web.1]: cache: [GET /wie_geht_es] miss
-2012-07-18T14:52:52+00:00 app[web.1]: 
-2012-07-18T14:52:52+00:00 heroku[nginx]: 178.8.169.61 - - [18/Jul/2012:14:52:52 +0000] "GET /wie_geht_es HTTP/1.1" 200 3781 "http://www.facebook.com/l.php?u=http%3A%2F%2Fstartwork.in%2Fwie_geht_es&h=QAQFMcFxR" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:52+00:00 app[web.1]: cache: [GET /assets/application-e8585ab6cc20332e2f80e2bd82bd29c5.css] miss
-2012-07-18T14:52:52+00:00 heroku[router]: GET startwork.in/assets/application-e8585ab6cc20332e2f80e2bd82bd29c5.css dyno=web.1 queue=0 wait=0ms service=12ms status=200 bytes=82179
-2012-07-18T14:52:52+00:00 heroku[nginx]: 178.8.169.61 - - [18/Jul/2012:14:52:52 +0000] "GET /assets/application-e8585ab6cc20332e2f80e2bd82bd29c5.css HTTP/1.1" 200 15073 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:52+00:00 app[web.1]: cache: [GET /assets/application-5060b3f4e88685a261bf83fb2db03776.js] miss
-2012-07-18T14:52:52+00:00 heroku[router]: GET startwork.in/assets/application-5060b3f4e88685a261bf83fb2db03776.js dyno=web.1 queue=0 wait=0ms service=87ms status=200 bytes=463528
-2012-07-18T14:52:53+00:00 heroku[nginx]: 178.8.169.61 - - [18/Jul/2012:14:52:53 +0000] "GET /assets/application-5060b3f4e88685a261bf83fb2db03776.js HTTP/1.1" 200 128824 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:53+00:00 app[web.1]: cache: [GET /assets/grain.jpg] miss
-2012-07-18T14:52:53+00:00 heroku[router]: GET startwork.in/assets/grain.jpg dyno=web.1 queue=0 wait=0ms service=8ms status=200 bytes=13137
-2012-07-18T14:52:53+00:00 heroku[nginx]: 178.8.169.61 - - [18/Jul/2012:14:52:53 +0000] "GET /assets/grain.jpg HTTP/1.1" 200 13137 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:53+00:00 heroku[router]: GET startwork.in/assets/frontpage_facebook.png dyno=web.1 queue=0 wait=0ms service=4ms status=200 bytes=7982
-2012-07-18T14:52:53+00:00 app[web.1]: cache: [GET /assets/frontpage_facebook.png] miss
-2012-07-18T14:52:53+00:00 heroku[nginx]: 178.8.169.61 - - [18/Jul/2012:14:52:53 +0000] "GET /assets/frontpage_facebook.png HTTP/1.1" 200 7982 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:53+00:00 app[web.1]: cache: [GET /assets/werde_produktiv.png] miss
-2012-07-18T14:52:53+00:00 heroku[router]: GET startwork.in/assets/werde_produktiv.png dyno=web.1 queue=0 wait=0ms service=8ms status=200 bytes=7860
-2012-07-18T14:52:53+00:00 heroku[nginx]: 178.8.169.61 - - [18/Jul/2012:14:52:53 +0000] "GET /assets/werde_produktiv.png HTTP/1.1" 200 7860 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:53+00:00 heroku[router]: GET startwork.in/assets/frontpage_call_to_action.png dyno=web.1 queue=0 wait=0ms service=5ms status=200 bytes=7191
-2012-07-18T14:52:53+00:00 heroku[nginx]: 178.8.169.61 - - [18/Jul/2012:14:52:53 +0000] "GET /assets/frontpage_call_to_action.png HTTP/1.1" 200 7191 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:53+00:00 app[web.1]: cache: [GET /assets/frontpage_call_to_action.png] miss
-2012-07-18T14:52:53+00:00 app[web.1]: cache: [GET /assets/session_screen.jpg] miss
-2012-07-18T14:52:53+00:00 app[web.1]: cache: [GET /assets/separator-top-940.png] miss
-2012-07-18T14:52:53+00:00 heroku[router]: GET startwork.in/assets/session_screen.jpg dyno=web.1 queue=0 wait=0ms service=8ms status=200 bytes=106563
-2012-07-18T14:52:53+00:00 heroku[router]: GET startwork.in/assets/separator-top-940.png dyno=web.1 queue=0 wait=0ms service=7ms status=200 bytes=22425
-2012-07-18T14:52:53+00:00 heroku[nginx]: 178.8.169.61 - - [18/Jul/2012:14:52:53 +0000] "GET /assets/separator-top-940.png HTTP/1.1" 200 22425 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:53+00:00 app[web.1]: cache: [GET /assets/session_screen2.jpg] miss
-2012-07-18T14:52:53+00:00 heroku[router]: GET startwork.in/assets/session_screen2.jpg dyno=web.1 queue=0 wait=0ms service=10ms status=200 bytes=75404
-2012-07-18T14:52:53+00:00 heroku[nginx]: 178.8.169.61 - - [18/Jul/2012:14:52:53 +0000] "GET /assets/session_screen2.jpg HTTP/1.1" 200 75404 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:53+00:00 app[web.1]: cache: [GET /assets/kalender.jpg] miss
-2012-07-18T14:52:54+00:00 heroku[router]: GET startwork.in/assets/kalender.jpg dyno=web.1 queue=0 wait=0ms service=9ms status=200 bytes=74055
-2012-07-18T14:52:54+00:00 app[web.1]: cache: [GET /assets/trust.jpg] miss
-2012-07-18T14:52:54+00:00 heroku[router]: GET startwork.in/assets/trust.jpg dyno=web.1 queue=0 wait=0ms service=7ms status=200 bytes=69672
-2012-07-18T14:52:54+00:00 heroku[nginx]: 178.8.169.61 - - [18/Jul/2012:14:52:54 +0000] "GET /assets/trust.jpg HTTP/1.1" 200 69672 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:54+00:00 app[web.1]: cache: [GET /assets/separator-bottom-940.png] miss
-2012-07-18T14:52:54+00:00 heroku[router]: GET startwork.in/assets/separator-bottom-940.png dyno=web.1 queue=0 wait=0ms service=7ms status=200 bytes=22419
-2012-07-18T14:52:54+00:00 heroku[nginx]: 178.8.169.61 - - [18/Jul/2012:14:52:54 +0000] "GET /assets/separator-bottom-940.png HTTP/1.1" 200 22419 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:54+00:00 app[web.1]: cache: [GET /assets/friends_button.png] miss
-2012-07-18T14:52:54+00:00 heroku[router]: GET startwork.in/assets/friends_button.png dyno=web.1 queue=0 wait=0ms service=10ms status=200 bytes=141284
-2012-07-18T14:52:54+00:00 app[web.1]: cache: [GET /assets/kalender_button.png] miss
-2012-07-18T14:52:54+00:00 heroku[nginx]: 178.8.169.61 - - [18/Jul/2012:14:52:54 +0000] "GET /assets/kalender.jpg HTTP/1.1" 200 74055 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:54+00:00 heroku[router]: GET startwork.in/assets/kalender_button.png dyno=web.1 queue=0 wait=0ms service=38ms status=200 bytes=40581
-2012-07-18T14:52:54+00:00 heroku[nginx]: 178.8.169.61 - - [18/Jul/2012:14:52:54 +0000] "GET /assets/kalender_button.png HTTP/1.1" 200 40581 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:54+00:00 heroku[nginx]: 178.8.169.61 - - [18/Jul/2012:14:52:54 +0000] "GET /assets/friends_button.png HTTP/1.1" 200 141284 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:54+00:00 heroku[nginx]: 178.8.169.61 - - [18/Jul/2012:14:52:54 +0000] "GET /assets/session_screen.jpg HTTP/1.1" 200 106563 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:54+00:00 app[web.1]: cache: [GET /assets/wecker_button.png] miss
-2012-07-18T14:52:54+00:00 heroku[router]: GET startwork.in/assets/wecker_button.png dyno=web.1 queue=0 wait=0ms service=17ms status=200 bytes=145914
-2012-07-18T14:52:54+00:00 app[web.1]: cache: [GET /assets/kamera_button.png] miss
-2012-07-18T14:52:54+00:00 heroku[router]: GET startwork.in/assets/kamera_button.png dyno=web.1 queue=0 wait=0ms service=6ms status=200 bytes=103475
-2012-07-18T14:52:54+00:00 app[web.1]: cache: [GET /assets/screen_button.png] miss
-2012-07-18T14:52:54+00:00 heroku[router]: GET startwork.in/assets/screen_button.png dyno=web.1 queue=0 wait=0ms service=7ms status=200 bytes=133715
-2012-07-18T14:52:54+00:00 heroku[nginx]: 178.8.169.61 - - [18/Jul/2012:14:52:54 +0000] "GET /assets/screen_button.png HTTP/1.1" 200 133715 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:54+00:00 heroku[router]: GET startwork.in/assets/9010_button.png dyno=web.1 queue=0 wait=0ms service=7ms status=200 bytes=91646
-2012-07-18T14:52:54+00:00 app[web.1]: cache: [GET /assets/9010_button.png] miss
-2012-07-18T14:52:54+00:00 heroku[nginx]: 178.8.169.61 - - [18/Jul/2012:14:52:54 +0000] "GET /assets/kamera_button.png HTTP/1.1" 200 103475 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:54+00:00 app[web.1]: cache: [GET /assets/bg_control_nav.png] miss
-2012-07-18T14:52:54+00:00 heroku[router]: GET startwork.in/assets/bg_control_nav.png dyno=web.1 queue=0 wait=0ms service=5ms status=200 bytes=1776
-2012-07-18T14:52:54+00:00 heroku[nginx]: 178.8.169.61 - - [18/Jul/2012:14:52:54 +0000] "GET /assets/bg_control_nav.png HTTP/1.1" 200 1776 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:54+00:00 heroku[nginx]: 178.8.169.61 - - [18/Jul/2012:14:52:54 +0000] "GET /assets/wecker_button.png HTTP/1.1" 200 145914 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T14:52:54+00:00 heroku[nginx]: 178.8.169.61 - - [18/Jul/2012:14:52:54 +0000] "GET /assets/9010_button.png HTTP/1.1" 200 91646 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
 2012-07-18T14:52:54+00:00 heroku[router]: GET startwork.in/assets/bg_direction_nav.png dyno=web.1 queue=0 wait=0ms service=7ms status=200 bytes=2427
 2012-07-18T14:52:54+00:00 app[web.1]: cache: [GET /assets/bg_direction_nav.png] miss
 2012-07-18T14:52:54+00:00 heroku[nginx]: 178.8.169.61 - - [18/Jul/2012:14:52:54 +0000] "GET /assets/bg_direction_nav.png HTTP/1.1" 200 2427 "http://startwork.in/wie_geht_es" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
@@ -265,7 +53,8 @@
 2012-07-18T14:54:16+00:00 app[web.1]: 
 2012-07-18T14:54:16+00:00 app[web.1]: Started GET "/ueber_uns" for 178.8.169.61 at 2012-07-18 14:54:16 +0000
 2012-07-18T14:54:16+00:00 app[web.1]: cache: [GET /ueber_uns] miss
-2012-07-18T14:54:16+00:00 heroku[nginx]: 178.8.169.61 - - [18/Jul/2012:14:54:16 +0000] "GET /ueber_uns HTTP/1.1" 200 2788 "http://startwork.in/blog" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T14:54:16+00:00 heroku[nginx]: 178.8.169.61 - - [18/Jul/2012:14:54:16 +0000] "GET /ueber_uns H
+TTP/1.1" 200 2788 "http://startwork.in/blog" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
 2012-07-18T14:54:16+00:00 heroku[router]: GET startwork.in/ueber_uns dyno=web.1 queue=0 wait=0ms service=24ms status=200 bytes=6049
 2012-07-18T14:54:16+00:00 app[web.1]: cache: [GET /assets/startwork_urban_small.jpg] miss
 2012-07-18T14:54:16+00:00 heroku[router]: GET startwork.in/assets/startwork_urban_small.jpg dyno=web.1 queue=0 wait=0ms service=10ms status=200 bytes=121847
@@ -480,7 +269,8 @@
 2012-07-18T14:56:44+00:00 heroku[nginx]: 178.8.169.61 - - [18/Jul/2012:14:56:44 +0000] "GET /assets/coffee.png HTTP/1.1" 200 320640 "http://startwork.in/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
 2012-07-18T14:56:48+00:00 app[web.1]: cache: [GET /assets/blue_arrow_dl.png] miss
 2012-07-18T14:56:48+00:00 heroku[router]: GET startwork.in/assets/blue_arrow_dl.png dyno=web.1 queue=0 wait=0ms service=8ms status=200 bytes=4577
-2012-07-18T14:56:48+00:00 heroku[nginx]: 178.8.169.61 - - [18/Jul/2012:14:56:48 +0000] "GET /assets/blue_arrow_dl.png HTTP/1.1" 200 4577 "http://startwork.in/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T14:56:48+00:00 heroku[nginx]: 178.8.169.61 - - [18/Jul/2012:14:56:48 +0000] "GET /assets/blue_arrow_dl.png HTTP/1.1" 200 4577 "http://star
+twork.in/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
 2012-07-18T14:56:53+00:00 app[web.1]: 
 2012-07-18T14:56:53+00:00 app[web.1]: 
 2012-07-18T14:56:53+00:00 app[web.1]: Started GET "/admin" for 194.94.8.133 at 2012-07-18 14:56:53 +0000
@@ -606,8 +396,7 @@
 2012-07-18T14:57:19+00:00 heroku[nginx]: 178.8.169.61 - - [18/Jul/2012:14:57:19 +0000] "PUT /kamera HTTP/1.1" 302 92 "http://startwork.in/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
 2012-07-18T14:57:19+00:00 app[web.1]: 
 2012-07-18T14:57:19+00:00 app[web.1]: 
-2012-07-18T14:57:19+00:00 app[web.1]: 
-Started PUT "/kamera" for 178.8.169.61 at 2012-07-18 14:57:19 +0000
+2012-07-18T14:57:19+00:00 app[web.1]: Started PUT "/kamera" for 178.8.169.61 at 2012-07-18 14:57:19 +0000
 2012-07-18T14:57:20+00:00 app[web.1]: cache: [PUT /kamera] invalidate, pass
 2012-07-18T14:57:20+00:00 heroku[router]: PUT startwork.in/kamera dyno=web.1 queue=0 wait=0ms service=154ms status=302 bytes=92
 2012-07-18T14:57:20+00:00 heroku[nginx]: 178.8.169.61 - - [18/Jul/2012:14:57:20 +0000] "PUT /kamera HTTP/1.1" 302 92 "http://startwork.in/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
@@ -635,8 +424,7 @@ Started PUT "/kamera" for 178.8.169.61 at 2012-07-18 14:57:19 +0000
 2012-07-18T15:00:06+00:00 heroku[nginx]: 194.94.8.133 - - [18/Jul/2012:15:00:06 +0000] "GET /assets/video_dummy.gif HTTP/1.1" 200 4458 "http://startwork.in/arbeitssitzung" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
 2012-07-18T15:00:06+00:00 heroku[router]: GET startwork.in/audios/boxing-bell.mp3 dyno=web.1 queue=0 wait=0ms service=23ms status=200 bytes=332310
 2012-07-18T15:00:07+00:00 heroku[nginx]: 194.94.8.133 - - [18/Jul/2012:15:00:07 +0000] "GET /audios/boxing-bell.mp3 HTTP/1.1" 200 332310 "http://startwork.in/arbeitssitzung" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
-2012-07-18T15:00:08+00:00 app[web.1]: cach
-e: [GET /favicon.ico] miss
+2012-07-18T15:00:08+00:00 app[web.1]: cache: [GET /favicon.ico] miss
 2012-07-18T15:00:08+00:00 heroku[nginx]: 194.94.8.133 - - [18/Jul/2012:15:00:08 +0000] "GET /favicon.ico HTTP/1.1" 200 0 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
 2012-07-18T15:00:08+00:00 heroku[router]: GET startwork.in/favicon.ico dyno=web.1 queue=0 wait=1ms service=36ms status=200 bytes=0
 2012-07-18T15:00:10+00:00 app[web.1]: 
@@ -654,7 +442,8 @@ e: [GET /favicon.ico] miss
 2012-07-18T15:00:12+00:00 heroku[router]: GET startwork.in/assets/application-5060b3f4e88685a261bf83fb2db03776.js dyno=web.1 queue=0 wait=0ms service=27ms status=200 bytes=463528
 2012-07-18T15:00:14+00:00 app[web.1]: cache: [GET /assets/application-e8585ab6cc20332e2f80e2bd82bd29c5.css] miss
 2012-07-18T15:00:14+00:00 heroku[router]: GET startwork.in/assets/application-e8585ab6cc20332e2f80e2bd82bd29c5.css dyno=web.1 queue=0 wait=0ms service=15ms status=200 bytes=82179
-2012-07-18T15:00:14+00:00 heroku[nginx]: 194.94.8.133 - - [18/Jul/2012:15:00:14 +0000] "GET /assets/application-e8585ab6cc20332e2f80e2bd82bd29c5.css HTTP/1.1" 200 15190 "http://startwork.in/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:00:14+00:00 heroku[nginx]: 194.94.8.133 - - [18/Jul/2012:15:00:14 +0000] "GET /assets/application-e8585ab6cc20332e2f80e2bd82bd29c5.css HTTP/1.1" 200 15190 "http://startwork.in/" "Mozilla/5.0 (Macintosh; Intel M
+ac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
 2012-07-18T15:00:18+00:00 heroku[slugc]: Slug compilation started
 2012-07-18T15:00:20+00:00 heroku[nginx]: 194.94.8.133 - - [18/Jul/2012:15:00:20 +0000] "GET /assets/application-5060b3f4e88685a261bf83fb2db03776.js HTTP/1.1" 200 128844 "http://startwork.in/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
 2012-07-18T15:00:22+00:00 app[web.1]: cache: [GET /assets/paper_bg.jpg] miss
@@ -1000,3 +789,215 @@ e: [GET /favicon.ico] miss
 2012-07-18T15:05:01+00:00 app[web.1]: cache: [GET /arbeitssitzung/get_time] miss
 2012-07-18T15:05:01+00:00 heroku[router]: GET startwork.in/arbeitssitzung/get_time dyno=web.1 queue=0 wait=0ms service=114ms status=200 bytes=27
 2012-07-18T15:05:01+00:00 heroku[nginx]: 194.94.8.133 - - [18/Jul/2012:15:05:01 +0000] "GET /arbeitssitzung/get_time HTTP/1.1" 200 27 "http://startwork.in/arbeitssitzung" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:07:56+00:00 app[web.1]: 
+2012-07-18T15:07:56+00:00 app[web.1]: 
+2012-07-18T15:07:56+00:00 app[web.1]: Started GET "/admin" for 194.94.8.133 at 2012-07-18 15:07:56 +0000
+2012-07-18T15:08:04+00:00 app[web.1]: cache: [GET /admin] miss
+2012-07-18T15:08:04+00:00 heroku[router]: GET startwork.in/admin dyno=web.1 queue=0 wait=0ms service=7809ms status=200 bytes=46377
+2012-07-18T15:08:04+00:00 heroku[nginx]: 194.94.8.133 - - [18/Jul/2012:15:08:04 +0000] "GET /admin HTTP/1.1" 200 4813 "-" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:08:05+00:00 app[web.1]: cache: [GET /assets/active_admin-1f293e8bc62608abbf49ed7255dd37a9.css] miss
+2012-07-18T15:08:05+00:00 heroku[router]: GET startwork.in/assets/active_admin-1f293e8bc62608abbf49ed7255dd37a9.css dyno=web.1 queue=0 wait=0ms service=15ms status=200 bytes=63989
+2012-07-18T15:08:05+00:00 app[web.1]: cache: [GET /assets/active_admin-86dbac21cc05ceb10c3249e6402001b3.js] miss
+2012-07-18T15:08:05+00:00 heroku[nginx]: 194.94.8.133 - - [18/Jul/2012:15:08:05 +0000] "GET /assets/active_admin-1f293e8bc62608abbf49ed7255dd37a9.css HTTP/1.1" 200 8207 "http://startwork.in/admin" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:08:05+00:00 heroku[router]: GET startwork.in/assets/active_admin-86dbac21cc05ceb10c3249e6402001b3.js dyno=web.1 queue=0 wait=0ms service=23ms status=200 bytes=302259
+2012-07-18T15:08:05+00:00 heroku[nginx]: 194.94.8.133 - - [18/Jul/2012:15:08:05 +0000] "GET /assets/active_admin-86dbac21cc05ceb10c3249e6402001b3.js HTTP/1.1" 200 89653 "http://startwork.in/admin" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:08:06+00:00 app[web.1]: cache: [GET /assets/active_admin/nested_menu_arrow-dcb32755d9740e23965a1e76bb945ce9.gif] miss
+2012-07-18T15:08:06+00:00 heroku[router]: GET startwork.in/assets/active_admin/nested_menu_arrow-dcb32755d9740e23965a1e76bb945ce9.gif dyno=web.1 queue=0 wait=0ms service=14ms status=200 bytes=70
+2012-07-18T15:08:06+00:00 heroku[nginx]: 194.94.8.133 - - [18/Jul/2012:15:08:06 +0000] "GET /assets/active_admin/nested_menu_arrow-dcb32755d9740e23965a1e76bb945ce9.gif HTTP/1.1" 200 70 "http://startwork.in/admin" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:08:06+00:00 app[web.1]: cache: [GET /favicon.ico] miss
+2012-07-18T15:08:06+00:00 heroku[nginx]: 194.94.8.133 - - [18/Jul/2012:15:08:06 +0000] "GET /favicon.ico HTTP/1.1" 200 0 "-" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:08:06+00:00 heroku[router]: GET startwork.in/favicon.ico dyno=web.1 queue=0 wait=0ms service=43ms status=200 bytes=0
+2012-07-18T15:08:47+00:00 heroku[slugc]: Slug compilation started
+2012-07-18T15:08:48+00:00 app[web.1]: cache: [GET /assets/active_admin/nested_menu_arrow_dark-f9fe6b6a563b7b15f3cd1be4e98d1ce0.gif] miss
+2012-07-18T15:08:48+00:00 heroku[router]: GET startwork.in/assets/active_admin/nested_menu_arrow_dark-f9fe6b6a563b7b15f3cd1be4e98d1ce0.gif dyno=web.1 queue=0 wait=0ms service=8ms status=200 bytes=70
+2012-07-18T15:08:48+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:08:48 +0000] "GET /assets/active_admin/nested_menu_arrow_dark-f9fe6b6a563b7b15f3cd1be4e98d1ce0.gif HTTP/1.1" 200 70 "http://startwork.in/admin" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:09:31+00:00 heroku[api]: Release v429 created by mail@benedikt-voigt.net
+2012-07-18T15:09:31+00:00 heroku[api]: Deploy a02d4c1 by mail@benedikt-voigt.net
+2012-07-18T15:09:31+00:00 heroku[web.1]: State changed from up to starting
+2012-07-18T15:09:33+00:00 heroku[web.1]: Starting process with command `bundle exec rails server -p 52931`
+2012-07-18T15:09:34+00:00 heroku[slugc]: Slug compilation finished
+2012-07-18T15:09:34+00:00 heroku[web.1]: Stopping all processes with SIGTERM
+2012-07-18T15:09:35+00:00 app[web.1]: [2012-07-18 15:09:35] ERROR SignalException: SIGTERM
+2012-07-18T15:09:35+00:00 app[web.1]: 	/usr/local/lib/ruby/1.9.1/webrick/server.rb:90:in `select'
+2012-07-18T15:09:44+00:00 app[web.1]: DEPRECATION WARNING: You have Rails 2.3-style plugins in vendor/plugins! Support for these plugins will be removed in Rails 4.0. Move them out and bundle them in your Gemfile, or fold them in to your app as lib/myplugin/* and config/initializers/myplugin.rb. See the release notes for more on this: http://weblog.rubyonrails.org/2012/01/04/rails-3-2-0-rc2-has-been-released. (called from <top (required)> at /app/config/environment.rb:5)
+2012-07-18T15:09:44+00:00 app[web.1]: DEPRECATION WARNING: You have Rails 2.3-style plugins in vendor/plugins! Support for these plugins will be removed in Rails 4.0. Move them out and bundle them in your Gemfile, or fold them in to your app as lib/myplugin/* and config/initializers/myplugin.rb. See the release notes for more on this: http://weblog.rubyonrails.org/2012/01/04/rails-3-2-0-rc2-has-been-released. (called from <top (required)> at /app/config/environment.rb:5)
+2012-07-18T15:09:44+00:00 heroku[web.1]: Error R12 (Exit timeout) -> At least one process failed to exit within 10 seconds of SIGTERM
+2012-07-18T15:09:44+00:00 heroku[web.1]: Stopping remaining processes with SIGKILL
+2012-07-18T15:09:46+00:00 app[web.1]: => Rails 3.2.1 application starting in production on http://0.0.0.0:52931
+2012-07-18T15:09:46+00:00 app[web.1]: => Booting WEBrick
+2012-07-18T15:09:46+00:00 app[web.1]: => Call with -d to detach
+2012-07-18T15:09:46+00:00 app[web.1]: => Ctrl-C to shutdown server
+2012-07-18T15:09:46+00:00 heroku[web.1]: Process exited with status 137
+2012-07-18T15:09:46+00:00 app[web.1]: [DEVISE] Devise.apply_schema is deprecated and has no effect. Please remove it.
+2012-07-18T15:09:46+00:00 app[web.1]: 
+2012-07-18T15:09:46+00:00 app[web.1]: 
+2012-07-18T15:09:46+00:00 app[web.1]: [DEVISE] Devise.use_salt_as_remember_token is deprecated and has no effect. Please remove it.
+2012-07-18T15:09:46+00:00 app[web.1]: 
+2012-07-18T15:09:46+00:00 app[web.1]: 
+2012-07-18T15:09:49+00:00 app[web.1]: Translating routes (default locale: en)
+2012-07-18T15:09:50+00:00 app[web.1]: Translating routes (default locale: de)
+2012-07-18T15:09:51+00:00 app[web.1]: Translating routes (default locale: de)
+2012-07-18T15:09:51+00:00 app[web.1]: [2012-07-18 15:09:51] INFO  WEBrick 1.3.1
+2012-07-18T15:09:51+00:00 app[web.1]: [2012-07-18 15:09:51] INFO  ruby 1.9.2 (2011-07-09) [x86_64-linux]
+2012-07-18T15:09:51+00:00 app[web.1]: [2012-07-18 15:09:51] INFO  WEBrick::HTTPServer#start: pid=2 port=52931
+2012-07-18T15:09:52+00:00 heroku[web.1]: State changed from starting to up
+2012-07-18T15:09:53+00:00 app[web.1]: 
+2012-07-18T15:09:53+00:00 app[web.1]: 
+2012-07-18T15:09:53+00:00 app[web.1]: Started GET "/admin" for 176.3.23.49 at 2012-07-18 15:09:53 +0000
+2012-07-18T15:09:56+00:00 app[web.1]: Connected to NewRelic Service at collector-9.newrelic.com
+2012-07-18T15:09:58+00:00 app[web.1]: cache: [GET /admin] miss
+2012-07-18T15:09:58+00:00 app[web.1]: 
+2012-07-18T15:09:58+00:00 app[web.1]: 
+2012-07-18T15:09:58+00:00 app[web.1]: Started GET "/" for 176.3.23.49 at 2012-07-18 15:09:58 +0000
+2012-07-18T15:09:58+00:00 heroku[router]: GET startwork.in/admin dyno=web.1 queue=0 wait=0ms service=5116ms status=200 bytes=46377
+2012-07-18T15:09:58+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:09:58 +0000] "GET /admin HTTP/1.1" 200 4714 "http://startwork.in/admin/user_hours?order=id_desc&page=1&scope=scope_current" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:09:58+00:00 app[web.1]: cache: [GET /] miss
+2012-07-18T15:09:58+00:00 heroku[router]: GET startwork.in/ dyno=web.1 queue=0 wait=0ms service=5173ms status=200 bytes=28481
+2012-07-18T15:09:58+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:09:58 +0000] "GET / HTTP/1.1" 200 7158 "http://startwork.in/info_for_group_hour" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:10:01+00:00 app[web.1]: cache: [GET /assets/active_admin-1f293e8bc62608abbf49ed7255dd37a9.css] miss
+2012-07-18T15:10:01+00:00 heroku[router]: GET startwork.in/assets/active_admin-1f293e8bc62608abbf49ed7255dd37a9.css dyno=web.1 queue=0 wait=0ms service=7ms status=200 bytes=63989
+2012-07-18T15:10:01+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:10:01 +0000] "GET /assets/active_admin-1f293e8bc62608abbf49ed7255dd37a9.css HTTP/1.1" 200 8302 "http://startwork.in/admin" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:10:01+00:00 app[web.1]: cache: [GET /assets/active_admin-86dbac21cc05ceb10c3249e6402001b3.js] miss
+2012-07-18T15:10:01+00:00 heroku[router]: GET startwork.in/assets/active_admin-86dbac21cc05ceb10c3249e6402001b3.js dyno=web.1 queue=0 wait=0ms service=82ms status=200 bytes=302259
+2012-07-18T15:10:02+00:00 app[web.1]: cache: [GET /assets/application-e8585ab6cc20332e2f80e2bd82bd29c5.css] miss
+2012-07-18T15:10:02+00:00 heroku[router]: GET startwork.in/assets/application-e8585ab6cc20332e2f80e2bd82bd29c5.css dyno=web.1 queue=0 wait=0ms service=9ms status=200 bytes=82179
+2012-07-18T15:10:02+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:10:02 +0000] "GET /assets/application-e8585ab6cc20332e2f80e2bd82bd29c5.css HTTP/1.1" 200 15074 "http://startwork.in/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:10:03+00:00 app[web.1]: cache: [GET /assets/application-5060b3f4e88685a261bf83fb2db03776.js] miss
+2012-07-18T15:10:03+00:00 heroku[router]: GET startwork.in/assets/application-5060b3f4e88685a261bf83fb2db03776.js dyno=web.1 queue=0 wait=0ms service=28ms status=200 bytes=463528
+2012-07-18T15:10:09+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:10:09 +0000] "GET /assets/active_admin-86dbac21cc05ceb10c3249e6402001b3.js HTTP/1.1" 200 90074 "http://startwork.in/admin" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:10:14+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:10:14 +0000] "GET /assets/application-5060b3f4e88685a261bf83fb2db03776.js HTTP/1.1" 200 128960 "http://startwork.in/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:10:42+00:00 app[web.1]: cache: [GET /assets/paper_bg.jpg] miss
+2012-07-18T15:10:42+00:00 heroku[router]: GET startwork.in/assets/paper_bg.jpg dyno=web.1 queue=0 wait=0ms service=25ms status=200 bytes=256218
+2012-07-18T15:10:43+00:00 app[web.1]: cache: [GET /assets/coffee.png] miss
+2012-07-18T15:10:43+00:00 heroku[router]: GET startwork.in/assets/coffee.png dyno=web.1 queue=0 wait=0ms service=37ms status=200 bytes=320640
+2012-07-18T15:10:44+00:00 app[web.1]: cache: [GET /assets/check-icon.png] miss
+2012-07-18T15:10:44+00:00 heroku[router]: GET startwork.in/assets/check-icon.png dyno=web.1 queue=0 wait=0ms service=11ms status=200 bytes=23793
+2012-07-18T15:10:44+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:10:44 +0000] "GET /assets/check-icon.png HTTP/1.1" 200 23793 "http://startwork.in/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:10:51+00:00 app[web.1]: cache: [GET /assets/facebook_button.png] miss
+2012-07-18T15:10:51+00:00 heroku[router]: GET startwork.in/assets/facebook_button.png dyno=web.1 queue=0 wait=0ms service=8ms status=200 bytes=41003
+2012-07-18T15:10:51+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:10:51 +0000] "GET /assets/facebook_button.png HTTP/1.1" 200 41003 "http://startwork.in/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:10:59+00:00 app[web.1]: cache: [GET /assets/active_admin/nested_menu_arrow-dcb32755d9740e23965a1e76bb945ce9.gif] miss
+2012-07-18T15:10:59+00:00 heroku[router]: GET startwork.in/assets/active_admin/nested_menu_arrow-dcb32755d9740e23965a1e76bb945ce9.gif dyno=web.1 queue=0 wait=0ms service=5ms status=200 bytes=70
+2012-07-18T15:10:59+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:10:59 +0000] "GET /assets/active_admin/nested_menu_arrow-dcb32755d9740e23965a1e76bb945ce9.gif HTTP/1.1" 200 70 "http://startwork.in/admin" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:11:09+00:00 heroku[router]: GET startwork.in/favicon.ico dyno=web.1 queue=0 wait=0ms service=4ms status=200 bytes=0
+2012-07-18T15:11:09+00:00 app[web.1]: cache: [GET /favicon.ico] miss
+2012-07-18T15:11:09+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:11:09 +0000] "GET /favicon.ico HTTP/1.1" 200 0 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:11:09+00:00 app[web.1]: 
+2012-07-18T15:11:09+00:00 app[web.1]: 
+2012-07-18T15:11:09+00:00 app[web.1]: Started GET "/admin" for 176.3.23.49 at 2012-07-18 15:11:09 +0000
+2012-07-18T15:11:15+00:00 app[web.1]: cache: [GET /admin] miss
+2012-07-18T15:11:15+00:00 heroku[router]: GET startwork.in/admin dyno=web.1 queue=0 wait=0ms service=5894ms status=200 bytes=46395
+2012-07-18T15:11:15+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:11:15 +0000] "GET /admin HTTP/1.1" 200 4789 "http://startwork.in/admin/user_hours?order=id_desc&page=1&scope=scope_current" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:11:16+00:00 app[web.1]: cache: [GET /assets/active_admin-1f293e8bc62608abbf49ed7255dd37a9.css] miss
+2012-07-18T15:11:16+00:00 heroku[router]: GET startwork.in/assets/active_admin-1f293e8bc62608abbf49ed7255dd37a9.css dyno=web.1 queue=0 wait=0ms service=7ms status=200 bytes=63989
+2012-07-18T15:11:16+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:11:16 +0000] "GET /assets/active_admin-1f293e8bc62608abbf49ed7255dd37a9.css HTTP/1.1" 304 0 "http://startwork.in/admin" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:11:16+00:00 app[web.1]: cache: [GET /assets/active_admin-86dbac21cc05ceb10c3249e6402001b3.js] miss
+2012-07-18T15:11:16+00:00 heroku[router]: GET startwork.in/assets/active_admin-86dbac21cc05ceb10c3249e6402001b3.js dyno=web.1 queue=0 wait=0ms service=12ms status=200 bytes=302259
+2012-07-18T15:11:16+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:11:16 +0000] "GET /assets/active_admin-86dbac21cc05ceb10c3249e6402001b3.js HTTP/1.1" 304 0 "http://startwork.in/admin" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:11:18+00:00 app[web.1]: cache: [GET /assets/frontpage_icon3.png] miss, store
+2012-07-18T15:11:18+00:00 heroku[router]: GET startwork.in/assets/frontpage_icon3.png dyno=web.1 queue=0 wait=0ms service=7ms status=200 bytes=4960
+2012-07-18T15:11:18+00:00 heroku[nginx]: 69.171.237.4 - - [18/Jul/2012:15:11:18 +0000] "GET /assets/frontpage_icon3.png HTTP/1.1" 200 4960 "-" "facebookexternalhit/1.0 (+http://www.facebook.com/externalhit_uatext.php)" startwork.in
+2012-07-18T15:11:33+00:00 app[web.1]: 
+2012-07-18T15:11:33+00:00 app[web.1]: 
+2012-07-18T15:11:33+00:00 app[web.1]: Started GET "/admin" for 176.3.23.49 at 2012-07-18 15:11:33 +0000
+2012-07-18T15:11:34+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:11:34 +0000] "GET /assets/coffee.png HTTP/1.1" 200 320640 "http://startwork.in/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:11:36+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:11:36 +0000] "GET /assets/paper_bg.jpg HTTP/1.1" 200 102281 "http://startwork.in/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:11:38+00:00 app[web.1]: cache: [GET /admin] miss
+2012-07-18T15:11:38+00:00 heroku[router]: GET startwork.in/admin dyno=web.1 queue=0 wait=0ms service=5221ms status=200 bytes=46379
+2012-07-18T15:11:38+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:11:38 +0000] "GET /admin HTTP/1.1" 200 4793 "http://startwork.in/admin/user_hours?order=id_desc&page=1&scope=scope_current" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:11:39+00:00 app[web.1]: 
+2012-07-18T15:11:39+00:00 app[web.1]: 
+2012-07-18T15:11:39+00:00 app[web.1]: Started GET "/" for 176.3.23.49 at 2012-07-18 15:11:39 +0000
+2012-07-18T15:11:39+00:00 app[web.1]: cache: [GET /] miss
+2012-07-18T15:11:39+00:00 heroku[router]: GET startwork.in/ dyno=web.1 queue=0 wait=0ms service=210ms status=200 bytes=28483
+2012-07-18T15:11:39+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:11:39 +0000] "GET / HTTP/1.1" 200 7123 "http://startwork.in/info_for_group_hour" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:11:40+00:00 app[web.1]: cache: [GET /assets/active_admin-1f293e8bc62608abbf49ed7255dd37a9.css] miss
+2012-07-18T15:11:40+00:00 heroku[router]: GET startwork.in/assets/active_admin-1f293e8bc62608abbf49ed7255dd37a9.css dyno=web.1 queue=0 wait=0ms service=11ms status=200 bytes=63989
+2012-07-18T15:11:40+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:11:40 +0000] "GET /assets/active_admin-1f293e8bc62608abbf49ed7255dd37a9.css HTTP/1.1" 304 0 "http://startwork.in/admin" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:11:40+00:00 app[web.1]: cache: [GET /assets/active_admin-86dbac21cc05ceb10c3249e6402001b3.js] miss
+2012-07-18T15:11:40+00:00 heroku[router]: GET startwork.in/assets/active_admin-86dbac21cc05ceb10c3249e6402001b3.js dyno=web.1 queue=0 wait=0ms service=17ms status=200 bytes=302259
+2012-07-18T15:11:40+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:11:40 +0000] "GET /assets/active_admin-86dbac21cc05ceb10c3249e6402001b3.js HTTP/1.1" 304 0 "http://startwork.in/admin" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:11:41+00:00 app[web.1]: cache: [GET /assets/application-e8585ab6cc20332e2f80e2bd82bd29c5.css] miss
+2012-07-18T15:11:41+00:00 heroku[router]: GET startwork.in/assets/application-e8585ab6cc20332e2f80e2bd82bd29c5.css dyno=web.1 queue=0 wait=0ms service=8ms status=200 bytes=82179
+2012-07-18T15:11:41+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:11:41 +0000] "GET /assets/application-e8585ab6cc20332e2f80e2bd82bd29c5.css HTTP/1.1" 304 0 "http://startwork.in/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:11:41+00:00 app[web.1]: cache: [GET /assets/application-5060b3f4e88685a261bf83fb2db03776.js] miss
+2012-07-18T15:11:41+00:00 heroku[router]: GET startwork.in/assets/application-5060b3f4e88685a261bf83fb2db03776.js dyno=web.1 queue=0 wait=0ms service=13ms status=200 bytes=463528
+2012-07-18T15:11:41+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:11:41 +0000] "GET /assets/application-5060b3f4e88685a261bf83fb2db03776.js HTTP/1.1" 304 0 "http://startwork.in/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:11:41+00:00 app[web.1]: cache: [GET /favicon.ico] miss
+2012-07-18T15:11:41+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:11:41 +0000] "GET /favicon.ico HTTP/1.1" 304 0 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:11:41+00:00 heroku[router]: GET startwork.in/favicon.ico dyno=web.1 queue=0 wait=0ms service=4ms status=200 bytes=0
+2012-07-18T15:11:41+00:00 app[web.1]: cache: [GET /assets/paper_bg.jpg] miss
+2012-07-18T15:11:42+00:00 heroku[router]: GET startwork.in/assets/paper_bg.jpg dyno=web.1 queue=0 wait=0ms service=14ms status=200 bytes=256218
+2012-07-18T15:11:43+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:11:43 +0000] "GET /assets/paper_bg.jpg HTTP/1.1" 200 256218 "http://startwork.in/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:11:44+00:00 app[web.1]: cache: [GET /assets/coffee.png] miss
+2012-07-18T15:11:44+00:00 app[web.1]: cache: [GET /assets/check-icon.png] miss
+2012-07-18T15:11:44+00:00 heroku[router]: GET startwork.in/assets/check-icon.png dyno=web.1 queue=0 wait=0ms service=6ms status=200 bytes=23793
+2012-07-18T15:11:44+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:11:44 +0000] "GET /assets/check-icon.png HTTP/1.1" 200 23793 "http://startwork.in/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:11:44+00:00 heroku[router]: GET startwork.in/assets/coffee.png dyno=web.1 queue=0 wait=0ms service=25ms status=200 bytes=320640
+2012-07-18T15:11:44+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:11:44 +0000] "GET /assets/coffee.png HTTP/1.1" 200 320640 "http://startwork.in/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:11:45+00:00 app[web.1]: cache: [GET /assets/facebook_button.png] miss
+2012-07-18T15:11:45+00:00 heroku[router]: GET startwork.in/assets/facebook_button.png dyno=web.1 queue=0 wait=0ms service=5ms status=200 bytes=41003
+2012-07-18T15:11:45+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:11:45 +0000] "GET /assets/facebook_button.png HTTP/1.1" 304 0 "http://startwork.in/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:12:15+00:00 app[web.1]: 
+2012-07-18T15:12:15+00:00 app[web.1]: 
+2012-07-18T15:12:15+00:00 app[web.1]: Started GET "/arbeitssitzung" for 176.3.23.49 at 2012-07-18 15:12:15 +0000
+2012-07-18T15:12:15+00:00 app[web.1]: Benedikt StartWork: ******** SHOW GROUP HOUR *********
+2012-07-18T15:12:15+00:00 app[web.1]: Benedikt StartWork: user_hour was NIL. created new user_hour = 154
+2012-07-18T15:12:15+00:00 app[web.1]: Benedikt StartWork: group_hour = 137 with 1 users
+2012-07-18T15:12:16+00:00 app[web.1]: Benedikt StartWork: accept_foreign_appointment_now 
+2012-07-18T15:12:16+00:00 app[web.1]: Benedikt StartWork: user_hour = 154
+2012-07-18T15:12:20+00:00 app[web.1]: Benedikt StartWork: ******** END OF SHOW GROUP HOUR *********
+2012-07-18T15:12:20+00:00 app[web.1]: cache: [GET /arbeitssitzung] miss
+2012-07-18T15:12:20+00:00 heroku[router]: GET startwork.in/arbeitssitzung dyno=web.1 queue=0 wait=0ms service=4601ms status=200 bytes=3921
+2012-07-18T15:12:20+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:12:20 +0000] "GET /arbeitssitzung HTTP/1.1" 200 2081 "http://startwork.in/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:12:20+00:00 app[web.1]: cache: [GET /assets/application-e8585ab6cc20332e2f80e2bd82bd29c5.css] miss
+2012-07-18T15:12:20+00:00 heroku[router]: GET startwork.in/assets/application-e8585ab6cc20332e2f80e2bd82bd29c5.css dyno=web.1 queue=0 wait=0ms service=5ms status=304 bytes=0
+2012-07-18T15:12:20+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:12:20 +0000] "GET /assets/application-e8585ab6cc20332e2f80e2bd82bd29c5.css HTTP/1.1" 304 0 "http://startwork.in/arbeitssitzung" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:12:20+00:00 app[web.1]: cache: [GET /assets/application-5060b3f4e88685a261bf83fb2db03776.js] miss
+2012-07-18T15:12:20+00:00 heroku[router]: GET startwork.in/assets/application-5060b3f4e88685a261bf83fb2db03776.js dyno=web.1 queue=0 wait=0ms service=24ms status=200 bytes=463528
+2012-07-18T15:12:20+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:12:20 +0000] "GET /assets/application-5060b3f4e88685a261bf83fb2db03776.js HTTP/1.1" 304 0 "http://startwork.in/arbeitssitzung" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:12:41+00:00 app[web.1]: 
+2012-07-18T15:12:41+00:00 app[web.1]: 
+2012-07-18T15:12:41+00:00 app[web.1]: Started GET "/arbeitssitzung/get_time" for 176.3.23.49 at 2012-07-18 15:12:41 +0000
+2012-07-18T15:12:41+00:00 app[web.1]: cache: [GET /arbeitssitzung/get_time] miss
+2012-07-18T15:12:41+00:00 heroku[router]: GET startwork.in/arbeitssitzung/get_time dyno=web.1 queue=0 wait=0ms service=100ms status=200 bytes=27
+2012-07-18T15:12:41+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:12:41 +0000] "GET /arbeitssitzung/get_time HTTP/1.1" 200 27 "http://startwork.in/arbeitssitzung" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:12:42+00:00 app[web.1]: cache: [GET /assets/video_dummy.gif] miss
+2012-07-18T15:12:42+00:00 heroku[router]: GET startwork.in/assets/video_dummy.gif dyno=web.1 queue=0 wait=0ms service=8ms status=200 bytes=4458
+2012-07-18T15:12:42+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:12:42 +0000] "GET /assets/video_dummy.gif HTTP/1.1" 200 4458 "http://startwork.in/arbeitssitzung" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:12:42+00:00 app[web.1]: cache: [GET /audios/boxing-bell.mp3] miss
+2012-07-18T15:12:43+00:00 heroku[router]: GET startwork.in/audios/boxing-bell.mp3 dyno=web.1 queue=0 wait=0ms service=84ms status=200 bytes=332310
+2012-07-18T15:12:45+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:12:45 +0000] "GET /audios/boxing-bell.mp3 HTTP/1.1" 200 332310 "http://startwork.in/arbeitssitzung" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:12:45+00:00 app[web.1]: 
+2012-07-18T15:12:45+00:00 app[web.1]: 
+2012-07-18T15:12:45+00:00 app[web.1]: Started GET "/info_for_group_hour" for 176.3.23.49 at 2012-07-18 15:12:45 +0000
+2012-07-18T15:12:45+00:00 app[web.1]: cache: [GET /info_for_group_hour] miss
+2012-07-18T15:12:45+00:00 heroku[router]: GET startwork.in/info_for_group_hour dyno=web.1 queue=0 wait=0ms service=21ms status=200 bytes=8086
+2012-07-18T15:12:45+00:00 app[web.1]: cache: [GET /favicon.ico] miss
+2012-07-18T15:12:45+00:00 heroku[router]: GET startwork.in/favicon.ico dyno=web.1 queue=0 wait=0ms service=9ms status=200 bytes=0
+2012-07-18T15:12:45+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:12:45 +0000] "GET /favicon.ico HTTP/1.1" 304 0 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:12:45+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:12:45 +0000] "GET /info_for_group_hour HTTP/1.1" 200 3297 "http://startwork.in/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:12:46+00:00 app[web.1]: cache: [GET /assets/application-e8585ab6cc20332e2f80e2bd82bd29c5.css] miss
+2012-07-18T15:12:46+00:00 heroku[router]: GET startwork.in/assets/application-e8585ab6cc20332e2f80e2bd82bd29c5.css dyno=web.1 queue=0 wait=0ms service=6ms status=200 bytes=82179
+2012-07-18T15:12:46+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:12:46 +0000] "GET /assets/application-e8585ab6cc20332e2f80e2bd82bd29c5.css HTTP/1.1" 304 0 "http://startwork.in/info_for_group_hour" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:12:46+00:00 app[web.1]: cache: [GET /assets/application-5060b3f4e88685a261bf83fb2db03776.js] miss
+2012-07-18T15:12:46+00:00 heroku[router]: GET startwork.in/assets/application-5060b3f4e88685a261bf83fb2db03776.js dyno=web.1 queue=0 wait=0ms service=34ms status=200 bytes=463528
+2012-07-18T15:12:46+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:12:46 +0000] "GET /assets/application-5060b3f4e88685a261bf83fb2db03776.js HTTP/1.1" 304 0 "http://startwork.in/info_for_group_hour" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:12:46+00:00 app[web.1]: cache: [GET /assets/paper_bg.jpg] miss
+2012-07-18T15:12:46+00:00 heroku[router]: GET startwork.in/assets/paper_bg.jpg dyno=web.1 queue=0 wait=0ms service=15ms status=200 bytes=256218
+2012-07-18T15:12:46+00:00 app[web.1]: cache: [GET /assets/coffee.png] miss
+2012-07-18T15:12:46+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:12:46 +0000] "GET /assets/paper_bg.jpg HTTP/1.1" 304 0 "http://startwork.in/info_for_group_hour" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:12:46+00:00 app[web.1]: cache: [GET /assets/9010_button.png] miss
+2012-07-18T15:12:46+00:00 heroku[router]: GET startwork.in/assets/coffee.png dyno=web.1 queue=0 wait=0ms service=17ms status=200 bytes=320640
+2012-07-18T15:12:46+00:00 heroku[router]: GET startwork.in/assets/9010_button.png dyno=web.1 queue=0 wait=0ms service=16ms status=200 bytes=91646
+2012-07-18T15:12:46+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:12:46 +0000] "GET /assets/coffee.png HTTP/1.1" 304 0 "http://startwork.in/info_for_group_hour" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:12:46+00:00 app[web.1]: cache: [GET /assets/blue_arrow_dr.png] miss
+2012-07-18T15:12:46+00:00 heroku[router]: GET startwork.in/assets/blue_arrow_dr.png dyno=web.1 queue=0 wait=0ms service=4ms status=200 bytes=4628
+2012-07-18T15:12:46+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:12:46 +0000] "GET /assets/blue_arrow_dr.png HTTP/1.1" 200 4628 "http://startwork.in/info_for_group_hour" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:12:47+00:00 app[web.1]: cache: [GET /assets/blue_arrow_ur.png] miss
+2012-07-18T15:12:47+00:00 heroku[router]: GET startwork.in/assets/blue_arrow_ur.png dyno=web.1 queue=0 wait=0ms service=7ms status=200 bytes=4618
+2012-07-18T15:12:47+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:12:47 +0000] "GET /assets/blue_arrow_ur.png HTTP/1.1" 200 4618 "http://startwork.in/info_for_group_hour" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:12:47+00:00 app[web.1]: cache: [GET /assets/worksession.jpg] miss
+2012-07-18T15:12:47+00:00 heroku[router]: GET startwork.in/assets/worksession.jpg dyno=web.1 queue=0 wait=0ms service=10ms status=200 bytes=60554
+2012-07-18T15:12:47+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:12:47 +0000] "GET /assets/worksession.jpg HTTP/1.1" 200 60554 "http://startwork.in/info_for_group_hour" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
+2012-07-18T15:12:50+00:00 heroku[nginx]: 176.3.23.49 - - [18/Jul/2012:15:12:50 +0000] "GET /assets/9010_button.png HTTP/1.1" 200 91646 "http://startwork.in/info_for_group_hour" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11" startwork.in
