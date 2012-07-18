@@ -1,7 +1,8 @@
 
 
 $(document).ready ->
-
+   if $(".init_popover").length>0
+     $(".init_popover").popover()
 
 	
    if $('.column_same_height').length>0
@@ -118,7 +119,8 @@ $(document).ready ->
       statusCode:
         200: (data)->
            console.log data.responseText
-           callback(data.responseText)
+           if callback?
+             callback(data.responseText)
 
 
 
@@ -151,9 +153,7 @@ $(document).ready ->
               notice_html = "<div  class='alert alert-success'>"+txt+"</div>"
               $("#notice").html(notice_html)
             else
-              console.log "The User has cancelled the FB popup window"
-            if callback
-              callback(response))
+              console.log "The User has cancelled the FB popup window")
           
    reload_my_work_sessions = ->
      if  $("#my_appointments").length>0
@@ -162,13 +162,14 @@ $(document).ready ->
          statusCode:
            200: (my_work_sessions_data) ->
              $("#my_appointments").html(my_work_sessions_data)
+             $(".init_popover").popover()
              $(".edit_appointment").bind('click', ->
                  launch_main_modal()
                  edit_work_session($(this)))
 
-   receive_and_accept_appointment = (appointment_id, callback)->
+   accept_appointment = (token, callback)->
      $.ajax
-       url: $("#urls").data("receive_and_accept_appointment_url")+"/"+appointment_id
+       url: $("#urls").data("accept_appointment_url")+".json?token="+token
        type: 'POST',
        async: false, # the call must be synchronous so it is still part of the  user event and the popup won't be blocked
        statusCode:
@@ -177,7 +178,7 @@ $(document).ready ->
            notice_html = "<div  class='alert alert-error'>"+txt+"</div>"
            $("#notice").html(notice_html)	
          200: (response)->
-           txt = "Die Verabredung wurde gespeichert. Achte bitte darauf, dich pünktlich zur WorkSession anzumelden."
+           txt = "Die Einladung wurde angenommen. Achte bitte darauf, dich pünktlich zur WorkSession anzumelden."
            notice_html = "<div  class='alert alert-success'>"+txt+"</div>"
            $("#notice").html(notice_html)
            reload_my_work_sessions()
@@ -242,20 +243,20 @@ $(document).ready ->
            if callback?
               callback()
          
-   accept_appointment = (token)->
-     $.ajax
-       url: $("#urls").data("accept_appointment_url")+"?token="+token
-       statusCode:
-         200: (response)->
-           console.log response
-           txt = "Die Einladung wurde angenommen. Achte bitte darauf, dich pünktlich zur WorkSession anzumelden."
-           notice_html = "<div  class='alert alert-success'>"+txt+"</div>"
-           $("#notice").html(notice_html)
-           reload_my_work_sessions()
-           show_filled_main_modal("invite_after_create")
-           fb_popup_with_appointment()
-           if callback?
-              callback()
+#  accept_appointment = (token)->
+#    $.ajax
+#      url: $("#urls").data("accept_appointment_url")+"?token="+token
+#      statusCode:
+#        200: (response)->
+#          console.log response
+#          txt = "Die Einladung wurde angenommen. Achte bitte darauf, dich pünktlich zur WorkSession anzumelden."
+#          notice_html = "<div  class='alert alert-success'>"+txt+"</div>"
+#          $("#notice").html(notice_html)
+#          reload_my_work_sessions()
+#          show_filled_main_modal("invite_after_create")
+#          fb_popup_with_appointment()
+#          if callback?
+#             callback()
    
 
    show_filled_main_modal = (action)->
@@ -300,7 +301,7 @@ $(document).ready ->
          $("#fb_space").css("display","block")
          $("#main_modal_join").css("display","none")
       else if action == "join"
-         $("#main_modal_title").html("Bei Arbeitssitzung dabei sein")
+         $("#main_modal_title").html("Bei Arbeitssitzung teilnehmen")
          $("#main_modal_dates").css("display","none")
          $("#main_modal_delete").css("display","none")
          $("#main_modal_accept").css("display","none")
@@ -390,8 +391,8 @@ $(document).ready ->
             console.log response)
 
    $("#main_modal_join").click ->
-       id = $("#appointment").data("appointment_id")
-       receive_and_accept_appointment(id ,(response) ->
+       token = $("#appointment").data("token")
+       accept_appointment(token ,(response) ->
           console.log response)
 
 

@@ -26,6 +26,26 @@ ActiveAdmin::Dashboards.build do
        end       
   end    
   
+  
+  section "Current activities" do
+       div do 
+         "currently #{GroupHour.scope_current.count} GroupHours:"
+       end
+     
+       table_for GroupHour.scope_current.each do
+          column 'id', :id    
+          column 'start_time' do |group_hour| 
+            I18n.localize(group_hour.start_time.in_time_zone("Berlin")) 
+          end
+          column 'planned users' do |group_hour|
+            group_hour.users.map(&:name)
+          end
+          column 'logged in users' do |group_hour|
+            group_hour.users_logged_in.map(&:name)
+          end          
+        end 
+  end  
+  
 
   
                  

@@ -25,11 +25,22 @@ class UserHour < ActiveRecord::Base
   belongs_to :group_hour, :dependent => :destroy
   belongs_to :appointment
   belongs_to :accepted_appointment, :class_name => 'Appointment'
+  after_initialize :init  
   
   before_validation :get_group_hour
+  
+  def init
+    self.login_count ||= 0
+  end  
 
   def self.this_week
     where("start_time>?",DateTime.current-1.hour) 
+  end
+  
+  def self.scope_current
+    c = DateTime.current
+    this_hour = DateTime.new(c.year,c.month,c.day, c.hour)
+    where("start_time = ?", this_hour)
   end
   
   def self.current
@@ -72,6 +83,10 @@ class UserHour < ActiveRecord::Base
     end
     self.login_count+=1
     self.save
+  end
+  
+  def logged_in?
+    login_count>0
   end
 
   

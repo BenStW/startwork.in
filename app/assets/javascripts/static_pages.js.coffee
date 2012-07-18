@@ -1,6 +1,8 @@
 
 
 $(document).ready ->
+	
+
 
    # LOGIN BUTTON	
    showConnecting = ()->

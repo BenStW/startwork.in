@@ -1,50 +1,43 @@
 class GroupHoursController < ApplicationController
   skip_before_filter :authenticate_user!,  :only => [:test_show]  
   layout "video_layout"
-
+  
   def show  
-    user_hour = current_user.user_hours.current 
-    if user_hour.nil?
+    puts "#{current_user.name}: ******** SHOW GROUP HOUR *********"    
+    @user_hour = current_user.user_hours.current 
+        
+    if @user_hour.nil?
       current_user.create_appointment_now
-      user_hour = current_user.user_hours.current 
+      @user_hour = current_user.user_hours.current 
+      puts "#{current_user.name}: is user_hour still NIL?: #{@user_hour.nil?}"      
+      puts "#{current_user.name}: user_hour was NIL. created new user_hour = #{@user_hour.id}"
+    else
+      puts "#{current_user.name}: user_hour NOT NIL = #{@user_hour.id}"
     end
-    group_hour = user_hour.group_hour
+      
+    group_hour = @user_hour.group_hour
+    puts "#{current_user.name}: group_hour = #{group_hour.id} with #{group_hour.users.count} users"    
     if group_hour.users.count<2
       Appointment.accept_foreign_appointment_now(current_user)
+      puts "#{current_user.name}: accept_foreign_appointment_now "          
     end
-    user_hour.reload
-    user_hour.store_login 
+    @user_hour.reload
+    @user_hour.store_login 
+    puts "#{current_user.name}: user_hour = #{@user_hour.id}"    
     
-    InfoMailer.deliver_session_start(current_user,user_hour.group_hour).deliver       
+    InfoMailer.deliver_session_start(current_user,@user_hour.group_hour).deliver       
 
     @tokbox_session_id = group_hour.tokbox_session_id
     @tokbox_token = TokboxApi.instance.generate_token @tokbox_session_id, current_user
     @tokbox_api_key = TokboxApi.instance.api_key
+    puts "#{current_user.name}: ******** END OF SHOW GROUP HOUR *********"    
+    
   end  
- 
-  
-  def room_change
-     user_hour = current_user.user_hours.current 
-     if user_hour.nil?
-         render :json => true
-     else
-       user_hour.store_login
-       if user_hour.group_hour.tokbox_session_id == params[:session]
-          render :json => false
-        else
-          render :json => true
-        end
-      end
-  end
-  
+
   def get_time
     render :json => DateTime.current
   end
   
-  def group_hours
-     @group_hours = WorkSession.this_week
-  end
-
   def test_show
     user = params[:user]
    # if ![1,2].include?(user_id)

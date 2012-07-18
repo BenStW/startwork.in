@@ -2,15 +2,20 @@ ActiveAdmin.register UserHour do
     menu :priority => 10
     filter :start_time
     filter :login_count
+    
+    scope :this_week
+    scope  :scope_current  
+     
     scope :logged_in
     scope :not_logged_in
-
 
     index do
          h2 "'User_Hours' sind die Termine der Benutzer pro Stunde"
         column :id
         column :user
         column "start_time" do |user_hour | I18n.localize(user_hour.start_time.in_time_zone("Berlin")) end
+        column :appointment_id 
+        column :accepted_appointment_id       
         column "login_time" do |user_hour | I18n.localize(user_hour.login_time.in_time_zone("Berlin")) if user_hour.login_time end
         column :login_count        
         column :group_hour do |user_hour|
@@ -25,6 +30,7 @@ ActiveAdmin.register UserHour do
             end
           end
            raw(names)
-          end                
+          end 
+          default_actions               
       end
 end

@@ -54,9 +54,10 @@ describe AppointmentsController do
        response.should render_template("show")
      end   
      
-     it "should render template 'errors/404' when no appointment token" do     
-       get :show, :id =>@appointment.id
-       response.should render_template("errors/404")
+     it "should raise en error when no appointment token" do 
+       expect {    
+         get :show, :id =>@appointment.id
+       }.to raise_error
      end  
 
      it "should assign the appointment" do     
@@ -71,6 +72,7 @@ describe AppointmentsController do
         expect {
            get :show, :id =>@appointment.id, :token=>@appointment.token
          }.to change(RecipientAppointment, :count).by(1)
+         recipient_user.received_appointments.should_not be_blank   
      end
      
      it "should not add appointment to received_appointments twice" do
@@ -140,13 +142,87 @@ describe AppointmentsController do
     before(:each) do
       @user = FactoryGirl.create(:user) 
       @appointment = FactoryGirl.create(:appointment, :user=>@user)
-      sign_in @user      
+      sign_in @user   
+      @new_times = Hash.new
+      @new_times[:start_time] = @appointment.start_time+1.hour 
+      @new_times[:end_time] = @appointment.end_time+1.hour 
     end
     
     it "should be success" do      
-      put :update, :appointment=>@data
+      put :update, :id=>@appointment.id, :appointment=>@new_times
       response.should be_success 
     end
+    it "should update the times of the appointment" do      
+      put :update, :id=>@appointment.id, :appointment=>@new_times
+      @appointment.reload
+      @appointment.start_time.should eq(@new_times[:start_time])
+      @appointment.end_time.should eq(@new_times[:end_time])
+    end   
+    it "should return a 422 status when appointment can't be updated" do
+       new_appointment = FactoryGirl.create(:appointment, :user=>@user, :start_time=>@appointment.end_time, :end_time=>@appointment.end_time+3.hours)
+       put :update, :id=>@appointment.id, :appointment=>@new_times
+       response.should_not be_success
+       response.response_code.should == 422        
+    end
+  end  
+  
+  context "destroy" do
+    before(:each) do
+      @user = FactoryGirl.create(:user) 
+      @appointment = FactoryGirl.create(:appointment, :user=>@user)
+      sign_in @user   
+    end
+    
+    it "should be success" do      
+      delete :destroy, :id=>@appointment.id
+      response.should be_success 
+    end  
+    it "should delete the appointment" do
+      expect {
+        delete :destroy, :id=>@appointment.id      
+      }.to change(Appointment,:count).by(-1)
+    end
+    it "should not be possible to delete a foreign appointment" do
+      foreign_appointment = FactoryGirl.create(:appointment)
+      expect {
+        delete :destroy, :id=>foreign_appointment.id
+      }.to raise_error
+      foreign_appointment.reload
+      foreign_appointment.should_not be_nil
+    end
+  end
+  
+  context "show_and_welcome" do
+    before(:each) do
+      sender = FactoryGirl.create(:user) 
+      @appointment = FactoryGirl.create(:appointment, :user=>sender)
+      @user = FactoryGirl.create(:user) 
+      sign_in @user   
+    end
+    
+    it "should be success" do      
+      get :show_and_welcome, :token=>@appointment.token
+      response.should be_success 
+    end
+    it "should raise an error when appointment is not found" do
+      expect {
+        get :show_and_welcome, :token=>"asdf"
+      }.to raise_error
+    end    
+    
+    it "should add appointment to received_appointments" do
+       expect {
+          get :show_and_welcome, :token=>@appointment.token
+        }.to change(RecipientAppointment, :count).by(1)
+      @user.received_appointments.should eq([@appointment])        
+    end    
+    
+    it "should assign the friends" do
+       friend = FactoryGirl.create(:user)
+       Friendship.create_reciproke_friendship(@user,friend)
+       get :show_and_welcome, :token=>@appointment.token       
+       assigns(:friends).should eq([friend])
+    end    
   end  
   
   
@@ -158,48 +234,78 @@ describe AppointmentsController do
        get :reject
        response.should redirect_to(root_url)
      end
-    end 
-    def accept_without_authentication
-      session[:appointment_token] = params["token"]
-      redirect_to appointment_accept_url
-    end
-    
-    context "accept_without_authentication" do
-      before(:each) do
-        @user = FactoryGirl.create(:user)
-      end
-       it "should redirect to root_url without signing in" do      
-         get :accept_without_authentication
-         response.should redirect_to(appointment_accept_url)
-       end
+  end  
+  
+  
+   context "accept" do
+     before(:each) do
+       sender = FactoryGirl.create(:user) 
+       @appointment = FactoryGirl.create(:appointment, :user=>sender)
+       @user = FactoryGirl.create(:user) 
+       sign_in @user
      end
+     it "should raise an error when appointment is not found" do
+       expect {
+         get :accept, :token=>"asdf"
+       }.to raise_error
+     end     
+     it "should add the appointment to received_appointments" do      
+       get :accept, :token=>@appointment.token
+       @user.received_appointments.should eq([@appointment])
+     end   
+
+     it "should create a new appointment" do
+       @user.appointments.should be_blank
+       get :accept, :token=>@appointment.token
+       @user.reload
+       @user.appointments.should_not be_blank
+     end  
+     it "should redirect to root_url" do
+       get :accept, :token=>@appointment.token
+       response.should redirect_to(root_url)       
+     end   
+     it "should not redirect when requested as JSON" do
+       get :accept, :token=>@appointment.token, :format => :json
+       response.should_not redirect_to(root_url)       
+     end     
+     it "should return ok when requested as JSON" do
+       get :accept, :token=>@appointment.token, :format => :json
+       response.body.should eq("ok")
+     end     
+
+  end 
+  
+
+   context "accept_and_redirect_to_appointment_with_welcome" do
+     before(:each) do
+       sender = FactoryGirl.create(:user) 
+       @appointment = FactoryGirl.create(:appointment, :user=>sender)
+       @user = FactoryGirl.create(:user) 
+       sign_in @user
+     end
+     it "should raise an error when appointment is not found" do
+       expect {
+         get :accept_and_redirect_to_appointment_with_welcome, :token=>"asdf"
+       }.to raise_error
+     end     
+     it "should add the appointment to received_appointments" do      
+       get :accept_and_redirect_to_appointment_with_welcome, :token=>@appointment.token
+       @user.received_appointments.should eq([@appointment])
+     end   
+
+     it "should create a new appointment" do
+       @user.appointments.should be_blank
+       get :accept_and_redirect_to_appointment_with_welcome, :token=>@appointment.token
+       @user.reload
+       @user.appointments.should_not be_blank
+     end  
+     it "should redirect to root_url" do
+       get :accept_and_redirect_to_appointment_with_welcome, :token=>@appointment.token
+       response.should redirect_to(show_and_welcome_appointment_url(:token => @appointment.token))       
+     end   
+
+  end 
      
-     context "accept" do
-       before(:each) do
-         @user = FactoryGirl.create(:user)
-         sign_in @user
-         @appointment = FactoryGirl.create(:appointment, :sender=>@user)
-         session[:appointment_token] = @appointment.token
-       end
-       it "should respond 'keine Verabredung gefunden' if no appointment" do  
-         session[:appointment_token] = "asdf"           
-         response = get :accept
-         response.body.should eq("keine Verabredung gefunden")
-       end
-       it "should increment receive_count of appointment by 1" do
-         Appointment.first.receive_count.should eq(0)
-         get :accept
-         Appointment.first.receive_count.should eq(1)
-       end
-       it "should create 2 calendar events for an appointment of 2 hours" do
-         expect{
-          get :accept
-        }.to change(CalendarEvent,:count).by(2)
-       end  
-       it "should redirect to calendar_url " do      
-         get :accept
-         response.should redirect_to(calendar_url)
-       end            
-    end     
+  
    
  end
