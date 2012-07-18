@@ -16,6 +16,7 @@ ActiveAdmin.register Appointment do
         column "end_time" do |appointment | I18n.localize(appointment.end_time.in_time_zone("Berlin")) unless appointment.start_time.nil? end
         column :token
         column :send_count        
-        column :receive_count        
+        column :receive_count  
+        default_actions      
       end
 end

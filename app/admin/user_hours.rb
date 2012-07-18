@@ -28,6 +28,7 @@ ActiveAdmin.register UserHour do
             end
           end
            raw(names)
-          end                
+          end 
+          default_actions               
       end
 end

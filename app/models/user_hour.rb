@@ -84,6 +84,10 @@ class UserHour < ActiveRecord::Base
     self.login_count+=1
     self.save
   end
+  
+  def logged_in?
+    login_count>0
+  end
 
   
   private

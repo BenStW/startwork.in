@@ -29,6 +29,16 @@ class GroupHour < ActiveRecord::Base
      where("start_time = ?", this_hour)
    end   
    
+   def users_logged_in
+     logged_in_users = Array.new
+     self.user_hours.each do |user_hour|
+       if user_hour.logged_in?
+         logged_in_users << user_hour.user
+       end
+     end
+     logged_in_users
+   end   
+   
    
    def self.current_logged_in_except_user(user)
      c = DateTime.current
