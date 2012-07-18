@@ -20,6 +20,12 @@ describe GroupHoursController do
       }.to change(Appointment,:count).by(1)            
     end
     
+    it "should create a user_hour of current hour" do
+      get :show
+      user_hour = UserHour.all.first
+      
+    end
+    
   end
   
   

@@ -12,7 +12,7 @@
 <%end%>
 
 <table>
-	<% remaining_users.in_groups_of(3,false).each do |row| %>
+	<% (@users-[recipient]).in_groups_of(3,false).each do |row| %>
 	<tr>
 		<% row.each do |user| %>
 		  <td><img src='http://graph.facebook.com/<%=user.fb_ui%>/picture'></td>
