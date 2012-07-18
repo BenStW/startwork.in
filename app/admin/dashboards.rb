@@ -41,7 +41,7 @@ ActiveAdmin::Dashboards.build do
             group_hour.users.map(&:name)
           end
           column 'logged in users' do |group_hour|
-            group_hour.users.map(&:name)
+            "funktioniert noch nicht"# group_hour.users.map(&:name)
           end          
         end 
   end  
