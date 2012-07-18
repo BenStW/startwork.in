@@ -5,13 +5,15 @@ class GroupHoursController < ApplicationController
   def show  
     puts "#{current_user.name}: ******** SHOW GROUP HOUR *********"    
     @user_hour = current_user.user_hours.current 
-    puts "#{current_user.name}: user_hour = #{@user_hour.id}"
         
     if @user_hour.nil?
       current_user.create_appointment_now
       @user_hour = current_user.user_hours.current 
       puts "#{current_user.name}: user_hour was NIL. created new user_hour = #{@user_hour.id}"
+    else
+      puts "#{current_user.name}: user_hour NOT NIL = #{@user_hour.id}"
     end
+      
     group_hour = @user_hour.group_hour
     puts "#{current_user.name}: group_hour = #{group_hour.id} with #{group_hour.users.count} users"    
     if group_hour.users.count<2
