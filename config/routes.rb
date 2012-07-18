@@ -141,7 +141,9 @@ StartWork::Application.routes.draw do
   # match ':controller(/:action(/:id))(.:format)'
 end
 
-if Rails.env != "test"
+ActionDispatch::Routing::Translator.translate_from_file('config/locales/routes.yml',{:prefix_on_default_locale => false })
+#if Rails.env != "test"
   #somehow a RoutingError appears in RSPEC with this line
-  ActionDispatch::Routing::Translator.translate_from_file('config/locales/routes.yml', { :prefix_on_default_locale => false })
-end
+ #  ActionDispatch::Routing::Translator.translate_from_file('config/locales/routes.yml', { :prefix_on_default_locale => false })
+#  ActionDispatch::Routing::Translator.translate_from_file('config/locales/routes.yml', { :no_prefixes => true })
+#end
