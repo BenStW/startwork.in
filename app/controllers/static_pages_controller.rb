@@ -110,7 +110,7 @@ class StaticPagesController < ApplicationController
    10.times do
      a << current_user
    end
-   @users =  a#User.users_tomorrow
+   @users =  User.users_tomorrow
  end
 
 end

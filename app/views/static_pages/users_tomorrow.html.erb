@@ -6,7 +6,7 @@
 <% @users.each do |recipient| %>
 <h1><%=recipient.name%></h1><br>
 <table>
-	<% (@users).in_groups_of(3,false).each do |row| %>
+	<% (@users-[current_user]).in_groups_of(3,false).each do |row| %>
 	<tr>
 		<% row.each do |user| %>
 		  <td><img src='http://graph.facebook.com/<%=user.fb_ui%>/picture'></td>

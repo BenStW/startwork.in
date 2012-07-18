@@ -3,11 +3,20 @@ require 'spec_helper'
 describe GroupHoursController do
  # render_views
  
-  context "show" do
+  context "show - no own appointment, no other appointments" do
     before(:each) do
-      
+      @user = FactoryGirl.create(:user)
+       sign_in @user      
     end
     
+    it "should render success" do
+      get :show
+      response.should be_success
+    end
+    
+    it "should create a new appointment" do
+      
+    end
   end
   
   
