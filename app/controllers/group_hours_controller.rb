@@ -23,20 +23,20 @@ class GroupHoursController < ApplicationController
   end  
  
   
-  def room_change
-     user_hour = current_user.user_hours.current 
-     if user_hour.nil?
-         render :json => true
-     else
-       user_hour.store_login
-       if user_hour.group_hour.tokbox_session_id == params[:session]
-          render :json => false
-        else
-          render :json => true
-        end
-      end
-  end
-  
+ # def room_change
+ #    user_hour = current_user.user_hours.current 
+ #    if user_hour.nil?
+ #        render :json => true
+ #    else
+ #      user_hour.store_login
+ #      if user_hour.group_hour.tokbox_session_id == params[:session]
+ #         render :json => false
+ #       else
+ #         render :json => true
+ #       end
+ #     end
+ # end
+ # 
   def get_time
     render :json => DateTime.current
   end

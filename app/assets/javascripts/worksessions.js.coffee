@@ -149,17 +149,17 @@ $(document).ready ->
         time
         
      
-      reload_if_room_change = ->
-        $.ajax
-           url: url+'/room_change/'+session_id,
-           type: 'GET'
-           success: (data) ->
-              if data
-                console.log("room change")
-                location.reload()
-              else
-                console.log "NO room change"	
-        
+   #   reload_if_room_change = ->
+   #     $.ajax
+   #        url: url+'/room_change/'+session_id,
+   #        type: 'GET'
+   #        success: (data) ->
+   #           if data
+   #             console.log("room change")
+   #             location.reload()
+   #           else
+   #             console.log "NO room change"	
+   #     
       
       subscribeToStreams = (streams) -> 
         console.log("subscribe to "+streams.length+" streams")
@@ -263,7 +263,7 @@ $(document).ready ->
            prefix_html = if is_work_session then "Arbeitsphase:<br />" else "Pause:<br />"
           # prefix_html = "BEN"
            if !is_work_session and m==5 and s==0
-             reload_if_room_change()
+              location.reload()
           # if !is_work_session and m==9 and s==54
           #   location.reload()
 
