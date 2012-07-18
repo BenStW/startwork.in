@@ -32,30 +32,11 @@ class GroupHoursController < ApplicationController
     puts "#{current_user.name}: ******** END OF SHOW GROUP HOUR *********"    
     
   end  
- 
-  
- # def room_change
- #    user_hour = current_user.user_hours.current 
- #    if user_hour.nil?
- #        render :json => true
- #    else
- #      user_hour.store_login
- #      if user_hour.group_hour.tokbox_session_id == params[:session]
- #         render :json => false
- #       else
- #         render :json => true
- #       end
- #     end
- # end
- # 
+
   def get_time
     render :json => DateTime.current
   end
   
-  def group_hours
-     @group_hours = WorkSession.this_week
-  end
-
   def test_show
     user = params[:user]
    # if ![1,2].include?(user_id)

@@ -106,7 +106,11 @@ class StaticPagesController < ApplicationController
  end
  
  def users_tomorrow
-   @users = User.users_tomorrow
+   a = Array.new
+   10.times do
+     a << current_user
+   end
+   @users =  a#User.users_tomorrow
  end
 
 end

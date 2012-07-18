@@ -54,9 +54,10 @@ describe AppointmentsController do
        response.should render_template("show")
      end   
      
-     it "should render template 'errors/404' when no appointment token" do     
-       get :show, :id =>@appointment.id
-       response.should render_template("errors/404")
+     it "should raise en error when no appointment token" do 
+       expect {    
+         get :show, :id =>@appointment.id
+       }.to raise_error
      end  
 
      it "should assign the appointment" do     
@@ -300,7 +301,7 @@ describe AppointmentsController do
      end  
      it "should redirect to root_url" do
        get :accept_and_redirect_to_appointment_with_welcome, :token=>@appointment.token
-       response.should redirect_to(show_and_welcome_appointment_url)       
+       response.should redirect_to(show_and_welcome_appointment_url(:token => @appointment.token))       
      end   
 
   end 

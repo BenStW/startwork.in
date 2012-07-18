@@ -42,7 +42,7 @@ class AppointmentsController < ApplicationController
    end
 
    def update
-      @appointment = current_user.appointments.find!(params[:id])
+      @appointment = current_user.appointments.find(params[:id])
       @appointment.start_time = DateTime.parse(params[:appointment][:start_time])
       @appointment.end_time = DateTime.parse(params[:appointment][:end_time])
       @appointment.save
@@ -54,7 +54,7 @@ class AppointmentsController < ApplicationController
    end  
 
   def destroy
-    a = current_user.appointments.find!(params[:id])
+    a = current_user.appointments.find(params[:id])
     a.destroy
     render :json => "ok"
   end
