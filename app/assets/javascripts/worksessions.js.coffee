@@ -180,13 +180,23 @@ $(document).ready ->
          # Subscribe to any new streams that are created
          subscribeToStreams event.streams
       
-      
-      
+      send_exception = (message) ->
+        data = 
+          message: message
+        $.ajax
+           url: $("#video_window").data("send_exception_url"),
+           data: data,
+           type: 'POST'
       
       # Retry session connect
       exceptionHandler = (event) -> 
         log "************* EXCEPTION ************"
         log "exceptionHandler: event.code = "+event.code
+        msg = "EventCode: "+event.code+"  "+
+              "message: "+event.message+"  "+
+              "title: "+event.title+"  "+
+              "type: "+event.type
+        send_exception(msg)         
         console.log event
         log "************* EXCEPTION ************"
         session.connect api_key, tok_token
@@ -297,7 +307,7 @@ $(document).ready ->
           console.log d+": "+ message
 
 
-
+      send_exception("this is a test")
       startTimer()
       
       TB.setLogLevel(TB.DEBUG) 

@@ -11,4 +11,5 @@ class InfoMailer < ActionMailer::Base
     @group_hour = group_hour
     mail(:to => ["benedikt@startwork.in","miro@startwork.in", "robert@startwork.in"], :subject => "#{user.name} startet Session")     
   end
+  
 end

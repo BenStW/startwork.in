@@ -16,8 +16,8 @@ GroupHour=<%=@user_hour.group_hour_id %>
   data-session_id="<%=@tokbox_session_id %>" 
   data-tok_token="<%=@tokbox_token%>" 
   data-api_key="<%=@tokbox_api_key %>" 
-  data-url="<%=group_hour_path %>" 
-
+  data-url="<%=group_hour_path %>"
+  data-send_exception_url="<%= send_exception_url %>"
   data-user_id="<%=current_user.id%>">
   
   <div class="upper_box" id="timer">

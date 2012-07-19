@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>TokBox Error</h1>
+
+<% if @current_user %>
+<b>User</b>:<br>
+<%= "id=#{@current_user.id} name=#{@current_user.name}"%>
+<br><br>
+<% end %>
+
+<%= @exception %>
+
+  </body>
+</html>

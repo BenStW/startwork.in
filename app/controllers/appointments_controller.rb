@@ -128,5 +128,5 @@ class AppointmentsController < ApplicationController
      redirect_to appointments_url 
   end  
    
-    
+   
  end

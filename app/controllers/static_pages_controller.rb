@@ -104,5 +104,10 @@ class StaticPagesController < ApplicationController
    end
    @users =  User.users_tomorrow
  end
-
+ 
+ def send_exception
+   message = params["message"]
+   ErrorMailer.deliver_frontend_exception(message,current_user).deliver
+   render :text => "ok"  
+ end
 end
