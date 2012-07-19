@@ -9,48 +9,37 @@
 $(document).ready -> 
 
    if $("#video_window").length > 0 
-    #  OT_LayoutContainer.init("#video_container", 100, 300)
+      debug = true
+
+      is_work_session = null
 
       padding = 12	   
       width = $(window).width()-2*padding #200 
       height = $(window).width()-2*padding #200
-      console.log "width="+width
-
       if width >300
         width = 300
-        height = 300
-     
-
+        height = 300       
+      windowProps = 
+        width: width
+        height: height     
       $("#publisher_box").css("width",width)
-      $("#publisher_box").css("height",height)
-    
-  
+      $("#publisher_box").css("height",height)   
+      publisher = null
+      publisher_hidden = 0   
+      
       my_user_id = $('#video_window').data("user_id")
-      TB.setLogLevel(TB.DEBUG) 
       session_id  = $("#video_window").data("session_id")
       tok_token = $("#video_window").data("tok_token")
       api_key = $("#video_window").data("api_key")
       url = $("#video_window").data("url")
-      session = TB.initSession session_id  
-      publisher = null
-      publisher_hidden = 0
-      is_work_session = null
-      
+            
       timeout = null
       timer_is_on = 0
       
       start_break_minutes = 55
       start_work_minutes = 5
-
-
-    #
-    #  start_break_minutes = 27
-    #  start_work_minutes = 05
-    #
-      windowProps = 
-        width: width
-        height: height
-
+      #  start_break_minutes = 27
+      #  start_work_minutes = 05
 
       
       calcIsWorkSession = (time)->
@@ -100,24 +89,24 @@ $(document).ready ->
         $("#voice_button").addClass("btn-danger")
         $("#voice_button").html("Ton an")
         if publisher
-           console.log "mouseDown: publishAudio=true"	
+           log "mouseDown: publishAudio=true"	
            publisher.publishAudio(true)
       $("#voice_button").mouseup ->
         $("#voice_button").removeClass("btn-danger")
         $("#voice_button").html("Ton aus")
         if publisher
-           console.log "mouseUp: publishAudio=false"		
+           log "mouseUp: publishAudio=false"		
            publisher.publishAudio(false)
       
       setSoundToBreak = ->
         if publisher
-           console.log "setSoundToBreak: publishAudio=true"
+           log "setSoundToBreak: publishAudio=true"
            publisher.publishAudio(true) 
         $("#voice_button_box").hide()
       
       setSoundToWorkSession = ->
         if publisher
-           console.log "setSoundToWorkSession: publishAudio=false"	
+           log "setSoundToWorkSession: publishAudio=false"	
            publisher.publishAudio(false) 
         $("#voice_button_box").show()   
 
@@ -138,7 +127,6 @@ $(document).ready ->
 
 
       get_time = ->
-       # time = new Date()
         time = ""
         $.ajax
            url: url + '/get_time'
@@ -147,35 +135,22 @@ $(document).ready ->
               time = new Date(data)
            async:   false
         time
-        
-     
-   #   reload_if_room_change = ->
-   #     $.ajax
-   #        url: url+'/room_change/'+session_id,
-   #        type: 'GET'
-   #        success: (data) ->
-   #           if data
-   #             console.log("room change")
-   #             location.reload()
-   #           else
-   #             console.log "NO room change"	
-   #     
-      
+
       subscribeToStreams = (streams) -> 
-        console.log("subscribe to "+streams.length+" streams")
+        log ("subscribeToStreams: subscribe to "+streams.length+" streams")
         for stream in streams
           if stream.connection.connectionId == session.connection.connectionId 
-             console.log("   same connection. Set the visibility of the publisher to hidden.")
+             log ("subscribeToStreams. Same connection. Set the visibility of the publisher to hidden.")
              hidePublisher() 
-            # publishAudio =  if isWorkSession() then false else true
-            # publisher.publishAudio(publishAudio)
           else
-            connectionData = JSON.parse(stream.connection.data)          
+            connectionData = JSON.parse(stream.connection.data)  
+            log "subscribeToStreams: connection.data="
+            log connectionData       
             user_id = connectionData.user_id
             user_name = connectionData.user_name
             addVideoBox(user_id, user_name)
             replaceElementId = "stream_box_tmp_"+user_id
-            console.log("replaceElementId = "+replaceElementId)
+            log ("subscribeToStreams: replaceElementId = "+replaceElementId)
             session.subscribe stream, replaceElementId, windowProps
               
 
@@ -192,7 +167,7 @@ $(document).ready ->
           publishAudio: publishAudio
           width: width
           height: height
-        console.log("**** publish now with audio="+publishAudio+" at the ID="+replaceElementId)
+        log ("sessionConnectedHandler: publish now with audio="+publishAudio+" at the ID="+replaceElementId)
         publisher = session.publish replaceElementId, properties              
       
         # Subscribe to streams that were in the session when we connected
@@ -210,11 +185,15 @@ $(document).ready ->
       
       # Retry session connect
       exceptionHandler = (event) -> 
-        if (event.code == 1006 || event.code == 1008 || event.code == 1014)
-          alert('There was an error connecting. Trying again.')
-          session.connect api_key, tok_token
-      
-      
+        log "************* EXCEPTION ************"
+        log "exceptionHandler: event.code = "+event.code
+        log event
+        log "************* EXCEPTION ************"
+        session.connect api_key, tok_token
+
+#        if (event.code == 1006 || event.code == 1008 || event.code == 1014)
+#          alert('There was an error connecting. Trying again.')
+#          session.connect api_key, tok_token
       
       
       connectionDestroyedHandler = (event) ->
@@ -226,7 +205,7 @@ $(document).ready ->
       
       connectionCreatedHandler = (event) ->
         connectionsCreated = event.connections 
-        console.log(connectionsCreated.length + " connections created")
+        log ("connectionCreatedHandler:  "+connectionsCreated.length + " connections created")
       
       
       
@@ -259,25 +238,23 @@ $(document).ready ->
            h = Math.floor(countdown/3600)
            m = Math.floor((countdown - (h * 3600))/60)
            s = (countdown-(h*3600))%60
-         #  console.log h+":"+m+":"+s+" work_session:"+is_work_session
+           if s == 0
+             log h+":"+m+":"+s+" work_session:"+is_work_session
            prefix_html = if is_work_session then "Arbeitsphase:<br />" else "Pause:<br />"
-          # prefix_html = "BEN"
            if !is_work_session and m==5 and s==0
               location.reload()
-          # if !is_work_session and m==9 and s==54
-          #   location.reload()
 
            m = m+1 # because no seconds are displayed, 40sec should be 1minute
            html = prefix_html + "noch " + m + " Min"
-        	 # "+leadingzero(h) + ':' +
-             # + ':' + leadingzero(s)
            $("#timer").html(html)
            f = -> 
               doCount(countdown)
            timeout = setTimeout(f,1000)
          else
+           log "doCount: countdown=0. Stop the timer and play the gong."
            stopTimer()
            play_gong()
+           log "doCount: countdown=0. Start the timer again."
            startTimer()
       
       
@@ -304,25 +281,36 @@ $(document).ready ->
       
       
       startTimer = ->
+        log "StartTimer: get_time() from Server"
         time = get_time()
+        log "StartTimer: time = "+time
         is_work_session = calcIsWorkSession(time)
+        log "StartTimer: is_work_session = "+is_work_session
         if is_work_session then setSoundToWorkSession() else setSoundToBreak()
         countdown = getCountDownTillNextEvent(time)
         timer_is_on=1
         doCount(countdown)
+
+      log = (message) ->
+        if debug
+          d = new Date() 
+          console.log d+": "+ message
+
+
+
+      startTimer()
       
-      if $("#timer").length>0   
-        startTimer()
-      
+      TB.setLogLevel(TB.DEBUG) 
+      TB.addEventListener 'exception', exceptionHandler
+
+      session = TB.initSession session_id  
+
       session.addEventListener 'sessionConnected', sessionConnectedHandler #publishes own video
       session.addEventListener 'streamCreated', streamCreatedHandler # shows videos of the others, creates video box
-      # session.addEventListener 'signalReceived', signalReceivedHandler
       session.addEventListener 'connectionCreated', connectionCreatedHandler
       session.addEventListener 'connectionDestroyed', connectionDestroyedHandler
-      TB.addEventListener 'exception', exceptionHandler
       session.connect api_key, tok_token
-
-     # addVideoBox(user_id, "Username "+user_id) for user_id in [1..4]
+ 
          
       
     
