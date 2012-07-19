@@ -46,7 +46,7 @@
                 <div style="margin: 0 0 0 70px;">
                     <p>Datum: <%= I18n.localize(@appointment.start_time.to_date, :format => "%d.%m.%Y") %></p>
                     <p>Uhrzeit: <%= I18n.localize(@appointment.start_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %> Uhr bis <%= I18n.localize(@appointment.end_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %> Uhr
-                    <a href="#" class="btn btn-small btn-edit" style="position: relative;top: 6px;"></a></p>
+              </p>
                  </div>
                  <span class="clr_fix"></span>
                  <br>Trage den Termin am besten gleich in deinen Kalender ein!
@@ -57,7 +57,8 @@
               </div>
             </div>
             <div style="position:absolute;top:-25px;right:0;">
-              <button href="#show_and_welcome_carousel" id="show_and_welcome_save_continue" data-slide="next" class="btn btn-primary btn-large fb_reset_0_-100" >Weiter</button>
+              <button href="#show_and_welcome_carousel" id="show_and_welcome_save_continue" data-slide="next" class="btn btn-primary btn-large fb-reset" 
+data-fb-reset-x="0" data-fb-reset-y="100">Weiter</button>
             </div>
           </div>
 
@@ -106,7 +107,7 @@
 
       </div> <!-- end item -->   
 
-      <div id="fb-root" data-app="<%=@app%>" style="position: absolute;left: 150px;top: 40px;"></div>
+      <div id="fb-root" data-app="<%=fb_app%>" style="position: absolute;left: 150px;top: 40px;"></div>
 
     </div> <!-- end welcome_content -->
   </div> <!-- end welcome_box -->

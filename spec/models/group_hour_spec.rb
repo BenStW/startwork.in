@@ -40,20 +40,18 @@ describe GroupHour do
       @group_hour = @user_hour_a.group_hour
       
       @user_b = FactoryGirl.create(:user)
-      recipient_appointment = RecipientAppointment.create(:user=>@user_b,:appointment=>appointment_a)
-      Appointment.accept_received_appointment(@user_b,appointment_a)
+      appointment_a.receive_and_accept(@user_b)
+
       @user_hour_b = @user_b.user_hours.first
     end      
     it "has many user_hours" do
       @group_hour.user_hours.count.should eq(2)
-      @group_hour.user_hours.include?(@user_hour_a)
-      @group_hour.user_hours.include?(@user_hour_b)      
+      @group_hour.user_hours.include?(@user_hour_a).should eq(true)
+      @group_hour.user_hours.include?(@user_hour_b).should eq(true)
     end      
     
     it "has many users" do
       @group_hour.users.count.should eq(2)
-      @group_hour.users.include?(@user_a)
-      @group_hour.users.include?(@user_b)      
     end    
   end
   
@@ -65,20 +63,20 @@ describe GroupHour do
       @user_b = FactoryGirl.create(:user)    
       appointment_a = FactoryGirl.create(:appointment, :user=>@user_a)
       my_appointment = FactoryGirl.create(:appointment, :user=>@my_user)
-      recipient_appointment = RecipientAppointment.create(:user=>@user_b, :appointment=>appointment_a)
-      Appointment.accept_received_appointment(@user_b,appointment_a)
+      appointment_a.receive_and_accept(@user_b)
       DateTime.stub(:current).and_return(appointment_a.start_time+5.minutes)      
     end
     
     it "finds no group_hours, if nobody has logged_in" do
-      current_logged_in = GroupHour.current_logged_in_except_user(@my_user)
+      current_logged_in = GroupHour.get_potential_foreign_groups(@my_user)
       current_logged_in.count.should eq(0)
     end
     
     it "finds the group_hour, if user_a has logged_in" do
       user_hour_a_first = @user_a.user_hours.first
       user_hour_a_first.store_login
-      current_logged_in = GroupHour.current_logged_in_except_user(@my_user)
+      user_hour_a_first.reload
+      current_logged_in = GroupHour.get_potential_foreign_groups(@my_user)
       current_logged_in.count.should eq(1)
       current_logged_in.first.id.should eq(user_hour_a_first.group_hour.id)
     end
@@ -89,7 +87,7 @@ describe GroupHour do
       user_hour_a_first.store_login
       user_hour_b_last = @user_b.user_hours.last
       user_hour_b_last.store_login 
-      current_logged_in = GroupHour.current_logged_in_except_user(@my_user)
+      current_logged_in = GroupHour.get_potential_foreign_groups(@my_user)
       current_logged_in.count.should eq(1)
       current_logged_in.first.id.should eq(user_hour_b_last.group_hour.id)     
     end
@@ -99,7 +97,7 @@ describe GroupHour do
       user_hour_b_first = @user_b.user_hours.first
       user_hour_b_first.store_login
       
-      current_logged_in = GroupHour.current_logged_in_except_user(@my_user)
+      current_logged_in = GroupHour.get_potential_foreign_groups(@my_user)
       current_logged_in.count.should eq(1)
       current_logged_in.first.logged_in_count.to_i.should eq(2)            
     end
@@ -108,7 +106,7 @@ describe GroupHour do
       user_hour_a_first = @user_a.user_hours.first
       user_hour_a_first.store_login
       my_user_hour_first.store_login
-      current_logged_in = GroupHour.current_logged_in_except_user(@my_user)
+      current_logged_in = GroupHour.get_potential_foreign_groups(@my_user)
       current_logged_in.count.should eq(1)
       current_logged_in.first.id.should eq(user_hour_a_first.group_hour.id)
     end    
@@ -123,14 +121,10 @@ describe GroupHour do
       @user5 = FactoryGirl.create(:user)
       
       @appointment1 = FactoryGirl.create(:appointment, :user=>@user1)
-      RecipientAppointment.create(:user=>@user2, :appointment=>@appointment1)
-      RecipientAppointment.create(:user=>@user3, :appointment=>@appointment1)
-      RecipientAppointment.create(:user=>@user4, :appointment=>@appointment1)
-      RecipientAppointment.create(:user=>@user5, :appointment=>@appointment1)
-      Appointment.accept_received_appointment(@user2,@appointment1)
-      Appointment.accept_received_appointment(@user3,@appointment1)
-      Appointment.accept_received_appointment(@user4,@appointment1)
-      Appointment.accept_received_appointment(@user5,@appointment1)
+      @appointment1.receive_and_accept(@user2)
+      @appointment1.receive_and_accept(@user3)
+      @appointment1.receive_and_accept(@user4)
+      @appointment1.receive_and_accept(@user5)
     end  
     
     it "should be valid with 5 users" do
@@ -141,8 +135,7 @@ describe GroupHour do
     
     it "should not be valid with 6 users" do
       @user6 = FactoryGirl.create(:user)   
-      RecipientAppointment.create(:user=>@user6, :appointment=>@appointment1)
-      Appointment.accept_received_appointment(@user6,@appointment1)
+      @appointment1.receive_and_accept(@user6)
       @user6.user_hours.first.group_hour.should_not be_valid
     end
   end

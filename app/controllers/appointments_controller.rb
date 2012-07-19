@@ -67,7 +67,6 @@ class AppointmentsController < ApplicationController
      @appointment.receive(current_user)  
           
      @friends = current_user.friends - [@appointment.user]
-     @app = if Rails.env.production? then "330646523672055" else "232041530243765" end
   end  
  
   def reject
@@ -76,9 +75,7 @@ class AppointmentsController < ApplicationController
   
   def accept
     appointment = Appointment.find_by_token!(params[:token])
-    appointment.receive(current_user)
-   
-    Appointment.accept_received_appointment(current_user, appointment) 
+    appointment.receive_and_accept(current_user)
      
    respond_to do |format|
      format.html { redirect_to root_url }
@@ -90,8 +87,10 @@ class AppointmentsController < ApplicationController
   def accept_and_redirect_to_appointment_with_welcome
     token = params[:token]
     appointment = Appointment.find_by_token!(token)
-    appointment.receive(current_user)
-    Appointment.accept_received_appointment(current_user, appointment)
+
+    appointment.receive_and_accept(current_user)
+    
+    
     redirect_to show_and_welcome_appointment_url(:token => token)
   end  
   
@@ -130,16 +129,4 @@ class AppointmentsController < ApplicationController
   end  
    
     
-    
-    private 
-    
-  #  def receive_appointment(appointment)
-  #    recipient_appointment = RecipientAppointment.find_by_appointment_id_and_user_id(appointment.id, current_user.id)
-  #    if recipient_appointment.nil?
-  #       recipient_appointment = RecipientAppointment.create(:user=>current_user, :appointment=>appointment)
-  #    elsif !recipient_appointment.valid?
-  #       raise "couldn't store the appointment #{appointment.id} as received at user #{appointment.user.name}"
-  #    end
-  #    recipient_appointment     
-  #  end      
  end

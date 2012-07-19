@@ -19,6 +19,8 @@
 
 
 
+
+
 <center>
   <h2 class="parisienne" id="greet_username" style="margin-left: 50px;">
     <%=t '.greet_username', :username => current_user.name %>
@@ -251,9 +253,7 @@
 </div>  
 </div>
 
-<div id="fb-root" data-app="<%=@app%>" style="position: absolute;"></div>
-
-
+<div id='fb-root' data-app='<%= fb_app %>' style='position: absolute;'></div>
 
 
 <!-- main explainer modal start-->

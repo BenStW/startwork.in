@@ -91,8 +91,7 @@ describe UserHour do
       user = FactoryGirl.create(:user)
       appointment = FactoryGirl.create(:appointment, :user=>user)
       new_user = FactoryGirl.create(:user)
-      recipient_appointment = FactoryGirl.create(:recipient_appointment, :user=>new_user, :appointment=>appointment)
-      new_appointment = Appointment.accept_received_appointment(new_user, appointment)
+      appointment.receive_and_accept(new_user)
       user_hour = appointment.user_hours.first
       #GroupHour.all.each do |g| puts "id=#{g.id} (#{g.user_hours.count}u)" end
       expect { user_hour.destroy }.to change(GroupHour, :count).by(0)
@@ -175,7 +174,7 @@ describe UserHour do
       @user_hour.login_time.should eq(tomorrow_at_11am)     
     end
     it "counts the logins" do
-      @user_hour.login_count.should be_nil
+      @user_hour.login_count.should eq(0)
       @user_hour.store_login
       @user_hour.login_count.should eq(1)
       @user_hour.store_login

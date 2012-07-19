@@ -17,10 +17,6 @@ class StaticPagesController < ApplicationController
   end
     
   def home_logged_in    
-    #TODO this is hack
-      @app = if Rails.env.production? then "330646523672055" else "232041530243765" end #PRODUCTION
-    #  @app = if Rails.env.production? then "331305516942290" else "232041530243765" end #RELEASE CANDIDATE
-
       @my_appointments = current_user.appointments.this_week
       @my_received_appointments = current_user.received_appointments.this_week.without_accepted(current_user)
       @friends_appointments = Appointment.this_week.friends_of(current_user)
@@ -51,7 +47,6 @@ class StaticPagesController < ApplicationController
 
 
   def login_to_accept_appointment  
-    puts "**********login_to_accept_appointment**********"
      token = params["token"]
      session[:appointment_token] = token
      @appointment = Appointment.find_by_token!(token)
@@ -61,20 +56,17 @@ class StaticPagesController < ApplicationController
 
   # called by *omniauth_callbacks_controller.rb*
   def welcome
-   if current_user.registered
-     redirect_to root_url
-   else
-     current_user.registered=true
-     current_user.save    
-     if token = session[:appointment_token]
-       session[:appointment_token] = nil
-       redirect_to accept_and_redirect_to_appointment_with_welcome_url(:token=>token)
-     else
-        @name = current_user.first_name
+    if current_user.registered
+      redirect_to root_url
+    else
+      current_user.registered=true
+      current_user.save    
+      if token = session[:appointment_token]
+        session[:appointment_token] = nil
+        redirect_to accept_and_redirect_to_appointment_with_welcome_url(:token=>token)
+      else
+         @name = current_user.first_name
         @friends = current_user.friends
-        @app = if Rails.env.production? then "330646523672055" else "232041530243765" end #PRODUCTION
-      #  @app = if Rails.env.production? then "331305516942290" else "232041530243765" end #RELEASE CANDIDATE
-        
       end
    end    
   end

@@ -73,7 +73,7 @@ class UserHour < ActiveRecord::Base
   end
   
   def self.not_logged_in
-    where("login_count is ?",nil) 
+    where("login_count = 0") 
   end  
   
   def store_login

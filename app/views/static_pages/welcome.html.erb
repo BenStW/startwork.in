@@ -48,7 +48,7 @@
           </div>
           <div class="item" style="vertical-align:middle;">
             <!-- Carousel nav -->
-            <a class="btn btn-danger btn-large fill_initial_dates" id="adjust_height" style="position:absolute;top:-60px;right:-20px;" href="#appointment_carousel" data-slide="next">Weiter</a>
+            <a class="btn btn-danger btn-large fill_initial_dates" id="display_picker_adjust_height" style="position:absolute;top:-60px;right:-20px;" href="#appointment_carousel" data-slide="next">Weiter</a>
             <center><p style="font-size:26px;line-height:47px;">Es geht dabei um das pünktliche Anfangen mit der Arbeit, nicht um die inhaltliche Zusammenarbeit.</p></center>
           </div>
 
@@ -62,7 +62,7 @@
 
               <div style="position:absolute;top:-35px;right:0;">
 	<a href="<%=root_url%>">Verabredung überspringen</a>
-                <button id="main_modal_save" class="btn btn-primary btn-large fb_reset_40_145 remove_height_from_content_and_set_it_to_box" >Weiter</button>
+                <button id="main_modal_save" class="btn btn-primary btn-large fb-reset remove_height_from_content_and_set_it_to_box" data-fb-reset-x="40" data-fb-reset-y="145" >Weiter</button>
               </div>
             </div> <!-- end appointment_on_welcomepage -->
 
@@ -70,7 +70,7 @@
         </div>
 
       </div> <!-- end item -->   
-      <div id="fb-root" data-app="<%=@app%>" style="position: absolute;left: 150px;top: 40px;"></div>
+      <div id="fb-root" data-app="<%=fb_app%>" style="position: absolute;left: 150px;top: 40px;"></div>
     </div> <!-- end welcome_content -->
   </div> <!-- end welcome_box -->
 </div> <!-- first div -->

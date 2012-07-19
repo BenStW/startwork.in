@@ -35,11 +35,7 @@ class Appointment < ActiveRecord::Base
   
   attr_accessor :accepted_appointment
   
-    default_scope :order => 'start_time ASC'  
-
-  # Specifies a white list of model attributes that can be set via mass-assignment.
- # attr_accessible :start_time, :end_time, :user_id
-  
+  default_scope :order => 'start_time ASC'  
   
   
   def init
@@ -60,17 +56,6 @@ class Appointment < ActiveRecord::Base
     
   def self.without_accepted(current_user)
     where("recipient_appointments.accepted != ? ",:true)
-#    Store.all(:select => "DISTINCT store_type",
-  #   where("NOT EXISTS (SELECT * FROM recipient_appointments as r WHERE        
-  #      id=r.appointment_id AND
-  #      r.user_id=? AND
-  #      r.accepted=? )",current_user.id,:true)
-  end
-  
-
-  
-  def generate_token
-   self.token = Digest::SHA1.hexdigest([Time.now, rand].join)
   end
   
   def self.has_user_ids(user_ids)
@@ -83,6 +68,8 @@ class Appointment < ActiveRecord::Base
       friends = user.friends.map(&:id)
       self.has_user_ids(friends)
    end  
+   
+   
   
   def self.split_to_hourly_start_times(start_time, end_time)  
       start_time = start_time.to_datetime
@@ -109,6 +96,8 @@ class Appointment < ActiveRecord::Base
       start_times
   end  
   
+  
+  
   def user_hour(start_time)
     user_hours.find_by_start_time(start_time)    
   end
@@ -132,22 +121,16 @@ class Appointment < ActiveRecord::Base
     user_hours = user.user_hours.where("user_hours.start_time>=? and user_hours.start_time < ?", start_time, end_time)
     user_hours.empty?
   end
- # 
- # def self.accept_appointment(recipient, appointment)
- #   if recipient == appointment.user
- #     raise "a user can't accept his own appointments"      
- #   end
- #   RecipientAppointment.create()        
- # end
+  
   
   def receive_and_accept(recipient)
     #TODO write test cases    
     receive(recipient)
-    Appointment.accept_received_appointment(recipient, self)    
+    accept_received_appointment(recipient)
   end
   
+  
   def receive(recipient)
-    #TODO write test cases
     recipient_appointment = RecipientAppointment.find_by_appointment_id_and_user_id(self.id, recipient.id)
     if recipient_appointment.nil?
        recipient_appointment = RecipientAppointment.create(:user=>recipient, :appointment=>self)
@@ -155,32 +138,29 @@ class Appointment < ActiveRecord::Base
        raise "couldn't store the appointment #{self.id} as received at user #{recipient.name}"
     end
     recipient_appointment     
-  end    
+  end   
   
   
-  
-  def self.accept_received_appointment(recipient, appointment)
-    if recipient == appointment.user
+  def  accept_received_appointment(recipient)
+    if recipient == self.user
       raise "a user can't accept his own appointments"      
     end
-    if !recipient.received_appointments.include?(appointment)
+    if !recipient.received_appointments.include?(self)
       raise "to accept an appointment a user must first receive it"      
     end   
     
-    Appointment.accept_appointment_for_user_hours(recipient, appointment)
+    Appointment.accept_appointment_for_user_hours(recipient, self)
     
-    new_appointments = Appointment.create_new_appointments_for_empty_slots(recipient,appointment)
+    new_appointments = Appointment.create_new_appointments_for_empty_slots(recipient,self)
     
-    recipient_appointment = RecipientAppointment.where("user_id = ? and appointment_id = ?",recipient.id, appointment.id).first
+    recipient_appointment = RecipientAppointment.where("user_id = ? and appointment_id = ?",recipient.id, self.id).first
     recipient_appointment.accepted=true
     recipient_appointment.accepted_on = DateTime.current
     recipient_appointment.save
-    new_appointments
+    new_appointments    
   end
   
-  
-  
-  
+
   
   def self.accept_foreign_appointment_now(user)  
      foreign_appointment = Appointment.get_foreign_appointment_now(user)
@@ -202,6 +182,10 @@ class Appointment < ActiveRecord::Base
   
   #------------------------ PRIVATE -----------------
   private 
+  
+  def generate_token
+   self.token = Digest::SHA1.hexdigest([Time.now, rand].join)
+  end
   
   def update_user_hours
     delete_not_needed_user_hours

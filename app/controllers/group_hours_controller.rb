@@ -23,6 +23,8 @@ class GroupHoursController < ApplicationController
     end
     @user_hour.reload
     @user_hour.store_login 
+    group_hour = @user_hour.group_hour
+    
     puts "#{current_user.name}: user_hour = #{@user_hour.id}"    
     
     InfoMailer.deliver_session_start(current_user,@user_hour.group_hour).deliver       

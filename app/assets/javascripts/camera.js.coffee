@@ -12,6 +12,14 @@ $(document).ready ->
   # only run code when videobox is present
   if $('#camera_settings').length > 0 
 	
+    if $("#flash_version").length>0
+       playerVersion= swfobject.getFlashPlayerVersion()
+       flash_version =  playerVersion.major + "." + playerVersion.minor + "." + playerVersion.release
+       if playerVersion.major < 11
+          $("#flash_version").html(flash_version)
+       else
+          $("#flash_version_alert").css("display","none")	
+	
     publisher = null
     TB.setLogLevel(TB.DEBUG) 
     session_id  = $("#camera_settings").data("session_id")

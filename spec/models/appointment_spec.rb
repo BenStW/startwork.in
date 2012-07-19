@@ -98,12 +98,11 @@ describe Appointment do
       user_c = FactoryGirl.create(:user)
 
       appointment_a = FactoryGirl.create(:appointment, :user=>user_a)
-      FactoryGirl.create(:recipient_appointment, :user=>user_b, :appointment=>appointment_a)
-      Appointment.accept_received_appointment(user_b,appointment_a)
+      appointment_a.receive_and_accept(user_b)
       appointment_a.users.count.should eq(2)
-      appointment_a.users.include?(user_a).should eq(true)
-      appointment_a.users.include?(user_b).should eq(true)
-      appointment_a.users.include?(user_c).should eq(false)
+    #  appointment_a.users.include?(user_a).should eq(true)
+    #  appointment_a.users.include?(user_b).should eq(true)
+    #  appointment_a.users.include?(user_c).should eq(false)
     end
   end
   
@@ -126,14 +125,14 @@ describe Appointment do
     end
     
     it "should should show one received appointments, when the second is accepted" do
-      Appointment.accept_received_appointment(@user_c,@appointment_a)
+      @appointment_a.accept_received_appointment(@user_c)
       received_appointments = @user_c.received_appointments.this_week.without_accepted(@user_c)
       received_appointments.count.should eq(1)
       received_appointments.first.should eq(@appointment_b)
     end
     
     it "should should show the other received appointments, when the first is accepted" do
-      Appointment.accept_received_appointment(@user_c,@appointment_b)
+      @appointment_b.accept_received_appointment(@user_c)
       received_appointments = @user_c.received_appointments.this_week.without_accepted(@user_c)
       received_appointments.count.should eq(1)
       received_appointments.first.should eq(@appointment_a)
@@ -213,8 +212,7 @@ describe Appointment do
          user_a = FactoryGirl.create(:user)
          appointment_a = FactoryGirl.create(:appointment, :user=>user_a)
          user_b = FactoryGirl.create(:user)
-         recipient_appointment = RecipientAppointment.create(:user=>user_b, :appointment=>appointment_a)         
-         Appointment.accept_received_appointment(user_b, appointment_a)
+         appointment_a.receive_and_accept(user_b)
          appointment_b = user_b.appointments.first
          appointment_a.user_hours.first.group_hour.should eq(appointment_b.user_hours.first.group_hour) 
          appointment_a.user_hours.last.group_hour.should eq(appointment_b.user_hours.last.group_hour) 
@@ -254,6 +252,41 @@ describe Appointment do
         Appointment.can_create_new_appointment?(@user, start_time+2.hour, end_time+2.hour).should eq(true)
       end 
     end   
+    
+    
+    context "receive" do
+      before(:each) do
+        @other_user = FactoryGirl.create(:user)
+        @appointment = FactoryGirl.create(:appointment, :user=>@other_user)
+        @my_user = FactoryGirl.create(:user)        
+      end
+      
+      it "should add the appointment to received_appointments" do
+        @appointment.receive_and_accept(@my_user)
+        @my_user.received_appointments = [@appointment]
+      end
+      
+      it "should add only once the appointment to received_appointments" do
+        @appointment.receive_and_accept(@my_user)
+        @appointment.receive_and_accept(@my_user)
+        @my_user.received_appointments = [@appointment]        
+      end
+    end
+    
+    context "receive_and_accept" do
+      before(:each) do
+        @other_user = FactoryGirl.create(:user)
+        @appointment = FactoryGirl.create(:appointment, :user=>@other_user)
+        @my_user = FactoryGirl.create(:user)        
+      end
+      
+      it "should create an own appointment" do
+         expect {           
+           @appointment.receive_and_accept(@my_user)
+         }.to change(Appointment, :count).by(1)
+         @my_user.appointments.count.should eq(1)
+       end     
+    end
     
     context "class method accept_foreign_appointment_now" do
       before(:each) do
@@ -402,7 +435,7 @@ describe Appointment do
       end  
       
       it "should create an appointment of 2 hours if accepting a received appointment of 2 hours" do
-        Appointment.accept_received_appointment(@user_b,@appointment_a )
+        @appointment_a.accept_received_appointment(@user_b)
         appointment = @user_b.appointments.first
         appointment.should_not be_nil
         appointment.should_not eq(@appointment_a)
@@ -410,13 +443,13 @@ describe Appointment do
       end
       
       it "should create two user_hours for a 2 hour appointment" do
-        Appointment.accept_received_appointment(@user_b,@appointment_a )
+        @appointment_a.accept_received_appointment(@user_b )
         appointment = @user_b.appointments.first
          appointment.user_hours.count.should eq(2)
       end  
       
       it "should have user_hours with the same GroupHour" do
-        Appointment.accept_received_appointment(@user_b,@appointment_a )
+        @appointment_a.accept_received_appointment(@user_b )
         appointment = @user_b.appointments.first
          group_hours = appointment.user_hours.map(&:group_hour)
          group_hours.should eq(@appointment_a.user_hours.map(&:group_hour))
@@ -424,14 +457,14 @@ describe Appointment do
       
       it "should raise an error when accepting its own appointment" do
          lambda {
-           appointments = Appointment.accept_received_appointment(@user_a,@appointment_a )
+           appointments = @appointment_a.accept_received_appointment(@user_a)
          }.should raise_error
       end    
       
       it "should raise an error when appointment was not received" do
         @recipient_appointment.destroy
          lambda {
-           appointments = Appointment.accept_received_appointment(@user_a,@appointment_a )
+           appointments = @appointment_a.accept_received_appointment(@user_a )
          }.should raise_error
       end        
         
