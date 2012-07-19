@@ -29,7 +29,7 @@
 
 <div style="margin:0 auto; width:696px;position:relative;">
   
-  <div class="whitebox" id="welcome_box" style="position:absolute;top: -200px;height:500px;width: 100%;padding: 0;opacity:0.8;"></div>
+  <div class="whitebox" id="welcome_box" style="position:absolute;top: -200px;height:500px;width: 100%;padding: 0;opacity:0.8;margin-bottom:50px;"></div>
 
     <div class="emphasize" id="welcome_content" style="position:absolute;top: -200px;height:500px;padding: 40px;">
    
@@ -98,15 +98,17 @@
           <h3 id="appointment_str" style="display:none"></h3>			
 <!-- SEND APPOINTMENT BY FACEBOOK -->
 
+          </div>
+
           <% end %>
 
-          </div>
+
+
+<div id="fb-root" data-app="<%=@app%>" style="position: absolute;left: 150px;top: 40px;"></div>
 
         </div>
 
       </div> <!-- end item -->   
-
-      <div id="fb-root" data-app="<%=@app%>" style="position: absolute;left: 150px;top: 40px;"></div>
 
     </div> <!-- end welcome_content -->
   </div> <!-- end welcome_box -->
