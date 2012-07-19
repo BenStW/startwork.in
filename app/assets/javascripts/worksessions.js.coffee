@@ -145,7 +145,7 @@ $(document).ready ->
           else
             connectionData = JSON.parse(stream.connection.data)  
             log "subscribeToStreams: connection.data="
-            log connectionData       
+            console.log connectionData       
             user_id = connectionData.user_id
             user_name = connectionData.user_name
             addVideoBox(user_id, user_name)
@@ -187,7 +187,7 @@ $(document).ready ->
       exceptionHandler = (event) -> 
         log "************* EXCEPTION ************"
         log "exceptionHandler: event.code = "+event.code
-        log event
+        console.log event
         log "************* EXCEPTION ************"
         session.connect api_key, tok_token
 
