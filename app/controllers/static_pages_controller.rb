@@ -118,7 +118,7 @@ class StaticPagesController < ApplicationController
    10.times.each do |u|
      @users << @user
    end
-#   render "start_work_mailer/after_registration", :layout =>'mail_layout'
-  render "start_work_mailer/after_creation_of_appointment", :layout =>'mail_layout'
+  render "start_work_mailer/after_registration", :layout =>'mail_layout'
+ # render "start_work_mailer/after_creation_of_appointment", :layout =>'mail_layout'
  end
 end
