@@ -23,7 +23,7 @@ class StartWorkMailer < ActionMailer::Base
 
     mail(:to => @user.email, 
     :bcc => ["benedikt@startwork.in","miro@startwork.in", "robert@startwork.in"],
-    :subject => "Willkommen auf StartWork!") 
+    :subject => "Du bist verabredet!") 
   end  
 
 end
