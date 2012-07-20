@@ -1,5 +1,7 @@
 ActiveAdmin.register UserHour do
     menu :priority => 10
+    filter :id
+    filter :user
     filter :start_time
     filter :login_count
     
