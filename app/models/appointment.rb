@@ -30,6 +30,8 @@ class Appointment < ActiveRecord::Base
   before_create :generate_token 
      
   after_save :update_user_hours 
+  
+  after_create :send_confirmation_mail
 
   after_initialize :init
   
@@ -324,6 +326,10 @@ class Appointment < ActiveRecord::Base
    else
      nil
    end  
+ end
+ 
+ def send_confirmation_mail
+   StartWorkMailer.after_creation_of_appointment(self).deliver              
  end
 
 end

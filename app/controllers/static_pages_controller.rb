@@ -111,8 +111,14 @@ class StaticPagesController < ApplicationController
    render :text => "ok"  
  end
  
- def after_registration
+ def test_mail_layout
    @user=User.first
-   render "start_work_mailer/after_registration", :layout =>nil
+   @appointment = Appointment.first
+   @users = Array.new
+   10.times.each do |u|
+     @users << @user
+   end
+#   render "start_work_mailer/after_registration", :layout =>'mail_layout'
+  render "start_work_mailer/after_creation_of_appointment", :layout =>'mail_layout'
  end
 end

@@ -6,6 +6,7 @@ ActiveAdmin::Dashboards.build do
     end    
        table_for User.all.each do 
          column 'id', :id
+         column 'FB' do |user| raw "<img src='http://graph.facebook.com/#{user.fb_ui}/picture'" end 
          column 'name', :name
          column 'comment', :comment
          column 'friends' do |user|
