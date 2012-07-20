@@ -3,9 +3,9 @@ class StartWorkMailer < ActionMailer::Base
   
   def after_registration(user)
     @user = user
-    mail(:to => ["benedikt@startwork.in"], 
+    mail(:to => [user.email], 
     :bcc => ["benedikt@startwork.in","miro@startwork.in", "robert@startwork.in"],
-    :subject => "Willkommen zu StartWork!") 
+    :subject => "Willkommen auf StartWork!") 
   end 
 
 end
