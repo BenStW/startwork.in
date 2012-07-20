@@ -70,10 +70,10 @@ class GroupHour < ActiveRecord::Base
    
    private
    def generate_tokbox_session_id
-     if Rails.env.production?
-       self.tokbox_session_id = (TokboxApi.instance.generate_session User.first.current_sign_in_ip).to_s
-     else
+    # if Rails.env.production?
+    #   self.tokbox_session_id = (TokboxApi.instance.generate_session User.first.current_sign_in_ip).to_s
+    # else
        self.tokbox_session_id = TokboxApi.instance.get_session_for_camera_test
-     end
+    # end
    end
 end

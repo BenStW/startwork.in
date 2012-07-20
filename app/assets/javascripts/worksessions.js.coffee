@@ -251,8 +251,8 @@ $(document).ready ->
            if s == 0
              log h+":"+m+":"+s+" work_session:"+is_work_session
            prefix_html = if is_work_session then "Arbeitsphase:<br />" else "Pause:<br />"
-           if !is_work_session and m==5 and s==0
-              location.reload()
+         #  if !is_work_session and m==5 and s==0
+             # location.reload()
 
            m = m+1 # because no seconds are displayed, 40sec should be 1minute
            html = prefix_html + "noch " + m + " Min"
@@ -307,7 +307,6 @@ $(document).ready ->
           console.log d+": "+ message
 
 
-      send_exception("this is a test")
       startTimer()
       
       TB.setLogLevel(TB.DEBUG) 
