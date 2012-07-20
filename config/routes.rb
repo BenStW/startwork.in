@@ -66,6 +66,7 @@ StartWork::Application.routes.draw do
      match 'info_for_group_hour' => 'static_pages#info_for_group_hour', :as => :info_for_group_hour
      match 'users_tomorrow' => 'static_pages#users_tomorrow', :as => :users_tomorrow
      match 'send_exception' => 'static_pages#send_exception', :as => :send_exception
+     match 'after_registration'=>'static_pages#after_registration'
      
      
 

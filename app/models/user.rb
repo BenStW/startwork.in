@@ -123,7 +123,8 @@ class User < ActiveRecord::Base
              :first_name => data.first_name,
              :last_name => data.last_name,
              :password => Devise.friendly_token[0,20] ) 
-      InfoMailer.deliver_new_user(user).deliver             
+     # InfoMailer.deliver_new_user(user).deliver 
+      StartWorkMailer.after_registration(user).deliver           
     end
 
 

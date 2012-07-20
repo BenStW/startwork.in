@@ -110,4 +110,9 @@ class StaticPagesController < ApplicationController
    ErrorMailer.deliver_frontend_exception(message,current_user).deliver
    render :text => "ok"  
  end
+ 
+ def after_registration
+   @user=User.first
+   render "start_work_mailer/after_registration", :layout =>nil
+ end
 end
