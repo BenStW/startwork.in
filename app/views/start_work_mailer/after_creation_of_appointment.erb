@@ -22,22 +22,20 @@
  verabredet mit:<br>
 				</td>
 			</tr>
+			
+			
+			<% (@users).in_groups_of(2,false).each do |row| %>
 			<tr>
-				<td colspan="12">
-					<table>
-						<% (@users).in_groups_of(2,false).each do |row| %>
-						<tr>
-							<% row.each do |user| %>
-							<td>
-								<img src='http://graph.facebook.com/<%=user.fb_ui%>/picture'>
-							</td>
-							<td width="200px">
-								<%= user.name %>
-							</td><% end %>
-						</tr><%end %>
-					</table>
-				</td>
-			</tr>
+				<% row.each do |user| %>                        
+						<td colspan="1">
+							<img src='http://graph.facebook.com/<%=user.fb_ui%>/picture'>
+						</td>
+						<td colspan="5">
+						<%= user.name %>
+				</td><% end %>
+			</tr><%end %>
+						
+						
 			<tr>
 				<td colspan="12">
 					Sie alle warten auf dich. Lasse sie nicht hängen und logge dich morgen pünktlich um 9 Uhr ein.
