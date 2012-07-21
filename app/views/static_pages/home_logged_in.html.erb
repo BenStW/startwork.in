@@ -3,6 +3,15 @@
   <link href='http://fonts.googleapis.com/css?family=Parisienne' rel='stylesheet' type='text/css'>
 <%- end -%>
 
+<!-- FB JS SDK -->
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=330646523672055";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<!-- END FB JS SDK -->
 
 <%- content_for(:background_image) do -%>
         background-image:url('/assets/paper_bg.jpg')
@@ -230,6 +239,11 @@
 
     <hr>
     <p>StartWork funktioniert am besten mit Freunden. Lade sie jetzt ein!</p>
+    <hr>
+    <div style="margin-top:20px;">
+      <div class="fb-like" data-href="https://www.facebook.com/startwork.in" data-send="false" data-layout="button_count" data-width="250" data-show-faces="true" data-font="segoe ui" style=" margin-bottom: 5px; "></div>
+      <div class="fb-facepile" data-href="https://www.facebook.com/startwork.in" data-size="small" data-max-rows="2" data-width="250"></div>
+    </div>
     <hr>
     <div style="margin-top:20px;">
     <p>Deine Freunde bei StartWork:</p>
