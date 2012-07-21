@@ -27,6 +27,7 @@ gem 'newrelic_rpm'
 
 group :development do
   gem "rails-erd"  #entity relationship diagram
+  gem "mailcatcher", "~> 0.5.8"
 end
 
 
