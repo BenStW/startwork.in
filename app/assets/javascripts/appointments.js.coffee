@@ -90,12 +90,12 @@ $(document).ready ->
       appointment_id = $("#appointment").data("appointment_id")
       link = $("#urls").data("appointments_url")+"/"+appointment_id+"/?token="+token
       console.log link
-      fb_popup(name, message, link)
+      fb_popup(name, message, link,"Appointment")
 
 
 
 
-   fb_popup = (name, message, link) ->	
+   fb_popup = (name, message, link, ga_category) ->	
       FB.ui(
          {method: 'send',
          name: name,
@@ -110,9 +110,11 @@ $(document).ready ->
               console.log "The User has sent the appointment to FB friends"
               txt = "Die Einladung wurde erfolgreich versendet."
               notice_html = "<div  class='alert alert-success'>"+txt+"</div>"
+              $("body").trigger("fb_event",  ga_category)
               $("#notice").html(notice_html)
             else
-              console.log "The User has cancelled the FB popup window")
+              console.log "The User has cancelled the FB popup window"
+              $("body").trigger("fb_event",  "Cancel"+ga_category))
           
    reload_my_work_sessions = ->
      if  $("#my_appointments").length>0
@@ -357,7 +359,7 @@ $(document).ready ->
       name = "StartWork.in - Gemeinsam produktiver. Mit Leuten wie dir."
       message = "message"
       link = "http://startwork.in"
-      fb_popup(name, message, link)
+      fb_popup(name, message, link, "Invite")
    
    $(".join_appointment").click ->
       $('#main_page_modal').modal("show")     
