@@ -100,7 +100,7 @@ $(document).ready ->
          {method: 'send',
          name: name,
          message: message,
-         link: "http://startwork.in"},
+         link: link},
          (response) ->
             $('#main_page_modal').modal('hide')
             if $("#welcome_box").length>0
