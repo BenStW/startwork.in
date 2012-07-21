@@ -24,9 +24,7 @@ $(document).ready ->
       _gaq.push(['_trackEvent', 'Frontpage', 'Play Video'])
 
     $('#facebook_link').click ->
-      console.log "test"
       _gaq.push(['_trackEvent', 'Frontpage', 'Facebook Login'])
 
     $('#skip_appointment').click ->
-      console.log "test"
       _gaq.push(['_trackEvent', 'Welcome', 'Skip Appointment'])

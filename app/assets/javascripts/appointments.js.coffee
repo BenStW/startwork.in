@@ -84,7 +84,7 @@ $(document).ready ->
 
 
    fb_popup_with_appointment = (callback)->
-      name =  "Einladung zum gemeinsamen Lernen: " + $("#appointment_str").html()     
+      name =  "Einladung zum gemeinsamen Arbeiten: " + $("#appointment_str").html()     
       message = "message"
       token = $("#appointment").data("token")
       appointment_id = $("#appointment").data("appointment_id")
