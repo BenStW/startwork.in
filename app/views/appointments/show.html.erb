@@ -54,12 +54,12 @@
 				<%= I18n.localize(@appointment.end_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %>
 				</h3>
 				<div style="text-align: right;margin-top: -5px;">
-					<%= link_to "Ablehnen", reject_appointment_url, :class=>"btn btn-large"%>
+					<%= link_to "Ablehnen", reject_appointment_url, :class=>"btn btn-large", :id=>"appointment_rejected"%>
 					
 					<% if current_user %>
-						<%= link_to "Annehmen", accept_appointment_url(:token=> @appointment.token), :class=>"btn btn-large btn-success"%>			
+						<%= link_to "Annehmen", accept_appointment_url(:token=> @appointment.token), :class=>"btn btn-large btn-success", :id=>"appointment_accepted"%>			
 					<% else %>
-						<%= link_to "Annehmen", login_to_accept_appointment_url(:token=> @appointment.token), :class=>"btn btn-large btn-success"%>	
+						<%= link_to "Annehmen", login_to_accept_appointment_url(:token=> @appointment.token), :class=>"btn btn-large btn-success", :id=>"appointment_accepted"%>	
 					<% end %>	
 				</div>
 			<% else %>

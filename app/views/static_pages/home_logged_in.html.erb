@@ -272,7 +272,7 @@ data-dont_show_wizard="<%= if @camera.dont_show_wizard then true else false end 
 
   <div class="modal-footer">
        <button class="continue_button btn btn-large btn-primary" data-activate_modal="#wizard1" data-activate_element="#explain1">Weiter</button>
-       <button class="btn btn-large dont_show_tour" data-dismiss="modal">Tour überspringen</button>
+       <button class="btn btn-large dont_show_tour" id="dismiss_tour" data-dismiss="modal">Tour überspringen</button>
   </div><!-- modal-footer -->
 </div>
 <!-- main explainer modal end-->
@@ -380,7 +380,7 @@ data-dont_show_wizard="<%= if @camera.dont_show_wizard then true else false end 
   </div>
 
   <div class="modal-footer">
-      <button class="btn btn-large btn-success dont_show_tour" data-dismiss="modal">Fertig!</button>      <button class="continue_button btn btn-large" data-activate_modal="#wizard4" data-activate_element="#explain4">Zurück</button>
+      <button class="btn btn-large btn-success dont_show_tour" id="finish_tour" data-dismiss="modal">Fertig!</button>      <button class="continue_button btn btn-large" data-activate_modal="#wizard4" data-activate_element="#explain4">Zurück</button>
 
   </div><!-- modal-footer -->
 </div>

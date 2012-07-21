@@ -18,7 +18,13 @@ $(document).ready ->
       s.parentNode.insertBefore(ga, s))()
 
 
+# GA Tracking Events
 
     $('#video_modal_button').click ->
-      console.log "test"
-      _gaq.push(['_trackEvent', 'frontpage', 'play video'])
+      _gaq.push(['_trackEvent', 'Frontpage', 'Play Video'])
+
+    $('#facebook_link').click ->
+      _gaq.push(['_trackEvent', 'Frontpage', 'Facebook Login'])
+
+    $('#skip_appointment').click ->
+      _gaq.push(['_trackEvent', 'Welcome', 'Skip Appointment'])
