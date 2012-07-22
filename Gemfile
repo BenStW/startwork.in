@@ -7,7 +7,7 @@ gem 'rails', '3.2.1'
 
 # gem 'sqlite3'
 
-# gem 'thin'
+gem 'thin'
 
 gem 'pg'
 gem 'opentok'
@@ -24,7 +24,7 @@ group :development do
   gem 'annotate', '~> 2.4.1.beta' 
   gem 'guard-rspec'
     gem "rails-erd"  #entity relationship diagram
-    gem "mailcatcher", "~> 0.5.8"
+#    gem "mailcatcher", "~> 0.5.8"
   end
 
 gem 'newrelic_rpm'
