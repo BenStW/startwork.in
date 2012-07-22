@@ -18,12 +18,17 @@ $(document).ready ->
       s = document.getElementsByTagName('script')[0]
       s.parentNode.insertBefore(ga, s))()
 
+     # GA Tracking Events
+     #
+     # Facebook Actions:  
+     #    Appointment
+     #    CancelAppointment
+     #    Invite
+     #    CancelInvite
 
-     # GA Tracking Events  
-  
-    $("body").bind("fb_event", (event, category) -> 
-       console.log "GA tracking event: "+ category
-       _gaq.push(['_trackEvent', 'Facebook', category]))
+    $("body").bind("fb_event", (event, action) -> 
+       console.log "GA tracking event: "+ action
+       _gaq.push(['_trackEvent', 'Facebook', action]))
 
     $('#video_modal_button').click ->
       _gaq.push(['_trackEvent', 'Frontpage', 'Play Video'])

@@ -95,7 +95,7 @@ $(document).ready ->
 
 
 
-   fb_popup = (name, message, link, ga_category) ->	
+   fb_popup = (name, message, link, ga_action) ->	
       FB.ui(
          {method: 'send',
          name: name,
@@ -110,11 +110,11 @@ $(document).ready ->
               console.log "The User has sent the appointment to FB friends"
               txt = "Die Einladung wurde erfolgreich versendet."
               notice_html = "<div  class='alert alert-success'>"+txt+"</div>"
-              $("body").trigger("fb_event",  ga_category)
+              $("body").trigger("fb_event",  ga_action)
               $("#notice").html(notice_html)
             else
               console.log "The User has cancelled the FB popup window"
-              $("body").trigger("fb_event",  "Cancel"+ga_category))
+              $("body").trigger("fb_event",  "Cancel"+ga_action))
           
    reload_my_work_sessions = ->
      if  $("#my_appointments").length>0
