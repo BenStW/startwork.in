@@ -39,5 +39,4 @@ $(document).ready ->
     $('#skip_appointment').click ->
       _gaq.push(['_trackEvent', 'Welcome', 'Skip Appointment'])
 
-    $('#foo').click ->
-        alert "foo"
+
