@@ -40,3 +40,11 @@ $(document).ready ->
       _gaq.push(['_trackEvent', 'Welcome', 'Skip Appointment'])
 
 
+
+    # Main Modal:
+	# id="main_modal_invite"
+	# id="main_modal_delete"
+	#  id="main_modal_save" 
+	# id="main_modal_join" 
+	# id="main_modal_accept"
+	#  id="main_modal_close"
