@@ -7,6 +7,8 @@ gem 'rails', '3.2.1'
 
 # gem 'sqlite3'
 
+# gem 'thin'
+
 gem 'pg'
 gem 'opentok'
 # gem 'less-rails-bootstrap'
@@ -21,14 +23,14 @@ gem "omniauth-facebook"
 group :development do
   gem 'annotate', '~> 2.4.1.beta' 
   gem 'guard-rspec'
-end
+    gem "rails-erd"  #entity relationship diagram
+    gem "mailcatcher", "~> 0.5.8"
+  end
 
 gem 'newrelic_rpm'
 
-group :development do
-  gem "rails-erd"  #entity relationship diagram
-  gem "mailcatcher", "~> 0.5.8"
-end
+
+
 
 
 group :test do
