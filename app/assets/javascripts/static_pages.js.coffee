@@ -16,12 +16,7 @@ $(document).ready ->
    $("#video_modal_button").click ->
        $('#video_modal').modal("show")
 
-   if $(".carousel").length>0  
-     $("#appointment_carousel").carousel
-       interval: false
 
-   $("#show_and_welcome_carousel").carousel
-       interval: false
 
 
    $(".remove_height_from_content_and_set_it_to_box").click ->

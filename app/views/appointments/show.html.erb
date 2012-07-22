@@ -18,56 +18,65 @@
 	<img src="/assets/frontpage_biggestpicture2.jpg" style="width:100%;position:relative;display:block;">
 <% end %>
 
+
+
 <div style="margin:0 auto; width:696px;position:relative;">
-<div class="whitebox" style="position:absolute;top: -168px;height:270px;width: 100%;padding: 0;opacity:0.8;"></div>
-<div class="emphasize" style="position:absolute;top: -168px;height:270px;padding: 40px;">
-<div id="appointment_carousel" class="carousel slide">
-  <!-- Carousel items -->
-  <div class="carousel-inner" style="margin-top:40px;overflow:visible;width:614px;">
-    <div class="active item" style="vertical-align:middle;width:">
-	    <!-- Carousel nav -->
-	    <a class="btn btn-danger btn-large" style="position:absolute;top:-60px;right:-20px;" href="#appointment_carousel" data-slide="next">Weiter</a>
-    	<center><p style="font-size:26px;line-height:47px;">Geht es dir auch so, dass du das Anfangen mit einer Arbeit ewig lange aufschiebst?</p></center>
-    </div>
-    <div class="item" style="vertical-align:middle;">	  <!-- Carousel nav -->
-  	    <a class="btn btn-danger btn-large" style="position:absolute;top:-60px;right:-20px;" href="#appointment_carousel" data-slide="next">Weiter</a>
-    	<center><p style="font-size:26px;line-height:47px;">Auf StartWork verabredest du mit Freunden gemeinsame Arbeitszeiten über Webcam. </p></center>
-    </div>
-    <div class="item" style="vertical-align:middle;">
-	    <!-- Carousel nav -->
-	    <a class="btn btn-danger btn-large" style="position:absolute;top:-60px;right:-20px;" href="#appointment_carousel" data-slide="next">Weiter</a>
-    	<center><p style="font-size:26px;line-height:47px;">Es geht dabei um das pünktliche Anfangen mit der Arbeit, nicht um die inhaltliche Zusammenarbeit.</p></center>
-    </div>
-    <div class="item" style="margin-top:-40px;">
-		<p style="font-size:26px;line-height:47px;margin-bottom:20px;text-align:center;">Du hast gerade eine solche Einladung erhalten</p>
-		<div class="well">
-			<div class="left"><img src="http://graph.facebook.com/<%=@appointment.user.fb_ui%>/picture"></div>
-			<h2>Verabredung mit <%=@appointment.user.name %></h2>
-			<br/>
-			<% if !@appointment.start_time.nil? and !@appointment.end_time.nil? %>
-				
-				<h3>am 
-				<%= I18n.localize(@appointment.start_time.to_date, :format => "%d.%m.%Y") %>	
-				 von 
-				<%= I18n.localize(@appointment.start_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %>
-				bis
-				<%= I18n.localize(@appointment.end_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %>
-				</h3>
-				<div style="text-align: right;margin-top: -5px;">
-					<%= link_to "Ablehnen", reject_appointment_url, :class=>"btn btn-large", :id=>"appointment_rejected"%>
-					
-					<% if current_user %>
-						<%= link_to "Annehmen", accept_appointment_url(:token=> @appointment.token), :class=>"btn btn-large btn-success", :id=>"appointment_accepted"%>			
-					<% else %>
-						<%= link_to "Annehmen", login_to_accept_appointment_url(:token=> @appointment.token), :class=>"btn btn-large btn-success", :id=>"appointment_accepted"%>	
-					<% end %>	
+	<div class="whitebox" style="position:absolute;top: -168px;height:270px;width: 100%;padding: 0;opacity:0.8;"></div>
+	<div class="emphasize" style="position:absolute;top: -168px;height:270px;padding: 40px;">
+		<div id="appointment_carousel" class="carousel slide">
+			<!-- Carousel items -->
+			<div class="carousel-inner" style="margin-top:40px;overflow:visible;width:614px;">
+				<div class="active item" style="vertical-align:middle;width:">
+					<!-- Carousel nav -->
+					<a class="btn btn-danger btn-large" style="position:absolute;top:-60px;right:-20px;" href="#appointment_carousel" data-slide="next">Weiter</a>
+					<center>
+						<p style="font-size:26px;line-height:47px;">
+							Geht es dir auch so, dass du das Anfangen mit einer Arbeit ewig lange aufschiebst?
+						</p>
+					</center>
 				</div>
-			<% else %>
-				<p>Noch keine Zeiten angegeben</p>
-			<% end %>
-		</div>			
-    </div>
-  </div>
-</div>
-</div>
+				<div class="item" style="vertical-align:middle;">
+					<!-- Carousel nav -->
+					<a class="btn btn-danger btn-large" style="position:absolute;top:-60px;right:-20px;" href="#appointment_carousel" data-slide="next">Weiter</a>
+					<center>
+						<p style="font-size:26px;line-height:47px;">
+							Auf StartWork verabredest du mit Freunden gemeinsame Arbeitszeiten über Webcam.
+						</p>
+					</center>
+				</div>
+				<div class="item" style="vertical-align:middle;">
+					<!-- Carousel nav -->
+					<a class="btn btn-danger btn-large" style="position:absolute;top:-60px;right:-20px;" href="#appointment_carousel" data-slide="next">Weiter</a>
+					<center>
+						<p style="font-size:26px;line-height:47px;">
+							Es geht dabei um das pünktliche Anfangen mit der Arbeit, nicht um die inhaltliche Zusammenarbeit.
+						</p>
+					</center>
+				</div>
+				<div id="appointment_slide" class="item" style="margin-top:-40px;">
+					<p style="font-size:26px;line-height:47px;margin-bottom:20px;text-align:center;">
+						Du hast gerade eine solche Einladung erhalten
+					</p>
+					<div class="well">
+						<div class="left">
+							<img src="http://graph.facebook.com/%3C%=@appointment.user.fb_ui%%3E/picture">
+						</div>
+						<h2>
+							Verabredung mit <%=@appointment.user.name %>
+						</h2><br>
+						<% if !@appointment.start_time.nil? and !@appointment.end_time.nil? %>
+						<h3>
+							am <%= I18n.localize(@appointment.start_time.to_date, :format => "%d.%m.%Y") %> von <%= I18n.localize(@appointment.start_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %> bis <%= I18n.localize(@appointment.end_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %>
+						</h3>
+						<div style="text-align: right;margin-top: -5px;">
+							<%= link_to "Ablehnen", reject_appointment_url, :class=>"btn btn-large", :id=>"appointment_rejected"%><% if current_user %><%= link_to "Annehmen", accept_appointment_url(:token=> @appointment.token), :class=>"btn btn-large btn-success", :id=>"appointment_accepted"%><% else %><%= link_to "Annehmen", login_to_accept_appointment_url(:token=> @appointment.token), :class=>"btn btn-large btn-success", :id=>"appointment_accepted"%><% end %>
+						</div><% else %>
+						<p>
+							Noch keine Zeiten angegeben
+						</p><% end %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

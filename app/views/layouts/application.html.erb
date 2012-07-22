@@ -18,8 +18,6 @@
      <meta property="og:site_name" content="StartWork" />
      <meta property="fb:admins" content="575709119" />
      
-    <%= render :partial => "layouts/google_analytics" %>
-
     <%= stylesheet_link_tag    "application", :media => "all" %>
     <%= csrf_meta_tags %>
     <%= javascript_include_tag "application" %>
@@ -40,8 +38,15 @@
       <%= yield(:background_image) %>
     <% else %>
       background-image:url('/assets/grain.jpg')
-    <%end%> 
-  " data-env="<%= Rails.env %>"> <!-- end of body tag -->
+    <%end%>" 
+
+data-env="<%= Rails.env %>"
+data-controller="<%= controller_name %>"
+data-action="<%= action_name %>"
+data-fb-ui="<%= current_user.fb_ui if current_user %>"
+data-user-registered="<%= if current_user and current_user.registered then "true" else "false" end %>">
+ <!-- end of body tag -->
+
 
     <noscript>
       <div class="alert">

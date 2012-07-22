@@ -364,6 +364,19 @@ $(document).ready ->
    $(".join_appointment").click ->
       $('#main_page_modal').modal("show")     
       join_work_session($(this))
+
+   if $("#appointment_carousel").length>0 and $("body").data("controller") is "appointments" and $("body").data("action") is "show" and $("body").data("user-registered")
+     console.log "appointment_carousel (3 slides): user is registered"
+     $(".item").removeClass("active")
+     $("#appointment_slide").addClass("active")
+     $("#appointment_slide > p").html("Du hast eine Einladung erhalten!")	
+   else
+     console.log "appointment_carousel (3 slides): user NOT registered"
+     $("#appointment_carousel").carousel
+       interval: false
+ 
+   $("#show_and_welcome_carousel").carousel
+       interval: false	
    
 
 
