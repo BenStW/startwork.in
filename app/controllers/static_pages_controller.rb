@@ -56,19 +56,19 @@ class StaticPagesController < ApplicationController
 
   # called by *omniauth_callbacks_controller.rb*
   def welcome
-    if current_user.registered
-      redirect_to root_url
-    else
-      current_user.registered=true
-      current_user.save    
-      if token = session[:appointment_token]
-        session[:appointment_token] = nil
-        redirect_to accept_and_redirect_to_appointment_with_welcome_url(:token=>token)
-      else
+   # if current_user.registered
+   #   redirect_to root_url
+   # else
+   #   current_user.registered=true
+   #   current_user.save    
+   #   if token = session[:appointment_token]
+   #     session[:appointment_token] = nil
+   #     redirect_to accept_and_redirect_to_appointment_with_welcome_url(:token=>token)
+   #   else
          @name = current_user.first_name
         @friends = current_user.friends
-      end
-   end    
+  #    end
+  # end    
   end
   
  
