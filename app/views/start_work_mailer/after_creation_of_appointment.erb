@@ -10,7 +10,7 @@
 				   <% elsif @appointment.start_time.to_date == (DateTime.current+1.day).to_date %>
 				    morgen
 				   <% else %>
-				        am <%= l @appointment.start_time.to_date, :format =>  '%A' %></div>
+				        am <%= l @appointment.start_time.to_date, :format =>  '%A' %>
 				   <% end %>
 				    von 
 				     <%=I18n.localize(@appointment.start_time.to_time.in_time_zone("Berlin"),:format => "%H:%M")%>
