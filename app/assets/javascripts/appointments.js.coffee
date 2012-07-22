@@ -148,33 +148,45 @@ $(document).ready ->
            if callback?
               callback()
 
-   save_appointment = (appointment_id, start_time, end_time, callback)->
-     data = 
-        appointment:
-          start_time: start_time.toString()
-          end_time: end_time.toString()
-          id: appointment_id
-     $.ajax
-       url: $("#urls").data("appointments_url")+"/"+appointment_id,
-       data: data,
-       type: 'PUT',
-       async: false, # the call must be synchronous so it is still part of the  user event and the popup won't be blocked
-       statusCode:
-         404: (response)->
-           txt = "Die Verabredung konnte nicht gespeichert werden.."
-           notice_html = "<div  class='alert alert-error'>"+txt+"</div>"
-           $("#notice").html(notice_html)	
-         200: (response)->
-           txt = "Die Verabredung wurde gespeichert. Achte bitte darauf, dich pünktlich zur WorkSession anzumelden."
-           notice_html = "<div  class='alert alert-success'>"+txt+"</div>"
-           $("#notice").html(notice_html)
-           reload_my_work_sessions()
-           show_filled_main_modal("invite_after_create")
-           fb_popup_with_appointment()
-           if callback?
-              callback()
+   save_appointment = ->
+      appointment_id = $("#appointment").data("appointment_id")
+
+      [start_time, end_time] = from_day_and_hours_to_dates(
+         $(".main_modal_day.btn-primary").data("day"), 
+         $("#date_main_modal_start").val(),
+         $("#date_main_modal_end").val())
+      console.log "start_time = "+start_time
+      console.log "end_time = "+end_time
+      if appointment_id
+         save_appointment_with_ajax(appointment_id, start_time, end_time)
+      else
+         create_appointment_with_ajax(start_time, end_time)
+
+   save_appointment_with_ajax = (appointment_id, start_time, end_time)->
+      data = 
+          appointment:
+            start_time: start_time.toString()
+            end_time: end_time.toString()
+            id: appointment_id	
+      $.ajax
+        url: $("#urls").data("appointments_url")+"/"+appointment_id,
+        data: data,
+        type: 'PUT',
+        async: false, # the call must be synchronous so it is still part of the  user event and the popup won't be blocked
+        statusCode:
+          404: (response)->
+            txt = "Die Verabredung konnte nicht gespeichert werden.."
+            notice_html = "<div  class='alert alert-error'>"+txt+"</div>"
+            $("#notice").html(notice_html)	
+          200: (response)->
+            txt = "Die Verabredung wurde gespeichert. Achte bitte darauf, dich pünktlich zur WorkSession anzumelden."
+            notice_html = "<div  class='alert alert-success'>"+txt+"</div>"
+            $("#notice").html(notice_html)
+            reload_my_work_sessions()
+            show_filled_main_modal("invite_after_create")
+            fb_popup_with_appointment()
    
-   create_appointment = (start_time, end_time, callback)->
+   create_appointment_with_ajax = (start_time, end_time)->
      data = 
        appointment:
          start_time: start_time.toString()
@@ -201,8 +213,7 @@ $(document).ready ->
            reload_my_work_sessions()
            show_filled_main_modal("invite_after_create")
            fb_popup_with_appointment()
-           if callback?
-              callback()
+
 
 
    show_filled_main_modal = (action)->
@@ -267,10 +278,6 @@ $(document).ready ->
         $("#date_main_modal_end").val())
       $("#appointment_str").html(appointment_str)
 
-   show_invite_buttons = ->
-      $("#main_modal_invite").css("display","inline")
-
-
    fill_main_modal = (element)->
       [start_time,end_time] = read_times(element)
       fill_main_modal_with_dates(start_time,end_time)
@@ -298,9 +305,6 @@ $(document).ready ->
       $("#"+event.target.id).addClass("btn-primary")
       show_appointment_string()
 
-   $("#main_modal_invite").click (event) ->
-     fb_popup_with_appointment()
-	
 
    $("#main_modal_delete").click (event) ->
       appointment_id = $("#appointment").data("appointment_id")
@@ -314,22 +318,15 @@ $(document).ready ->
             notice_html = "<div  class='alert alert-success'>"+txt+"</div>"
             $("#notice").html(notice_html)
             reload_my_work_sessions()
-   
+
+
+
+   $("#save_appointment_on_welcomepage").click ->
+      save_appointment()        
+
    $("#main_modal_save").click ->
-      appointment_id = $("#appointment").data("appointment_id")
-   
-      [start_time, end_time] = from_day_and_hours_to_dates(
-         $(".main_modal_day.btn-primary").data("day"), 
-         $("#date_main_modal_start").val(),
-         $("#date_main_modal_end").val())
-      console.log "start_time = "+start_time
-      console.log "end_time = "+end_time
-      if appointment_id
-         save_appointment(appointment_id, start_time, end_time, (response)->
-            console.log response)
-      else
-         create_appointment(start_time, end_time, (response)->
-            console.log response)
+      save_appointment()
+
 
    $("#main_modal_accept").click ->
        token = $("#appointment").data("token")
@@ -355,7 +352,13 @@ $(document).ready ->
      $('#main_page_modal').modal("show")     
      edit_work_session($(this))
    
-   $(".send_dialogue_button").click ->
+   $("#send_dialogue_after_start_work").click ->
+      name = "StartWork.in - Gemeinsam produktiver. Mit Leuten wie dir."
+      message = "message"
+      link = "http://startwork.in"
+      fb_popup(name, message, link, "Invite")
+
+   $("#send_dialogue_button_right_block").click ->
       name = "StartWork.in - Gemeinsam produktiver. Mit Leuten wie dir."
       message = "message"
       link = "http://startwork.in"
