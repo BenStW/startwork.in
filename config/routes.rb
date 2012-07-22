@@ -76,7 +76,6 @@ StartWork::Application.routes.draw do
       match 'group_hour' => 'group_hours#show', :as => :group_hour
 
      
-     match 'group_hour/room_change(/:session)' => 'group_hours#room_change', :as => :group_hour_room_change
      match 'group_hour/get_time' => 'group_hours#get_time', :as => :group_hour_get_time
      match 'group_hour/group_hours' => 'group_hours#work_sessions', :as => :group_hours
      match 'group_hour/my_group_hours' => 'group_hours#my_group_hours', :as => :my_group_hours

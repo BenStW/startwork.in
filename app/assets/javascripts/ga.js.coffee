@@ -39,5 +39,39 @@ $(document).ready ->
     $('#skip_appointment').click ->
       _gaq.push(['_trackEvent', 'Welcome', 'Skip Appointment'])
 
-    $('#foo').click ->
-        alert "foo"
+
+	# static_pages/home_not_logged_in
+	# id=login_button
+
+    # appointments/_main_modal
+	# id="main_modal_delete"
+	# id="main_modal_save"  (unter "Jetzt verabreden" und "Termin bearbeiten")
+	# id="main_modal_join"  ("Die nächsten Arbeitssessions deiner Freunde")
+	# id="main_modal_accept" ("Erhaltene Einladungen")
+	# id="main_modal_close"
+	
+	# appointments/show
+	# id="appointment_rejected"
+	# id="appointment_accepted_current_user"
+	# id="appointment_accepted_not_logged_in"
+	
+	# appointments/show_and_welcome
+	# id=show_and_welcome_save_continue
+	
+	# static_pages/home_logged_in:
+	# id=start_work_button
+	# id=send_dialogue_button_right_block (Facebook Freunde einladen auf Dashboard)
+	# id=send_dialogue_after_start_work (Facebook Freunde einladen, nachdem man auf "start working" geclickt hat)
+	
+	# static_pages/login_to_accept_appointment:
+	# id=facebook_link
+	
+	# cameras/show:
+	# id=join_work_session_after_camera_test ("Ja, alles hat funktioniert.")
+	# id=session_start_problems
+	# id=camera_problems
+	
+	# static_pages/welcome
+	# id=skip_appointment
+	# id=save_appointment_on_welcomepage
+	

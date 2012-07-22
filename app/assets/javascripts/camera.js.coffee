@@ -11,7 +11,12 @@ $(document).ready ->
   
   # only run code when videobox is present
   if $('#camera_settings').length > 0 
-	
+    
+    $("#session_start_success").click ->
+       $.ajax
+          url: $("#urls").data("camera_url")+"?success=true"
+          type: "GET"
+    
     if $("#flash_version").length>0
        playerVersion= swfobject.getFlashPlayerVersion()
        flash_version =  playerVersion.major + "." + playerVersion.minor + "." + playerVersion.release
