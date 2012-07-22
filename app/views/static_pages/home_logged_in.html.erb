@@ -248,7 +248,7 @@
     <div style="margin-top:20px;">
     <p>Deine Freunde bei StartWork:</p>
     <% if !@friends.empty?%>
-      <div class="row">
+      <div class="row" style=" padding: 0 20px; ">
          <% @friends.each do |friend| %>
            <div class="span1">
            <img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture"><br>
