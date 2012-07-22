@@ -1,0 +1,10 @@
+<%- content_for(:head) do -%>
+  <%= javascript_include_tag "http://connect.facebook.net/en_US/all.js" -%>
+  <link href='http://fonts.googleapis.com/css?family=Parisienne' rel='stylesheet' type='text/css'>
+<%- end -%>
+
+
+<div id='fb-root' data-app='<%= fb_app %>' style='position: absolute;'></div>
+
+
+<div id="facebook_request_button" class="btn btn-primary">Launch FB request</div>

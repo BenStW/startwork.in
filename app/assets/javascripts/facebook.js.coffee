@@ -25,3 +25,15 @@ $(document).ready ->
         $("#fb-root").css("left",(x + (fb_width - screenX) / 2) - window.pageXOffset)
         console.log "fb-reset: top="+ $("#fb-root").css("top")
         console.log "fb-reset: left="+ $("#fb-root").css("left")
+
+   $('#facebook_request_button').click ->
+     console.log "sendRequest"
+     FB.ui({
+              method: 'apprequests',
+              message: 'Check out this application!',
+              title: 'Send your friends an application request',
+          },
+       (response) -> 
+        console.log response)
+     
+  

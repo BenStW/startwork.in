@@ -63,7 +63,10 @@ StartWork::Application.routes.draw do
      match 'audio' => 'static_pages#audio', :as => :audio
      match 'ben' => 'static_pages#ben', :as => :ben
      match 'canvas' => 'static_pages#canvas', :as => :canvas
+     match 'facebook' => 'static_pages#facebook', :as => :facebook
+     
      match 'info_for_group_hour' => 'static_pages#info_for_group_hour', :as => :info_for_group_hour
+     
      match 'users_tomorrow' => 'static_pages#users_tomorrow', :as => :users_tomorrow
      match 'send_exception' => 'static_pages#send_exception', :as => :send_exception
      match 'test_mail_layout'=>'static_pages#test_mail_layout'

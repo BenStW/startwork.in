@@ -9,6 +9,7 @@ ActiveAdmin.register User do
   
   index do
       column :id
+      column 'FB' do |user| raw "<img src='http://graph.facebook.com/#{user.fb_ui}/picture'" end       
       column :first_name
       column :last_name            
       column :name
@@ -42,7 +43,6 @@ ActiveAdmin.register User do
     show do 
       h3 user.name
       attributes_table :id, :first_name, :last_name, :comment
-      h2 link_to "CalendarEvents", admin_calendar_events_path
     end
     
     member_action :impersonate do
