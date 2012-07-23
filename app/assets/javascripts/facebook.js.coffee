@@ -35,5 +35,33 @@ $(document).ready ->
           },
        (response) -> 
         console.log response)
-     
+
+   renderMFS = ->
+     #First get the list of friends for this user with the Graph API
+     FB.api('/me/friends', (response) -> 
+        container = document.getElementById('mfs')
+        mfsForm = document.createElement('form')
+        mfsForm.id = 'mfsForm'
+        
+        #Iterate through the array of friends object and create a checkbox for each one.
+        #for(var i = 0; i < Math.min(response.data.length, 10); i++) {
+        for reponse_element in response.data
+           friendItem = document.createElement('div')
+           friendItem.id = 'friend_' + reponse_element.id;
+           friendItem.innerHTML = '<input type="checkbox" name="friends" value="'+
+             reponse_element.id +
+             '" />' + reponse_element.name
+             mfsForm.appendChild(friendItem)
+           container.appendChild(mfsForm)
+           
+           #Create a button to send the Request(s)
+           sendButton = document.createElement('input')
+           sendButton.type = 'button'
+           sendButton.value = 'Send Request'
+           sendButton.onclick = sendRequest
+           mfsForm.appendChild(sendButton))  
+	
+   $("#mfs_button").click ->
+     console.log "mfs_button clicked"
+   #  renderMFS()
   
