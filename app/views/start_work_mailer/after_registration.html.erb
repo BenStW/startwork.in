@@ -1,28 +1,30 @@
 <tr>
 	<td colspan="2">&nbsp;</td>
 		<td colspan="8">
-			Hallo <%= @user.first_name%>,<br><br>
-			Gratulation! Du hast den ersten Schritt getan, um produktiver zu werden.<br><br>
-			Starte jetzt, indem du dich mit deinen Freunden zum Arbeiten verabredest!
+			<p>Hallo <%= @user.first_name%>,</p>
+			<p>Gratulation! Du hast den ersten Schritt getan, um produktiver zu werden.</p>
+			<p>Starte jetzt, indem du dich mit deinen Freunden zum Arbeiten verabredest!</p>
 		</td>
 		<td colspan="2">&nbsp;</td>
 </tr>
 
-<tr height="52">
+<tr height="50">
 	<td colspan="3"></td>
-	<td colspan="4" style="background: url('http://startwork.in/assets/fb_login_email.png');background-repeat: no-repeat;">
+	<td colspan="6" style="background: url('<%=root_url%>assets/fb_login_email.png');background-repeat: no-repeat;">
 		<center>
-			<a href="http://startwork.in/users/auth/facebook" style="text-decoration:none;color:white;font-weight:600;font-size:25px" target="_blank">Start work!</a>
+			<a href="<%=root_url%>users/auth/facebook" style="text-decoration:none;color:white;font-weight:600;font-size:25px" target="_blank">Start work!</a>
 		</center>
 	</td>
-	<td colspan="3">&nbsp;</td>
+	<td colspan="3">
+		&nbsp;
+	</td>
 </tr>
 		
 <tr>
 	<td colspan="2"  >&nbsp;</td>
 	<td colspan="8">
-		<br>Viel Erfolg!<br><br>
-		Dein StartWork-Team
+		<br><p>Viel Erfolg!</p>
+		<p>Dein StartWork-Team</p>
 	</td>
 	<td colspan="2">&nbsp;</td>
 </tr>

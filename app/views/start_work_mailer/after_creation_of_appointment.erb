@@ -1,5 +1,5 @@
 <tr>
-	<td colspan="12">
+	<td colspan="12" style="padding:10px;">
 		<p>Hallo <%= @user.first_name%>,</p>
 		<p>
 			Du bist 
@@ -22,13 +22,13 @@
 </tr>
 
 <% (@users).in_groups_of(2,false).each do |row| %>
-	<tr cellpadding="0">
+	<tr>
 		<td colspan="1"></td>
 		<% row.each do |user| %>                        
 			<td colspan="2">
 				<img src='http://graph.facebook.com/<%=user.fb_ui%>/picture'>
 			</td>
-			<td colspan="4">
+			<td colspan="3">
 				<%= user.name %>
 			</td>
 		<% end %>
@@ -37,15 +37,15 @@
 <%end %>
 			
 <tr>
-	<td colspan="12">
+	<td colspan="12" style="padding:10px;">
 		Sie alle warten auf dich. Lasse sie nicht hängen und logge dich morgen pünktlich um 9 Uhr ein.
 	</td>
 </tr>
-<tr height="52">
+<tr height="50">
 	<td colspan="3"></td>
-	<td colspan="6" style="background: url('http://startwork.in/assets/fb_login_email.png');background-repeat: no-repeat;">
+	<td colspan="6" style="background: url('<%=root_url%>assets/fb_login_email.png');background-repeat: no-repeat;">
 		<center>
-			<a href="http://startwork.in/users/auth/facebook" style="text-decoration:none;color:white;font-weight:600;font-size:25px" target="_blank">Start work!</a>
+			<a href="<%=root_url%>users/auth/facebook" style="text-decoration:none;color:white;font-weight:600;font-size:25px" target="_blank">Start work!</a>
 		</center>
 	</td>
 	<td colspan="3">
@@ -53,7 +53,7 @@
 	</td>
 </tr>
 <tr>
-	<td colspan="12"><br><br>
+	<td colspan="12" style="padding:10px;"><br><br>
 		Viel Erfolg wünscht dein<br>
 		<br>
 		StartWork-Team
