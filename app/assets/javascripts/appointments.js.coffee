@@ -63,34 +63,30 @@ $(document).ready ->
         id: appointment_id
         user_ids: ids
      $.ajax
-      url: $("#urls").data("receive_appointment_url")
-      data: data
-      type: "POST" 
+       url: $("#urls").data("receive_appointment_url")
+       data: data
+       type: "POST" 
 
    save_request = (appointment_id, request_str) ->
      data = 
         appointment_id: appointment_id
         request_str: request_str
      $.ajax
-      url: $("#urls").data("new_request_url")
-      data: data
-      type: "POST"     
+       url: $("#urls").data("new_request_url")
+       data: data
+       type: "POST"     
    
    
    send_fb_request = (appointment_id, ids,current_user_name, appointment_str) ->
-     console.log "sendRequest"
-     console.log ids
-     # sendUIDs = '100003847064481' #TEMPORARILY
      message = current_user_name+" möchte gerne "+appointment_str+" auf StartWork.in mit dir lernen"
-     console.log message
+     console.log "Request message: "+message
      FB.ui({
             method: 'apprequests',
             message: message,
             title: 'Einladung zum gemeinsamen Lernen',
             to: ids 
            },(response) -> 
-             console.log response
-             console.log response.request
+             console.log "request = "+response.request
              save_request(appointment_id, response.request))
         
         
