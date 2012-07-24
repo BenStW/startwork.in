@@ -100,6 +100,10 @@ class StaticPagesController < ApplicationController
  def canvas
    @params= params
  end
+ def canvas2
+   @params= params
+ end
+ 
  
  def users_tomorrow
    a = Array.new

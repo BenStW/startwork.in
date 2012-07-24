@@ -63,6 +63,7 @@ StartWork::Application.routes.draw do
      match 'audio' => 'static_pages#audio', :as => :audio
      match 'ben' => 'static_pages#ben', :as => :ben
      match 'canvas' => 'static_pages#canvas', :as => :canvas
+     match 'canvas2' => 'static_pages#canvas2', :as => :canvas2
      match 'facebook' => 'static_pages#facebook', :as => :facebook
      
      match 'info_for_group_hour' => 'static_pages#info_for_group_hour', :as => :info_for_group_hour
