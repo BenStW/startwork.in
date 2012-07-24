@@ -98,22 +98,13 @@ class StaticPagesController < ApplicationController
  end
  
  def canvas
-   request_ids = params["request_ids"] 
-   puts "******** request_ids = #{request_ids}********"
-   request_id_array = request_ids.to_a(",")
-   request_id = request_id_array.last
-   request = Request.find(request_id)
+   request_strs = params["request_ids"] 
+   request_str_array = request_strs.split(",")
+   request_str = request_str_array.last
+   request = Request.find_by_request_str(request_str)
    @appointment = request.appointment
  end
 
- 
- def users_tomorrow
-   a = Array.new
-   10.times do
-     a << current_user
-   end
-   @users =  User.users_tomorrow
- end
  
  def send_exception
    message = params["message"]

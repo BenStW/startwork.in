@@ -74,6 +74,37 @@ describe StaticPagesController do
     end
   end  
   
+  context "canvas" do   
+    before(:each) do 
+      @appointment = FactoryGirl.create(:appointment)
+      @request_str1 = "my_request_str1"
+      Request.create(:appointment=>@appointment, :request_str=>@request_str1)
+      @request_str2 = "my_request_str2"
+      Request.create(:appointment=>@appointment, :request_str=>@request_str2)
+      
+      @user = FactoryGirl.create(:user)
+      sign_in @user   
+    end
+    
+    it "should assign the appointment based on the request_str" do
+      get :canvas, :request_ids=> @request_str1
+      assigns[:appointment].should eq(@appointment)
+    end
+    
+    it "should raise an error when no request could be found" do
+        expect {
+          get :canvas, :request_ids=> "asdf"          
+        }.to raise_error
+    end
+    
+    it "should grep the appointment of the last request" do
+      request_strs = @request_str1+","+@request_str2
+      get :canvas, :request_ids=> request_strs          
+      assigns[:appointment].should eq(@appointment)     
+    end
+    
+  
+  end
   
 
   
