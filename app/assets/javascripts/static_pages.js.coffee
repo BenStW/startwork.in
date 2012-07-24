@@ -41,7 +41,7 @@ $(document).ready ->
    if $("#canvas2").length>0
      console.log "redirect to "+$("#urls").data("root_url")
      console.log "params"+$("#canvas2").data("params")
-     top.location.href = $("#urls").data("root_url")
+    # top.location.href = $("#urls").data("root_url")
 
 #<script type='text/javascript'>top.location.href = 'URL';</script>
 
