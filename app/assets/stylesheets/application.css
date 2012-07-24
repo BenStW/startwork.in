@@ -13,6 +13,9 @@
  *= require twitter/bootstrap
  *= require work_sessions
  *= require jquery_plugins/jquery.weekcalendar
+ *= require jquery_plugins/token-input-facebook
+ *= require jquery_plugins/token-input-mac
+ *= require jquery_plugins/token-input
  *= require woothemes-flexslider/flexslider
  *= require custom
  * require twitter/bootstrap-responsive - not needed

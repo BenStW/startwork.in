@@ -13,14 +13,25 @@
      <%=I18n.localize(appointment.end_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %>
    </div>
    <div class="left rst" style="margin-right:10px;width:92px;height:25px;">
-	<% #FIXME - show all users %>
+
+
      <% appointment.users.each do |user|%>
        <img src="http://graph.facebook.com/<%=user.fb_ui%>/picture" style="width:20px;" 
 class="init_popover"
 rel="popover" 
 data-original-title="<%=user.name%>"
-data-content="<img src='http://graph.facebook.com/<%=user.fb_ui%>/picture'>">
+data-content="<img src='http://graph.facebook.com/<%=user.fb_ui%>/picture'> hat fest zugesagt">
      <% end %>
+
+	     <% (appointment.invited_users-appointment.users).each do |user|%>
+	       <img src="http://graph.facebook.com/<%=user.fb_ui%>/picture" style="width:20px;opacity:0.3;" 
+	class="init_popover"
+	rel="popover" 
+	data-original-title="<%=user.name%>"
+	data-content="<img src='http://graph.facebook.com/<%=user.fb_ui%>/picture'> hat noch nicht zugesagt">
+	     <% end %>
+
+
    </div>
 
 <% if my_or_friends=="my"%>

@@ -17,6 +17,18 @@ class Appointment < ActiveRecord::Base
   belongs_to :user
   has_many :user_hours, :dependent => :destroy 
   has_many :sent_appointments, :through => :recipient_appointments, :source => :appointment,  :dependent => :destroy 
+ # has_many :users, :through => :sent_appointments
+
+  has_many :invited_users, :class_name => "User", :finder_sql => Proc.new {
+      %Q{
+        SELECT DISTINCT users.*
+        FROM recipient_appointments JOIN users 
+        ON  recipient_appointments.user_id = users.id
+        WHERE recipient_appointments.appointment_id = #{id}        
+      }
+  }
+  
+  
   has_many :recipient_appointments 
   
   has_many :group_hours, :through => :user_hours

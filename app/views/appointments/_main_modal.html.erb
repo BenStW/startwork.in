@@ -13,6 +13,16 @@
 	
  <div class="modal-body" style="background:white;">
 	  <%= render :partial => "appointments/appointment_picker" %>
+	
+	
+	
+	<div id="fb_request_search" style="display:none">
+	    <h3 style="text-align:left"}>Verabrede dich mit deinen Freunden</h3>
+			<div id="fb_request_friends_div"></div>
+	</div> <!-- fb_request_body -->
+		
+		
+		
 
   </div> <!-- end modal-body -->
 
@@ -28,7 +38,9 @@
 	       <a href="#" id="main_modal_accept" style="display:none" class="btn btn-primary" data-dismiss="modal">
 		Annehmen</a>
 	       <a href="#" id="main_modal_close" style="display:none" class="btn btn-primary" data-dismiss="modal">
-		Schließen</a>								
+		Schließen</a>	
+	       <a href="#" id="main_modal_request" style="display:none" class="btn btn-primary" data-dismiss="modal">
+		Einladen</a>									
 
 
 	</div><!-- modal-footer -->

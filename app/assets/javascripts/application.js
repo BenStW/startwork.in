@@ -16,6 +16,7 @@
 //= require jquery_plugins/jquery-ui-i18n
 //= require jquery_plugins/jquery.jplayer.min
 //= require jquery_plugins/jquery.weekcalendar
+//= require jquery_plugins/jquery.tokeninput
 //= require twitter/bootstrap-dropdown
 //= require twitter/bootstrap-modal
 //= require twitter/bootstrap-tooltip

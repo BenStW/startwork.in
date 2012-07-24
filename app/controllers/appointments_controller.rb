@@ -94,6 +94,16 @@ class AppointmentsController < ApplicationController
     redirect_to show_and_welcome_appointment_url(:token => token)
   end  
   
+  def receive
+    appointment = current_user.appointments.find(params[:appointment_id])
+    user_ids = params[:user_ids]
+    user_ids.each do |fb_ui|
+       user = User.find_for_facebook_request(fb_ui)
+       appointment.receive(user)
+     end
+    render :json => "ok"
+  end  
+  
   
   
   # this action "overview" is used only for internal testing
@@ -113,12 +123,7 @@ class AppointmentsController < ApplicationController
     @appointment = current_user.appointments.find(params[:id])
   end
   
-  # this action "receive" is used only for internal testing    
-  def receive
-    appointment = Appointment.find_by_token!(params[:token])
-    appointment.receive(current_user)
-    redirect_to root_url, :notice => "Einladung erhalten"
-  end  
+
   
   # this action "send_appointment" is used only for internal testing    
   def send_appointment

@@ -4,7 +4,7 @@ ActiveAdmin::Dashboards.build do
     div do
       "#{User.all.count} users"    
     end    
-       table_for User.all.each do 
+       table_for User.registered?.each do 
          column 'id', :id
          column 'FB' do |user| raw "<img src='http://graph.facebook.com/#{user.fb_ui}/picture'" end 
          column 'name', :name

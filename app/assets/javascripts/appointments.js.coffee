@@ -7,7 +7,6 @@ $(document).ready ->
 
    write_data_into_modal = (element)->
       appointment_id = element.data("appointment_id")
-      token = element.data("token")
       sender = element.data("sender")
       if appointment_id?
          $("#appointment").data("appointment_id",appointment_id)
@@ -15,12 +14,6 @@ $(document).ready ->
       else
          $("#appointment").data("appointment_id","")
          $("#appointment_id").html("")
-      if token?         
-         $("#appointment").data("token",token)
-         $("#token").html(token)
-      else
-         $("#appointment").data("token","")
-         $("#token").html("")
       if sender?         
          $("#appointment_sender").html("von "+sender)
       else
@@ -64,58 +57,73 @@ $(document).ready ->
    to_appointment_string = (day, start_hour, end_hour)->
       day_str = $.datepicker.formatDate('DD, dd.mm.yy', day, {dayNames: $.datepicker.regional['de'].dayNames})
       str = "Am "+day_str+" von "+start_hour+":00 bis "+end_hour+":00"
-   
-   get_appointment_token = (start_time=null, end_time=null, callback) ->
-     data = []
-     if start_time? and end_time?
-        data = 
-           start_time:start_time.toString()
-           end_time:end_time.toString()
+
+   receive_appointment = (appointment_id,ids) ->
+     data = 
+        appointment_id: appointment_id
+        user_ids: ids
      $.ajax
-      url: $("#urls").data("get_token_appointment_url")
+      url: $("#urls").data("receive_appointment_url")
       data: data
-      type: "POST"
-      statusCode:
-        200: (data)->
-           console.log data.responseText
-           if callback?
-             callback(data.responseText)
+      type: "POST"   
+   
+   
+   send_fb_request = (ids,current_user_name, appointment_str) ->
+     console.log "sendRequest"
+     console.log ids
+     # sendUIDs = '100003847064481' #TEMPORARILY
+     message = current_user_name+" möchte gerne "+appointment_str+" auf StartWork.in mit dir lernen"
+     console.log message
+     FB.ui({
+            method: 'apprequests',
+            message: message,
+            title: 'Einladung zum gemeinsamen Lernen',
+            to: ids 
+           },(response) -> 
+             console.log response)
+        
+        
+     
+   
+   fill_fb_request_modal = ->
+      if $("#fb_request_friends").length==0	
+         FB.api('/me/friends', (response) ->  
+            $("#fb_request_friends_div").append($("<div />").attr("id","fb_request_friends"))
+            $("#fb_request_friends").tokenInput(response.data,{
+              theme: "facebook",
+              minChars: 0, 
+              hintText: "Name deines Freundes...",
+              noResultsText: "Nichts gefunden",
+              searchingText: "suchen...",
+              preventDuplicates: true,
+              resultsFormatter: (item)-> 
+                 '<li><img src="http://graph.facebook.com/'+item.id+'/picture">' +item.name + "</li>" })
+            $(".token-input-dropdown-facebook").css("z-index","9999")    
+         )
 
 
-
-   fb_popup_with_appointment = (callback)->
-      name =  "Einladung zum gemeinsamen Arbeiten: " + $("#appointment_str").html()     
-      message = "message"
-      token = $("#appointment").data("token")
-      appointment_id = $("#appointment").data("appointment_id")
-      link = $("#urls").data("appointments_url")+"/"+appointment_id+"/?token="+token
-      console.log link
-      fb_popup(name, message, link,"Appointment")
-
-
-
-
-   fb_popup = (name, message, link, ga_action) ->	
-      FB.ui(
-         {method: 'send',
-         name: name,
-         message: message,
-         link: link},
-         (response) ->
-            $('#main_page_modal').modal('hide')
-            if $("#welcome_box").length>0
-                window.location = $("#urls").data("root_url")
-            console.log "facebook popup response:"
-            if response?
-              console.log "The User has sent the appointment to FB friends"
-              txt = "Die Einladung wurde erfolgreich versendet."
-              notice_html = "<div  class='alert alert-success'>"+txt+"</div>"
-              $("body").trigger("fb_event",  ga_action)
-              $("#notice").html(notice_html)
-            else
-              console.log "The User has cancelled the FB popup window"
-              $("body").trigger("fb_event",  "Cancel"+ga_action))
-          
+ #
+ #  fb_popup = (name, message, link, ga_action) ->	
+ #     FB.ui(
+ #        {method: 'send',
+ #        name: name,
+ #        message: message,
+ #        link: link},
+ #        (response) ->
+ #           $('#main_page_modal').modal('hide')
+ #           if $("#welcome_box").length>0
+ #               window.location = $("#urls").data("root_url")
+ #           console.log "facebook popup response:"
+ #           if response?
+ #             console.log "The User has sent the appointment to FB friends"
+ #             txt = "Die Einladung wurde erfolgreich versendet."
+ #             notice_html = "<div  class='alert alert-success'>"+txt+"</div>"
+ #             $("body").trigger("fb_event",  ga_action)
+ #             $("#notice").html(notice_html)
+ #           else
+ #             console.log "The User has cancelled the FB popup window"
+ #             $("body").trigger("fb_event",  "Cancel"+ga_action))
+ #         
    reload_my_work_sessions = ->
      if  $("#my_appointments").length>0
        $.ajax
@@ -128,9 +136,9 @@ $(document).ready ->
                  $('#main_page_modal').modal("show")
                  edit_work_session($(this)))
 
-   accept_appointment = (token, callback)->
+   accept_appointment = (appointment_id)->
      $.ajax
-       url: $("#urls").data("accept_appointment_url")+".json?token="+token
+       url: $("#urls").data("accept_appointment_url")+".json?id="+appointment_id
        type: 'POST',
        async: false, # the call must be synchronous so it is still part of the  user event and the popup won't be blocked
        statusCode:
@@ -143,10 +151,8 @@ $(document).ready ->
            notice_html = "<div  class='alert alert-success'>"+txt+"</div>"
            $("#notice").html(notice_html)
            reload_my_work_sessions()
-           show_filled_main_modal("invite_after_create")
-           fb_popup_with_appointment()
-           if callback?
-              callback()
+           fill_fb_request_modal()
+           show_filled_main_modal("request")
 
    save_appointment = ->
       appointment_id = $("#appointment").data("appointment_id")
@@ -183,8 +189,8 @@ $(document).ready ->
             notice_html = "<div  class='alert alert-success'>"+txt+"</div>"
             $("#notice").html(notice_html)
             reload_my_work_sessions()
-            show_filled_main_modal("invite_after_create")
-            fb_popup_with_appointment()
+            fill_fb_request_modal()
+            show_filled_main_modal("request")
    
    create_appointment_with_ajax = (start_time, end_time)->
      data = 
@@ -205,14 +211,12 @@ $(document).ready ->
            txt = "Die Verabredung wurde erstellt. Achte bitte darauf, dich pünktlich zur WorkSession anzumelden."
            notice_html = "<div  class='alert alert-success'>"+txt+"</div>"
            $("#notice").html(notice_html)
-           $("#appointment").data("token",response.token)
-           $("#token").html(response.token)
            $("#appointment").data("appointment_id",response.id)
            $("#appointment_id").html(response.id)
 
            reload_my_work_sessions()
-           show_filled_main_modal("invite_after_create")
-           fb_popup_with_appointment()
+           fill_fb_request_modal()
+           show_filled_main_modal("request")
 
 
 
@@ -225,8 +229,9 @@ $(document).ready ->
          $("#main_modal_save").css("display","inline")
          $("#appointment_sender").css("display","none")
          $("#main_modal_close").css("display","none")
-         $("#fb_space").css("display","none")
          $("#main_modal_join").css("display","none")
+         $("#main_modal_request").css("display","none")
+         $("#fb_request_search").css("display","none")
       else if action == "accept"
          $("#main_modal_title").html("Einladung annehmen")
          $("#main_modal_dates").css("display","none")
@@ -235,8 +240,9 @@ $(document).ready ->
          $("#main_modal_save").css("display","none")
          $("#appointment_sender").css("display","inline")
          $("#main_modal_close").css("display","none")
-         $("#fb_space").css("display","none")
          $("#main_modal_join").css("display","none")
+         $("#main_modal_request").css("display","none")
+         $("#fb_request_search").css("display","none")
       else if action == "create"
          $("#main_modal_title").html("Termin für Verabredung festlegen")
          $("#main_modal_dates").css("display","inline")
@@ -245,8 +251,9 @@ $(document).ready ->
          $("#main_modal_save").css("display","inline")
          $("#appointment_sender").css("display","none")
          $("#main_modal_close").css("display","none")
-         $("#fb_space").css("display","none")
          $("#main_modal_join").css("display","none")
+         $("#main_modal_request").css("display","none")
+         $("#fb_request_search").css("display","none")
       else if action == "invite_after_create"
          $("#main_modal_title").html("Mit Freunden verabreden")
          $("#main_modal_dates").css("display","none")
@@ -255,8 +262,9 @@ $(document).ready ->
          $("#main_modal_save").css("display","none")
          $("#appointment_sender").css("display","none")
          $("#main_modal_close").css("display","inline")
-         $("#fb_space").css("display","block")
          $("#main_modal_join").css("display","none")
+         $("#main_modal_request").css("display","none")
+         $("#fb_request_search").css("display","none")
       else if action == "join"
          $("#main_modal_title").html("Bei Arbeitssitzung teilnehmen")
          $("#main_modal_dates").css("display","none")
@@ -265,8 +273,20 @@ $(document).ready ->
          $("#main_modal_save").css("display","none")
          $("#appointment_sender").css("display","none")
          $("#main_modal_close").css("display","none")
-         $("#fb_space").css("display","none")
          $("#main_modal_join").css("display","inline")
+         $("#main_modal_request").css("display","none")
+         $("#fb_request_search").css("display","none")
+      else if action == "request"
+         $("#main_modal_title").html("Verabredung vereinbaren")
+         $("#main_modal_dates").css("display","none")
+         $("#main_modal_delete").css("display","none")
+         $("#main_modal_accept").css("display","none")
+         $("#main_modal_save").css("display","none")
+         $("#appointment_sender").css("display","none")
+         $("#main_modal_close").css("display","none")
+         $("#main_modal_join").css("display","none")
+         $("#main_modal_request").css("display","inline")
+         $("#fb_request_search").css("display","inline")
 
       show_appointment_string()
 
@@ -329,13 +349,13 @@ $(document).ready ->
 
 
    $("#main_modal_accept").click ->
-       token = $("#appointment").data("token")
-       accept_appointment(token, (response) ->
+       appointment_id = $("#appointment").data("appointment_id")
+       accept_appointment(appointment_id, (response) ->
             console.log response)
 
    $("#main_modal_join").click ->
-       token = $("#appointment").data("token")
-       accept_appointment(token ,(response) ->
+       appointment_id = $("#appointment_id").data("appointment_id")
+       accept_appointment(appointment_id ,(response) ->
           console.log response)
 
    $("#launch_modal_button").click (event)->
@@ -368,15 +388,29 @@ $(document).ready ->
       $('#main_page_modal').modal("show")     
       join_work_session($(this))
 
-   if $("#appointment_carousel").length>0 and $("body").data("controller") is "appointments" and $("body").data("action") is "show" and $("body").data("user-registered")
-     console.log "appointment_carousel (3 slides): user is registered"
-     $(".item").removeClass("active")
-     $("#appointment_slide").addClass("active")
-     $("#appointment_slide > p").html("Du hast eine Einladung erhalten!")	
-   else
-     console.log "appointment_carousel (3 slides): user NOT registered"
-     $("#appointment_carousel").carousel
-       interval: false
+
+   $("#main_modal_request").click ->
+     result = $("#fb_request_friends").tokenInput("get")
+     result_ids = (item.id for item in result)
+     current_user_name = $("body").data("current-user-name")
+     appointment_str = $("#appointment_str").html()
+     send_fb_request(result_ids,current_user_name,appointment_str)
+     appointment_id = $("#appointment").data("appointment_id")
+     receive_appointment(appointment_id,result_ids)
+     reload_my_work_sessions()
+
+
+
+   if $("#appointment_carousel").length>0
+     if $("body").data("controller") is "appointments" and $("body").data("action") is "show" and $("body").data("user-registered")
+        console.log "appointment_carousel (3 slides): user is registered"
+        $(".item").removeClass("active")
+        $("#appointment_slide").addClass("active")
+        $("#appointment_slide > p").html("Du hast eine Einladung erhalten!")	
+     else 
+        console.log "appointment_carousel (3 slides): user NOT registered"
+        $("#appointment_carousel").carousel
+          interval: false
  
    $("#show_and_welcome_carousel").carousel
        interval: false	
@@ -402,7 +436,8 @@ $(document).ready ->
       $("#appointment_str").html(appointment_str)
 
     $("#show_and_welcome_save_continue").click ->
-       fb_popup_with_appointment()
+        fill_fb_request_modal()
+        show_filled_main_modal("request")
 
 
     if $("#show_and_welcome_carousel").length>0 or $("#appointment_carousel").length>0

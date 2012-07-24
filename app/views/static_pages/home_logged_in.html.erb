@@ -24,7 +24,7 @@
 <%- end -%>
 
 
-<%= render :partial => "static_pages/urls"%> 
+
 
 
 <center>
@@ -251,7 +251,11 @@
       <div class="row" style=" padding: 0 20px; ">
          <% @friends.each do |friend| %>
            <div class="span1">
-           <img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture"><br>
+           <img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture"
+		class="init_popover"
+		rel="popover" 
+		data-original-title="<%=friend.name%>"
+		data-content="<img src='http://graph.facebook.com/<%=friend.fb_ui%>/picture'>"><br>
            <%= friend.first_name%>
          </div>
          <% end %>

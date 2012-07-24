@@ -97,6 +97,10 @@ class StaticPagesController < ApplicationController
    
  end
  
+ def canvas
+   @params= params
+ end
+ 
  def users_tomorrow
    a = Array.new
    10.times do
