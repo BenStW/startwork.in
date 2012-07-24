@@ -455,4 +455,5 @@ $(document).ready ->
 
    if $("#show_and_welcome_carousel").length>0 or $("#appointment_carousel").length>0
        fill_initial_dates()
+
  

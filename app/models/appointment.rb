@@ -28,7 +28,7 @@ class Appointment < ActiveRecord::Base
   
   
   has_many :recipient_appointments 
-  has_many :rquests 
+  has_many :requests, :dependent => :destroy 
   
   has_many :group_hours, :through => :user_hours
   has_many :users, :through => :group_hours, :uniq => true
