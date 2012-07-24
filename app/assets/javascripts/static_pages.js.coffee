@@ -36,6 +36,6 @@ $(document).ready ->
    if $("#canvas").length>0
      console.log "redirect to "+$("#urls").data("root_url")
      console.log "params"+$("#canvas").data("params")
-  #   window.location = $("#urls").data("root_url")
+     window.location = $("#urls").data("root_url")
 
 
