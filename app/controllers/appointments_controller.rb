@@ -7,7 +7,7 @@ class AppointmentsController < ApplicationController
   #        -> root_url
   # -> 2) accept_appointment_url (when logged in)
   #        -> root_url
-  # -> 3) login_to_accept_appointment (stores token as cookie)
+  # -> 3) login_to_accept_appointment (stores appointment_id as cookie)
   #        -> welcome_url (default after facebook login, removes cookie)
   #        -> accept_and_redirect_to_appointment_with_welcome
   #        -> show_and_welcome_appointment
