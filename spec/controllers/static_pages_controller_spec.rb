@@ -103,6 +103,11 @@ describe StaticPagesController do
       assigns[:appointment].should eq(@appointment)     
     end
     
+    it "should not raise an error when no request_ids" do 
+       get :canvas
+       response.should be_success
+    end
+    
   
   end
   

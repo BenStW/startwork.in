@@ -98,11 +98,13 @@ class StaticPagesController < ApplicationController
  end
  
  def canvas
-   request_strs = params["request_ids"] 
-   request_str_array = request_strs.split(",")
-   request_str = request_str_array.last
-   request = Request.find_by_request_str(request_str)
-   @appointment = request.appointment
+   request_strs = params["request_ids"]
+   if request_strs.present?
+     request_str_array = request_strs.split(",")
+     request_str = request_str_array.last
+     request = Request.find_by_request_str(request_str)
+     @appointment = request.appointment
+   end
  end
 
  
