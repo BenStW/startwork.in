@@ -71,9 +71,9 @@
 						<div style="text-align: right;margin-top: -5px;">
 							<%= link_to "Ablehnen", reject_appointment_url, :class=>"btn btn-large", :id=>"appointment_rejected"%>
 							
-							<% if current_user %><%= link_to "Annehmen", accept_appointment_url(:token=> @appointment.token), :class=>"btn btn-large btn-success", :id=>"appointment_accepted_current_user"%>
+							<% if current_user %><%= link_to "Annehmen", accept_appointment_url(:id=> @appointment.id), :class=>"btn btn-large btn-success", :id=>"appointment_accepted_current_user"%>
 								<% else %>
-								<%= link_to "Annehmen", login_to_accept_appointment_url(:token=> @appointment.token), :class=>"btn btn-large btn-success", :id=>"appointment_accepted_not_logged_in"%><% end %>
+								<%= link_to "Annehmen", login_to_accept_appointment_url(:id=> @appointment.id), :class=>"btn btn-large btn-success", :id=>"appointment_accepted_not_logged_in"%><% end %>
 						</div><% else %>
 						<p>
 							Noch keine Zeiten angegeben

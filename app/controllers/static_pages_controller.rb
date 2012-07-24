@@ -2,11 +2,11 @@ class StaticPagesController < ApplicationController
   skip_before_filter :authenticate_user!,  :except => [:welcome, :camera, :ben,:info_for_group_hour]
   
   def home
-    session[:appointment_token] = nil
+    session[:appointment_id] = nil
     if user_signed_in?
-      if token = session[:appointment_token]
-        session[:appointment_token] = nil
-        redirect_to accept_url(:token=>token)
+      if appointment_id = session[:appointment_id]
+        session[:appointment_id] = nil
+        redirect_to accept_url(:id=>appointment_id)
       else
         home_logged_in
         render :action=>'home_logged_in'
@@ -47,9 +47,9 @@ class StaticPagesController < ApplicationController
 
 
   def login_to_accept_appointment  
-     token = params["token"]
-     session[:appointment_token] = token
-     @appointment = Appointment.find_by_token!(token)
+     appointment_id = params["id"]
+     session[:appointment_id] = appointment_id
+     @appointment = Appointment.find(appointment_id)
   end
 
 
@@ -61,9 +61,9 @@ class StaticPagesController < ApplicationController
     else
       current_user.registered=true
       current_user.save    
-      if token = session[:appointment_token]
-        session[:appointment_token] = nil
-        redirect_to accept_and_redirect_to_appointment_with_welcome_url(:token=>token)
+      if appointment_id = session[:appointment_id]
+        session[:appointment_id] = nil
+        redirect_to accept_and_redirect_to_appointment_with_welcome_url(:id=>appointment_id)
       else
          @name = current_user.first_name
         @friends = current_user.friends
@@ -98,12 +98,14 @@ class StaticPagesController < ApplicationController
  end
  
  def canvas
-   @params= params
+   request_ids = params["request_ids"] 
+   puts "******** request_ids = #{request_ids}********"
+   request_id_array = request_ids.to_a(",")
+   request_id = request_id_array.last
+   request = Request.find(request_id)
+   @appointment = request.appointment
  end
- def canvas2
-   @params= params
- end
- 
+
  
  def users_tomorrow
    a = Array.new

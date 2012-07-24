@@ -5,7 +5,6 @@
 #  id            :integer         not null, primary key
 #  start_time    :datetime
 #  end_time      :datetime
-#  token         :string(255)
 #  created_at    :datetime        not null
 #  updated_at    :datetime        not null
 #  send_count    :integer

@@ -5,7 +5,6 @@
 #  id            :integer         not null, primary key
 #  start_time    :datetime
 #  end_time      :datetime
-#  token         :string(255)
 #  created_at    :datetime        not null
 #  updated_at    :datetime        not null
 #  send_count    :integer
@@ -17,7 +16,6 @@ class Appointment < ActiveRecord::Base
   belongs_to :user
   has_many :user_hours, :dependent => :destroy 
   has_many :sent_appointments, :through => :recipient_appointments, :source => :appointment,  :dependent => :destroy 
- # has_many :users, :through => :sent_appointments
 
   has_many :invited_users, :class_name => "User", :finder_sql => Proc.new {
       %Q{
@@ -30,6 +28,7 @@ class Appointment < ActiveRecord::Base
   
   
   has_many :recipient_appointments 
+  has_many :rquests 
   
   has_many :group_hours, :through => :user_hours
   has_many :users, :through => :group_hours, :uniq => true
@@ -39,8 +38,6 @@ class Appointment < ActiveRecord::Base
   validate :start_time_lt_end_time
   validate :appointment_does_not_overlap
     
-  before_create :generate_token 
-     
   after_save :update_user_hours 
   
   after_create :send_confirmation_mail
@@ -197,9 +194,6 @@ class Appointment < ActiveRecord::Base
   #------------------------ PRIVATE -----------------
   private 
   
-  def generate_token
-   self.token = Digest::SHA1.hexdigest([Time.now, rand].join)
-  end
   
   def update_user_hours
     delete_not_needed_user_hours

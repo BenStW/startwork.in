@@ -23,8 +23,7 @@ class AppointmentsController < ApplicationController
 
    
    def show
-     token = params[:token]
-     @appointment = Appointment.find_by_token!(token)
+     @appointment = Appointment.find(params[:id])
      if current_user
        @appointment.receive(current_user)
      end
@@ -35,7 +34,7 @@ class AppointmentsController < ApplicationController
      end_time = DateTime.parse(params[:appointment][:end_time])
      appointment = current_user.appointments.create(:user=>current_user, :start_time=>start_time, :end_time=>end_time)     
      if appointment.valid?
-        render :json => appointment.to_json(:only => [ :id, :token, :start_time, :end_time ])
+        render :json => appointment.to_json(:only => [ :id, :start_time, :end_time ])
       else
         render :template => "errors/404", :layout => 'application', :status => 404    
       end
@@ -62,8 +61,7 @@ class AppointmentsController < ApplicationController
  
   def show_and_welcome
      @name = current_user.first_name
-     token = params["token"]
-     @appointment = Appointment.find_by_token!(token)
+     @appointment = Appointment.find(params["id"])
      @appointment.receive(current_user)  
           
      @friends = current_user.friends - [@appointment.user]
@@ -74,7 +72,7 @@ class AppointmentsController < ApplicationController
   end
   
   def accept
-    appointment = Appointment.find_by_token!(params[:token])
+    appointment = Appointment.find(params[:id])
     appointment.receive_and_accept(current_user)
      
    respond_to do |format|
@@ -85,17 +83,16 @@ class AppointmentsController < ApplicationController
   
   
   def accept_and_redirect_to_appointment_with_welcome
-    token = params[:token]
-    appointment = Appointment.find_by_token!(token)
+    appointment = Appointment.find(params[:id])
 
     appointment.receive_and_accept(current_user)
     
     
-    redirect_to show_and_welcome_appointment_url(:token => token)
+    redirect_to show_and_welcome_appointment_url(:id => appointment.id)
   end  
   
   def receive
-    appointment = current_user.appointments.find(params[:appointment_id])
+    appointment = current_user.appointments.find(params[:id])
     user_ids = params[:user_ids]
     user_ids.each do |fb_ui|
        user = User.find_for_facebook_request(fb_ui)

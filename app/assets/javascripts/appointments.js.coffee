@@ -60,15 +60,24 @@ $(document).ready ->
 
    receive_appointment = (appointment_id,ids) ->
      data = 
-        appointment_id: appointment_id
+        id: appointment_id
         user_ids: ids
      $.ajax
       url: $("#urls").data("receive_appointment_url")
       data: data
-      type: "POST"   
+      type: "POST" 
+
+   save_request = (appointment_id, request_str) ->
+     data = 
+        appointment_id: appointment_id
+        request_str: request_str
+     $.ajax
+      url: $("#urls").data("new_request_url")
+      data: data
+      type: "POST"     
    
    
-   send_fb_request = (ids,current_user_name, appointment_str) ->
+   send_fb_request = (appointment_id, ids,current_user_name, appointment_str) ->
      console.log "sendRequest"
      console.log ids
      # sendUIDs = '100003847064481' #TEMPORARILY
@@ -80,7 +89,9 @@ $(document).ready ->
             title: 'Einladung zum gemeinsamen Lernen',
             to: ids 
            },(response) -> 
-             console.log response)
+             console.log response
+             console.log response.request
+             save_request(appointment_id, response.request))
         
         
      
@@ -101,29 +112,29 @@ $(document).ready ->
             $(".token-input-dropdown-facebook").css("z-index","9999")    
          )
 
-
- #
- #  fb_popup = (name, message, link, ga_action) ->	
- #     FB.ui(
- #        {method: 'send',
- #        name: name,
- #        message: message,
- #        link: link},
- #        (response) ->
- #           $('#main_page_modal').modal('hide')
- #           if $("#welcome_box").length>0
- #               window.location = $("#urls").data("root_url")
- #           console.log "facebook popup response:"
- #           if response?
- #             console.log "The User has sent the appointment to FB friends"
- #             txt = "Die Einladung wurde erfolgreich versendet."
- #             notice_html = "<div  class='alert alert-success'>"+txt+"</div>"
- #             $("body").trigger("fb_event",  ga_action)
- #             $("#notice").html(notice_html)
- #           else
- #             console.log "The User has cancelled the FB popup window"
- #             $("body").trigger("fb_event",  "Cancel"+ga_action))
- #         
+ 
+ 
+   fb_popup = (name, message, link, ga_action) ->	
+      FB.ui(
+         {method: 'send',
+         name: name,
+         message: message,
+         link: link},
+         (response) ->
+            $('#main_page_modal').modal('hide')
+            if $("#welcome_box").length>0
+                window.location = $("#urls").data("root_url")
+            console.log "facebook popup response:"
+            if response?
+              console.log "The User has sent the appointment to FB friends"
+              txt = "Die Einladung wurde erfolgreich versendet."
+              notice_html = "<div  class='alert alert-success'>"+txt+"</div>"
+              $("body").trigger("fb_event",  ga_action)
+              $("#notice").html(notice_html)
+            else
+              console.log "The User has cancelled the FB popup window"
+              $("body").trigger("fb_event",  "Cancel"+ga_action))
+          
    reload_my_work_sessions = ->
      if  $("#my_appointments").length>0
        $.ajax
@@ -379,6 +390,7 @@ $(document).ready ->
       fb_popup(name, message, link, "Invite")
 
    $("#send_dialogue_button_right_block").click ->
+      console.log "send_dialogue_button_right_block"
       name = "StartWork.in - Gemeinsam produktiver. Mit Leuten wie dir."
       message = "message"
       link = "http://startwork.in"
@@ -394,37 +406,29 @@ $(document).ready ->
      result_ids = (item.id for item in result)
      current_user_name = $("body").data("current-user-name")
      appointment_str = $("#appointment_str").html()
-     send_fb_request(result_ids,current_user_name,appointment_str)
      appointment_id = $("#appointment").data("appointment_id")
+     send_fb_request(appointment_id,result_ids,current_user_name,appointment_str)
      receive_appointment(appointment_id,result_ids)
      reload_my_work_sessions()
 
 
 
-   if $("#appointment_carousel").length>0
-     if $("body").data("controller") is "appointments" and $("body").data("action") is "show" and $("body").data("user-registered")
-        console.log "appointment_carousel (3 slides): user is registered"
-        $(".item").removeClass("active")
-        $("#appointment_slide").addClass("active")
-        $("#appointment_slide > p").html("Du hast eine Einladung erhalten!")	
-     else 
-        console.log "appointment_carousel (3 slides): user NOT registered"
-        $("#appointment_carousel").carousel
-          interval: false
+
  
-   $("#show_and_welcome_carousel").carousel
-       interval: false	
+ # $("#show_and_welcome_save_continue").click ->
+ #     fill_fb_request_modal()
+  #     show_filled_main_modal("request")
+  # 
    
 
 
    # WELCOME page
    if $("#welcome_box").length>0 and $("#show_and_welcome_carousel").length==0
-    $("#notice").remove()
-    show_appointment_string()
+      $("#notice").remove()
+      show_appointment_string()
    # END OF WELCOME page
 
-   $(".fill_initial_dates").click ->
-      fill_initial_dates()
+
 	
    fill_initial_dates = ->	
       start_time = new Date($("#appointment").data("start_time"))
@@ -435,15 +439,24 @@ $(document).ready ->
       appointment_str = to_appointment_string(day, start_hour, end_hour)
       $("#appointment_str").html(appointment_str)
 
-    $("#show_and_welcome_save_continue").click ->
-        fill_fb_request_modal()
-        show_filled_main_modal("request")
-
-
-    if $("#show_and_welcome_carousel").length>0 or $("#appointment_carousel").length>0
+   $(".fill_initial_dates").click ->
       fill_initial_dates()
-   
-
-     
       
+   if $("#appointment_carousel").length>0
+     if $("body").data("controller") is "appointments" and $("body").data("action") is "show" and $("body").data("user-registered")
+        console.log "appointment_carousel (3 slides): user is registered"
+        $(".item").removeClass("active")
+        $("#appointment_slide").addClass("active")
+        $("#appointment_slide > p").html("Du hast eine Einladung erhalten!")	
+     else 
+        console.log "appointment_carousel (3 slides): user NOT registered"
+        $("#appointment_carousel").carousel
+          interval: false
+
+   if $("#show_and_welcome_carousel").length>0
+     $("#show_and_welcome_carousel").carousel
+       interval: false
+
+   if $("#show_and_welcome_carousel").length>0 or $("#appointment_carousel").length>0
+       fill_initial_dates()
  

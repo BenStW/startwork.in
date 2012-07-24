@@ -34,16 +34,9 @@ $(document).ready ->
       $('#welcome_box').height(myheight)    
 
    if $("#canvas").length>0
-    # console.log "redirect to "+$("#urls").data("root_url")
-     console.log "params"+$("#canvas").data("params")
-   #  top.location.href = $("#urls").data("root_url")
-
-    # window.location = $("#urls").data("root_url")
-
-   if $("#canvas2").length>0
-     console.log "redirect to "+$("#urls").data("root_url")
-     console.log "params"+$("#canvas2").data("params")
-     top.location.href = $("#urls").data("root_url")
-
-#<script type='text/javascript'>top.location.href = 'URL';</script>
+     if $("#canvas").data("appointment-id")?
+       appointment_id = $("#canvas").data("appointment-id")
+       top.location.href = $("#urls").data("appointment_url")+"?id="+appointment_id
+     else
+       top.location.href = $("#urls").data("root_url")
 
