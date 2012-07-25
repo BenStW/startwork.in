@@ -36,7 +36,8 @@ $(document).ready ->
    if $("#canvas").length>0
      if $("#canvas").data("appointment-id")?
        appointment_id = $("#canvas").data("appointment-id")
-       top.location.href = $("#urls").data("appointment_url")+"/"+appointment_id
-     else
-       top.location.href = $("#urls").data("root_url")
+       console.log "appointment_id = "+ appointment_id
+  #     top.location.href = $("#urls").data("appointment_url")+"/"+appointment_id
+  #   else
+  #     top.location.href = $("#urls").data("root_url")
 

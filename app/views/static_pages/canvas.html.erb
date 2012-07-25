@@ -1,7 +1,7 @@
 
 <div id="canvas" 
 <% if @appointment.present? %>
-data-appointment-id="<%=@appointment.id%>">
+data-appointment-id="<%=@appointment.id%>" data-params="<%= @params %> ">
 <% end %>
 </div>
 

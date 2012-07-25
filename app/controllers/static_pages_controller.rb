@@ -98,6 +98,7 @@ class StaticPagesController < ApplicationController
  end
  
  def canvas
+   @params = params
    request_strs = params["request_ids"]
    if request_strs.present?
      request_str_array = request_strs.split(",")
