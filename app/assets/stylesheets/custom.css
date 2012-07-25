@@ -448,3 +448,53 @@ padding: 40px;
 	text-decoration: none;
 
 }
+
+.logo_hu_shadow {
+
+	background: url('/assets/hu_shadow.png');
+	width: 65px;
+	height: 65px;
+	background-size: 65px 65px;
+	margin-left:20px;
+	float:left;
+
+}
+
+.logo_hi_shadow {
+
+	background: url('/assets/hi_shadow.png');
+	width: 200px;
+	height: 65px;
+	background-size: 200px 65px;
+	float:left;
+	
+}
+
+.logo_berlin_baer {
+
+	background: url('/assets/berlin_baer.png');
+	width: 89px;
+	height: 65px;
+	background-size: 89px 65px;
+	margin-left:20px;
+	float:left;
+	
+}
+
+.logo_hu_shadow:hover {
+
+	background: url('/assets/hu_shadow_hover.png');
+
+}
+
+.logo_hi_shadow:hover {
+
+	background: url('/assets/hi_shadow_hover.png');
+	
+}
+
+.logo_berlin_baer:hover {
+
+	background: url('/assets/berlin_baer_hover.png');
+
+}
