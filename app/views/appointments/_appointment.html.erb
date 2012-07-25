@@ -13,19 +13,29 @@
      <%=I18n.localize(appointment.end_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %>
    </div>
    <div class="left rst" style="margin-right:10px;width:92px;height:25px;">
-	<% #FIXME - show all users %>
+
+
      <% appointment.users.each do |user|%>
        <img src="http://graph.facebook.com/<%=user.fb_ui%>/picture" style="width:20px;" 
 class="init_popover"
 rel="popover" 
 data-original-title="<%=user.name%>"
-data-content="<img src='http://graph.facebook.com/<%=user.fb_ui%>/picture'>">
+data-content="<img src='http://graph.facebook.com/<%=user.fb_ui%>/picture'> hat fest zugesagt">
      <% end %>
+
+	     <% (appointment.invited_users-appointment.users).each do |user|%>
+	       <img src="http://graph.facebook.com/<%=user.fb_ui%>/picture" style="width:20px;opacity:0.3;" 
+	class="init_popover"
+	rel="popover" 
+	data-original-title="<%=user.name%>"
+	data-content="<img src='http://graph.facebook.com/<%=user.fb_ui%>/picture'> hat noch nicht zugesagt">
+	     <% end %>
+
+
    </div>
 
 <% if my_or_friends=="my"%>
    <div  class="btn btn-small btn-edit edit_appointment init_popover"
-        data-token='<%=appointment.token %>'
         data-appointment_id='<%=appointment.id %>'
         data-start_time='<%=appointment.start_time %>'
         data-end_time='<%=appointment.end_time %>'
@@ -35,7 +45,6 @@ data-content="<img src='http://graph.facebook.com/<%=user.fb_ui%>/picture'>">
     </div> 
 <% elsif my_or_friends=="my_received" %>
    <div class="btn btn-small btn-join accept_appointment init_popover"
-        data-token='<%=appointment.token %>'
         data-sender='<%=appointment.user.name %>'
         data-start_time='<%=appointment.start_time %>'
         data-end_time='<%=appointment.end_time %>'
@@ -45,7 +54,6 @@ data-content="<img src='http://graph.facebook.com/<%=user.fb_ui%>/picture'>">
     </div> 
 <% else my_or_friends=="friends" %>
 <div class="btn btn-small btn-join join_appointment init_popover"
-     data-token='<%=appointment.token %>'
      data-appointment_id='<%=appointment.id %>'
      data-start_time='<%=appointment.start_time %>'
      data-end_time='<%=appointment.end_time %>'

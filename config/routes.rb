@@ -1,6 +1,9 @@
 # encoding: utf-8
 StartWork::Application.routes.draw do
 
+  match 'requests/new' => 'requests#create', :as => :new_request
+  
+
   match 'how_it_works' => 'static_pages#how_it_works', :as => :how_it_works
 
 

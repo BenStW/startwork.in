@@ -127,8 +127,21 @@ class User < ActiveRecord::Base
       StartWorkMailer.after_registration(user).deliver           
     end
 
-
     user.update_fb_friends(access_token)
+    user
+  end
+  
+  def self.find_for_facebook_request(fb_ui)
+    user = User.find_by_fb_ui(fb_ui)
+    if user.nil?
+      data=FbGraph::User.fetch(fb_ui)
+      user = self.create!(
+             :email => "tmp_#{fb_ui}@startwork.in",
+             :fb_ui => fb_ui,             
+             :first_name => data.first_name,
+             :last_name => data.last_name,
+             :password => Devise.friendly_token[0,20] )      
+    end
     user
   end
   

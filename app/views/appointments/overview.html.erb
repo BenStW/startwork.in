@@ -2,14 +2,13 @@
 <h2>my Appointments</h2>
 
 <table class="table">	
-	<tr><td>id</td><td>start_time</td><td>end_time</td><td>token</td></tr>
+	<tr><td>id</td><td>start_time</td><td>end_time</td></tr>
 	<% current_user.appointments.each do |a| %>
 		<tr><td><%=a.id%></td>
 			<td>
 			<%=I18n.localize(a.start_time.in_time_zone("Berlin").to_date, :format => "%d.%m.%Y") %>	
 			<%=I18n.localize(a.start_time.in_time_zone("Berlin"),:format => "%H:%M") %> - 
 			<%=I18n.localize(a.end_time.in_time_zone("Berlin"),:format => "%H:%M") %></td>	
-			<td><%=a.token%></td>
 
 			<td><%= link_to "destroy", a, :method => :delete, :class=>"btn"%></td>
 			<td><%= link_to "edit", edit_appointment_url(:id=>a), :class=>"btn"%></td>
@@ -39,10 +38,10 @@
 			<%=I18n.localize(a.start_time.in_time_zone("Berlin"),:format => "%H:%M") %> - 
 			<%=I18n.localize(a.end_time.in_time_zone("Berlin"),:format => "%H:%M") %></td>			
 			<td><%=a.user.name%></td>
-			<td><%= link_to "show", appointment_url(a,:token=>a.token), :class=>"btn"%></td>
-			<td><%= link_to "show_and_welcome", show_and_welcome_appointment_url(:token=>a.token), :class=>"btn"%></td>
-			<td><%= link_to "accept", accept_appointment_url(:token=>a.token), :class=>"btn"%></td>
-			<td><%= link_to "accept_and redirect_to appointment_with_welcome_url", accept_and_redirect_to_appointment_with_welcome_url(:token=>a.token), :class=>"btn"%></td>
+			<td><%= link_to "show", appointment_url(a,:id=>a.id), :class=>"btn"%></td>
+			<td><%= link_to "show_and_welcome", show_and_welcome_appointment_url(:id=>a.id), :class=>"btn"%></td>
+			<td><%= link_to "accept", accept_appointment_url(:id=>a.id), :class=>"btn"%></td>
+			<td><%= link_to "accept_and redirect_to appointment_with_welcome_url", accept_and_redirect_to_appointment_with_welcome_url(:id=>a.id), :class=>"btn"%></td>
 			
 			</td></tr>
 		<% end %>
@@ -86,7 +85,7 @@
 			<%=I18n.localize(a.start_time.in_time_zone("Berlin"),:format => "%H:%M") %> - 
 			<%=I18n.localize(a.end_time.in_time_zone("Berlin"),:format => "%H:%M") %></td>			
 			<td><%=a.user.name%></td>
-			<td><%= link_to "receive", receive_appointment_url(:token=>a.token), :class=>"btn"%></td>
+			<td><%= link_to "receive", receive_appointment_url(:id=>a.id), :class=>"btn"%></td>
 			
 			</tr>
 		<% end %>

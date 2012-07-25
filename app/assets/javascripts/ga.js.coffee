@@ -43,12 +43,13 @@ $(document).ready ->
 	# static_pages/home_not_logged_in
 	# id=login_button
 
-    # appointments/_main_modal
-	# id="main_modal_delete"
-	# id="main_modal_save"  (unter "Jetzt verabreden" und "Termin bearbeiten")
-	# id="main_modal_join"  ("Die nächsten Arbeitssessions deiner Freunde")
-	# id="main_modal_accept" ("Erhaltene Einladungen")
-	# id="main_modal_close"
+    # appointments/_appointment_buttons
+	# id="appontment_delete"
+	# id="appointment_save"  (unter "Jetzt verabreden" und "Termin bearbeiten")
+	# id="appointment_join"  ("Die nächsten Arbeitssessions deiner Freunde")
+	# id="appointment_accept" ("Erhaltene Einladungen")
+	# id="appointment_close"
+	# id="appointment_request"
 	
 	# appointments/show
 	# id="appointment_rejected"

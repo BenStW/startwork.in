@@ -25,12 +25,18 @@ $(document).ready ->
      console.log "set height from "+$("#welcome_box").height()+" to "+height
      $("#welcome_box").height(height)
 
-   $("#display_picker_adjust_height").click ->
+   $(".adjust_height_on_welcome_page").click ->
       $("#appointment_on_welcomepage").css("display","inline")
       myheight = 0
       $('#welcome_box').removeAttr('height')
       $('#welcome_box').css('height',"")
       myheight = $('#welcome_content').outerHeight()
-      $('#welcome_box').height(myheight)     
+      $('#welcome_box').height(myheight)    
 
-
+   if $("#canvas").length>0
+     if $("#canvas").data("appointment-id")?
+       appointment_id = $("#canvas").data("appointment-id")
+       top.location.href = $("#urls").data("appointments_url")+"/"+appointment_id
+     else
+       top.location.href = $("#urls").data("root_url")
+  

@@ -2,11 +2,11 @@ class StaticPagesController < ApplicationController
   skip_before_filter :authenticate_user!,  :except => [:welcome, :camera, :ben,:info_for_group_hour]
   
   def home
-    session[:appointment_token] = nil
+    session[:appointment_id] = nil
     if user_signed_in?
-      if token = session[:appointment_token]
-        session[:appointment_token] = nil
-        redirect_to accept_url(:token=>token)
+      if appointment_id = session[:appointment_id]
+        session[:appointment_id] = nil
+        redirect_to accept_url(:id=>appointment_id)
       else
         home_logged_in
         render :action=>'home_logged_in'
@@ -47,28 +47,28 @@ class StaticPagesController < ApplicationController
 
 
   def login_to_accept_appointment  
-     token = params["token"]
-     session[:appointment_token] = token
-     @appointment = Appointment.find_by_token!(token)
+     appointment_id = params["id"]
+     session[:appointment_id] = appointment_id
+     @appointment = Appointment.find(appointment_id)
   end
 
 
 
   # called by *omniauth_callbacks_controller.rb*
   def welcome
-    if current_user.registered
-      redirect_to root_url
-    else
-      current_user.registered=true
-      current_user.save    
-      if token = session[:appointment_token]
-        session[:appointment_token] = nil
-        redirect_to accept_and_redirect_to_appointment_with_welcome_url(:token=>token)
-      else
+     if current_user.registered
+       redirect_to root_url
+     else
+       current_user.registered=true
+       current_user.save    
+       if appointment_id = session[:appointment_id]
+         session[:appointment_id] = nil
+         redirect_to accept_and_redirect_to_appointment_with_welcome_url(:id=>appointment_id)
+       else
          @name = current_user.first_name
         @friends = current_user.friends
-     end
-  end    
+      end
+   end    
   end
   
  
@@ -97,13 +97,17 @@ class StaticPagesController < ApplicationController
    
  end
  
- def users_tomorrow
-   a = Array.new
-   10.times do
-     a << current_user
+ def canvas
+   @params = params
+   request_strs = params["request_ids"]
+   if request_strs.present?
+     request_str_array = request_strs.split(",")
+     request_str = request_str_array.last
+     request = Request.find_by_request_str(request_str)
+     @appointment = request.appointment
    end
-   @users =  User.users_tomorrow
  end
+
  
  def send_exception
    message = params["message"]

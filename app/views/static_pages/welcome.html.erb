@@ -22,7 +22,6 @@
   <img src="/assets/frontpage_biggestpicture2.jpg" style="width:100%;position:relative;display:block;">
 <% end %>
 
-<%= render :partial => "static_pages/urls"%> 
 
 
 
@@ -48,7 +47,9 @@
           </div>
           <div class="item" style="vertical-align:middle;">
             <!-- Carousel nav -->
-            <a class="btn btn-danger btn-large fill_initial_dates" id="display_picker_adjust_height" style="position:absolute;top:-60px;right:-20px;" href="#appointment_carousel" data-slide="next">Weiter</a>
+
+
+            <a class="btn btn-danger btn-large adjust_height_on_welcome_page" id="display_appointment_on_welcome_page" style="position:absolute;top:-60px;right:-20px;" href="#appointment_carousel" data-slide="next">Weiter</a>
             <center><p style="font-size:26px;line-height:47px;">Es geht dabei um das pünktliche Anfangen mit der Arbeit, nicht um die inhaltliche Zusammenarbeit.</p></center>
           </div>
 
@@ -56,14 +57,31 @@
           <div class="item" style="margin-top:-25px;">
 
             <div id="appointment_on_welcomepage" style="display:none">
+	
+				<div style="position:absolute;top:-35px;right:0;">
+						<a href="<%=root_url%>" id="skip_appointment">überspringen</a>
+				              <%= render :partial => "appointments/appointment_buttons" %>
+				</div>	
+	
               <h2 style="font-weight:300;margin-bottom:15px;">Verabrede dich jetzt zum Arbeiten auf StartWork</h2>
               <%= render :partial => "appointments/appointment_picker" %>
 
 
+
+<!--
               <div style="position:absolute;top:-35px;right:0;">
+	
 	<a href="<%=root_url%>" id="skip_appointment">Verabredung überspringen</a>
+	
                 <button id="save_appointment_on_welcomepage" class="btn btn-primary btn-large fb-reset remove_height_from_content_and_set_it_to_box" data-fb-reset-x="40" data-fb-reset-y="145" >Weiter</button>
+
+                <button id="request_appointment_on_welcome_page" class="btn btn-primary btn-large remove_height_from_content_and_set_it_to_box" style="display:none">Senden</button>
               </div>
+-->
+
+
+
+
             </div> <!-- end appointment_on_welcomepage -->
 
           </div>

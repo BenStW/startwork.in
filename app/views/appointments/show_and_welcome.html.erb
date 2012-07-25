@@ -22,7 +22,7 @@
   <img src="/assets/frontpage_biggestpicture3.jpg" style="width:100%;position:relative;display:block;">
 <% end %>
 
-<%= render :partial => "static_pages/urls"%> 
+
 
 
 
@@ -57,8 +57,9 @@
               </div>
             </div>
             <div style="position:absolute;top:-25px;right:0;">
-              <button href="#show_and_welcome_carousel" id="show_and_welcome_save_continue" data-slide="next" class="btn btn-primary btn-large fb-reset" 
-data-fb-reset-x="0" data-fb-reset-y="100">Weiter</button>
+        <%= link_to "Weiter", root_url, :class=> "btn btn-primary btn-large"%>
+<!--      <button href="#show_and_welcome_carousel" id="show_and_welcome_save_continue" data-slide="next" class="btn btn-primary btn-large fb-reset" 
+data-fb-reset-x="0" data-fb-reset-y="100">Weiter</button>-->
             </div>
           </div>
 
@@ -91,7 +92,6 @@ data-fb-reset-x="0" data-fb-reset-y="100">Weiter</button>
 <!-- SEND APPOINTMENT BY FACEBOOK -->
 			<div id="appointment"
 			data-appointment_id="<%=@appointment.id%>"
-			data-token="<%=@appointment.token%>"
 			data-start_time="<%=@appointment.start_time%>"
 			data-end_time="<%=@appointment.end_time%>">
 			

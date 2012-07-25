@@ -24,7 +24,7 @@
 <%- end -%>
 
 
-<%= render :partial => "static_pages/urls"%> 
+
 
 
 <center>
@@ -98,7 +98,7 @@
     <div style="margin:20px;">
       <h2>Start Work'in</h2>
         <center>
-          <div href="#" class="btn btn-large disabled" style="margin-top:20px;">Jetzt starten!</div>
+          <div href="#" class="btn btn-large disabled btn-danger" style="margin-top:20px;">Jetzt starten!</div>
         </center>
         <% if !@next_work_session.nil?%>
           <hr>
@@ -208,11 +208,11 @@
   <h2>Start Work'in</h2>
 
     <center>
-      <div id="start_work_button" href="#" class="btn btn-primary btn-large" style="margin-top:20px;" 
+      <div id="start_work_button" href="#" class="btn btn-danger btn-large" style="margin-top:20px;" 
         data-dont_show_info="<%= current_user.camera.dont_show_info  ? true : false %>"
         data-camera-success="<%= current_user.camera.success  ? true : false  %>"
 
->2. Jetzt starten!</div>
+>Jetzt starten!</div>
     </center>
     <% if !@next_group_hour.nil?%>
 
@@ -251,7 +251,11 @@
       <div class="row" style=" padding: 0 20px; ">
          <% @friends.each do |friend| %>
            <div class="span1">
-           <img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture"><br>
+           <img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture"
+		class="init_popover"
+		rel="popover" 
+		data-original-title="<%=friend.name%>"
+		data-content="<img src='http://graph.facebook.com/<%=friend.fb_ui%>/picture'>"><br>
            <%= friend.first_name%>
          </div>
          <% end %>

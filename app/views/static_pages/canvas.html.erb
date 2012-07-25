@@ -1,1 +1,7 @@
-<a href="<%=root_url%>" class="btn btn-primary">Startseite</a>
+
+<div id="canvas" 
+<% if @appointment.present? %>
+data-appointment-id="<%=@appointment.id%>" data-params="<%= @params %> ">
+<% end %>
+</div>
+

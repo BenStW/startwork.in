@@ -303,8 +303,34 @@ describe AppointmentsController do
        get :accept_and_redirect_to_appointment_with_welcome, :token=>@appointment.token
        response.should redirect_to(show_and_welcome_appointment_url(:token => @appointment.token))       
      end   
-
   end 
+  
+   context "receive" do
+     before(:each) do
+       @sender = FactoryGirl.create(:user) 
+       @appointment = FactoryGirl.create(:appointment, :user=>@sender)
+       sign_in @sender
+     end
+     it "should raise an error when appointment is not found" do
+       expect {
+         get :receive, :appointment_id=>"asdf"
+       }.to raise_error
+     end     
+     it "should add the appointment as received_appointment for the registered user" do   
+       registered_user = FactoryGirl.create(:user)   
+       get :receive, :appointment_id=>@appointment.id, :user_ids=>["#{registered_user.fb_ui}"]
+       registered_user.received_appointments.should eq([@appointment])
+     end   
+     it "should add the appointment as received_appointment for the non registered user" do      
+       non_registered_user = mock "FbGraphUser"
+       FbGraph::User.stub(:fetch).with("4711").and_return(non_registered_user)
+       non_registered_user.should_receive(:first_name).and_return("Benedikt")
+       non_registered_user.should_receive(:last_name).and_return("Voigt")       
+       get :receive, :appointment_id=>@appointment.id, :user_ids=>["4711"]       
+       user = User.find_by_fb_ui("4711")
+       user.received_appointments.should eq([@appointment])
+     end     
+  end  
      
   
    

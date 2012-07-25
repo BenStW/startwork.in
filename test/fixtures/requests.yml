@@ -1,0 +1,20 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  appointment_id: 1
+  request_str: MyString
+
+two:
+  appointment_id: 1
+  request_str: MyString
+# == Schema Information
+#
+# Table name: requests
+#
+#  id             :integer         not null, primary key
+#  appointment_id :integer
+#  request_str    :string(255)
+#  created_at     :datetime        not null
+#  updated_at     :datetime        not null
+#
+

@@ -2,12 +2,13 @@
 #
 # Table name: cameras
 #
-#  id             :integer         not null, primary key
-#  user_id        :integer
-#  success        :boolean
-#  dont_show_info :boolean
-#  created_at     :datetime        not null
-#  updated_at     :datetime        not null
+#  id               :integer         not null, primary key
+#  user_id          :integer
+#  success          :boolean
+#  dont_show_info   :boolean
+#  created_at       :datetime        not null
+#  updated_at       :datetime        not null
+#  dont_show_wizard :boolean
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html

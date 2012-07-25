@@ -228,6 +228,26 @@ describe User do
      
   end
   
+  context "it finds an usr for facebook requests" do  
+    it "should find an existing user based on the fb_ui" do
+      user = FactoryGirl.create(:user)
+      found_user = User.find_for_facebook_request(user.fb_ui)
+      found_user.should eq(user)      
+    end
+    
+    it "should create an user when not existing based on the fb_ui" do
+      fb_graph_user = mock "FbGraphUser"
+      FbGraph::User.stub(:fetch).with("4711").and_return(fb_graph_user)
+      fb_graph_user.should_receive(:first_name).and_return("Benedikt")
+      fb_graph_user.should_receive(:last_name).and_return("Voigt")
+      found_user = User.find_for_facebook_request("4711")
+      found_user.first_name.should eq("Benedikt")     
+      found_user.last_name.should eq("Voigt")
+      found_user.fb_ui.should eq("4711")
+      found_user.should be_valid
+    end
+  end
+  
    context "updates FB friends" do
       before(:each) do
        @access_token = mock("access_token",

@@ -5,7 +5,6 @@
 #  id            :integer         not null, primary key
 #  start_time    :datetime
 #  end_time      :datetime
-#  token         :string(255)
 #  created_at    :datetime        not null
 #  updated_at    :datetime        not null
 #  send_count    :integer
@@ -96,13 +95,36 @@ describe Appointment do
       user_a = FactoryGirl.create(:user)
       user_b = FactoryGirl.create(:user)
       user_c = FactoryGirl.create(:user)
+      puts "user_a.id=#{user_a.id}"
+      puts "user_b.id=#{user_b.id}"
+      puts "user_c.id=#{user_c.id}"
+      
+      appointment_a = FactoryGirl.create(:appointment, :user=>user_a)
+      appointment_a.receive(user_b)      
+      appointment_a.receive_and_accept(user_c)
+      
+      appointment_a.users.count.should eq(2)
+      appointment_a.users.should include(user_a)
+      appointment_a.users.should_not include(user_b)
+      appointment_a.users.should include(user_c)
+    end
+    
+    it "has two invited_users when two users were invited" do
+      user_a = FactoryGirl.create(:user)
+      user_b = FactoryGirl.create(:user)
+      user_c = FactoryGirl.create(:user)
+      user_d = FactoryGirl.create(:user)
+      puts "user_a.id=#{user_a.id}"
+      puts "user_b.id=#{user_b.id}"
+      puts "user_c.id=#{user_c.id}"
 
       appointment_a = FactoryGirl.create(:appointment, :user=>user_a)
-      appointment_a.receive_and_accept(user_b)
-      appointment_a.users.count.should eq(2)
-    #  appointment_a.users.include?(user_a).should eq(true)
-    #  appointment_a.users.include?(user_b).should eq(true)
-    #  appointment_a.users.include?(user_c).should eq(false)
+      appointment_a.receive(user_b)
+      appointment_a.receive_and_accept(user_c)
+      appointment_a.invited_users.count.should eq(2)
+      appointment_a.invited_users.should_not include(user_a)
+      appointment_a.invited_users.should include(user_b)
+      appointment_a.invited_users.should include(user_c)            
     end
   end
   
