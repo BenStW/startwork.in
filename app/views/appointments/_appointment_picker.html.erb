@@ -1,26 +1,26 @@
 <div id="appointment" 
-data-start_time="<%= DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,7)+1.day  %>"
-data-end_time="<%= DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,10)+1.day  %>"
+data-start_time="<%= DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,17)+1.day  %>"
+data-end_time="<%= DateTime.new(DateTime.current.year, DateTime.current.month,DateTime.current.day,19)+1.day  %>"
 >
 	
 <h3 id="appointment_sender"></h3>	
 
 <div id="needed_for_debugging" style="display:none">
 	Appointment_id: <div id="appointment_id"></div>
-</div>
+	</div>
 
 
-<div id="main_modal_dates">
+<div id="appointment_dates">
      <% (0..6).each do |day| %>
          <div 
             <% if day==1 %>
-            class="main_modal_day btn btn-primary" 
+            class="appointment_day btn btn-primary" 
             <% else %>
-            class="main_modal_day btn " 
+            class="appointment_day btn " 
             <% end %>
            
             data-day="<%=(DateTime.current+ day.day).to_date%>"
-            id="main_modal_day<%=day%>">
+            id="appointment_day<%=day%>">
       
             <% if day==0 %>
               <%= l (DateTime.current+ day.day).to_date, :format =>  '%A' %>
@@ -36,11 +36,11 @@ data-end_time="<%= DateTime.new(DateTime.current.year, DateTime.current.month,Da
       <div style="height:30px"></div>
       
       <p>		
-      Beginn:	<%= select_hour(9, {:field_name => 'main_modal_start'}, {:style => "width:50px"}) %>
+      Beginn:	<%= select_hour(17, {:field_name => 'appointment_start'}, {:style => "width:50px"}) %>
       &nbsp;&nbsp;
-      Ende:	<%= select_hour(12, {:field_name => 'main_modal_end'}, {:style => "width:50px"}) %>
+      Ende:	<%= select_hour(19, {:field_name => 'appointment_end'}, {:style => "width:50px"}) %>
       </p>
-</div><!-- end main_modal_dates -->
+</div><!-- end appointment_dates -->
 
       <h3 id="appointment_str"></h3>
       <div div class="alert" style="margin-top:30px;">
@@ -48,4 +48,12 @@ data-end_time="<%= DateTime.new(DateTime.current.year, DateTime.current.month,Da
       freu dich schon jetzt auf das produktive Arbeiten mit deinen Freunden und neuen Leuten.</p>
       </div>
 
+
+	<div id="fb_request_search" style="display:none">
+	    <h3 style="text-align:left"}>Verabrede dich mit deinen Freunden</h3>
+			<div id="fb_request_friends_div"></div>
+	</div> <!-- fb_request_body -->
+
+
 </div>
+

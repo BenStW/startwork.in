@@ -25,7 +25,7 @@ $(document).ready ->
      console.log "set height from "+$("#welcome_box").height()+" to "+height
      $("#welcome_box").height(height)
 
-   $("#display_picker_adjust_height").click ->
+   $(".adjust_height_on_welcome_page").click ->
       $("#appointment_on_welcomepage").css("display","inline")
       myheight = 0
       $('#welcome_box').removeAttr('height')

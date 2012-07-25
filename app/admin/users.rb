@@ -35,8 +35,8 @@ ActiveAdmin.register User do
       f.inputs "User Details - not to be changed" do
         f.input :id
         f.input :first_name
-        f.input :last_name        
-       # f.input :email
+        f.input :last_name  
+        f.input :registered                    
         f.input :comment
       end
       f.buttons

@@ -19,6 +19,7 @@ $(document).ready ->
       else
          $("#appointment_sender").html("")
 
+
    read_times = (element)->
       start_time = element.data("start_time")
       timezone_offset = 60000*new Date().getTimezoneOffset()
@@ -28,16 +29,16 @@ $(document).ready ->
       [start_time, end_time]
 
    edit_work_session = (element)->
-      fill_main_modal(element)
-      show_filled_main_modal("edit")
+      fill_appointment(element)
+      show_filled_appointment("edit")
 
    accept_work_session = (element)->
-      fill_main_modal(element)
-      show_filled_main_modal("accept")
+      fill_appointment(element)
+      show_filled_appointment("accept")
 
    join_work_session = (element)->
-      fill_main_modal(element)
-      show_filled_main_modal("join")
+      fill_appointment(element)
+      show_filled_appointment("join")
     
        
    leading_zero = (hour) ->
@@ -159,17 +160,15 @@ $(document).ready ->
            $("#notice").html(notice_html)
            reload_my_work_sessions()
            fill_fb_request_modal()
-           show_filled_main_modal("request")
+           show_filled_appointment("request")
 
    save_appointment = ->
       appointment_id = $("#appointment").data("appointment_id")
 
       [start_time, end_time] = from_day_and_hours_to_dates(
-         $(".main_modal_day.btn-primary").data("day"), 
-         $("#date_main_modal_start").val(),
-         $("#date_main_modal_end").val())
-      console.log "start_time = "+start_time
-      console.log "end_time = "+end_time
+         $(".appointment_day.btn-primary").data("day"), 
+         $("#date_appointment_start").val(),
+         $("#date_appointment_end").val())
       if appointment_id
          save_appointment_with_ajax(appointment_id, start_time, end_time)
       else
@@ -197,7 +196,7 @@ $(document).ready ->
             $("#notice").html(notice_html)
             reload_my_work_sessions()
             fill_fb_request_modal()
-            show_filled_main_modal("request")
+            show_filled_appointment("request")
    
    create_appointment_with_ajax = (start_time, end_time)->
      data = 
@@ -223,117 +222,117 @@ $(document).ready ->
 
            reload_my_work_sessions()
            fill_fb_request_modal()
-           show_filled_main_modal("request")
+           show_filled_appointment("request")
 
 
 
-   show_filled_main_modal = (action)->
+   show_filled_appointment = (action)->
       if action == "edit"
-         $("#main_modal_title").html("Verabredung aktualisieren")
-         $("#main_modal_dates").css("display","inline")
-         $("#main_modal_delete").css("display","inline")
-         $("#main_modal_accept").css("display","none")
-         $("#main_modal_save").css("display","inline")
+         $("#appointment_title").html("Verabredung aktualisieren")
+         $("#appointment_dates").css("display","inline")
+         $("#delete_appointment").css("display","inline")
+         $("#accept_appointment").css("display","none")
+         $("#save_appointment").css("display","inline")
          $("#appointment_sender").css("display","none")
-         $("#main_modal_close").css("display","none")
-         $("#main_modal_join").css("display","none")
-         $("#main_modal_request").css("display","none")
+         $("#close_appointment").css("display","none")
+         $("#join_appointment").css("display","none")
+         $("#request_appointment").css("display","none")
          $("#fb_request_search").css("display","none")
       else if action == "accept"
-         $("#main_modal_title").html("Einladung annehmen")
-         $("#main_modal_dates").css("display","none")
-         $("#main_modal_delete").css("display","none")
-         $("#main_modal_accept").css("display","inline")
-         $("#main_modal_save").css("display","none")
+         $("#appointment_title").html("Einladung annehmen")
+         $("#appointment_dates").css("display","none")
+         $("#delete_appointment").css("display","none")
+         $("#accept_appointment").css("display","inline")
+         $("#save_appointment").css("display","none")
          $("#appointment_sender").css("display","inline")
-         $("#main_modal_close").css("display","none")
-         $("#main_modal_join").css("display","none")
-         $("#main_modal_request").css("display","none")
+         $("#close_appointment").css("display","none")
+         $("#join_appointment").css("display","none")
+         $("#request_appointment").css("display","none")
          $("#fb_request_search").css("display","none")
       else if action == "create"
-         $("#main_modal_title").html("Termin für Verabredung festlegen")
-         $("#main_modal_dates").css("display","inline")
-         $("#main_modal_delete").css("display","none")
-         $("#main_modal_accept").css("display","none")
-         $("#main_modal_save").css("display","inline")
+         $("#appointment_title").html("Termin für Verabredung festlegen")
+         $("#appointment_dates").css("display","inline")
+         $("#delete_appointment").css("display","none")
+         $("#accept_appointment").css("display","none")
+         $("#save_appointment").css("display","inline")
          $("#appointment_sender").css("display","none")
-         $("#main_modal_close").css("display","none")
-         $("#main_modal_join").css("display","none")
-         $("#main_modal_request").css("display","none")
+         $("#close_appointment").css("display","none")
+         $("#join_appointment").css("display","none")
+         $("#request_appointment").css("display","none")
          $("#fb_request_search").css("display","none")
       else if action == "invite_after_create"
-         $("#main_modal_title").html("Mit Freunden verabreden")
-         $("#main_modal_dates").css("display","none")
-         $("#main_modal_delete").css("display","none")
-         $("#main_modal_accept").css("display","none")
-         $("#main_modal_save").css("display","none")
+         $("#appointment_title").html("Mit Freunden verabreden")
+         $("#appointment_dates").css("display","none")
+         $("#delete_appointment").css("display","none")
+         $("#accept_appointment").css("display","none")
+         $("#save_appointment").css("display","none")
          $("#appointment_sender").css("display","none")
-         $("#main_modal_close").css("display","inline")
-         $("#main_modal_join").css("display","none")
-         $("#main_modal_request").css("display","none")
+         $("#close_appointment").css("display","inline")
+         $("#join_appointment").css("display","none")
+         $("#request_appointment").css("display","none")
          $("#fb_request_search").css("display","none")
       else if action == "join"
-         $("#main_modal_title").html("Bei Arbeitssitzung teilnehmen")
-         $("#main_modal_dates").css("display","none")
-         $("#main_modal_delete").css("display","none")
-         $("#main_modal_accept").css("display","none")
-         $("#main_modal_save").css("display","none")
+         $("#appointment_title").html("Bei Arbeitssitzung teilnehmen")
+         $("#appointment_dates").css("display","none")
+         $("#delete_appointment").css("display","none")
+         $("#accept_appointment").css("display","none")
+         $("#save_appointment").css("display","none")
          $("#appointment_sender").css("display","none")
-         $("#main_modal_close").css("display","none")
-         $("#main_modal_join").css("display","inline")
-         $("#main_modal_request").css("display","none")
+         $("#close_appointment").css("display","none")
+         $("#join_appointment").css("display","inline")
+         $("#request_appointment").css("display","none")
          $("#fb_request_search").css("display","none")
       else if action == "request"
-         $("#main_modal_title").html("Verabredung vereinbaren")
-         $("#main_modal_dates").css("display","none")
-         $("#main_modal_delete").css("display","none")
-         $("#main_modal_accept").css("display","none")
-         $("#main_modal_save").css("display","none")
+         $("#appointment_title").html("Verabredung vereinbaren")
+         $("#appointment_dates").css("display","none")
+         $("#delete_appointment").css("display","none")
+         $("#accept_appointment").css("display","none")
+         $("#save_appointment").css("display","none")
          $("#appointment_sender").css("display","none")
-         $("#main_modal_close").css("display","none")
-         $("#main_modal_join").css("display","none")
-         $("#main_modal_request").css("display","inline")
+         $("#close_appointment").css("display","none")
+         $("#join_appointment").css("display","none")
+         $("#request_appointment").css("display","inline")
          $("#fb_request_search").css("display","inline")
 
       show_appointment_string()
 
    show_appointment_string = ->
-      day = $.datepicker.parseDate('yy-mm-dd', $(".main_modal_day.btn-primary").data("day"))
+      day = $.datepicker.parseDate('yy-mm-dd', $(".appointment_day.btn-primary").data("day"))
       appointment_str = to_appointment_string(
         day, 
-        $("#date_main_modal_start").val(),
-        $("#date_main_modal_end").val())
+        $("#date_appointment_start").val(),
+        $("#date_appointment_end").val())
       $("#appointment_str").html(appointment_str)
 
-   fill_main_modal = (element)->
+   fill_appointment = (element)->
       [start_time,end_time] = read_times(element)
-      fill_main_modal_with_dates(start_time,end_time)
+      fill_appointment_with_dates(start_time,end_time)
       write_data_into_modal(element)
 
-   fill_main_modal_with_dates = (start_time,end_time) ->
+   fill_appointment_with_dates = (start_time,end_time) ->
       day = new Date(start_time)
       day.setHours(0,0,0,0)
       day_str =  $.datepicker.formatDate('yy-mm-dd', day)
-      $(".main_modal_day").removeClass("btn-primary")
-      $(".main_modal_day[data-day='"+day_str+"']").addClass("btn-primary")
-      $('#date_main_modal_start option').removeAttr('selected')
-      $("#date_main_modal_start option[value='"+leading_zero(start_time.getHours())+"']").attr('selected',true)
-      $('#date_main_modal_end option').removeAttr('selected')
-      $("#date_main_modal_end option[value='"+leading_zero(end_time.getHours())+"']").attr('selected',true)
+      $(".appointment_day").removeClass("btn-primary")
+      $(".appointment_day[data-day='"+day_str+"']").addClass("btn-primary")
+      $('#date_appointment_start option').removeAttr('selected')
+      $("#date_appointment_start option[value='"+leading_zero(start_time.getHours())+"']").attr('selected',true)
+      $('#date_appointment_end option').removeAttr('selected')
+      $("#date_appointment_end option[value='"+leading_zero(end_time.getHours())+"']").attr('selected',true)
 
-   $("#date_main_modal_start").change ->
+   $("#date_appointment_start").change ->
       show_appointment_string()
-   $("#date_main_modal_end").change ->
+   $("#date_appointment_end").change ->
       show_appointment_string()
 
    
-   $(".main_modal_day").click (event) ->
-      $(".main_modal_day").removeClass("btn-primary")
+   $(".appointment_day").click (event) ->
+      $(".appointment_day").removeClass("btn-primary")
       $("#"+event.target.id).addClass("btn-primary")
       show_appointment_string()
 
 
-   $("#main_modal_delete").click (event) ->
+   $("#delete_appointment").click (event) ->
       appointment_id = $("#appointment").data("appointment_id")
       $.ajax
         url: $("#urls").data("appointments_url")+"/"+appointment_id,
@@ -349,26 +348,29 @@ $(document).ready ->
 
 
    $("#save_appointment_on_welcomepage").click ->
-      save_appointment()        
+      save_appointment()
+      $("#skip_appointment").css("display","none")
+      $("#save_appointment_on_welcomepage").css("display","none")
 
-   $("#main_modal_save").click ->
+
+   $("#save_appointment").click ->
       save_appointment()
 
 
-   $("#main_modal_accept").click ->
+   $("#accept_appointment").click ->
        appointment_id = $("#appointment").data("appointment_id")
        accept_appointment(appointment_id, (response) ->
             console.log response)
 
-   $("#main_modal_join").click ->
-       appointment_id = $("#appointment_id").data("appointment_id")
+   $("#join_appointment").click ->
+       appointment_id = $("#appointment").data("appointment_id")
        accept_appointment(appointment_id ,(response) ->
           console.log response)
 
    $("#launch_modal_button").click (event)->
       $('#main_page_modal').modal("show")
       write_data_into_modal($(this))
-      show_filled_main_modal("create")
+      show_filled_appointment("create")
    
    
    $(".accept_appointment").click (event) ->
@@ -386,7 +388,6 @@ $(document).ready ->
       fb_popup(name, message, link, "Invite")
 
    $("#send_dialogue_button_right_block").click ->
-      console.log "send_dialogue_button_right_block"
       name = "StartWork.in - Gemeinsam produktiver. Mit Leuten wie dir."
       message = "message"
       link = "http://startwork.in"
@@ -397,7 +398,7 @@ $(document).ready ->
       join_work_session($(this))
 
 
-   $("#main_modal_request").click ->
+   $("#request_appointment").click ->
      result = $("#fb_request_friends").tokenInput("get")
      result_ids = (item.id for item in result)
      current_user_name = $("body").data("current-user-name")
@@ -405,15 +406,18 @@ $(document).ready ->
      appointment_id = $("#appointment").data("appointment_id")
      send_fb_request(appointment_id,result_ids,current_user_name,appointment_str)
      receive_appointment(appointment_id,result_ids)
-     reload_my_work_sessions()
-
+     if $("body").data("action") == "welcome" or $("body").data("controller") == "appointments"
+        top.location.href = $("#urls").data("root_url")
+     else if $("body").data("action") == "home"
+        reload_my_work_sessions()
+    
 
 
 
  
  # $("#show_and_welcome_save_continue").click ->
  #     fill_fb_request_modal()
-  #     show_filled_main_modal("request")
+  #     show_filled_appointment("request")
   # 
    
 
@@ -425,7 +429,7 @@ $(document).ready ->
    # END OF WELCOME page
 
 
-	
+   
    fill_initial_dates = ->	
       start_time = new Date($("#appointment").data("start_time"))
       end_time = new Date($("#appointment").data("end_time"))
@@ -434,18 +438,16 @@ $(document).ready ->
       end_hour = end_time.getHours()      
       appointment_str = to_appointment_string(day, start_hour, end_hour)
       $("#appointment_str").html(appointment_str)
-
-   $(".fill_initial_dates").click ->
-      fill_initial_dates()
+ #
+ #  $(".fill_initial_dates").click ->
+ #     fill_initial_dates()
       
    if $("#appointment_carousel").length>0
      if $("body").data("controller") is "appointments" and $("body").data("action") is "show" and $("body").data("user-registered")
-        console.log "appointment_carousel (3 slides): user is registered"
         $(".item").removeClass("active")
         $("#appointment_slide").addClass("active")
         $("#appointment_slide > p").html("Du hast eine Einladung erhalten!")	
      else 
-        console.log "appointment_carousel (3 slides): user NOT registered"
         $("#appointment_carousel").carousel
           interval: false
 
@@ -455,5 +457,9 @@ $(document).ready ->
 
    if $("#show_and_welcome_carousel").length>0 or $("#appointment_carousel").length>0
        fill_initial_dates()
+
+   $("#display_appointment_on_welcome_page").click ->
+      show_filled_appointment("create")
+
 
  
