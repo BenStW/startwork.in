@@ -1,5 +1,5 @@
 $(document).ready ->
-  if $("body").data("env")=="Production"
+#  if $("body").data("env")=="Production"
 
     _gaq = _gaq || []
     _gaq.push(['_setAccount', 'UA-29880523-1'])

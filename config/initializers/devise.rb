@@ -224,6 +224,6 @@ Devise.setup do |config|
   facebook_config = YAML.load_file("#{Rails.root}/config/facebook_config.yml")[Rails.env]
   FACEBOOK_CONFIG = HashWithIndifferentAccess.new(facebook_config)  
   require "omniauth-facebook"
-  config.omniauth :facebook, FACEBOOK_CONFIG[:facebook][:app_key],  FACEBOOK_CONFIG[:facebook][:secret] 
+  config.omniauth :facebook, FACEBOOK_CONFIG[:facebook][:app_key],  FACEBOOK_CONFIG[:facebook][:secret], {:scope => 'email, user_birthday, user_education_history, user_location, user_work_history, publish_actions'}
   
 end
