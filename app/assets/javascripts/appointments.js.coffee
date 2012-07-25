@@ -78,7 +78,7 @@ $(document).ready ->
        type: "POST"     
    
    
-   send_fb_request = (appointment_id, ids,current_user_name, appointment_str) ->
+   send_fb_request = (appointment_id, ids,current_user_name, appointment_str,callback) ->
      message = current_user_name+" möchte gerne "+appointment_str+" auf StartWork.in mit dir lernen"
      console.log "Request message: "+message
      FB.ui({
@@ -88,7 +88,8 @@ $(document).ready ->
             to: ids 
            },(response) -> 
              console.log "request = "+response.request
-             save_request(appointment_id, response.request))
+             save_request(appointment_id, response.request)
+             callback(response.request))
         
         
      
@@ -404,12 +405,13 @@ $(document).ready ->
      current_user_name = $("body").data("current-user-name")
      appointment_str = $("#appointment_str").html()
      appointment_id = $("#appointment").data("appointment_id")
-     send_fb_request(appointment_id,result_ids,current_user_name,appointment_str)
      receive_appointment(appointment_id,result_ids)
-     if $("body").data("action") == "welcome" or $("body").data("controller") == "appointments"
-        top.location.href = $("#urls").data("root_url")
-     else if $("body").data("action") == "home"
-        reload_my_work_sessions()
+     send_fb_request(appointment_id,result_ids,current_user_name,appointment_str, (response) ->
+        console.log "request_appointment.click: response = "+ response
+        if $("body").data("action") == "welcome" or $("body").data("controller") == "appointments"
+           top.location.href = $("#urls").data("root_url")
+        else if $("body").data("action") == "home"
+           reload_my_work_sessions())
     
 
 
