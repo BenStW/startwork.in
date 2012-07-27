@@ -241,8 +241,9 @@
     <p>StartWork funktioniert am besten mit Freunden. Lade sie jetzt ein!</p>
     <hr>
     <div style="margin-top:20px;">
-      <div class="fb-like" data-href="https://www.facebook.com/startwork.in" data-send="false" data-layout="button_count" data-width="250" data-show-faces="true" data-font="segoe ui" style=" margin-bottom: 5px; "></div>
-      <div class="fb-facepile" data-href="https://www.facebook.com/startwork.in" data-size="small" data-max-rows="2" data-width="250"></div>
+      <div class="fb-like" data-href="https://www.facebook.com/startwork.in" data-send="false" data-layout="button_count" data-width="260" data-show-faces="true" data-font="segoe ui" style=" margin-bottom: 5px; "></div>
+      <!--<div class="fb-facepile" data-href="https://www.facebook.com/startwork.in" data-size="small" data-max-rows="2" data-width="250"></div>-->
+      <div class="fb-facepile" data-size="small" data-max-rows="2" data-width="260"></div>
     </div>
     <hr>
     <div style="margin-top:20px;">
@@ -251,11 +252,7 @@
       <div class="row" style=" padding: 0 20px; ">
          <% @friends.each do |friend| %>
            <div class="span1">
-           <img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture"
-		class="init_popover"
-		rel="popover" 
-		data-original-title="<%=friend.name%>"
-		data-content="<img src='http://graph.facebook.com/<%=friend.fb_ui%>/picture'>"><br>
+           <img src="http://graph.facebook.com/<%=friend.fb_ui%>/picture" class="init_popover" rel="popover"  data-original-title="<%=friend.name%>" data-content="<img src='http://graph.facebook.com/<%=friend.fb_ui%>/picture'>"><br>
            <%= friend.first_name%>
          </div>
          <% end %>

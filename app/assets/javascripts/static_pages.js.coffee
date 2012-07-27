@@ -17,8 +17,6 @@ $(document).ready ->
        $('#video_modal').modal("show")
 
 
-
-
    $(".remove_height_from_content_and_set_it_to_box").click ->
      $('#welcome_content').css("height", "")
      height=$("#welcome_content").outerHeight()
@@ -26,7 +24,7 @@ $(document).ready ->
      $("#welcome_box").height(height)
 
    $(".adjust_height_on_welcome_page").click ->
-      $("#appointment_on_welcomepage").css("display","inline")
+      $("#appointment_on_welcomepage").css("display","block")
       myheight = 0
       $('#welcome_box').removeAttr('height')
       $('#welcome_box').css('height',"")

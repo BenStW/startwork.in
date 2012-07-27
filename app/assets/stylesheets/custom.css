@@ -498,3 +498,17 @@ padding: 40px;
 	background: url('/assets/berlin_baer_hover.png');
 
 }
+
+.token-input-input-token-facebook input {
+
+	width:400px !important;
+
+
+}
+
+.token-input-dropdown-facebook {
+
+	width: 608px;
+	height: 250px;
+
+}

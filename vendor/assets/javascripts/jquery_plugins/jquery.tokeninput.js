@@ -21,9 +21,9 @@ var DEFAULT_SETTINGS = {
     jsonContainer: null,
 
 	// Display settings
-    hintText: "Type in a search term",
-    noResultsText: "No results",
-    searchingText: "Searching...",
+    hintText: "Gib den Namen eines Freundes ein",
+    noResultsText: "Keine Treffer",
+    searchingText: "Suche...",
     deleteText: "&times;",
     animateDropdown: true,
 
@@ -43,8 +43,8 @@ var DEFAULT_SETTINGS = {
     idPrefix: "token-input-",
 
 	// Formatters
-    resultsFormatter: function(item){ return "<li>" + item[this.propertyToSearch]+ "</li>" },
-    tokenFormatter: function(item) { return "<li><p>" + item[this.propertyToSearch] + "</p></li>" },
+    resultsFormatter: function(item){ return "<div>" + item[this.propertyToSearch]+ "</div>" },
+    tokenFormatter: function(item) { return "<li>" + item[this.propertyToSearch] + "</li>" },
 
 	// Callbacks
     onResult: null,
@@ -185,7 +185,7 @@ $.TokenList = function (input, url_or_data, settings) {
     var input_val;
 
     // Create a new text input an attach keyup events
-    var input_box = $("<input type=\"text\"  autocomplete=\"off\">")
+    var input_box = $("<input type=\"text\"  autocomplete=\"off\" placeholder=\"Gib den Namen eines Freundes ein\">")
         .css({
             outline: "none"
         })
@@ -341,7 +341,7 @@ $.TokenList = function (input, url_or_data, settings) {
         .insertBefore(hidden_input);
 
     // The token holding the input box
-    var input_token = $("<li />")
+    var input_token = $("<div />")
         .addClass(settings.classes.inputToken)
         .appendTo(token_list)
         .append(input_box);
@@ -629,8 +629,8 @@ $.TokenList = function (input, url_or_data, settings) {
 
     // Hide and clear the results dropdown
     function hide_dropdown () {
-        dropdown.hide().empty();
-        selected_dropdown_item = null;
+        //dropdown.hide().empty();
+        //selected_dropdown_item = null;
     }
 
     function show_dropdown() {
@@ -639,7 +639,8 @@ $.TokenList = function (input, url_or_data, settings) {
                 position: "absolute",
                 top: $(token_list).offset().top + $(token_list).outerHeight(),
                 left: $(token_list).offset().left,
-                zindex: 999
+                zindex: 999,
+                'overflow-y': "scroll"
             })
             .show();
     }
@@ -671,28 +672,38 @@ $.TokenList = function (input, url_or_data, settings) {
     function populate_dropdown (query, results) {
         if(results && results.length) {
             dropdown.empty();
-            var dropdown_ul = $("<ul>")
+            var dropdown_ul1 = $("<div class='dropdown_col1' style='float:left;display:block;padding:10px;width:170px;'>")
                 .appendTo(dropdown)
                 .mouseover(function (event) {
-                    select_dropdown_item($(event.target).closest("li"));
+                    select_dropdown_item($(event.target).closest("div"));
                 })
                 .mousedown(function (event) {
-                    add_token($(event.target).closest("li").data("tokeninput"));
+                    add_token($(event.target).closest("div").data("tokeninput"));
                     hidden_input.change();
                     return false;
+                });
+
+            var dropdown_ul2 = $("<div class='dropdown_col2' style='float:left;display:block;padding:10px;width:170px;'>")
+                .appendTo(dropdown)
+                .mouseover(function (event) {
+                    select_dropdown_item($(event.target).closest("div"));
                 })
-                .hide();
+                .mousedown(function (event) {
+                    add_token($(event.target).closest("div").data("tokeninput"));
+                    hidden_input.change();
+                    return false;
+                });
 
             $.each(results, function(index, value) {
                 var this_li = settings.resultsFormatter(value);
                 
                 this_li = find_value_and_highlight_term(this_li ,value[settings.propertyToSearch], query);            
                 
-                this_li = $(this_li).appendTo(dropdown_ul);
-                
                 if(index % 2) {
+                    this_li = $(this_li).appendTo(dropdown_ul1);
                     this_li.addClass(settings.classes.dropdownItem);
                 } else {
+                    this_li = $(this_li).appendTo(dropdown_ul2);
                     this_li.addClass(settings.classes.dropdownItem2);
                 }
 
@@ -703,12 +714,16 @@ $.TokenList = function (input, url_or_data, settings) {
                 $.data(this_li.get(0), "tokeninput", value);
             });
 
+            "</div>".appendTo(dropdown_ul1);
+            "</div>".appendTo(dropdown_ul2);
             show_dropdown();
 
             if(settings.animateDropdown) {
-                dropdown_ul.slideDown("fast");
+                dropdown_ul1.slideDown("fast");
+                dropdown_ul2.slideDown("fast");
             } else {
-                dropdown_ul.show();
+                dropdown_ul1.show();
+                dropdown_ul2.show();
             }
         } else {
             if(settings.noResultsText) {
