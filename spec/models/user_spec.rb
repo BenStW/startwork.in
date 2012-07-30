@@ -122,7 +122,13 @@ describe User do
        next_hour = DateTime.new(c.year,c.month,c.day, c.hour+1)         
        appointment = @user.create_appointment_now
        appointment.end_time.should eq(next_hour)
-    end       
+    end   
+    it "should have the spont flag set to true" do 
+       c = DateTime.current
+       next_hour = DateTime.new(c.year,c.month,c.day, c.hour+1)         
+       appointment = @user.create_appointment_now
+       appointment.spont.should eq(true)
+    end        
   end
   
   context "is_friend?" do

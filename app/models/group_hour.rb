@@ -73,7 +73,16 @@ class GroupHour < ActiveRecord::Base
     # if Rails.env.production?
     #   self.tokbox_session_id = (TokboxApi.instance.generate_session User.first.current_sign_in_ip).to_s
     # else
-       self.tokbox_session_id = "2_MX4xMzE4NzY1Mn44OS4yMDQuMTM5LjI1MX5GcmkgSnVsIDIwIDAyOjI0OjMwIFBEVCAyMDEyfjAuODk0NzQyOTc"
+    
+    if Rails.env.production?
+      self.tokbox_session_id = "2_MX4xMzE4NzY1Mn44OS4yMDQuMTM5LjI1MX5GcmkgSnVsIDIwIDAyOjI0OjMwIFBEVCAyMDEyfjAuODk0NzQyOTc"
+    elsif Rails.env.staging?
+      self.tokbox_session_id = "2_MX4xMzE4NzY1Mn4xOTQuOTQuOC4xMzN-TW9uIEp1bCAzMCAwNzo1NjoxMyBQRFQgMjAxMn4wLjY3OTk5MzMz"
+    else 
+      self.tokbox_session_id = "1_MX4xMzE4NzY1Mn4xOTQuOTQuOC4xMzN-TW9uIEp1bCAzMCAwNzo1Nzo0OSBQRFQgMjAxMn4wLjM1NzQ2MzQy"
+    end 
+    
+    
 #       TokboxApi.instance.get_session_for_camera_test
     # end
    end

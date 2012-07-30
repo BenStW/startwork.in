@@ -10,6 +10,7 @@
 #  send_count    :integer
 #  receive_count :integer
 #  user_id       :integer
+#  spont         :boolean
 #
 
 require 'spec_helper'
@@ -35,10 +36,7 @@ describe Appointment do
       @appointment.send_count.should eq(0)
       @appointment.receive_count.should eq(0)
     end   
-    
-    it "should generate a token" do
-      @appointment.token.should_not be_nil
-    end
+
     
     it "should not be valid without start_time" do
       @appointment.start_time = nil
@@ -95,9 +93,9 @@ describe Appointment do
       user_a = FactoryGirl.create(:user)
       user_b = FactoryGirl.create(:user)
       user_c = FactoryGirl.create(:user)
-      puts "user_a.id=#{user_a.id}"
-      puts "user_b.id=#{user_b.id}"
-      puts "user_c.id=#{user_c.id}"
+     # puts "user_a.id=#{user_a.id}"
+     # puts "user_b.id=#{user_b.id}"
+     # puts "user_c.id=#{user_c.id}"
       
       appointment_a = FactoryGirl.create(:appointment, :user=>user_a)
       appointment_a.receive(user_b)      
@@ -114,9 +112,9 @@ describe Appointment do
       user_b = FactoryGirl.create(:user)
       user_c = FactoryGirl.create(:user)
       user_d = FactoryGirl.create(:user)
-      puts "user_a.id=#{user_a.id}"
-      puts "user_b.id=#{user_b.id}"
-      puts "user_c.id=#{user_c.id}"
+    #  puts "user_a.id=#{user_a.id}"
+    #  puts "user_b.id=#{user_b.id}"
+    #  puts "user_c.id=#{user_c.id}"
 
       appointment_a = FactoryGirl.create(:appointment, :user=>user_a)
       appointment_a.receive(user_b)
@@ -126,6 +124,25 @@ describe Appointment do
       appointment_a.invited_users.should include(user_b)
       appointment_a.invited_users.should include(user_c)            
     end
+  end
+  
+  context "class methods" do
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+      @appointment = FactoryGirl.create(:appointment, :user=>@user)  
+    end
+    it "should find a non-spont appointment" do
+      @user.appointments.not_spont.should eq([@appointment])
+      @user.appointments.spont.should be_blank
+    end
+    it "should find a non-spont appointment" do
+      @appointment.spont = true
+      @appointment.save
+      @user.appointments.spont.should eq([@appointment])
+      @user.appointments.not_spont.should be_blank
+    end    
+    
+    
   end
   
   context "class method without_accepted" do
