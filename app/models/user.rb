@@ -90,7 +90,7 @@ class User < ActiveRecord::Base
   def self.users_tomorrow
     t = DateTime.now.tomorrow
     t1 = DateTime.new(t.year,t.month,t.day)
-    t2 = DateTime.new(t.year,t.month,t.day+1)
+    t2 = DateTime.new(t.year,t.month,t.day)+1
     User.find_by_sql(
       ["SELECT distinct users.* FROM
       users LEFT JOIN user_hours on user_hours.user_id=users.id
