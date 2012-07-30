@@ -12,14 +12,14 @@ class StartWorkMailer < ActionMailer::Base
   def after_creation_of_appointment(appointment)
     @user = appointment.user
     @appointment = appointment
-    @users =  User.users_tomorrow
+    @users =  User.users_during_appointment(appointment)
     
-    [55,108,523,526,846].each do |user_id|
-      if u=User.find_by_id(user_id)
-        @users<<u
-      end
-    end
-    @users = @users.uniq
+   # [55,108,523,526,846].each do |user_id|
+   #   if u=User.find_by_id(user_id)
+   #     @users<<u
+   #   end
+   # end
+   # @users = @users.uniq
 
     mail(:to => @user.email, 
     :bcc => ["benedikt@startwork.in","miro@startwork.in", "robert@startwork.in"],

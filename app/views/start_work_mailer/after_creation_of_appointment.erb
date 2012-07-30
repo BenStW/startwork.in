@@ -16,11 +16,17 @@
 			bis
 			<%=I18n.localize(@appointment.end_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %>
 			<!-- Appointment time -->
-			verabredet mit:
+			 
+			<% if @users.blank? %>
+			  verabredet.
+			<% else %>
+			  verabredet mit:
+			<% end %>
 		</p>
 	</td>
 </tr>
 
+<% if !@users.blank? %>
 <% (@users).in_groups_of(2,false).each do |row| %>
 	<tr>
 		<td colspan="1"></td>
@@ -41,6 +47,10 @@
 		Sie alle warten auf dich. Lasse sie nicht hängen und logge dich morgen pünktlich um 9 Uhr ein.
 	</td>
 </tr>
+<% end %>
+
+
+
 <tr height="50">
 	<td colspan="3"></td>
 	<td colspan="6" style="background: url('<%=root_url%>assets/fb_login_email.png');background-repeat: no-repeat;">
