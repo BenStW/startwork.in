@@ -31,4 +31,12 @@ production:
   password: postgres
   pool: 5
   timeout: 5000
+  
+staging:
+  adapter: postgresql
+  database: start_work_staging
+  username: postgres 
+  password: postgres
+  pool: 5
+  timeout: 5000
 

@@ -9,9 +9,12 @@ test: &test
     secret: 'e5016a3ba0d4db9928dc5347d51f7e49'    
 
 production: &production
-  facebook:       
-    app_key: '330646523672055'                   #production
-    secret: '2840b6ec0457e8a36263ccc0fb348b3a'   #production
-   # app_key: '331305516942290'                  #release candidate
-   # secret: '08b75259b35f5579a203a4af5258c326'  #release candidate  
-   #
+  facebook:                                      
+    app_key: '330646523672055'                   
+    secret: '2840b6ec0457e8a36263ccc0fb348b3a'   
+   
+staging: &staging
+  facebook:                                      
+    app_key: '331305516942290'                   
+    secret: '08b75259b35f5579a203a4af5258c326'   
+                                                 

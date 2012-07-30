@@ -8,6 +8,13 @@
 da ihr Interesse an den Fehlermails bekundet habt, bekommt ihr diese nun.
 Hoffentlich nicht zu oft;)
 
+<% if @env == "production" %>
+<h2 style="color: red;">
+<% else %>
+<h2>
+<%end%>
+Umgebung: <%= @env %></h2>
+
 
 <h2><%= "#{@exception.class}: #{@exception.message}" %></h2>
 
