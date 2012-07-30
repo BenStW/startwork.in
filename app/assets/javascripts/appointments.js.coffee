@@ -106,8 +106,8 @@ $(document).ready ->
               searchingText: "suchen...",
               preventDuplicates: true,
               resultsFormatter: (item)-> 
-                 '<div style="position: relative;height: 50px;margin-bottom:5px;"><img src="http://graph.facebook.com/'+item.id+'/picture" style="float:left;"><div style="margin-left: 55px;position: absolute;top: 50%;height: 36px;margin-top: -18px;">' +item.name + "</div></div>" })
-            $(".token-input-dropdown-facebook").css("z-index","9999")
+                 '<li><img src="http://graph.facebook.com/'+item.id+'/picture">' +item.name + "</li>" })
+            $(".token-input-dropdown-facebook").css("z-index","9999")    
          )
 
  
@@ -464,4 +464,3 @@ $(document).ready ->
       show_filled_appointment("create")
 
 
- 
