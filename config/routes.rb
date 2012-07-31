@@ -90,7 +90,8 @@ StartWork::Application.routes.draw do
      match 'test_work_session/:user' => 'work_sessions#test_show', :as => :test_work_session
 
  
-     match 'mails/after_first_2_days_if_not_active' => 'mails#after_first_2_days_if_not_active', :as=> :after_first_2_days_if_not_active
+     post 'mails/after_first_2_days_if_not_active' => 'mails#after_first_2_days_if_not_active', :as=> :after_first_2_days_if_not_active
+     match 'mails' => 'mails#index', :as=> :mails
      
     
  # end

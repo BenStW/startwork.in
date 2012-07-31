@@ -88,14 +88,13 @@ class User < ActiveRecord::Base
   end
   
   def self.after_first_2_days_if_not_active
-    # TODO write test case
       User.find_by_sql(
       ["SELECT users.* FROM
       users WHERE NOT EXISTS
       (SELECT * FROM user_hours WHERE user_hours.user_id=users.id
-      AND login_count>0) AND 
-      users.created_at > ? AND users.created_at < ?",
-      DateTime.current-3.days, DateTime.current-2.days ])        
+      AND login_count>0) AND registered = ?  ",true]) 
+   #   AND users.created_at > ? AND users.created_at < ?",
+  #    DateTime.current-3.days, DateTime.current-2.days ])        
   end
   
   
