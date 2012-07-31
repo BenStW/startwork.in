@@ -91,6 +91,7 @@ StartWork::Application.routes.draw do
 
  
      post 'mails/after_first_2_days_if_not_active' => 'mails#after_first_2_days_if_not_active', :as=> :after_first_2_days_if_not_active
+     post 'mails/summary_for_next_day' => 'mails#summary_for_next_day', :as=> :summary_for_next_day
      match 'mails' => 'mails#index', :as=> :mails
      
     

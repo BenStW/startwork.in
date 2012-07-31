@@ -13,13 +13,6 @@ class StartWorkMailer < ActionMailer::Base
     @user = appointment.user
     @appointment = appointment
     @users =  User.users_during_appointment(appointment)
-    
-   # [55,108,523,526,846].each do |user_id|
-   #   if u=User.find_by_id(user_id)
-   #     @users<<u
-   #   end
-   # end
-   # @users = @users.uniq
 
     mail(:to => @user.email, 
     :bcc => ["benedikt@startwork.in","miro@startwork.in", "robert@startwork.in"],
@@ -31,6 +24,15 @@ class StartWorkMailer < ActionMailer::Base
     mail(:to => user.email, 
     :bcc => ["benedikt@startwork.in","miro@startwork.in", "robert@startwork.in"],
     :subject => "Wie lief es beim letzten Mal ohne StartWork?")        
+  end
+  
+  def summary_for_next_day(user)
+    @user = user
+    @appointments = user.appointments.tomorrow
+    mail(:to => user.email, 
+    :bcc => ["benedikt@startwork.in","miro@startwork.in", "robert@startwork.in"],
+    :subject => "Deine Arbeitszeiten morgen!")        
+    
   end
 
 end

@@ -1,0 +1,33 @@
+<tr>
+	<td colspan="12" style="padding:10px;">
+			<!-- Appointment time -->
+			Von 
+			<%=I18n.localize(appointment.start_time.to_time.in_time_zone("Berlin"),:format => "%H:%M")%>
+			bis
+			<%=I18n.localize(appointment.end_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %>
+			<!-- Appointment time -->
+           <% if users.blank? %>
+               bisher ohne konkrete WorkBuddies. Es werden aber noch welche dazukommen.
+           <% else %>
+               mit:
+           <% end %>
+		</p>
+	</td>
+</tr>
+
+<% if !users.blank? %>
+<% (users).in_groups_of(2,false).each do |row| %>
+	<tr>
+		<td colspan="1"></td>
+		<% row.each do |user| %>                        
+			<td colspan="2">
+				<img src='http://graph.facebook.com/<%=user.fb_ui%>/picture'>
+			</td>
+			<td colspan="3">
+				<%= user.name %>
+			</td>
+		<% end %>
+		<td colspan="1"></td>
+	</tr>
+<% end %>
+<% end %>

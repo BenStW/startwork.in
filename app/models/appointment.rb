@@ -67,6 +67,12 @@ class Appointment < ActiveRecord::Base
     where("start_time>?",DateTime.current-1.hour) 
   end
   
+  def self.tomorrow
+    c = DateTime.current
+    tomorrow = DateTime.new(c.year,c.month,c.day)+1.day
+    where("start_time>? and start_time<?",tomorrow,tomorrow+1.day) 
+  end  
+  
   def self.spont
     where(:spont => true)
   end

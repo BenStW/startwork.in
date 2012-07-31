@@ -15,3 +15,19 @@
 <% else %>
 No users registered 2 days ago without any activities   
 <% end %>
+
+<div style="height:50px"></div>
+
+
+<h1>summary_for_next_day</h1>
+<% @summary_for_next_day.each do |user| %>
+     <h2><%= user.name %></h2>
+       <% user.appointments.tomorrow.each do |appointment| %>
+           start_time= <%= l appointment.start_time.to_time.in_time_zone("Berlin"),:format => "%H:%M"%><br>
+           end_time= <%= l appointment.end_time.to_time.in_time_zone("Berlin"),:format => "%H:%M"%><br>
+           Users: 
+           <% users =  User.users_during_appointment(appointment) - [user] %>
+           <%= users.map(&:name )%><br><br>
+      <% end %>
+    <% end %>
+<%= link_to "Send mail", summary_for_next_day_url, :method=>:post, :class=> "btn" %>

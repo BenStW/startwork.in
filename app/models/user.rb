@@ -95,8 +95,8 @@ class User < ActiveRecord::Base
       AND login_count>0) AND registered = ? 
        AND users.created_at > ? AND users.created_at < ?",
        true,DateTime.current-3.days, DateTime.current-2.days  ]) 
-
   end
+  
   
   
   def create_appointment_now
