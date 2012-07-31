@@ -12,7 +12,8 @@ ActiveAdmin::Dashboards.build do
          column 'friends' do |user|
             user.friends.count
          end
-         column 'appointments'  do |user| user.appointments.count  end       
+         column 'sponti sessions'  do |user| user.appointments.spont.count  end       
+         column 'appointments'  do |user| user.appointments.not_spont.count  end       
          column 'user_hours'  do |user| user.user_hours.count  end       
          column 'logged-in user_hours' do |user| user.user_hours.until_now.logged_in.count end       
          column 'missed user_hours' do |user| user.user_hours.until_now.not_logged_in.count end       

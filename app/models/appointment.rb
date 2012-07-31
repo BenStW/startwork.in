@@ -10,6 +10,7 @@
 #  send_count    :integer
 #  receive_count :integer
 #  user_id       :integer
+#  spont         :boolean
 #
 
 class Appointment < ActiveRecord::Base
@@ -40,7 +41,7 @@ class Appointment < ActiveRecord::Base
     
   after_save :update_user_hours 
   
-  after_create :send_confirmation_mail
+  after_create :send_confirmation_mail, :unless => :spont
 
   after_initialize :init
   
@@ -53,6 +54,7 @@ class Appointment < ActiveRecord::Base
     self.send_count ||= 0
     self.receive_count ||= 0
     self.accepted_appointment ||= nil
+    self.spont ||= false
   end  
   
   def self.current
@@ -64,6 +66,14 @@ class Appointment < ActiveRecord::Base
   def self.this_week
     where("start_time>?",DateTime.current-1.hour) 
   end
+  
+  def self.spont
+    where(:spont => true)
+  end
+  
+  def self.not_spont
+    where(:spont => false)
+  end  
     
   def self.without_accepted(current_user)
     where("recipient_appointments.accepted != ? ",:true)

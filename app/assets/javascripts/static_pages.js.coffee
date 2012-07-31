@@ -34,7 +34,7 @@ $(document).ready ->
    if $("#canvas").length>0
      if $("#canvas").data("appointment-id")?
        appointment_id = $("#canvas").data("appointment-id")
-       top.location.href = $("#urls").data("appointments_url")+"/"+appointment_id
+       top.location.href = "http://startwork.in/verabredungen/"+appointment_id
      else
-       top.location.href = $("#urls").data("root_url")
+       top.location.href = "http://startwork.in"
   
