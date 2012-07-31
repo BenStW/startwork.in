@@ -25,11 +25,11 @@
 //= require_tree . 
 //= require woothemes-flexslider/jquery.flexslider
 //= require woothemes-flexslider/jquery.flexslider-min
-//= require matt_kruse/date
 //= require twitter/bootstrap-carousel
 //= require twitter/bootstrap-collapse
 
-
+// require datejs/date -not needed
+// require matt_kruse/date -not needed
 // require jquery_ujs - not needed
 // require tokbox/OT_LayoutContainer - not needed
 // require jquery_plugins/jquery.popupWindow - not needed yet

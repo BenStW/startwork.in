@@ -1,0 +1,71 @@
+<tr>
+	<td colspan="12" style="padding:10px;">
+		<p>Hallo <%= @user.first_name%>,</p>
+		<p>
+			Du bist 
+			<!-- Appointment time -->
+			<% if @appointment.start_time.to_date == DateTime.current.to_date %>
+				heute
+			<% elsif @appointment.start_time.to_date == (DateTime.current+1.day).to_date %>
+				morgen
+			<% else %>
+				am <%= l @appointment.start_time.to_date, :format =>  '%A' %>
+			<% end %>
+			von 
+			<%=I18n.localize(@appointment.start_time.to_time.in_time_zone("Berlin"),:format => "%H:%M")%>
+			bis
+			<%=I18n.localize(@appointment.end_time.to_time.in_time_zone("Berlin"),:format => "%H:%M") %>
+			<!-- Appointment time -->
+			 
+			<% if @users.blank? %>
+			  verabredet.
+			<% else %>
+			  verabredet mit:
+			<% end %>
+		</p>
+	</td>
+</tr>
+
+<% if !@users.blank? %>
+<% (@users).in_groups_of(2,false).each do |row| %>
+	<tr>
+		<td colspan="1"></td>
+		<% row.each do |user| %>                        
+			<td colspan="2">
+				<img src='http://graph.facebook.com/<%=user.fb_ui%>/picture'>
+			</td>
+			<td colspan="3">
+				<%= user.name %>
+			</td>
+		<% end %>
+		<td colspan="1"></td>
+	</tr>
+<%end %>
+			
+<tr>
+	<td colspan="12" style="padding:10px;">
+		Sie alle warten auf dich. Lasse sie nicht hängen und logge dich morgen pünktlich um 9 Uhr ein.
+	</td>
+</tr>
+<% end %>
+
+
+
+<tr height="50">
+	<td colspan="3"></td>
+	<td colspan="6" style="background: url('<%=root_url%>assets/fb_login_email.png');background-repeat: no-repeat;">
+		<center>
+			<a href="http://startwork.in/users/auth/facebook?utm_source=automated_email&utm_medium=email&utm_campaign=after_creation_of_appointment" style="text-decoration:none;color:white;font-weight:600;font-size:25px" target="_blank">Start work!</a>
+		</center>
+	</td>
+	<td colspan="3">
+		&nbsp;
+	</td>
+</tr>
+<tr>
+	<td colspan="12" style="padding:10px;"><br><br>
+		Viel Erfolg wünscht dein<br>
+		<br>
+		StartWork-Team
+	</td>
+</tr>

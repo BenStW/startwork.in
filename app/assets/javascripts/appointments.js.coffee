@@ -22,10 +22,9 @@ $(document).ready ->
 
    read_times = (element)->
       start_time = element.data("start_time")
-      timezone_offset = 60000*new Date().getTimezoneOffset()
-      start_time = new Date(getDateFromFormat(start_time, "yyyy-mm-dd HH:mm:ss UTC") - timezone_offset)
+      start_time = new Date(start_time)
       end_time = element.data("end_time")
-      end_time =  new Date(getDateFromFormat(end_time, "yyyy-mm-dd HH:mm:ss UTC") - timezone_offset)
+      end_time = new Date(end_time)
       [start_time, end_time]
 
    edit_work_session = (element)->
@@ -294,7 +293,6 @@ $(document).ready ->
          $("#join_appointment").css("display","none")
          $("#request_appointment").css("display","inline")
          $("#fb_request_search").css("display","inline")
-
       show_appointment_string()
 
    show_appointment_string = ->
@@ -401,27 +399,20 @@ $(document).ready ->
 
    $("#request_appointment").click ->
      result = $("#fb_request_friends").tokenInput("get")
-     result_ids = (item.id for item in result)
-     current_user_name = $("body").data("current-user-name")
-     appointment_str = $("#appointment_str").html()
-     appointment_id = $("#appointment").data("appointment_id")
-     receive_appointment(appointment_id,result_ids)
-     send_fb_request(appointment_id,result_ids,current_user_name,appointment_str, (response) ->
-        console.log "request_appointment.click: response = "+ response
-        if $("body").data("action") == "welcome" or $("body").data("controller") == "appointments"
-           top.location.href = $("#urls").data("root_url")
-        else if $("body").data("action") == "home"
-           reload_my_work_sessions())
-    
-
-
-
- 
- # $("#show_and_welcome_save_continue").click ->
- #     fill_fb_request_modal()
-  #     show_filled_appointment("request")
-  # 
-   
+     console.log result
+     if result.length>0
+       result_ids = (item.id for item in result)
+       current_user_name = $("body").data("current-user-name")
+       appointment_str = $("#appointment_str").html()
+       appointment_id = $("#appointment").data("appointment_id")
+       receive_appointment(appointment_id,result_ids)
+       send_fb_request(appointment_id,result_ids,current_user_name,appointment_str, (response) ->
+          console.log "request_appointment.click: response = "+ response
+          if $("body").data("action") == "welcome" or $("body").data("controller") == "appointments"
+             top.location.href = $("#urls").data("root_url")
+          else if $("body").data("action") == "home"
+             reload_my_work_sessions())
+      
 
 
    # WELCOME page

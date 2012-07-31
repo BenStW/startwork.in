@@ -37,8 +37,8 @@ data-content="<img src='http://graph.facebook.com/<%=user.fb_ui%>/picture'> hat 
 <% if my_or_friends=="my"%>
    <div  class="btn btn-small btn-edit edit_appointment init_popover"
         data-appointment_id='<%=appointment.id %>'
-        data-start_time='<%=appointment.start_time %>'
-        data-end_time='<%=appointment.end_time %>'
+        data-start_time='<%=appointment.start_time.to_time.iso8601 %>'
+        data-end_time='<%=appointment.end_time.to_time.iso8601 %>'
 		rel="popover" 
 		data-original-title="Termin bearbeiten"
 		data-content="Hier kannst du den Termin aktualisieren und neue Freunde einladen">
@@ -46,8 +46,8 @@ data-content="<img src='http://graph.facebook.com/<%=user.fb_ui%>/picture'> hat 
 <% elsif my_or_friends=="my_received" %>
    <div class="btn btn-small btn-join accept_appointment init_popover"
         data-sender='<%=appointment.user.name %>'
-        data-start_time='<%=appointment.start_time %>'
-        data-end_time='<%=appointment.end_time %>'
+        data-start_time='<%=appointment.start_time.to_time.iso8601 %>'
+        data-end_time='<%=appointment.end_time.to_time.iso8601 %>'
 		rel="popover" 
 		data-original-title="Einladung akzeptieren"
 		data-content="Hier kannst du den Termin akzeptieren und weitere Freunde dazuholen">
@@ -55,8 +55,8 @@ data-content="<img src='http://graph.facebook.com/<%=user.fb_ui%>/picture'> hat 
 <% else my_or_friends=="friends" %>
 <div class="btn btn-small btn-join join_appointment init_popover"
      data-appointment_id='<%=appointment.id %>'
-     data-start_time='<%=appointment.start_time %>'
-     data-end_time='<%=appointment.end_time %>'
+     data-start_time='<%=appointment.start_time.to_time.iso8601 %>'
+     data-end_time='<%=appointment.end_time.to_time.iso8601 %>'
 		rel="popover" 
 		data-original-title="Bei Arbeitssitzung teilnehmen"
 		data-content="Hier kannst du dich zur Arbeitssitzung deiner Freunde verabreden.">
