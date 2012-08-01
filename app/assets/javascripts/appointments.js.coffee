@@ -94,21 +94,23 @@ $(document).ready ->
      
    
    fill_fb_request_modal = ->
-      if $("#fb_request_friends").length==0	
-         FB.api('/me/friends', (response) ->  
-            $("#fb_request_friends_div").append($("<div />").attr("id","fb_request_friends"))
-            $("#fb_request_friends").tokenInput(response.data,{
-              theme: "facebook",
-              minChars: 0, 
-              hintText: "Name deines Freundes...",
-              noResultsText: "Nichts gefunden",
-              searchingText: "suchen...",
-              preventDuplicates: true,
-              resultsFormatter: (item)-> 
-                 '<li><img src="http://graph.facebook.com/'+item.id+'/picture">&nbsp;' +item.name + "</li>" })
-            $(".token-input-dropdown-facebook").css("z-index","9999")    
-         )
-
+      if $("#fb_request_friends").length>0	
+         $("#fb_request_friends").remove()
+         $("#fb_request_friends_div").empty()      
+      FB.api('/me/friends', (response) ->  
+         $("#fb_request_friends_div").append($("<div />").attr("id","fb_request_friends"))
+         $("#fb_request_friends").tokenInput(response.data,{
+           theme: "facebook",
+           minChars: 0, 
+           hintText: "Name deines Freundes...",
+           noResultsText: "Nichts gefunden",
+           searchingText: "suchen...",
+           preventDuplicates: true,
+           resultsFormatter: (item)-> 
+              '<li><img src="http://graph.facebook.com/'+item.id+'/picture">&nbsp;' +item.name + "</li>" })
+         $(".token-input-dropdown-facebook").css("z-index","9999")    
+      )
+       
  
  
    fb_popup = (name, message, link, ga_action) ->	
@@ -453,6 +455,9 @@ $(document).ready ->
 
    $("#display_appointment_on_welcome_page").click ->
       show_filled_appointment("create")
+
+   $("#main_page_modal").on("hidden",->
+      $(".token-input-dropdown-facebook").hide())
 
    $("#ben").click ->
       fill_fb_request_modal()

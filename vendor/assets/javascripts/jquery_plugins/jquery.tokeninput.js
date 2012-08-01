@@ -199,7 +199,7 @@ $.TokenList = function (input, url_or_data, settings) {
             }
         })
         .blur(function () {
-            hide_dropdown();
+            hide_dropdown();// Ben: this must be kept
             $(this).val("");
         })
         .bind("keyup keydown blur update", resize_input)
@@ -347,10 +347,11 @@ $.TokenList = function (input, url_or_data, settings) {
         .append(input_box);
 
     // The list to store the dropdown items in
-    var dropdown = $("<div style='background:grey'>") //
+    var dropdown = $("<div >") //
         .addClass(settings.classes.dropdown)
-        .appendTo("body")
+        .appendTo("body") 
         .hide();
+  //  var dropdown = $("#fb_request_input")
 
     // Magic element to help us resize the text input
     var input_resizer = $("<tester/>")
@@ -633,8 +634,9 @@ $.TokenList = function (input, url_or_data, settings) {
 
     // Hide and clear the results dropdown
     function hide_dropdown () {
-       // dropdown.hide().empty();
-      //  selected_dropdown_item = null;
+         console.log("hide dropdown");
+       //  dropdown.hide().empty();
+       //  selected_dropdown_item = null;
     }
 
     function show_dropdown() {

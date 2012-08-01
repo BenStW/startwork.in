@@ -33,6 +33,11 @@ $(document).ready ->
          $('#main_page_modal').height(max)
          $('.modal-arrow').css("top",(max - 75) / 2))
 
+      $("#save_appointment").click ->
+         console.log "save_appointment"
+         $(".column_same_height").height("")
+         adjust_height()
+
       adjust_height()
 
       

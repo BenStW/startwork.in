@@ -72,7 +72,7 @@ li.token-input-input-token-facebook {
 
 div.token-input-dropdown-facebook {
     height:350px;
-    overflow:scroll;	
+    overflow-y:scroll;	
     position: absolute;
     width: 350px;
     background-color: #fff;
