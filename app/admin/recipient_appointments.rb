@@ -2,7 +2,7 @@ ActiveAdmin.register RecipientAppointment do
     menu :priority => 10
     filter :user
     filter :appointment_id
-
+    filter :accepted, :as => :select
 
     index do
          h2 "'RecipientAppointments' sind die empfangenen Verabredungen."
