@@ -130,38 +130,6 @@ describe User do
        appointment.spont.should eq(true)
     end        
   end
-  context "users_during_appointment" do
-    before(:each) do
-      @user_a = FactoryGirl.create(:user)
-      @user_b = FactoryGirl.create(:user)
-      @user_c = FactoryGirl.create(:user)
-      @user_x = FactoryGirl.create(:user)
-      @appointment_a = FactoryGirl.create(:appointment, :user=>@user_a)
-      appointment_b = FactoryGirl.create(:appointment, :user=>@user_b)
-      appointment_c = FactoryGirl.create(:appointment, :user=>@user_c, :start_time=>@appointment_a.start_time+1.hours, :end_time=>@appointment_a.end_time+1.hours )
-      appointment_x = FactoryGirl.create(:appointment, :user=>@user_x, :start_time=>@appointment_a.start_time+2.hours, :end_time=>@appointment_a.end_time+2.hours )      
-    end
-    it "should return 3 users during the time of the appointment" do
-      users = User.users_during_appointment(@appointment_a)
-      users.count.should eq(3)
-    end  
-    it "should return user_a during the time of the appointment" do
-      users = User.users_during_appointment(@appointment_a)
-      users.should include(@user_a)
-    end    
-    it "should return user_b during the time of the appointment" do
-      users = User.users_during_appointment(@appointment_a)
-      users.should include(@user_b)
-    end
-    it "should return user_c during the time of the appointment" do
-      users = User.users_during_appointment(@appointment_a)
-      users.should include(@user_c)
-    end
-    it "should not return user_d during the time of the appointment" do
-      users = User.users_during_appointment(@appointment_a)
-      users.should_not include(@user_d)
-    end            
-  end
   
   context "is_friend?" do
     it "should return true if is friend" do
