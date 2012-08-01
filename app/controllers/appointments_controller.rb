@@ -12,6 +12,7 @@ class AppointmentsController < ApplicationController
   #        -> accept_and_redirect_to_appointment_with_welcome
   #        -> show_and_welcome_appointment
   #
+  
     
    def index
      @my_appointments = current_user.appointments.this_week
