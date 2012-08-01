@@ -3,10 +3,9 @@ ActiveAdmin.register Appointment do
     filter :id    
     filter :user
     filter :start_time
-    filter :spont, :as => :select
     scope  :this_week        
     scope  :current        
-
+    scope :spont
 
 
     index do
