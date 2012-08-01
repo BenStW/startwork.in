@@ -105,7 +105,7 @@ $(document).ready ->
               searchingText: "suchen...",
               preventDuplicates: true,
               resultsFormatter: (item)-> 
-                 '<li><img src="http://graph.facebook.com/'+item.id+'/picture">' +item.name + "</li>" })
+                 '<li><img src="http://graph.facebook.com/'+item.id+'/picture">&nbsp;' +item.name + "</li>" })
             $(".token-input-dropdown-facebook").css("z-index","9999")    
          )
 
@@ -454,4 +454,6 @@ $(document).ready ->
    $("#display_appointment_on_welcome_page").click ->
       show_filled_appointment("create")
 
-
+   $("#ben").click ->
+      fill_fb_request_modal()
+  

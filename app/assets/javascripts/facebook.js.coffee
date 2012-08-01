@@ -3,7 +3,8 @@ $(document).ready ->
       FB.init(
               appId : $("#fb-root").data("app") 
               frictionlessRequests: true,
-            )	
+            )
+
 	 
 	
    if $(".fb-reset").length>0
@@ -25,3 +26,7 @@ $(document).ready ->
         $("#fb-root").css("left",(x + (fb_width - screenX) / 2) - window.pageXOffset)
        # console.log "fb-reset: top="+ $("#fb-root").css("top")
        # console.log "fb-reset: left="+ $("#fb-root").css("left")
+
+
+
+  

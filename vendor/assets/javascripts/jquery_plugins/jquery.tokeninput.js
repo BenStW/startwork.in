@@ -347,7 +347,7 @@ $.TokenList = function (input, url_or_data, settings) {
         .append(input_box);
 
     // The list to store the dropdown items in
-    var dropdown = $("<div>")
+    var dropdown = $("<div style='background:grey'>") //
         .addClass(settings.classes.dropdown)
         .appendTo("body")
         .hide();
@@ -422,6 +422,10 @@ $.TokenList = function (input, url_or_data, settings) {
     this.getTokens = function() {
    		return saved_tokens;
    	}
+
+    
+    show_dropdown()
+    do_search()
 
     //
     // Private functions
@@ -629,8 +633,8 @@ $.TokenList = function (input, url_or_data, settings) {
 
     // Hide and clear the results dropdown
     function hide_dropdown () {
-        dropdown.hide().empty();
-        selected_dropdown_item = null;
+       // dropdown.hide().empty();
+      //  selected_dropdown_item = null;
     }
 
     function show_dropdown() {

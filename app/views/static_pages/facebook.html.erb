@@ -1,32 +1,14 @@
 <%- content_for(:head) do -%>
   <%= javascript_include_tag "http://connect.facebook.net/en_US/all.js" -%>
-  <link href='http://fonts.googleapis.com/css?family=Parisienne' rel='stylesheet' type='text/css'>
 <%- end -%>
 
 
 <div id='fb-root' data-app='<%= fb_app %>' style='position: absolute;'></div>
 
-<div id="launch_fb_request_modal" class="btn btn-primary">Launch FB request modal</div>
-<br><br><br>
+<div id="ben" class="btn">hit me</div>
+
+    <h3 style="text-align:left">Verabrede dich mit deinen Freunden</h3>
+		<div id="fb_request_friends_div"></div>
 
 
-<div class="modal hide" id="fb_request_modal">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3 id="facebook_modal_title">Verabredung vereinbaren</h3>
-  </div>
-  <div id="facebook_modal_body" class="modal-body">
-    <p>Verabrede dich mit deinen Freunden</p>
-	<div class="ui-widget">
-		<label for="friends">Freunde: </label>
-		<div id="friends_div">
-			</div>
-	</div>
-  </div>
-  <div class="modal-footer">
-    <a href="#" class="btn" data-dismiss="modal">Schließen</a>
-    <a href="#" id ="fb_modal_send_button" class="btn btn-primary" data-dismiss="modal">Senden</a>
-  </div>
-</div>
-
-
+<div id="fb_request_input"></div>

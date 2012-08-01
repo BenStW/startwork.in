@@ -97,6 +97,10 @@ class StaticPagesController < ApplicationController
    
  end
  
+ def facebook
+
+ end
+ 
  def canvas
    @params = params
    request_strs = params["request_ids"]
