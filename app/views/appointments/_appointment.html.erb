@@ -45,6 +45,7 @@ data-content="<img src='http://graph.facebook.com/<%=user.fb_ui%>/picture'> hat 
     </div> 
 <% elsif my_or_friends=="my_received" %>
    <div class="btn btn-small btn-join accept_appointment init_popover"
+        data-appointment_id='<%=appointment.id %>'
         data-sender='<%=appointment.user.name %>'
         data-start_time='<%=appointment.start_time.to_time.iso8601 %>'
         data-end_time='<%=appointment.end_time.to_time.iso8601 %>'
