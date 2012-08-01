@@ -175,7 +175,25 @@ describe User do
       @user.is_friend?(new_user).should eq(false)
       new_user.is_friend?(@user).should eq(false)
     end
-  end    
+  end  
+  
+  context "class method after_first_2_days_if_not_active" do
+    before(:each) do 
+      c = DateTime.current
+      @user_today = FactoryGirl.create(:user)
+      @user_yesterday = FactoryGirl.create(:user, :created_at=>c-1.day)
+      @user_2days_before = FactoryGirl.create(:user, :created_at=>c-2.day
+      @user_3days_before = FactoryGirl.create(:user, :created_at=>c-3.day
+      @user_4days_before = FactoryGirl.create(:user, :created_at=>c-4.day
+    end
+    
+    it "should filter the users created 2 days before" do
+      users = User.after_first_2_days_if_not_active
+      users.count.should eq(1)
+      users.should eq([@user_2days_before])  
+    end 
+    
+  end  
   
    context "class method current_users" do
      before(:each) do 

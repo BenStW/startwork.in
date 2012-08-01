@@ -1,0 +1,41 @@
+<tr>
+	<td colspan="12" style="padding:10px;">
+		<p>Hallo <%= @user.first_name%>,</p>
+		<p>
+			dein Arbeitsplan für morgen:
+			</p>
+
+			<% @appointments.each do |appointment| %>
+			  <% users =  User.users_during_appointment(appointment) - [@user]%>
+			  <%= render :partial => "start_work_mailer/tomorrows_appointment", 
+			           :locals => { :appointment => appointment, :users => users } %>
+			<% end %>
+
+
+<tr height="50">
+	<td colspan="12" style="padding:10px;">
+ Logge dich pünktlich ein und freue dich schon jetzt auf das produktive Arbeiten!
+	</td>
+</tr>
+
+
+
+
+<tr height="50">
+	<td colspan="3"></td>
+	<td colspan="6" style="background: url('<%=root_url%>assets/fb_login_email.png');background-repeat: no-repeat;">
+		<center>
+			<a href="http://startwork.in/users/auth/facebook?utm_source=automated_email&utm_medium=email&utm_campaign=summary_for_next_day" style="text-decoration:none;color:white;font-weight:600;font-size:25px" target="_blank">Start work!</a>
+		</center>
+	</td>
+	<td colspan="3">
+		&nbsp;
+	</td>
+</tr>
+<tr>
+	<td colspan="12" style="padding:10px;"><br><br>
+		Viel Erfolg wünscht dein<br>
+		<br>
+		StartWork-Team
+	</td>
+</tr>

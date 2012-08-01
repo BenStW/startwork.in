@@ -87,6 +87,17 @@ class User < ActiveRecord::Base
       WHERE user_hours.start_time=? and user_hours.login_count>0",this_hour])    
   end
   
+  def self.after_first_2_days_if_not_active
+      User.find_by_sql(
+      ["SELECT users.* FROM
+      users WHERE NOT EXISTS
+      (SELECT * FROM user_hours WHERE user_hours.user_id=users.id
+      AND login_count>0) AND registered = ? 
+       AND users.created_at > ? AND users.created_at < ?",
+       true,DateTime.current-3.days, DateTime.current-2.days  ]) 
+  end
+  
+  
   
   def create_appointment_now
     c = DateTime.current

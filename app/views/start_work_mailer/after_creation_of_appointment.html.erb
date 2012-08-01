@@ -44,7 +44,9 @@
 			
 <tr>
 	<td colspan="12" style="padding:10px;">
-		Sie alle warten auf dich. Lasse sie nicht hängen und logge dich morgen pünktlich um 9 Uhr ein.
+		Sie alle warten auf dich. Lasse sie nicht hängen und logge dich morgen pünktlich um 
+					<%=I18n.localize(@appointment.start_time.to_time.in_time_zone("Berlin"),:format => "%H")%>
+		Uhr ein.
 	</td>
 </tr>
 <% end %>
@@ -55,7 +57,7 @@
 	<td colspan="3"></td>
 	<td colspan="6" style="background: url('<%=root_url%>assets/fb_login_email.png');background-repeat: no-repeat;">
 		<center>
-			<a href="<%=root_url%>users/auth/facebook" style="text-decoration:none;color:white;font-weight:600;font-size:25px" target="_blank">Start work!</a>
+			<a href="http://startwork.in/users/auth/facebook?utm_source=automated_email&utm_medium=email&utm_campaign=after_creation_of_appointment" style="text-decoration:none;color:white;font-weight:600;font-size:25px" target="_blank">Start work!</a>
 		</center>
 	</td>
 	<td colspan="3">

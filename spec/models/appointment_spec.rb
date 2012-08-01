@@ -126,7 +126,7 @@ describe Appointment do
     end
   end
   
-  context "class methods" do
+  context "spont class methods" do
     before(:each) do
       @user = FactoryGirl.create(:user)
       @appointment = FactoryGirl.create(:appointment, :user=>@user)  
@@ -141,7 +141,22 @@ describe Appointment do
       @user.appointments.spont.should eq([@appointment])
       @user.appointments.not_spont.should be_blank
     end    
+  end
+  
+  context "class for filtering tomorrow appointments" do
+    before(:each) do
+      c = DateTime.current
+      @user = FactoryGirl.create(:user)
+      @appointment_today = FactoryGirl.create(:appointment, :user=>@user)  
+      @appointment_tomorrow = FactoryGirl.create(:appointment, :user=>@user,:start_time=>c+1.day, :end_time=>c+1.day+2.hours)  
+      @appointment_day_after_tomorrow = FactoryGirl.create(:appointment, :user=>@user,:start_time=>c+2.day, :end_time=>c+2.day+2.hours)  
+    end  
     
+    it "should filter only todays appointment" do
+       appointments = Appointment.tomorrow
+       appointments.count.should eq(1)
+       appointments.should eq([@appointment_tomorrow])
+    end
     
   end
   
