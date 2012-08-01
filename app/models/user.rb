@@ -100,7 +100,7 @@ class User < ActiveRecord::Base
   def create_appointment_now
     c = DateTime.current
     this_hour = DateTime.new(c.year,c.month,c.day, c.hour)
-    appointment = self.appointments.create(:start_time=>this_hour, :end_time=>this_hour+1.hour, :spont=>true)        
+    appointment = self.appointments.create(:start_time=>this_hour, :end_time=>this_hour+1.hour)        
   end
   
 

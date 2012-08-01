@@ -5,7 +5,6 @@ ActiveAdmin.register Appointment do
     filter :start_time
     scope  :this_week        
     scope  :current        
-    scope :spont
 
 
     index do
@@ -14,7 +13,6 @@ ActiveAdmin.register Appointment do
         column :user
         column "start_time" do |appointment | I18n.localize(appointment.start_time.in_time_zone("Berlin")) unless appointment.start_time.nil? end
         column "end_time" do |appointment | I18n.localize(appointment.end_time.in_time_zone("Berlin")) unless appointment.start_time.nil? end
-        column :spont          
         column :send_count        
         column :receive_count  
         default_actions      

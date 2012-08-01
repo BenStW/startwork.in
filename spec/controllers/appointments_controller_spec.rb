@@ -45,23 +45,23 @@ describe AppointmentsController do
      end
      
      it "should be success without signing in" do      
-       get :show, :id =>@appointment.id, :id=>@appointment.id
+       get :show, :id =>@appointment.id, :token=>@appointment.token
        response.should be_success 
      end 
  
      it "should render template 'show'" do     
-       get :show, :id =>@appointment.id, :id=>@appointment.id
+       get :show, :id =>@appointment.id, :token=>@appointment.token
        response.should render_template("show")
      end   
      
-     it "should raise en error when no appointment id" do 
+     it "should raise en error when no appointment token" do 
        expect {    
-         get :show
+         get :show, :id =>@appointment.id
        }.to raise_error
      end  
 
      it "should assign the appointment" do     
-       get :show, :id =>@appointment.id, :id=>@appointment.id
+       get :show, :id =>@appointment.id, :token=>@appointment.token
        assigns(:appointment).should eq(@appointment)        
      end   
      
@@ -70,7 +70,7 @@ describe AppointmentsController do
          sign_in recipient_user         
          puts "RecipientAppointment.count = #{RecipientAppointment.count}"
         expect {
-           get :show, :id =>@appointment.id, :id=>@appointment.id
+           get :show, :id =>@appointment.id, :token=>@appointment.token
          }.to change(RecipientAppointment, :count).by(1)
          recipient_user.received_appointments.should_not be_blank   
      end
@@ -80,8 +80,8 @@ describe AppointmentsController do
          sign_in recipient_user         
          puts "RecipientAppointment.count = #{RecipientAppointment.count}"
         expect {
-           get :show, :id =>@appointment.id, :id=>@appointment.id
-           get :show, :id =>@appointment.id, :id=>@appointment.id
+           get :show, :id =>@appointment.id, :token=>@appointment.token
+           get :show, :id =>@appointment.id, :token=>@appointment.token
          }.to change(RecipientAppointment, :count).by(1)      
      end     
   end  
@@ -120,7 +120,7 @@ describe AppointmentsController do
               :start_time  => @start_time ,
               :end_time     => @end_time,
               :id => Appointment.last.id,
-              :id => Appointment.last.id
+              :token => Appointment.last.token
       }
       body = response.body
       obj = ActiveSupport::JSON.decode(body)   
@@ -201,18 +201,18 @@ describe AppointmentsController do
     end
     
     it "should be success" do      
-      get :show_and_welcome, :id=>@appointment.id
+      get :show_and_welcome, :token=>@appointment.token
       response.should be_success 
     end
     it "should raise an error when appointment is not found" do
       expect {
-        get :show_and_welcome, :id=>"asdf"
+        get :show_and_welcome, :token=>"asdf"
       }.to raise_error
     end    
     
     it "should add appointment to received_appointments" do
        expect {
-          get :show_and_welcome, :id=>@appointment.id
+          get :show_and_welcome, :token=>@appointment.token
         }.to change(RecipientAppointment, :count).by(1)
       @user.received_appointments.should eq([@appointment])        
     end    
@@ -220,7 +220,7 @@ describe AppointmentsController do
     it "should assign the friends" do
        friend = FactoryGirl.create(:user)
        Friendship.create_reciproke_friendship(@user,friend)
-       get :show_and_welcome, :id=>@appointment.id       
+       get :show_and_welcome, :token=>@appointment.token       
        assigns(:friends).should eq([friend])
     end    
   end  
@@ -246,30 +246,30 @@ describe AppointmentsController do
      end
      it "should raise an error when appointment is not found" do
        expect {
-         get :accept, :id=>"asdf"
+         get :accept, :token=>"asdf"
        }.to raise_error
      end     
      it "should add the appointment to received_appointments" do      
-       get :accept, :id=>@appointment.id
+       get :accept, :token=>@appointment.token
        @user.received_appointments.should eq([@appointment])
      end   
 
      it "should create a new appointment" do
        @user.appointments.should be_blank
-       get :accept, :id=>@appointment.id
+       get :accept, :token=>@appointment.token
        @user.reload
        @user.appointments.should_not be_blank
      end  
      it "should redirect to root_url" do
-       get :accept, :id=>@appointment.id
+       get :accept, :token=>@appointment.token
        response.should redirect_to(root_url)       
      end   
      it "should not redirect when requested as JSON" do
-       get :accept, :id=>@appointment.id, :format => :json
+       get :accept, :token=>@appointment.token, :format => :json
        response.should_not redirect_to(root_url)       
      end     
      it "should return ok when requested as JSON" do
-       get :accept, :id=>@appointment.id, :format => :json
+       get :accept, :token=>@appointment.token, :format => :json
        response.body.should eq("ok")
      end     
 
@@ -285,23 +285,23 @@ describe AppointmentsController do
      end
      it "should raise an error when appointment is not found" do
        expect {
-         get :accept_and_redirect_to_appointment_with_welcome, :id=>"asdf"
+         get :accept_and_redirect_to_appointment_with_welcome, :token=>"asdf"
        }.to raise_error
      end     
      it "should add the appointment to received_appointments" do      
-       get :accept_and_redirect_to_appointment_with_welcome, :id=>@appointment.id
+       get :accept_and_redirect_to_appointment_with_welcome, :token=>@appointment.token
        @user.received_appointments.should eq([@appointment])
      end   
 
      it "should create a new appointment" do
        @user.appointments.should be_blank
-       get :accept_and_redirect_to_appointment_with_welcome, :id=>@appointment.id
+       get :accept_and_redirect_to_appointment_with_welcome, :token=>@appointment.token
        @user.reload
        @user.appointments.should_not be_blank
      end  
      it "should redirect to root_url" do
-       get :accept_and_redirect_to_appointment_with_welcome, :id=>@appointment.id
-       response.should redirect_to(show_and_welcome_appointment_url(:id => @appointment.id))       
+       get :accept_and_redirect_to_appointment_with_welcome, :token=>@appointment.token
+       response.should redirect_to(show_and_welcome_appointment_url(:token => @appointment.token))       
      end   
   end 
   
@@ -313,12 +313,12 @@ describe AppointmentsController do
      end
      it "should raise an error when appointment is not found" do
        expect {
-         get :receive, :id=>"asdf"
+         get :receive, :appointment_id=>"asdf"
        }.to raise_error
      end     
      it "should add the appointment as received_appointment for the registered user" do   
        registered_user = FactoryGirl.create(:user)   
-       get :receive, :id=>@appointment.id, :user_ids=>["#{registered_user.fb_ui}"]
+       get :receive, :appointment_id=>@appointment.id, :user_ids=>["#{registered_user.fb_ui}"]
        registered_user.received_appointments.should eq([@appointment])
      end   
      it "should add the appointment as received_appointment for the non registered user" do      
@@ -326,7 +326,7 @@ describe AppointmentsController do
        FbGraph::User.stub(:fetch).with("4711").and_return(non_registered_user)
        non_registered_user.should_receive(:first_name).and_return("Benedikt")
        non_registered_user.should_receive(:last_name).and_return("Voigt")       
-       get :receive, :id=>@appointment.id, :user_ids=>["4711"]       
+       get :receive, :appointment_id=>@appointment.id, :user_ids=>["4711"]       
        user = User.find_by_fb_ui("4711")
        user.received_appointments.should eq([@appointment])
      end     
