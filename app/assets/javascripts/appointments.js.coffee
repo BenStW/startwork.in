@@ -108,7 +108,7 @@ $(document).ready ->
            preventDuplicates: true,
            resultsFormatter: (item)-> 
               '<li><img src="http://graph.facebook.com/'+item.id+'/picture">&nbsp;' +item.name + "</li>" })
-         $(".token-input-dropdown-facebook").css("z-index","9999")    
+         $(".token-input-dropdown-facebook").css("z-index","1020")    
       )
        
  
