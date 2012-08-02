@@ -1,12 +1,27 @@
 $(document).ready ->
    if $("#fb-root").length > 0
-      FB.init(
-              appId : $("#fb-root").data("app") 
-              frictionlessRequests: true,
-            )
+     FB.init(
+             appId : $("#fb-root").data("app") 
+             frictionlessRequests: true,
+           )
+     FB.getLoginStatus( (response) ->
+          console.log response)
+     
+     $("#ben_launch_fb_dialog").click ->
+        console.log "launched"
+        fb_popup()
 
-	 
-	
+
+     fb_popup = ->	
+        FB.ui(
+           {method: 'send',
+           name: "name",
+           message: "message",
+           link: "http://startwork.in"},
+           (response) ->
+             console.log response)
+     
+     
    if $(".fb-reset").length>0
 	
      $(".fb-reset").click ->
