@@ -9,6 +9,10 @@ def fb_app
   FACEBOOK_CONFIG[:facebook][:app_key] 
 end
 
+def load_facebook_jssdk
+  
+end
+
 
 
 end

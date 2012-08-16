@@ -5,6 +5,22 @@ $(document).ready ->
      $(".init_popover").popover()
 
 
+   if $("#fb-root").length > 0
+       console.log "fb-root>0 "
+       
+       window.fbAsyncInit = ->
+         FB.init
+           appId: $("#fb-root").data("app") 
+           frictionlessRequests: true
+           xfbml: true
+
+       id = 'facebook-jssdk'
+       return if $("#"+id).length > 0
+       sdk = $.getScript "http://connect.facebook.net/en_US/all.js"
+       sdk.id = id
+       sdk.async = true
+        
+
    write_data_into_modal = (element)->
       appointment_id = element.data("appointment_id")
       sender = element.data("sender")
